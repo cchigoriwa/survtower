@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Charles Chigoriwa
  */
-@Service
+@Service("indicatorService")
 @Transactional(readOnly = true)
 public class IndicatorServiceImpl implements IndicatorService {
 
