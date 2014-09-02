@@ -5,9 +5,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>SurvTower Web Service Server</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>SurvTower Web Service Server is up and running</h1>
     </body>
 </html>
