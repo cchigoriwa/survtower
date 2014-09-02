@@ -10,6 +10,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>survtower-ws-api/survtower-ws-api</module>
-    <module>survtower-ws-impl</module>
-  </modules>
+        <module>survtower-ws-impl</module>
+    </modules>
+  
+  
 </project>
