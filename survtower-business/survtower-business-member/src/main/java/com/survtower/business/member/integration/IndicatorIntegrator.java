@@ -1,5 +1,6 @@
 package com.survtower.business.member.integration;
 
+import com.survtower.business.member.domain.LookupMeta;
 import java.io.Serializable;
 
 /**
@@ -8,6 +9,6 @@ import java.io.Serializable;
  */
 public interface IndicatorIntegrator extends Serializable{
     
-    public boolean pull();
+    public LookupMeta pull();
     
 }

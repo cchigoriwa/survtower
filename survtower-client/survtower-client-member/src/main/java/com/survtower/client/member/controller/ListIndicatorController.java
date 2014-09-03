@@ -3,7 +3,7 @@ package com.survtower.client.member.controller;
 import com.survtower.business.common.domain.Indicator;
 import com.survtower.business.common.service.IndicatorService;
 import java.util.List;
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 

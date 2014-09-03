@@ -3,6 +3,7 @@ package com.survtower.business.common;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -75,5 +76,9 @@ public abstract class BaseEntity implements Serializable {
     
     public boolean isNew(){
         return uuid==null;
+    }
+    
+    public boolean identityEquals(BaseEntity entity){
+        return Objects.equals(entity.id, this.id) && (entity.uuid == null ? this.uuid == null : entity.uuid.equals(this.uuid));
     }
 }

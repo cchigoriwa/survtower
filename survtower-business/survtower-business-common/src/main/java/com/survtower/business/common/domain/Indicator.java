@@ -2,18 +2,23 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.BaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author charles
+ * @author Charles Chigoriwa
  */
 @Entity
 @XmlRootElement
+
+@Table(uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"uuid"})})
 public class Indicator extends BaseEntity {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private String name;
     private String description;
 
@@ -32,9 +37,7 @@ public class Indicator extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
-   
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -59,5 +62,5 @@ public class Indicator extends BaseEntity {
     public String toString() {
         return "com.survtower.business.common.domain.Indicator[ id=" + id + " ]";
     }
-    
+
 }

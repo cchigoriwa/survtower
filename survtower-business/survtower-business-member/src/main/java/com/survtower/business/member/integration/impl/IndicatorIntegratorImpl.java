@@ -1,11 +1,12 @@
 package com.survtower.business.member.integration.impl;
 
 import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.Lookup;
 import com.survtower.business.common.service.IndicatorService;
-import com.survtower.business.member.domain.IndicatorMetaData;
+import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.IndicatorIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
-import com.survtower.business.member.service.IndicatorMetaDataService;
+import com.survtower.business.member.service.LookupMetaService;
 import com.survtower.ws.api.IndicatorWebservice;
 import com.survtower.ws.api.domain.IndicatorCollectionPayload;
 import com.survtower.ws.api.domain.RequestMetaData;
@@ -18,33 +19,32 @@ import org.springframework.stereotype.Component;
  *
  * @author Charles Chigoriwa
  */
-@Component
+@Component("indicatorIntegrator")
 public class IndicatorIntegratorImpl implements IndicatorIntegrator {
 
     @Autowired
-    private IndicatorMetaDataService indicatorMetaDataService;
+    private LookupMetaService lookupMetaService;
     @Autowired
     private IndicatorService indicatorService;
     @Autowired
     private IntegrationService integrationService;
 
-    public synchronized boolean pull() {
+    @Override
+    public synchronized LookupMeta pull() {
 
-        IndicatorMetaData indicatorMetaData = indicatorMetaDataService.find();
+        LookupMeta indicatorLookupMeta=lookupMetaService.findByLookup(Lookup.INDICATOR);
 
         Date startDate = null;
 
-        if (indicatorMetaData != null) {
-            startDate = indicatorMetaData.getMaximumDate();
+        if (indicatorLookupMeta != null) {
+            startDate = indicatorLookupMeta.getLastServerTimestamp();
         }
 
         RequestMetaData requestMetaData = new RequestMetaData();
         requestMetaData.setMinimumDate(startDate);
-
         IndicatorWebservice indicatorWebservice = integrationService.getIndicatorWebservice();
 
         IndicatorCollectionPayload indicatorCollectionPayload = indicatorWebservice.getIndicators(requestMetaData);
-
 
         List<Indicator> indicators = indicatorCollectionPayload.getIndicators();
         if (indicators != null && !indicators.isEmpty()) {
@@ -61,16 +61,17 @@ public class IndicatorIntegratorImpl implements IndicatorIntegrator {
             }
         }
 
-        if (indicatorMetaData == null) {
-            indicatorMetaData = new IndicatorMetaData();
+        if (indicatorLookupMeta == null) {
+            indicatorLookupMeta = new LookupMeta(Lookup.INDICATOR);
         }
 
         if (indicatorCollectionPayload.getPayloadMetaData() != null && indicatorCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            indicatorMetaData.setMaximumDate(indicatorCollectionPayload.getPayloadMetaData().getMaximumDate());
+            indicatorLookupMeta.setLastServerTimestamp(indicatorCollectionPayload.getPayloadMetaData().getMaximumDate());
         }
-        indicatorMetaData.setUpdateDate(new Date());
-        indicatorMetaDataService.save(indicatorMetaData);
+        
+        indicatorLookupMeta.setUpdateDate(new Date());
+        lookupMetaService.save(indicatorLookupMeta);
 
-        return true;
+        return indicatorLookupMeta;
     }
 }

@@ -23,6 +23,7 @@ public class IndicatorServiceImpl implements IndicatorService {
     @Transactional
     @Override
     public Indicator save(Indicator indicator) {
+        indicator.setUpdateDate(new Date());
         return indicatorDao.save(indicator);
     }
 

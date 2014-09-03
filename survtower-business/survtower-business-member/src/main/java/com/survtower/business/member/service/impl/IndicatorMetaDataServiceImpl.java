@@ -21,6 +21,7 @@ public class IndicatorMetaDataServiceImpl implements IndicatorMetaDataService {
     private IndicatorMetaDataDao indicatorMetaDataDao;
 
     @Transactional
+    @Override
     public synchronized IndicatorMetaData save(IndicatorMetaData indicatorMetaData) {
         List<IndicatorMetaData> list = findAll();
 
