@@ -1,14 +1,12 @@
 package com.survtower.client.central.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
  *
- * @author charles
+ * @author Charles Chigoriwa
  */
 @Configuration
-@ComponentScan(basePackages = {"com.survtower.client.central.controller"})
 public class CentralClientConfiguration {
     
 }
