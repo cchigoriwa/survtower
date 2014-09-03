@@ -17,23 +17,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LookupMetaDataCollectionPayload implements Serializable {
 
     
-    private List<LookupMetaData> lookupMetaDataList = new ArrayList<>();
+    private List<ServerLookupMetaData> lookupMetaDataList = new ArrayList<>();
 
     @XmlElementWrapper(name="lookupMetaDataList")
     @XmlElement(name="lookupMetaData")
-    public List<LookupMetaData> getLookupMetaDataList() {
+    public List<ServerLookupMetaData> getLookupMetaDataList() {
         return lookupMetaDataList;
     }
 
-    public void setLookupMetaDataList(List<LookupMetaData> lookupMetaDataList) {
+    public void setLookupMetaDataList(List<ServerLookupMetaData> lookupMetaDataList) {
         this.lookupMetaDataList = lookupMetaDataList;
     }
     
     public void add(Lookup lookup,Date lastUpdateTimestamp){
-        this.add(new LookupMetaData(lookup, lastUpdateTimestamp));
+        this.add(new ServerLookupMetaData(lookup, lastUpdateTimestamp));
     }
 
-    public void add(LookupMetaData lookupMetaData) {
+    public void add(ServerLookupMetaData lookupMetaData) {
         if (lookupMetaDataList != null) {
             lookupMetaDataList.add(lookupMetaData);
         }

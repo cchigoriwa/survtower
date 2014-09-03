@@ -10,15 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Charles Chigoriwa
  */
 @XmlRootElement
-public class LookupMetaData implements Serializable{
+public class ServerLookupMetaData implements Serializable{
     
     private Lookup lookup;
     private Date lastUpdateTimestamp;
 
-    public LookupMetaData() {
+    public ServerLookupMetaData() {
     }
 
-    public LookupMetaData(Lookup lookup, Date lastUpdateTimestamp) {
+    public ServerLookupMetaData(Lookup lookup, Date lastUpdateTimestamp) {
         this.lookup = lookup;
         this.lastUpdateTimestamp = lastUpdateTimestamp;
     }
