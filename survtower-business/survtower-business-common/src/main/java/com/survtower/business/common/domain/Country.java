@@ -2,22 +2,28 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Entity
-@XmlRootElement
-
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
-public class Indicator extends NamedBaseEntity {
+public class Country extends NamedBaseEntity{
     
     private static final long serialVersionUID = 1L;
+    
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+    
+   
 
     @Override
     public int hashCode() {
@@ -29,10 +35,10 @@ public class Indicator extends NamedBaseEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Indicator)) {
+        if (!(object instanceof Country)) {
             return false;
         }
-        Indicator other = (Indicator) object;
+        Country other = (Country) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -41,7 +47,7 @@ public class Indicator extends NamedBaseEntity {
 
     @Override
     public String toString() {
-        return "com.survtower.business.common.domain.Indicator[ id=" + id + " ]";
+        return "com.survtower.business.common.domain.Country[ id=" + id + " ]";
     }
-
+    
 }

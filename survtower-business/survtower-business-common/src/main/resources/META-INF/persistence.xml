@@ -3,6 +3,10 @@
   <persistence-unit name="com.survtower_survtower-business-common_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.survtower.business.common.domain.Indicator</class>
+    <class>com.survtower.business.common.domain.Period</class>
+    <class>com.survtower.business.common.domain.Program</class>
+    <class>com.survtower.business.common.domain.Country</class>
+    <class>com.survtower.business.common.domain.User</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
       <property name="javax.persistence.jdbc.password" value="app"/>

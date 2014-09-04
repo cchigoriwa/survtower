@@ -6,5 +6,10 @@ package com.survtower.business.common.domain;
  */
 public enum Lookup {
     
-    INDICATOR
+    //Top level Objects
+    INDICATOR,
+    PERID,
+    COUNTRY,
+    USER,
+    PROGRAM
 }
