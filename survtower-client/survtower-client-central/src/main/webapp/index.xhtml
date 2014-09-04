@@ -12,15 +12,16 @@
 
     <h:body>
         <f:view transient="true">
-            Hello from Facelets <span>#{indexController.message}</span>
             <h:form>
                 <table>
                     <tr>
-                        <td><h:link  value="Create new Indicator" outcome="editIndicator" /></td>
+                        <td><h:link  value="Indicators" outcome="admin/indicatorList" /></td>
                     </tr>
-
                     <tr>
-                        <td><h:link  value="Indicators" outcome="listIndicator" /></td>
+                        <td><h:link  value="Programs" outcome="admin/programList" /></td>
+                    </tr>                    
+                    <tr>
+                        <td><h:link  value="Indicator Groups" outcome="admin/indicatorGroupList" /></td>
                     </tr>
                 </table>
             </h:form>

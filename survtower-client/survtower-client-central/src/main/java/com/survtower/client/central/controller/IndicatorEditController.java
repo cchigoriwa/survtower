@@ -13,7 +13,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class EditIndicatorController {
+public class IndicatorEditController {
 
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
@@ -29,7 +29,7 @@ public class EditIndicatorController {
 
     public String save() {
         indicatorService.save(indicator);
-        return "listIndicator?faces-redirect=true";
+        return "indicatorList?faces-redirect=true";
     }
 
     public IndicatorService getIndicatorService() {

@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"})})
 public class Indicator extends NamedBaseEntity {

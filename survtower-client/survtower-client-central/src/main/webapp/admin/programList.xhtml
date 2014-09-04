@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Program List</title>
+    </h:head>
+    <h:body>
+        <h:dataTable value="#{programListController.programs}" var="program">
+
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                    #{program.name}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                    #{program.description}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Edit</f:facet>
+                <h:form>
+                    <h:link value="Edit" outcome="programEdit">
+                        <f:param name="uuid" value="#{program.uuid}" />
+                    </h:link>
+                </h:form>
+            </h:column>
+
+        </h:dataTable>
+
+        <h:form>
+            <h:link value="New Program" outcome="programEdit" />
+        </h:form>
+
+    </h:body>
+</html>
+

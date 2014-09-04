@@ -1,9 +1,12 @@
 package com.survtower.business.common;
 
+import javax.persistence.MappedSuperclass;
+
 /**
  *
  * @author Charles Chigoriwa
  */
+@MappedSuperclass
 public abstract class NamedBaseEntity extends BaseEntity{
     
     protected String name;

@@ -8,7 +8,7 @@ public enum Lookup {
     
     //Top level Objects
     INDICATOR,
-    PERID,
+    PERIOD,
     COUNTRY,
     USER,
     PROGRAM

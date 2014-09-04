@@ -4,22 +4,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Edit Indicator</title>
     </h:head>
     <h:body>
         <h:form>
                 <table>
                     <tr>
                         <th>Name</th>
-                        <td><h:inputText value="#{editIndicatorController.indicator.name}" /></td>
+                        <td><h:inputText value="#{indicatorEditController.indicator.name}" /></td>
                     </tr>
                     <tr>
                         <th>Description</th>
-                        <td><h:inputText value="#{editIndicatorController.indicator.description}" /></td>
+                        <td><h:inputText value="#{indicatorEditController.indicator.description}" /></td>
                     </tr>
                 </table>
-                <h:commandButton value="Save" action="#{editIndicatorController.save()}">
-                    <f:param name="uuid" value="#{editIndicatorController.indicator.uuid}" />
+                <h:commandButton value="Save" action="#{indicatorEditController.save()}">
+                    <f:param name="uuid" value="#{indicatorEditController.indicator.uuid}" />
                 </h:commandButton>
         </h:form>
     </h:body>

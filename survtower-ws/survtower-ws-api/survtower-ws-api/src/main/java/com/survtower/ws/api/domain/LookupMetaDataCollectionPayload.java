@@ -16,11 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class LookupMetaDataCollectionPayload implements Serializable {
 
-    
     private List<ServerLookupMetaData> lookupMetaDataList = new ArrayList<>();
 
-    @XmlElementWrapper(name="lookupMetaDataList")
-    @XmlElement(name="lookupMetaData")
+    @XmlElementWrapper(name = "lookupMetaDataList")
+    @XmlElement(name = "lookupMetaData")
     public List<ServerLookupMetaData> getLookupMetaDataList() {
         return lookupMetaDataList;
     }
@@ -28,9 +27,11 @@ public class LookupMetaDataCollectionPayload implements Serializable {
     public void setLookupMetaDataList(List<ServerLookupMetaData> lookupMetaDataList) {
         this.lookupMetaDataList = lookupMetaDataList;
     }
-    
-    public void add(Lookup lookup,Date lastUpdateTimestamp){
-        this.add(new ServerLookupMetaData(lookup, lastUpdateTimestamp));
+
+    public void add(Lookup lookup, Date lastUpdateTimestamp) {
+        if (lookup != null && lastUpdateTimestamp != null) {
+            this.add(new ServerLookupMetaData(lookup, lastUpdateTimestamp));
+        }
     }
 
     public void add(ServerLookupMetaData lookupMetaData) {

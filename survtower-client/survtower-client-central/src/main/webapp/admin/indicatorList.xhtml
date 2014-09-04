@@ -7,7 +7,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:dataTable value="#{listIndicatorController.indicators}" var="indicator">
+        <h:dataTable value="#{indicatorListController.indicators}" var="indicator">
 
             <h:column>
                 <f:facet name="header">Name</f:facet>
@@ -22,13 +22,16 @@
             <h:column>
                 <f:facet name="header">Edit</f:facet>
                 <h:form>
-                    <h:link value="Edit" outcome="editIndicator">
+                    <h:link value="Edit" outcome="indicatorEdit">                        
                         <f:param name="uuid" value="#{indicator.uuid}" />
                     </h:link>
                 </h:form>
             </h:column>
 
         </h:dataTable>
+        <h:form>
+            <h:link value="New Indicator" outcome="indicatorEdit" />
+        </h:form>
     </h:body>
 </html>
 

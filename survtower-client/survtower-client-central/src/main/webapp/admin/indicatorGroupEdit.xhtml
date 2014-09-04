@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Edit Indicator Group</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td><h:inputText value="#{indicatorGroupEditController.indicatorGroup.name}" /></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><h:inputText value="#{indicatorGroupEditController.indicatorGroup.description}" /></td>
+                </tr>
+                <tr>
+                    <th>Program</th>
+                    <td>
+                        <h:selectOneMenu value="#{indicatorGroupEditController.indicatorGroup.program}" converter="#{programConverter}" >
+                            <f:selectItems value="#{indicatorGroupEditController.programs}" var="program" itemLabel="#{program.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                
+            </table>
+            <h:commandButton value="Save" action="#{indicatorGroupEditController.save()}">
+                <f:param name="uuid" value="#{indicatorGroupEditController.indicatorGroup.uuid}" />
+            </h:commandButton>
+        </h:form>
+    </h:body>
+</html>
+
