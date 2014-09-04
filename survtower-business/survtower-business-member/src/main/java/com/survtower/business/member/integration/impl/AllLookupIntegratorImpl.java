@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  * @author Charles Chigoriwa
  */
 @Service("allLookupIntegrator")
-public class AllLookupIntegratorImpl implements AllLookupIntegrator{
-    
+public class AllLookupIntegratorImpl implements AllLookupIntegrator {
+
     @Autowired
     private IntegrationService integrationService;
     @Autowired
@@ -29,23 +29,22 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator{
     @Override
     public synchronized void pull() {
         System.out.println("GLOBAL LOOKUP POOLING");
-        LookupMetaDataCollectionPayload payload= integrationService.getLookupDataWebservice().getLookupMetaDataList();
-        if(payload!=null){
-          List<ServerLookupMetaData> lookupMetaDataList= payload.getLookupMetaDataList();
-          if(lookupMetaDataList!=null && !lookupMetaDataList.isEmpty()){
-              for(ServerLookupMetaData serverLookupMetaData:lookupMetaDataList){
-                  if(serverLookupMetaData.getLastUpdateTimestamp()!=null){
-                      LookupMeta localLookupMeta=lookupMetaService.findByLookup(serverLookupMetaData.getLookup());
-                      if(serverLookupMetaData.getLastUpdateTimestamp().after(localLookupMeta.getLastServerTimestamp())){
-                          if(Lookup.INDICATOR.equals(serverLookupMetaData.getLookup())){
-                              indicatorIntegrator.pull();
-                          }//////PUT AS MANY ALTERNATIVES AS YOU CAN
-                      }
-                  }
-              }
-          }
+        LookupMetaDataCollectionPayload payload = integrationService.getLookupDataWebservice().getLookupMetaDataList();
+        if (payload != null) {
+            List<ServerLookupMetaData> lookupMetaDataList = payload.getLookupMetaDataList();
+            if (lookupMetaDataList != null && !lookupMetaDataList.isEmpty()) {
+                for (ServerLookupMetaData serverLookupMetaData : lookupMetaDataList) {
+                    if (serverLookupMetaData.getLastUpdateTimestamp() != null) {
+                        LookupMeta localLookupMeta = lookupMetaService.findByLookup(serverLookupMetaData.getLookup());
+                        if (localLookupMeta == null || serverLookupMetaData.getLastUpdateTimestamp().after(localLookupMeta.getLastServerTimestamp())) {
+                            if (Lookup.INDICATOR.equals(serverLookupMetaData.getLookup())) {
+                                indicatorIntegrator.pull();
+                            }//////PUT AS MANY ALTERNATIVES AS YOU CAN
+                        }
+                    }
+                }
+            }
         }
     }
-    
-    
+
 }
