@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -14,11 +15,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"})})
-public class Country extends NamedBaseEntity{
+public class Member extends NamedBaseEntity{
     
     private static final long serialVersionUID = 1L;
     
-    private String code;
+    private String code; 
 
     public String getCode() {
         return code;
@@ -27,10 +28,8 @@ public class Country extends NamedBaseEntity{
     public void setCode(String code) {
         this.code = code;
     }
-    
-    
-   
 
+  
     @Override
     public int hashCode() {
         int hash = 0;
@@ -41,10 +40,10 @@ public class Country extends NamedBaseEntity{
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Country)) {
+        if (!(object instanceof Member)) {
             return false;
         }
-        Country other = (Country) object;
+        Member other = (Member) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

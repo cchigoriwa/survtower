@@ -11,5 +11,6 @@
   <modules>
     <module>survtower-client-central</module>
     <module>survtower-client-member</module>
+    <module>survtower-client-linker</module>
   </modules>
 </project>

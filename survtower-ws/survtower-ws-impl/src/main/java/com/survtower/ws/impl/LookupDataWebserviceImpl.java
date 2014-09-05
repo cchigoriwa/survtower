@@ -1,7 +1,7 @@
 package com.survtower.ws.impl;
 
 import com.survtower.business.common.domain.Lookup;
-import com.survtower.business.common.service.CountryService;
+import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.IndicatorService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
@@ -25,7 +25,7 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
     @Autowired
     private ProgramService programService;
     @Autowired
-    private CountryService countryService;
+    private MemberService countryService;
     @Autowired
     private UserService userService;
 

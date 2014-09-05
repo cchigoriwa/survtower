@@ -1,8 +1,8 @@
 package com.survtower.business.common.dao.impl;
 
-import com.survtower.business.common.dao.CountryDao;
-import com.survtower.business.common.domain.Country;
-import com.survtower.business.common.repository.CountryRepository;
+import com.survtower.business.common.dao.MemberDao;
+import com.survtower.business.common.domain.Member;
+import com.survtower.business.common.repository.MemberRepository;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,33 +13,33 @@ import org.springframework.stereotype.Repository;
  * @author Charles Chigoriwa
  */
 @Repository
-public class CountryDaoImpl implements CountryDao{
+public class MemberDaoImpl implements MemberDao{
     
     @Autowired
-    private CountryRepository countryRepository;
+    private MemberRepository countryRepository;
 
     @Override
-    public Country save(Country country) {
+    public Member save(Member country) {
        return countryRepository.save(country);
     }
 
     @Override
-    public List<Country> findAll() {
+    public List<Member> findAll() {
        return countryRepository.findAll();
     }
 
     @Override
-    public Country find(Long id) {
+    public Member find(Long id) {
         return countryRepository.findOne(id);
     }
 
     @Override
-    public Country findByUuid(String uuid) {
+    public Member findByUuid(String uuid) {
        return countryRepository.findByUuid(uuid);
     }
 
     @Override
-    public List<Country> findCountrysUpdatedAfter(Date afterDate) {
+    public List<Member> findCountrysUpdatedAfter(Date afterDate) {
         return countryRepository.findCountrysUpdatedAfter(afterDate);
     }
 
@@ -49,7 +49,7 @@ public class CountryDaoImpl implements CountryDao{
     }
 
     @Override
-    public List<Country> findCountrysUpdatedAfter(Date afterDate, Date maxDate) {
+    public List<Member> findCountrysUpdatedAfter(Date afterDate, Date maxDate) {
         return countryRepository.findCountrysUpdatedAfter(afterDate, maxDate);
     }
 
@@ -59,7 +59,7 @@ public class CountryDaoImpl implements CountryDao{
     }
 
     @Override
-    public List<Country> findCountrysUpdatedBefore(Date maxDate) {
+    public List<Member> findCountrysUpdatedBefore(Date maxDate) {
       return countryRepository.findCountrysUpdatedBefore(maxDate);
     }
     

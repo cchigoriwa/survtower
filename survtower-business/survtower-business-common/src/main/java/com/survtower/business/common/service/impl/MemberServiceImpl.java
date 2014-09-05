@@ -1,8 +1,8 @@
 package com.survtower.business.common.service.impl;
 
-import com.survtower.business.common.dao.CountryDao;
-import com.survtower.business.common.domain.Country;
-import com.survtower.business.common.service.CountryService;
+import com.survtower.business.common.dao.MemberDao;
+import com.survtower.business.common.domain.Member;
+import com.survtower.business.common.service.MemberService;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,37 +13,37 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Charles Chigoriwa
  */
-@Service("countryService")
+@Service("memberService")
 @Transactional(readOnly = true)
-public class CountryServiceImpl implements CountryService {
+public class MemberServiceImpl implements MemberService {
 
     @Autowired
-    private CountryDao countryDao;
+    private MemberDao countryDao;
 
     @Transactional
     @Override
-    public Country save(Country country) {
+    public Member save(Member country) {
         country.setUpdateDate(new Date());
         return countryDao.save(country);
     }
 
     @Override
-    public List<Country> findAll() {
+    public List<Member> findAll() {
         return countryDao.findAll();
     }
 
     @Override
-    public Country find(Long id) {
+    public Member find(Long id) {
         return countryDao.find(id);
     }
 
     @Override
-    public Country findByUuid(String uuid) {
+    public Member findByUuid(String uuid) {
         return countryDao.findByUuid(uuid);
     }
 
     @Override
-    public List<Country> findCountrysUpdatedAfter(Date afterDate) {
+    public List<Member> findCountrysUpdatedAfter(Date afterDate) {
         return countryDao.findCountrysUpdatedAfter(afterDate);
     }
 
@@ -53,7 +53,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<Country> findCountrysUpdatedAfter(Date afterDate, Date maxDate) {
+    public List<Member> findCountrysUpdatedAfter(Date afterDate, Date maxDate) {
         return countryDao.findCountrysUpdatedAfter(afterDate, maxDate);
     }
 
@@ -63,7 +63,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<Country> findCountrysUpdatedBefore(Date maxDate) {
+    public List<Member> findCountrysUpdatedBefore(Date maxDate) {
         return countryDao.findCountrysUpdatedBefore(maxDate);
     }
 }
