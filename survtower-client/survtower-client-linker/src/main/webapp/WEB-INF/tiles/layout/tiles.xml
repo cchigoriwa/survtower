@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<definition name="templatePage" templateExpression="/WEB-INF/tiles/layout/templatePage.jsp">
+		<put-attribute name="header" expression="/WEB-INF/tiles/layout/templateHeader.jsp" />
+		<put-attribute name="footer" expression="/WEB-INF/tiles/layout/templateFooter.jsp" />
+	</definition>	
+</tiles-definitions>

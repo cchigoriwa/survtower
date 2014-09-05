@@ -43,8 +43,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> findCountrysUpdatedAfter(Date afterDate) {
-        return countryDao.findCountrysUpdatedAfter(afterDate);
+    public List<Member> findMembersUpdatedAfter(Date afterDate) {
+        return countryDao.findMembersUpdatedAfter(afterDate);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> findCountrysUpdatedAfter(Date afterDate, Date maxDate) {
-        return countryDao.findCountrysUpdatedAfter(afterDate, maxDate);
+    public List<Member> findMembersUpdatedAfter(Date afterDate, Date maxDate) {
+        return countryDao.findMembersUpdatedAfter(afterDate, maxDate);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> findCountrysUpdatedBefore(Date maxDate) {
-        return countryDao.findCountrysUpdatedBefore(maxDate);
+    public List<Member> findMembersUpdatedBefore(Date maxDate) {
+        return countryDao.findMembersUpdatedBefore(maxDate);
     }
 }

@@ -11,13 +11,13 @@ import java.util.List;
  */
 public interface MemberService extends GenericService<Member>{
     
-    public List<Member> findCountrysUpdatedAfter(Date afterDate);
+    public List<Member> findMembersUpdatedAfter(Date afterDate);
 
     public Date findMaximumUpdateDate(Date afterDate);
 
-    public List<Member> findCountrysUpdatedAfter(Date afterDate, Date maxDate);
+    public List<Member> findMembersUpdatedAfter(Date afterDate, Date maxDate);
     
     public Date findMaximumUpdateDate();
     
-    public List<Member> findCountrysUpdatedBefore(Date maxDate);
+    public List<Member> findMembersUpdatedBefore(Date maxDate);
 }

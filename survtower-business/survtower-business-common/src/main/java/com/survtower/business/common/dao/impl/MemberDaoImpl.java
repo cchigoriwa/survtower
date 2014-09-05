@@ -39,8 +39,8 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public List<Member> findCountrysUpdatedAfter(Date afterDate) {
-        return countryRepository.findCountrysUpdatedAfter(afterDate);
+    public List<Member> findMembersUpdatedAfter(Date afterDate) {
+        return countryRepository.findMembersUpdatedAfter(afterDate);
     }
 
     @Override
@@ -49,8 +49,8 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public List<Member> findCountrysUpdatedAfter(Date afterDate, Date maxDate) {
-        return countryRepository.findCountrysUpdatedAfter(afterDate, maxDate);
+    public List<Member> findMembersUpdatedAfter(Date afterDate, Date maxDate) {
+        return countryRepository.findMembersUpdatedAfter(afterDate, maxDate);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public List<Member> findCountrysUpdatedBefore(Date maxDate) {
-      return countryRepository.findCountrysUpdatedBefore(maxDate);
+    public List<Member> findMembersUpdatedBefore(Date maxDate) {
+      return countryRepository.findMembersUpdatedBefore(maxDate);
     }
     
 }
