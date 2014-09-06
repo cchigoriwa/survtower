@@ -3,6 +3,7 @@ package com.survtower.business.central.dao.impl;
 import com.survtower.business.central.dao.MemberSecurityDao;
 import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.central.repository.MemberSecurityRepository;
+import com.survtower.business.common.domain.Member;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,11 @@ public class MemberSecurityDaoImpl implements MemberSecurityDao{
     @Override
     public MemberSecurity findByUuid(String uuid) {
         return memberSecurityRepository.findByUuid(uuid);
+    }
+
+    @Override
+    public MemberSecurity findByMember(Member member) {
+        return memberSecurityRepository.findByMember(member);
     }
     
 }

@@ -27,6 +27,15 @@
                     </h:link>
                 </h:form>
             </h:column>
+            
+            <h:column>
+                <f:facet name="header">View</f:facet>
+                <h:form>
+                    <h:link value="View" outcome="memberView">
+                        <f:param name="uuid" value="#{member.uuid}" />
+                    </h:link>
+                </h:form>
+            </h:column>
 
         </h:dataTable>
 

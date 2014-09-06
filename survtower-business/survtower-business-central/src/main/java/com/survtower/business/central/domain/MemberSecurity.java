@@ -2,24 +2,33 @@ package com.survtower.business.central.domain;
 
 import com.survtower.business.common.BaseEntity;
 import com.survtower.business.common.domain.Member;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Entity
+@Table(uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"uuid"}),
+    @UniqueConstraint(columnNames = {"emailAddress"}),
+    @UniqueConstraint(columnNames = {"memberID"})})
 public class MemberSecurity extends BaseEntity {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private String emailAddress;
     private String password;
+    @Column(updatable = false)
     private String memberID;
-    private String memberKey;    
+    @Column(updatable = false)
+    private String memberKey;
     private boolean deactivated;
-    
+
     @OneToOne
     private Member member;
 
@@ -70,8 +79,7 @@ public class MemberSecurity extends BaseEntity {
     public void setDeactivated(boolean deactivated) {
         this.deactivated = deactivated;
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -92,5 +100,5 @@ public class MemberSecurity extends BaseEntity {
     public String toString() {
         return "com.survtower.business.central.domain.CountrySecurity[ id=" + id + " ]";
     }
-    
+
 }

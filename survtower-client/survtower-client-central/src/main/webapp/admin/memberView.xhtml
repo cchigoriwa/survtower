@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Member DashBoard</title>
+    </h:head>
+    <h:body>
+        <h:panelGroup>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td><h:outputText  value="#{memberViewController.member.name}" /></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><h:outputText value="#{memberViewController.member.description}" /></td>
+                </tr>
+
+                <tr>
+                    <th>Code</th>
+                    <td><h:outputText value="#{memberViewController.member.code}" /></td>
+                </tr>
+            </table>
+        </h:panelGroup>
+        
+        <h4>Member Security</h4>
+
+        <h:panelGroup rendered="#{memberViewController.memberSecurity!=null}">
+               <table>
+                <tr>
+                    <th>Email Address</th>
+                    <td><h:outputText  value="#{memberViewController.memberSecurity.emailAddress}" /></td>
+                </tr>
+                <tr>
+                    <th>Member ID</th>
+                    <td><h:outputText value="#{memberViewController.memberSecurity.memberID}" /></td>
+                </tr>
+
+                <tr>
+                    <th>Member Key</th>
+                    <td><h:outputText value="#{memberViewController.memberSecurity.memberKey}" /></td>
+                </tr>
+            </table>
+        </h:panelGroup>
+        
+        <h:panelGroup>
+            <h:form>
+                    <h:link value="Add/Edit Member Security Details" outcome="memberSecurityEdit">
+                        <f:param name="memberUuid" value="#{memberViewController.member.uuid}" />
+                    </h:link>
+                </h:form>
+        </h:panelGroup>
+        
+        
+    </h:body>
+</html>
+
