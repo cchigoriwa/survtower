@@ -56,5 +56,24 @@ public class MemberSecurityServiceImpl implements MemberSecurityService{
     public MemberSecurity findByMember(Member member) {
         return memberSecurityDao.findByMember(member);
     }
-    
+
+    @Override
+    public MemberSecurity findByEmailAddress(String emailAddress) {
+        return memberSecurityDao.findByEmailAddress(emailAddress);
+    }
+
+    @Override
+    public int updatePassword(String password, String emailAddress) {
+       return memberSecurityDao.updatePassword(password, emailAddress);
+    }
+
+    @Override
+    public int updateMemberKey(String memberKey, String emailAddress) {
+        return memberSecurityDao.updateMemberKey(memberKey, emailAddress);
+    }
+
+    @Override
+    public MemberSecurity findByMemberID(String MemberID) {
+        return  memberSecurityDao.findByMemberID(MemberID);
+    }
 }

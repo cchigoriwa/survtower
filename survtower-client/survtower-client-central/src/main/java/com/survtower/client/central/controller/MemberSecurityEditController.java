@@ -62,7 +62,7 @@ public class MemberSecurityEditController {
     
     public String save(){
         memberSecurityService.save(memberSecurity);
-        return "memberView?faces-redirect=true&uuid="+memberSecurity.getMember().getUuid();
+        return "memberView?faces-redirect=true&amp;uuid="+memberSecurity.getMember().getUuid();
     }
     
     @PostConstruct

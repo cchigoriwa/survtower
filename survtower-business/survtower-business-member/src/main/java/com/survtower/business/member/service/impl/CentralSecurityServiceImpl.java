@@ -1,11 +1,9 @@
 package com.survtower.business.member.service.impl;
 
 import com.survtower.business.common.SurvtowerRuntimeException;
-import com.survtower.business.common.domain.Lookup;
 import com.survtower.business.member.dao.CentralSecurityDao;
 import com.survtower.business.member.domain.CentralSecurity;
 import com.survtower.business.member.service.CentralSecurityService;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +32,7 @@ public class CentralSecurityServiceImpl implements CentralSecurityService {
         if (!list.isEmpty()) {
             CentralSecurity existing = list.get(0);
             if (!(existing.identityEquals(centralSecurity))) {
-                throw new SurvtowerRuntimeException("Existing MetaData and the record to be save are different");
+                throw new SurvtowerRuntimeException("Existing CentralSecurity and the record to be save are different");
             }
         }
 
@@ -56,6 +54,7 @@ public class CentralSecurityServiceImpl implements CentralSecurityService {
         return centralSecurityDao.findByUuid(uuid);
     }
 
+    @Override
     public CentralSecurity find() {
         List<CentralSecurity> list = findAll();
 

@@ -14,7 +14,7 @@ public class CentralSecurity extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
     private String memberID;
-    private String memberPassword;
+    private String memberKey;
 
     public String getMemberID() {
         return memberID;
@@ -24,13 +24,15 @@ public class CentralSecurity extends BaseEntity {
         this.memberID = memberID;
     }
 
-    public String getMemberPassword() {
-        return memberPassword;
+    public String getMemberKey() {
+        return memberKey;
     }
 
-    public void setMemberPassword(String memberPassword) {
-        this.memberPassword = memberPassword;
+    public void setMemberKey(String memberKey) {
+        this.memberKey = memberKey;
     }
+
+   
     
     
   

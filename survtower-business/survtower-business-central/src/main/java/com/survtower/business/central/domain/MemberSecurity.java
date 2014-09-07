@@ -1,12 +1,18 @@
 package com.survtower.business.central.domain;
 
+import com.survtower.business.common.AppUserDetails;
 import com.survtower.business.common.BaseEntity;
 import com.survtower.business.common.domain.Member;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
@@ -31,6 +37,8 @@ public class MemberSecurity extends BaseEntity {
 
     @OneToOne
     private Member member;
+    
+    public static final String ROLE_MEMBER="ROLE_MEMBER";
 
     public String getEmailAddress() {
         return emailAddress;
@@ -78,6 +86,38 @@ public class MemberSecurity extends BaseEntity {
 
     public void setDeactivated(boolean deactivated) {
         this.deactivated = deactivated;
+    }
+    
+    public UserDetails toUserDetails() {
+        AppUserDetails userDetails = new AppUserDetails();
+        userDetails.setUsername(this.emailAddress);
+        userDetails.setPassword(this.password);        
+        userDetails.setUuid(this.uuid);
+        userDetails.setEnabled(!this.deactivated);
+        userDetails.setAccountNonLocked(!this.deactivated);
+        userDetails.setCredentialsNonExpired(!this.deactivated);
+        userDetails.setAccountNonExpired(!this.deactivated);       
+
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(ROLE_MEMBER));
+        userDetails.setAuthorities(list);
+        return userDetails;
+    }
+    
+    public UserDetails toAppUserDetailsForIntegration() {
+        AppUserDetails userDetails = new AppUserDetails();
+        userDetails.setUsername(this.memberID);
+        userDetails.setPassword(this.memberKey);        
+        userDetails.setUuid(this.uuid);
+        userDetails.setEnabled(!this.deactivated);
+        userDetails.setAccountNonLocked(!this.deactivated);
+        userDetails.setCredentialsNonExpired(!this.deactivated);
+        userDetails.setAccountNonExpired(!this.deactivated);       
+
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(ROLE_MEMBER));
+        userDetails.setAuthorities(list);
+        return userDetails;
     }
 
     @Override
