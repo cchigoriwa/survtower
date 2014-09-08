@@ -81,4 +81,28 @@ public abstract class BaseEntity implements Serializable {
     public boolean identityEquals(BaseEntity entity){
         return Objects.equals(entity.id, this.id) && (entity.uuid == null ? this.uuid == null : entity.uuid.equals(this.uuid));
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BaseEntity other = (BaseEntity) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

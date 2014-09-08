@@ -1,8 +1,11 @@
 package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,12 +18,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"})})
-public class IndicatorGroup extends NamedBaseEntity{
-    
+public class IndicatorGroup extends NamedBaseEntity {
+
     private static final long serialVersionUID = 1L;
-    
+
     @ManyToOne
     private Program program;
+    @OneToMany
+    private Set<Indicator> indicators = new HashSet<Indicator>();
 
     public Program getProgram() {
         return program;
@@ -29,33 +34,18 @@ public class IndicatorGroup extends NamedBaseEntity{
     public void setProgram(Program program) {
         this.program = program;
     }
-    
-    
-   
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public Set<Indicator> getIndicators() {
+        return indicators;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof IndicatorGroup)) {
-            return false;
-        }
-        IndicatorGroup other = (IndicatorGroup) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setIndicators(Set<Indicator> indicators) {
+        this.indicators = indicators;
     }
 
     @Override
     public String toString() {
-        return "com.survtower.business.common.domain.IndicatorGroup[ id=" + id + " ]";
+        return getName();
     }
-    
+
 }
