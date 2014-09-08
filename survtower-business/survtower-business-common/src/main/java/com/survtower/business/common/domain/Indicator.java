@@ -2,6 +2,7 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,32 +16,52 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"})})
 public class Indicator extends NamedBaseEntity {
-    
+
     private static final long serialVersionUID = 1L;
+    @ManyToOne
+    private IndicatorGroup indicatorGroup;
+    @ManyToOne
+    private DataElement numerator;
+    @ManyToOne
+    private DataElement denominator;
+    @ManyToOne
+    private IndicatorType indicatorType;
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public IndicatorGroup getIndicatorGroup() {
+        return indicatorGroup;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Indicator)) {
-            return false;
-        }
-        Indicator other = (Indicator) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setIndicatorGroup(IndicatorGroup indicatorGroup) {
+        this.indicatorGroup = indicatorGroup;
     }
 
+    public DataElement getNumerator() {
+        return numerator;
+    }
+
+    public void setNumerator(DataElement numerator) {
+        this.numerator = numerator;
+    }
+
+    public DataElement getDenominator() {
+        return denominator;
+    }
+
+    public void setDenominator(DataElement denominator) {
+        this.denominator = denominator;
+    }
+
+    public IndicatorType getIndicatorType() {
+        return indicatorType;
+    }
+
+    public void setIndicatorType(IndicatorType indicatorType) {
+        this.indicatorType = indicatorType;
+    }
+    
     @Override
     public String toString() {
-        return "com.survtower.business.common.domain.Indicator[ id=" + id + " ]";
+        return getName();
     }
 
 }
