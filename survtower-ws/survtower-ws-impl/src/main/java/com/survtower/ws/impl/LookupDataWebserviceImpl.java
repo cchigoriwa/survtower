@@ -5,7 +5,7 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.IndicatorService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
-import com.survtower.business.common.service.UserService;
+//import com.survtower.business.member.service.UserService;
 import com.survtower.ws.api.LookupDataWebservice;
 import com.survtower.ws.api.domain.LookupMetaDataCollectionPayload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
     private ProgramService programService;
     @Autowired
     private MemberService countryService;
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
     public LookupMetaDataCollectionPayload getLookupMetaDataList() {
         LookupMetaDataCollectionPayload payload = new LookupMetaDataCollectionPayload();
@@ -35,7 +35,7 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
         payload.add(Lookup.PERIOD, periodService.findMaximumUpdateDate());
         payload.add(Lookup.PROGRAM, programService.findMaximumUpdateDate());
         payload.add(Lookup.COUNTRY, countryService.findMaximumUpdateDate());
-        payload.add(Lookup.USER, userService.findMaximumUpdateDate());
+        //payload.add(Lookup.USER, userService.findMaximumUpdateDate());
         return payload;
     }
 

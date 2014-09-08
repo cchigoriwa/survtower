@@ -6,14 +6,12 @@
 package com.survtower.business.common.domain;
 
 import com.survtower.business.common.BaseEntity;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -35,16 +33,7 @@ public class Surveillance extends BaseEntity {
     private Member member;
     @OneToMany
     private Set<SurveillanceData> surveillanceDataSet = new HashSet<SurveillanceData>();
-    private Boolean uploaded = Boolean.FALSE;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date uploadedOn;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date approvedOn;
-    @ManyToOne
-    private User uploadedBy;
-    @ManyToOne
-    private User approvedBy;
-
+    
     public Program getProgram() {
         return program;
     }
@@ -75,46 +64,6 @@ public class Surveillance extends BaseEntity {
 
     public void setSurveillanceDataSet(Set<SurveillanceData> surveillanceDataSet) {
         this.surveillanceDataSet = surveillanceDataSet;
-    }
-
-    public Boolean isUploaded() {
-        return uploaded;
-    }
-
-    public void setUploaded(Boolean uploaded) {
-        this.uploaded = uploaded;
-    }
-
-    public Date getUploadedOn() {
-        return uploadedOn;
-    }
-
-    public void setUploadedOn(Date uploadedOn) {
-        this.uploadedOn = uploadedOn;
-    }
-
-    public Date getApprovedOn() {
-        return approvedOn;
-    }
-
-    public void setApprovedOn(Date approvedOn) {
-        this.approvedOn = approvedOn;
-    }
-
-    public User getUploadedBy() {
-        return uploadedBy;
-    }
-
-    public void setUploadedBy(User uploadedBy) {
-        this.uploadedBy = uploadedBy;
-    }
-
-    public User getApprovedBy() {
-        return approvedBy;
-    }
-
-    public void setApprovedBy(User approvedBy) {
-        this.approvedBy = approvedBy;
     }
 
 }
