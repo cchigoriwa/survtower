@@ -8,20 +8,52 @@
     </h:head>
     <h:body>
         <h:form>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <td><h:inputText value="#{indicatorEditController.indicator.name}" /></td>
-                    </tr>
-                    <tr>
-                        <th>Description</th>
-                        <td><h:inputText value="#{indicatorEditController.indicator.description}" /></td>
-                    </tr>
-                </table>
-                <h:commandButton value="Save" action="#{indicatorEditController.save()}">
-                    <f:param name="uuid" value="#{indicatorEditController.indicator.uuid}" />
-                </h:commandButton>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td><h:inputText value="#{indicatorEditController.indicator.name}" /></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><h:inputText value="#{indicatorEditController.indicator.description}" /></td>
+                </tr>
+                <tr>
+                    <th>Indicator Group</th>
+                    <td>
+                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorGroup}" converter="#{indicatorGroupConverter}" >
+                            <f:selectItems value="#{indicatorEditController.indicatorGroups}" var="item" itemLabel="#{item.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Indicator Type</th>
+                    <td>
+                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorType}" converter="#{indicatorTypeConverter}" >
+                            <f:selectItems value="#{indicatorEditController.indicatorTypes}" var="item" itemLabel="#{item.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Numerator</th>
+                    <td>
+                        <h:selectOneMenu value="#{indicatorEditController.indicator.numerator}" converter="#{dataElementConverter}" >
+                            <f:selectItems value="#{indicatorEditController.dataElements}" var="item" itemLabel="#{item.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Denominator</th>
+                    <td>
+                        <h:selectOneMenu value="#{indicatorEditController.indicator.denominator}" converter="#{dataElementConverter}" >
+                            <f:selectItems value="#{indicatorEditController.dataElements}" var="item" itemLabel="#{item.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+            </table>
+            <h:commandButton value="Save" action="#{indicatorEditController.save()}">
+                <f:param name="uuid" value="#{indicatorEditController.indicator.uuid}" />
+            </h:commandButton>
         </h:form>
-    </h:body>
-</html>
+    </ui:define>
 
+</ui:composition>

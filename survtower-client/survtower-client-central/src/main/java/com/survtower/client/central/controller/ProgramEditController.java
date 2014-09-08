@@ -47,17 +47,15 @@ public class ProgramEditController {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-    
-    
-    
+
     @PostConstruct
-    public void postConstruct(){
-        if(uuid==null){
-            program=new Program();
-        }else{
-            program=programService.findByUuid(uuid);
-            if(program==null){
-                program=new Program();
+    public void postConstruct() {
+        if (uuid == null) {
+            program = new Program();
+        } else {
+            program = programService.findByUuid(uuid);
+            if (program == null) {
+                program = new Program();
             }
         }
     }

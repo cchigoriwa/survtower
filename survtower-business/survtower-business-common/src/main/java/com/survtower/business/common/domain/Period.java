@@ -2,7 +2,10 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
@@ -27,6 +30,8 @@ public class Period extends NamedBaseEntity {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dueDate;
     private Boolean active = Boolean.FALSE;
+    @OneToMany
+    private Set<Program> programs  = new HashSet<Program>();
 
     public Date getValidFrom() {
         return validFrom;
@@ -52,12 +57,20 @@ public class Period extends NamedBaseEntity {
         this.dueDate = dueDate;
     }
 
-    public Boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Set<Program> getPrograms() {
+        return programs;
+    }
+
+    public void setPrograms(Set<Program> programs) {
+        this.programs = programs;
     }
 
     @Override

@@ -1,7 +1,14 @@
 package com.survtower.client.central.controller;
 
+import com.survtower.business.common.domain.DataElement;
 import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.IndicatorGroup;
+import com.survtower.business.common.domain.IndicatorType;
+import com.survtower.business.common.service.DataElementService;
+import com.survtower.business.common.service.IndicatorGroupService;
 import com.survtower.business.common.service.IndicatorService;
+import com.survtower.business.common.service.IndicatorTypeService;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,6 +25,15 @@ public class IndicatorEditController {
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
 
+    @ManagedProperty(value = "#{dataElementService}")
+    private DataElementService dataElementService;
+
+    @ManagedProperty(value = "#{indicatorGroupService}")
+    private IndicatorGroupService indicatorGroupService;
+
+    @ManagedProperty(value = "#{indicatorTypeService}")
+    private IndicatorTypeService indicatorTypeService;
+   
     @ManagedProperty(value = "#{param.uuid}")
     private String uuid;
 
@@ -40,6 +56,18 @@ public class IndicatorEditController {
         this.indicatorService = indicatorService;
     }
 
+    public void setDataElementService(DataElementService dataElementService) {
+        this.dataElementService = dataElementService;
+    }
+
+    public void setIndicatorGroupService(IndicatorGroupService indicatorGroupService) {
+        this.indicatorGroupService = indicatorGroupService;
+    }
+
+    public void setIndicatorTypeService(IndicatorTypeService indicatorTypeService) {
+        this.indicatorTypeService = indicatorTypeService;
+    }
+    
     public String getUuid() {
         return uuid;
     }
@@ -47,17 +75,27 @@ public class IndicatorEditController {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    public List<DataElement> getDataElements() {
+        return dataElementService.findAll();
+    }
+
+    public List<IndicatorGroup> getIndicatorGroups() {
+        return indicatorGroupService.findAll();
+    }
     
-    
-    
+        public List<IndicatorType> getIndicatorTypes() {
+        return indicatorTypeService.findAll();
+    }
+
     @PostConstruct
-    public void postConstruct(){
-        if(uuid==null){
-            indicator=new Indicator();
-        }else{
-            indicator=indicatorService.findByUuid(uuid);
-            if(indicator==null){
-                indicator=new Indicator();
+    public void postConstruct() {
+        if (uuid == null) {
+            indicator = new Indicator();
+        } else {
+            indicator = indicatorService.findByUuid(uuid);
+            if (indicator == null) {
+                indicator = new Indicator();
             }
         }
     }

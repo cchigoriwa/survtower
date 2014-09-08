@@ -1,0 +1,43 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+         Indicator Types
+    </ui:define>
+
+    <ui:define name="content">
+    
+        <h:dataTable value="#{indicatorTypeListController.indicatorTypes}" var="indicatorType">
+
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                    #{indicatorType.name}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                    #{indicatorType.description}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Edit</f:facet>
+                <h:form>
+                    <h:link value="Edit" outcome="indicatorTypeEdit">                        
+                        <f:param name="uuid" value="#{indicatorType.uuid}" />
+                    </h:link>
+                </h:form>
+            </h:column>
+
+        </h:dataTable>
+        <h:form>
+            <h:link value="New Indicator" outcome="indicatorTypeEdit" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

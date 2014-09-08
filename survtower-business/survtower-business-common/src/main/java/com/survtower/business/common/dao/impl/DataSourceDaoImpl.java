@@ -16,51 +16,51 @@ import org.springframework.stereotype.Repository;
 public class DataSourceDaoImpl implements DataSourceDao{
     
     @Autowired
-    private DataSourceRepository indicatorRepository;
+    private DataSourceRepository dataSourceRepository;
 
     @Override
-    public DataSource save(DataSource indicator) {
-       return indicatorRepository.save(indicator);
+    public DataSource save(DataSource dataSource) {
+       return dataSourceRepository.save(dataSource);
     }
 
     @Override
     public List<DataSource> findAll() {
-       return indicatorRepository.findAll();
+       return dataSourceRepository.findAll();
     }
 
     @Override
     public DataSource find(Long id) {
-        return indicatorRepository.findOne(id);
+        return dataSourceRepository.findOne(id);
     }
 
     @Override
     public DataSource findByUuid(String uuid) {
-       return indicatorRepository.findByUuid(uuid);
+       return dataSourceRepository.findByUuid(uuid);
     }
 
     @Override
     public List<DataSource> findDataSourcesUpdatedAfter(Date afterDate) {
-        return indicatorRepository.findDataSourcesUpdatedAfter(afterDate);
+        return dataSourceRepository.findDataSourcesUpdatedAfter(afterDate);
     }
 
     @Override
     public Date findMaximumUpdateDate(Date afterDate) {
-       return indicatorRepository.findMaximumUpdateDate(afterDate);
+       return dataSourceRepository.findMaximumUpdateDate(afterDate);
     }
 
     @Override
     public List<DataSource> findDataSourcesUpdatedAfter(Date afterDate, Date maxDate) {
-        return indicatorRepository.findDataSourcesUpdatedAfter(afterDate, maxDate);
+        return dataSourceRepository.findDataSourcesUpdatedAfter(afterDate, maxDate);
     }
 
     @Override
     public Date findMaximumUpdateDate() {
-        return indicatorRepository.findMaximumUpdateDate();
+        return dataSourceRepository.findMaximumUpdateDate();
     }
 
     @Override
     public List<DataSource> findDataSourcesUpdatedBefore(Date maxDate) {
-      return indicatorRepository.findDataSourcesUpdatedBefore(maxDate);
+      return dataSourceRepository.findDataSourcesUpdatedBefore(maxDate);
     }
     
 }

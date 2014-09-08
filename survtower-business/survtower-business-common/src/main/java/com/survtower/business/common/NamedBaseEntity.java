@@ -29,7 +29,7 @@ public abstract class NamedBaseEntity extends BaseEntity{
         this.description = description;
     }
 
-    public Boolean isDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 

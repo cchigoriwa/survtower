@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Surveillance System</title>
+        <h:outputStylesheet name="site.css"/>
+        <h:outputScript name="sadc.js"/>      
+    </h:head>
+
+    <h:body>
+        <div id="head">
+            <table>
+                <tr>
+                    <td>
+                        <h:graphicImage name="sadc.png" style="border: none;"/>
+                    </td>
+                    <td style="float: right;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h:form>                                        
+                                        <p:spacer width="10" height="40"/>
+
+                                        <h:outputText value="Current User : " style="color:#2A2A63;font-size:14px;"/>
+
+                                        <h:outputText value="#{securityController.loggedOnUser}" style="color:#2A2A63;font-size:14px;"/>
+
+                                        <h:panelGroup rendered="#{securityController.user !=null}">
+                                            <p:spacer width="10"/>
+
+                                            <h:outputText value="Fullname : " style="color:#000;font-size:14px;"/>
+                                            <h:outputText value="#{securityController.user.fullname}" style="color:#2A2A63;font-size:14px;"/>
+
+                                            <p:spacer width="10"/>
+
+                                            <h:outputText value="State : " style="color:#000;font-size:14px;"/>
+
+                                            <h:outputText value="#{securityController.user.country.name}" style="color:#2A2A63;font-size:14px;"/>
+
+                                            <p:spacer width="10"/>
+
+                                            <h:commandLink action="#{securityController.logout()}" value="Sign Out" rendered="#{securityController.user !=null}" />
+                                  
+                                        </h:panelGroup>                                    
+                                    </h:form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p:spacer width="10" height="40"/>
+                                    <h:panelGroup rendered="#{securityController.user !=null}">
+                                        Programs : <ui:repeat value="#{securityController.user.programs}" var="program" rendered="#{not empty securityController.user.programs}">  
+                                            #{program}, 
+                                        </ui:repeat>
+                                        <h:panelGroup rendered="#{empty securityController.user.programs}">
+                                            <font color="red">User has not been assigned Program. Please contact Administrator to gain specific access</font>
+                                        </h:panelGroup> 
+                                    </h:panelGroup>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>                    
+                </tr> 
+            </table>
+        </div>
+        <div id="container">
+
+            <div id="content">
+                <div><ui:insert name="title"/></div>
+
+                <p:growl showDetail="true" showSummary="true" id="messages" />
+
+                <ui:insert name="content"/>   
+
+            </div>
+            <div id="left-menu">
+                <!-- Column 2 start -->
+                <ui:include src="navigation.xhtml" id="navigation"/>
+            </div>
+
+        </div>
+
+        <div id="footer">
+            <ui:include src="footer.xhtml"/>
+        </div>
+
+    </h:body>
+</html>
+
+
