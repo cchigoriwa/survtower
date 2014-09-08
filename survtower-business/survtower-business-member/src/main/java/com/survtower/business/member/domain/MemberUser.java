@@ -1,6 +1,7 @@
-package com.survtower.business.common.domain;
+package com.survtower.business.member.domain;
 
 import com.survtower.business.common.BaseEntity;
+import com.survtower.business.common.domain.Program;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CollectionTable;
@@ -14,19 +15,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Charles Chigoriwa
+ * @author Takunda Dhlakama
  */
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"})})
-public class User extends BaseEntity {
+public class MemberUser extends BaseEntity {
 
     private String username;
     private static final long serialVersionUID = 1L;
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "userrole")
-    private Set<UserRole> userRoles = new HashSet<UserRole>();
+    private Set<MemberRole> userRoles = new HashSet<MemberRole>();
     @OneToMany
     private Set<Program> programs = new HashSet<Program>();
 
@@ -38,11 +39,11 @@ public class User extends BaseEntity {
         this.username = username;
     }
 
-    public Set<UserRole> getUserRoles() {
+    public Set<MemberRole> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
+    public void setUserRoles(Set<MemberRole> userRoles) {
         this.userRoles = userRoles;
     }
 
