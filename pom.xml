@@ -17,4 +17,5 @@
         <resteasy.version>3.0.4.Final</resteasy.version>        
         <spring.security.version>3.1.2.RELEASE</spring.security.version>  
     </properties>
+    
 </project>
