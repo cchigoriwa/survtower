@@ -12,36 +12,32 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
+        <p:dataTable value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{indicatorGroup.name}
-            </h:column>
+            <p:column headerText="Name">
+                #{indicatorGroup.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{indicatorGroup.description}
-            </h:column>
+            <p:column headerText="Description">
+                #{indicatorGroup.description}
+            </p:column>
+
+            <p:column headerText="Program">
+                #{indicatorGroup.program}
+            </p:column>
             
-            <h:column>
-                <f:facet name="header">Program</f:facet>
-                    #{indicatorGroup.program.name}
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column>
                 <h:form>
-                    <h:link value="Edit" outcome="indicatorGroupEdit">
+                    <h:link value="Edit" outcome="indicatorGroupEdit">                        
                         <f:param name="uuid" value="#{indicatorGroup.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
 
         <h:form>
-            <h:link value="New IndicatorGroup" outcome="indicatorGroupEdit" />
+            <h:link value="New Indicator Group" outcome="indicatorGroupEdit" />
         </h:form>
 
     </ui:define>

@@ -13,19 +13,19 @@ import org.springframework.stereotype.Repository;
  * @author Takunda Dhlakama
  */
 @Repository
-public class DataElementDaoImpl implements DataElementDao{
-    
+public class DataElementDaoImpl implements DataElementDao {
+
     @Autowired
     private DataElementRepository dataElementRepository;
 
     @Override
     public DataElement save(DataElement dataElement) {
-       return dataElementRepository.save(dataElement);
+        return dataElementRepository.save(dataElement);
     }
 
     @Override
     public List<DataElement> findAll() {
-       return dataElementRepository.findAll();
+        return dataElementRepository.findAll();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DataElementDaoImpl implements DataElementDao{
 
     @Override
     public DataElement findByUuid(String uuid) {
-       return dataElementRepository.findByUuid(uuid);
+        return dataElementRepository.findByUuid(uuid);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DataElementDaoImpl implements DataElementDao{
 
     @Override
     public Date findMaximumUpdateDate(Date afterDate) {
-       return dataElementRepository.findMaximumUpdateDate(afterDate);
+        return dataElementRepository.findMaximumUpdateDate(afterDate);
     }
 
     @Override
@@ -60,7 +60,11 @@ public class DataElementDaoImpl implements DataElementDao{
 
     @Override
     public List<DataElement> findDataElementsUpdatedBefore(Date maxDate) {
-      return dataElementRepository.findDataElementsUpdatedBefore(maxDate);
+        return dataElementRepository.findDataElementsUpdatedBefore(maxDate);
     }
-    
+
+    public List<DataElement> getDataElementAutoComplete(String searchTerm) {
+        return dataElementRepository.getDataElementAutoComplete(searchTerm);
+    }
+
 }

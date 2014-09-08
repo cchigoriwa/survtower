@@ -12,30 +12,27 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{periodListController.periods}" var="period">
+        <p:dataTable value="#{periodListController.periods}" var="period">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{period.name}
-            </h:column>
+            <p:column headerText="Name">
+                #{period.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{period.description}
-            </h:column>
+            <p:column headerText="Description">
+                #{period.description}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column>
                 <h:form>
                     <h:link value="Edit" outcome="periodEdit">                        
                         <f:param name="uuid" value="#{period.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
         <h:form>
-            <h:link value="New Indicator" outcome="periodEdit" />
+            <h:link value="New Period" outcome="periodEdit" />
         </h:form>
     </ui:define>
 

@@ -8,6 +8,7 @@ import com.survtower.business.common.service.DataElementService;
 import com.survtower.business.common.service.IndicatorGroupService;
 import com.survtower.business.common.service.IndicatorService;
 import com.survtower.business.common.service.IndicatorTypeService;
+import com.survtower.client.central.utility.MessageInfor;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -33,7 +34,7 @@ public class IndicatorEditController {
 
     @ManagedProperty(value = "#{indicatorTypeService}")
     private IndicatorTypeService indicatorTypeService;
-   
+
     @ManagedProperty(value = "#{param.uuid}")
     private String uuid;
 
@@ -44,6 +45,22 @@ public class IndicatorEditController {
     }
 
     public String save() {
+        if (indicator.getIndicatorGroup() == null) {
+            MessageInfor.errorMessages("Select Indicator Group");
+            return null;
+        }
+        if (indicator.getNumerator() == null) {
+            MessageInfor.errorMessages("Select Numerator");
+            return null;
+        }
+        if (indicator.getDenominator() == null) {
+            MessageInfor.errorMessages("Select Denominator");
+            return null;
+        }
+        if (indicator.getDenominator() == indicator.getNumerator()) {
+            MessageInfor.errorMessages("Numerator and Denominator Cannot be the Same");
+            return null;
+        }
         indicatorService.save(indicator);
         return "indicatorList?faces-redirect=true";
     }
@@ -67,7 +84,7 @@ public class IndicatorEditController {
     public void setIndicatorTypeService(IndicatorTypeService indicatorTypeService) {
         this.indicatorTypeService = indicatorTypeService;
     }
-    
+
     public String getUuid() {
         return uuid;
     }
@@ -83,9 +100,13 @@ public class IndicatorEditController {
     public List<IndicatorGroup> getIndicatorGroups() {
         return indicatorGroupService.findAll();
     }
-    
-        public List<IndicatorType> getIndicatorTypes() {
+
+    public List<IndicatorType> getIndicatorTypes() {
         return indicatorTypeService.findAll();
+    }
+
+    public List<DataElement> dataElementAutoComplete(String searchTerm) {
+        return dataElementService.getDataElementAutoComplete(searchTerm);
     }
 
     @PostConstruct

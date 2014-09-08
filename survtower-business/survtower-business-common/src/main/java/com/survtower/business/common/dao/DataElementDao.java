@@ -20,5 +20,7 @@ public interface DataElementDao extends GenericDao<DataElement> {
     public Date findMaximumUpdateDate();
     
     public List<DataElement> findDataElementsUpdatedBefore(Date maxDate);
+    
+    public List<DataElement> getDataElementAutoComplete(String searchTerm);
 
 }

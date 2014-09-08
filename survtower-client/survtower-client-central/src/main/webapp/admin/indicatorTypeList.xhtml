@@ -8,35 +8,33 @@
     template="../layout.xhtml">
 
     <ui:define name="title">
-         Indicator Types
+        Indicator Types
     </ui:define>
 
     <ui:define name="content">
-    
-        <h:dataTable value="#{indicatorTypeListController.indicatorTypes}" var="indicatorType">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{indicatorType.name}
-            </h:column>
+        <p:dataTable value="#{indicatorTypeListController.indicatorTypes}" var="indicatorType">
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{indicatorType.description}
-            </h:column>
+            <p:column headerText="Name">
+                #{indicatorType.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column headerText="Description">
+                #{indicatorType.description}
+            </p:column>
+
+            <p:column>
                 <h:form>
                     <h:link value="Edit" outcome="indicatorTypeEdit">                        
                         <f:param name="uuid" value="#{indicatorType.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
+
         <h:form>
-            <h:link value="New Indicator" outcome="indicatorTypeEdit" />
+            <h:link value="New Indicator Type" outcome="indicatorTypeEdit" />
         </h:form>
     </ui:define>
 

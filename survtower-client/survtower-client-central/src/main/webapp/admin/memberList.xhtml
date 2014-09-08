@@ -12,38 +12,33 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{memberListController.members}" var="member">
+        <p:dataTable value="#{memberListController.members}" var="member">
+            
+            <p:column headerText="Name">
+                #{member.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{member.name}
-            </h:column>
+            <p:column headerText="Description">
+                #{member.description}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{member.description}
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column>
                 <h:form>
-                    <h:link value="Edit" outcome="memberEdit">
+                    <h:link value="Edit" outcome="memberEdit">                        
                         <f:param name="uuid" value="#{member.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
-            
-            <h:column>
-                <f:facet name="header">View</f:facet>
+            </p:column>
+
+            <p:column>
                 <h:form>
                     <h:link value="View" outcome="memberView">
                         <f:param name="uuid" value="#{member.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
-
-        </h:dataTable>
-
+            </p:column>
+        </p:dataTable>
+           
         <h:form>
             <h:link value="New Member" outcome="memberEdit" />
         </h:form>

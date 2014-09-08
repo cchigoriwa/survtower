@@ -12,28 +12,25 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{dataElementListController.dataElements}" var="dataElement">
+        <p:dataTable value="#{dataElementListController.dataElements}" var="dataElement">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{dataElement.name}
-            </h:column>
+            <p:column headerText="Name">
+                #{dataElement.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{dataElement.description}
-            </h:column>
+            <p:column headerText="Description">
+                #{dataElement.description}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column>
                 <h:form>
                     <h:link value="Edit" outcome="dataElementEdit">                        
                         <f:param name="uuid" value="#{dataElement.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
         <h:form>
             <h:link value="New Data Element" outcome="dataElementEdit" />
         </h:form>

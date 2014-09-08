@@ -1,12 +1,17 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Edit Indicator</title>
-    </h:head>
-    <h:body>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+        Edit Indicator
+    </ui:define>
+
+    <ui:define name="content">
         <h:form>
             <table>
                 <tr>
@@ -36,17 +41,17 @@
                 <tr>
                     <th>Numerator</th>
                     <td>
-                        <h:selectOneMenu value="#{indicatorEditController.indicator.numerator}" converter="#{dataElementConverter}" >
-                            <f:selectItems value="#{indicatorEditController.dataElements}" var="item" itemLabel="#{item.name}"  />
-                        </h:selectOneMenu>
+                        <p:autoComplete widgetVar="numerator" id="numerator" size="50" value="#{indicatorEditController.indicator.numerator}" completeMethod="#{indicatorEditController.dataElementAutoComplete}"  
+                                        var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
+                                        maxlength="3"/>                                                
                     </td>
                 </tr>
                 <tr>
                     <th>Denominator</th>
                     <td>
-                        <h:selectOneMenu value="#{indicatorEditController.indicator.denominator}" converter="#{dataElementConverter}" >
-                            <f:selectItems value="#{indicatorEditController.dataElements}" var="item" itemLabel="#{item.name}"  />
-                        </h:selectOneMenu>
+                        <p:autoComplete widgetVar="denominator" id="denominator" size="50" value="#{indicatorEditController.indicator.denominator}" completeMethod="#{indicatorEditController.dataElementAutoComplete}"  
+                                        var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
+                                        maxlength="3"/>                                                
                     </td>
                 </tr>
             </table>

@@ -12,28 +12,25 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{programListController.programs}" var="program">
+        <p:dataTable value="#{programListController.programs}" var="program">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{program.name}
-            </h:column>
+            <p:column headerText="Name">
+                #{program.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{program.description}
-            </h:column>
+            <p:column headerText="Description">
+                #{program.description}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column>
                 <h:form>
-                    <h:link value="Edit" outcome="programEdit">
+                    <h:link value="Edit" outcome="programEdit">                        
                         <f:param name="uuid" value="#{program.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
 
         <h:form>
             <h:link value="New Program" outcome="programEdit" />

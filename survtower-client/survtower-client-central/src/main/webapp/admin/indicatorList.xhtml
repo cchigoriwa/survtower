@@ -12,28 +12,26 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{indicatorListController.indicators}" var="indicator">
+        <p:dataTable value="#{indicatorListController.indicators}" var="indicator">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{indicator.name}
-            </h:column>
+             <p:column headerText="Name">
+                #{indicator.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{indicator.description}
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column headerText="Description">
+                #{indicator.description}
+            </p:column>
+  
+            <p:column>
                 <h:form>
                     <h:link value="Edit" outcome="indicatorEdit">                        
                         <f:param name="uuid" value="#{indicator.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
+
         <h:form>
             <h:link value="New Indicator" outcome="indicatorEdit" />
         </h:form>

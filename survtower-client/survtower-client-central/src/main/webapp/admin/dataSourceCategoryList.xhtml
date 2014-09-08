@@ -12,30 +12,27 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:dataTable value="#{dataSourceCategoryListController.dataSourceCategorys}" var="dataSourceCategory">
+        <p:dataTable value="#{dataSourceCategoryListController.dataSourceCategorys}" var="dataSourceCategory">
 
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                    #{dataSourceCategory.name}
-            </h:column>
+            <p:column headerText="Name">
+                #{dataSourceCategory.name}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                    #{dataSourceCategory.description}
-            </h:column>
+            <p:column headerText="Description">
+                #{dataSourceCategory.description}
+            </p:column>
 
-            <h:column>
-                <f:facet name="header">Edit</f:facet>
+            <p:column>
                 <h:form>
                     <h:link value="Edit" outcome="dataSourceCategoryEdit">                        
                         <f:param name="uuid" value="#{dataSourceCategory.uuid}" />
                     </h:link>
                 </h:form>
-            </h:column>
+            </p:column>
 
-        </h:dataTable>
+        </p:dataTable>
         <h:form>
-            <h:link value="New Indicator" outcome="dataSourceCategoryEdit" />
+            <h:link value="New Data Source Category" outcome="dataSourceCategoryEdit" />
         </h:form>
     </ui:define>
 
