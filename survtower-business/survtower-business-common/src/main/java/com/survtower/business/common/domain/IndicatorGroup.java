@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,6 +25,7 @@ public class IndicatorGroup extends NamedBaseEntity {
 
     @ManyToOne
     private Program program;
+    @XmlTransient
     @OneToMany
     private Set<Indicator> indicators = new HashSet<Indicator>();
 
