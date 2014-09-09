@@ -5,6 +5,7 @@ import com.survtower.business.common.domain.Program;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,6 +26,7 @@ public class MemberUser extends BaseEntity {
 
     private String username;
     private static final long serialVersionUID = 1L;
+    @ElementCollection(targetClass=MemberRole.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "userrole")
     private Set<MemberRole> userRoles = new HashSet<MemberRole>();
