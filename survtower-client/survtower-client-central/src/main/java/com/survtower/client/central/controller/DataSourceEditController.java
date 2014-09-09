@@ -43,20 +43,28 @@ public class DataSourceEditController {
         return "dataSourceList?faces-redirect=true&src=edit";
     }
 
-    public void setDataSourceCategoryService(DataSourceCategoryService dataSourceCategoryService) {
-        this.dataSourceCategoryService = dataSourceCategoryService;
-    }
-
-    public void setFrequencyService(FrequencyService frequencyService) {
-        this.frequencyService = frequencyService;
-    }
-    
     public DataSourceService getDataSourceService() {
         return dataSourceService;
     }
 
     public void setDataSourceService(DataSourceService dataSourceService) {
         this.dataSourceService = dataSourceService;
+    }
+
+    public DataSourceCategoryService getDataSourceCategoryService() {
+        return dataSourceCategoryService;
+    }
+
+    public void setDataSourceCategoryService(DataSourceCategoryService dataSourceCategoryService) {
+        this.dataSourceCategoryService = dataSourceCategoryService;
+    }
+
+    public FrequencyService getFrequencyService() {
+        return frequencyService;
+    }
+
+    public void setFrequencyService(FrequencyService frequencyService) {
+        this.frequencyService = frequencyService;
     }
 
     public String getUuid() {

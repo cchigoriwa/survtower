@@ -27,7 +27,7 @@
                     <th>Data Source Category</th>
                     <td>
                         <h:selectOneMenu value="#{dataSourceEditController.dataSource.dataSourceCategory}" converter="#{dataSourceCategoryConverter}" >
-                            <f:selectItems value="#{dataElementEditController.dataSources}" var="item" itemLabel="#{item.name}"  />
+                            <f:selectItems value="#{dataSourceEditController.dataSourceCategorys}" var="item" itemLabel="#{item.name}"  />
                         </h:selectOneMenu>
                     </td>
                 </tr>
