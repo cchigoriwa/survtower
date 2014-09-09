@@ -43,6 +43,14 @@ public class DataSourceEditController {
         return "dataSourceList?faces-redirect=true&src=edit";
     }
 
+    public void setDataSourceCategoryService(DataSourceCategoryService dataSourceCategoryService) {
+        this.dataSourceCategoryService = dataSourceCategoryService;
+    }
+
+    public void setFrequencyService(FrequencyService frequencyService) {
+        this.frequencyService = frequencyService;
+    }
+    
     public DataSourceService getDataSourceService() {
         return dataSourceService;
     }
