@@ -1,0 +1,41 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+        Data Elements
+    </ui:define>
+
+    <ui:define name="content">
+        <p:dataTable value="#{dataElementListController.dataElements}" var="dataElement">
+
+            <p:column headerText="Name">
+                #{dataElement.name}
+            </p:column>
+
+            <p:column headerText="Description">
+                #{dataElement.description}
+            </p:column>
+
+            <p:column>
+                <h:form>
+                    <h:link value="Edit" outcome="dataElementEdit">                        
+                        <f:param name="uuid" value="#{dataElement.uuid}" />
+                    </h:link>
+                </h:form>
+            </p:column>
+
+        </p:dataTable>
+        <h:form>
+            <h:link value="New Data Element" outcome="dataElementEdit" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

@@ -1,0 +1,53 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+        Edit Data Source
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td><h:inputText value="#{dataSourceEditController.dataSource.name}" /></td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td><h:inputText value="#{dataSourceEditController.dataSource.description}" /></td>
+                </tr>
+
+                <tr>
+                    <th>Data Source Category</th>
+                    <td>
+                        <h:selectOneMenu value="#{dataSourceEditController.dataSource.dataSourceCategory}" converter="#{dataSourceCategoryConverter}" >
+                            <f:selectItems value="#{dataElementEditController.dataSources}" var="item" itemLabel="#{item.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Frequency</th>
+                    <td>
+                        <h:selectOneMenu value="#{dataSourceEditController.dataSource.frequency}" converter="#{frequencyConverter}" >
+                            <f:selectItems value="#{dataSourceEditController.frequencys}" var="item" itemLabel="#{item.name}"  />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+
+            </table>
+            <h:commandButton value="Save" action="#{dataSourceEditController.save()}">
+                <f:param name="uuid" value="#{dataSourceEditController.dataSource.uuid}" />
+            </h:commandButton>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

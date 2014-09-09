@@ -1,0 +1,42 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+        Edit Indicator Type
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.name}" /></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.description}" /></td>
+                    </tr>
+                    <tr>
+                        <th>Factor</th>
+                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.factor}" /></td>
+                    </tr>
+                    <tr>
+                        <th>Decimal Places</th>
+                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.decimalPlaces}" /></td>
+                    </tr>
+                    
+                </table>
+                <h:commandButton value="Save" action="#{indicatorTypeEditController.save()}">
+                    <f:param name="uuid" value="#{indicatorTypeEditController.indicatorType.uuid}" />
+                </h:commandButton>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+

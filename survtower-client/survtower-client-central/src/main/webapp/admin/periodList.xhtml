@@ -1,0 +1,41 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+        Period List
+    </ui:define>
+
+    <ui:define name="content">
+        <p:dataTable value="#{periodListController.periods}" var="period">
+
+            <p:column headerText="Name">
+                #{period.name}
+            </p:column>
+
+            <p:column headerText="Description">
+                #{period.description}
+            </p:column>
+
+            <p:column>
+                <h:form>
+                    <h:link value="Edit" outcome="periodEdit">                        
+                        <f:param name="uuid" value="#{period.uuid}" />
+                    </h:link>
+                </h:form>
+            </p:column>
+
+        </p:dataTable>
+        <h:form>
+            <h:link value="New Period" outcome="periodEdit" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

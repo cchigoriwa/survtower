@@ -20,4 +20,7 @@ public interface DataElementService extends GenericService<DataElement>{
     public Date findMaximumUpdateDate();
     
     public List<DataElement> findDataElementsUpdatedBefore(Date maxDate);
+         
+    public List<DataElement> getDataElementAutoComplete(String searchTerm);
+        
 }

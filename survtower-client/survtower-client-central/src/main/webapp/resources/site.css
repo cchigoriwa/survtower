@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    background-color: #ffffff;
+    min-width:600px;
+}
+
+.yui-skin-sam tr {
+    font-size: 16px;
+}
+#head {
+    height:117px;
+    border-bottom: 7px solid #f2f2f2;
+}
+
+/* Footer styles */
+#footer {
+    clear:both;
+    float:left;
+    width:100%;
+    border-top:1px solid #000;
+}
+#footer p {
+    padding:10px;
+    margin:0;
+}
+
+#container{
+    width:100%;			/* width of whole page */
+    overflow:hidden;
+}
+#left-menu{
+    width: 18%;
+    border-right: 7px solid #f2f2f2;
+    border-bottom: 7px solid #f2f2f2;
+
+}
+#content{
+    width: 81%;
+    float: right;
+    padding: 0px 0px 10px 5px;
+    height: 100%;
+    overflow: auto;
+}
+
+#sidebar p {
+    margin: 4px;
+    padding: 7px 6px 14px 0px;
+    text-align: right;
+}
+
+.padded_container {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+h1{
+    background-color: #fff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color:black;
+    font-size: 16px;
+}
+.nav{
+    background-color: #fff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color:black;
+    font-size: 16px;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+#sidebar a:link:hover, a:visited:hover  {
+    color: #D20005;
+    font-weight : bold;
+    text-decoration : none;
+}
+
+.activelink  li {
+    color: #D20005;
+    font-weight : bold;
+    text-decoration : none;
+}
+
+div.box {
+    border: 1px solid #bed6f8;
+    background-color:#bed6f8;
+    margin: 5px;
+    position: relative;
+}
+
+div.box_head {
+    font-weight: bold;
+    padding-left: 3px;
+    text-transform: uppercase;
+}
+
+div.box_detail {
+
+    background-color: white;
+    text-decoration: underline;
+    height: 100%;
+    padding-bottom: 5px;
+    padding-top: 2px;
+    height: 170px;
+}
+
+div.box_detail ,li{
+    display: block;
+    color: blue;
+    padding-right: 5px;
+}
+
+.deleted {
+    text-decoration: line-through;
+}
+
+input[type="text"], textarea, select{
+    width: 30em;
+}
+
+.focus {
+    border: 2px solid darkcyan;
+    background-color: #bed6f8;
+}

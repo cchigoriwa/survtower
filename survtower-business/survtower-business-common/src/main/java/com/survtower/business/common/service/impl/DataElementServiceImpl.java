@@ -66,4 +66,8 @@ public class DataElementServiceImpl implements DataElementService {
     public List<DataElement> findDataElementsUpdatedBefore(Date maxDate) {
         return dataElementDao.findDataElementsUpdatedBefore(maxDate);
     }
+    
+    public List<DataElement> getDataElementAutoComplete(String searchTerm){
+    return dataElementDao.getDataElementAutoComplete(searchTerm);
+    }
 }

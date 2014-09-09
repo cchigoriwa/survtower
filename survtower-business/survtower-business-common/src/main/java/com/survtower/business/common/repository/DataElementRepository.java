@@ -27,8 +27,8 @@ public interface DataElementRepository extends GenericRepository<DataElement, Lo
     
     @Query("select i from DataElement i where i.updateDate<=:maxDate")
     public List<DataElement> findDataElementsUpdatedBefore(@Param("maxDate") Date maxDate);
-
     
+    @Query("select d from DataElement d where d.name LIKE %:searchTerm%")
+    public List<DataElement> getDataElementAutoComplete(@Param("searchTerm") String searchTerm);
     
-
 }
