@@ -1,5 +1,6 @@
 package com.survtower.business.common;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -7,11 +8,12 @@ import javax.persistence.MappedSuperclass;
  * @author Charles Chigoriwa
  */
 @MappedSuperclass
-public abstract class NamedBaseEntity extends BaseEntity{
-    
+public abstract class NamedBaseEntity extends BaseEntity {
+
+    @Column(unique = true)
     protected String name;
     protected String description;
-    protected Boolean deleted=Boolean.FALSE;
+    protected Boolean deleted = Boolean.FALSE;
 
     public String getName() {
         return name;
@@ -36,7 +38,5 @@ public abstract class NamedBaseEntity extends BaseEntity{
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
-    
-    
-    
+
 }

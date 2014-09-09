@@ -51,6 +51,22 @@ public class DataSourceEditController {
         this.dataSourceService = dataSourceService;
     }
 
+    public DataSourceCategoryService getDataSourceCategoryService() {
+        return dataSourceCategoryService;
+    }
+
+    public void setDataSourceCategoryService(DataSourceCategoryService dataSourceCategoryService) {
+        this.dataSourceCategoryService = dataSourceCategoryService;
+    }
+
+    public FrequencyService getFrequencyService() {
+        return frequencyService;
+    }
+
+    public void setFrequencyService(FrequencyService frequencyService) {
+        this.frequencyService = frequencyService;
+    }
+
     public String getUuid() {
         return uuid;
     }

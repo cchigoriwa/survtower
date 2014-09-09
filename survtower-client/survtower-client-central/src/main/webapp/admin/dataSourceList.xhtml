@@ -12,20 +12,20 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable value="#{dataSourceListController.dataSources}" var="dataSource">
+        <p:dataTable value="#{dataSourceListController.dataSources}" var="data">
 
             <p:column headerText="Name">
-                #{dataSource.name}
+                #{data.name}
             </p:column>
 
             <p:column headerText="Description">
-                #{dataSource.description}
+                #{data.description}
             </p:column>
 
             <p:column>
                 <h:form>
                     <h:link value="Edit" outcome="dataSourceEdit">                        
-                        <f:param name="uuid" value="#{dataSource.uuid}" />
+                        <f:param name="uuid" value="#{data.uuid}" />
                     </h:link>
                 </h:form>
             </p:column>
