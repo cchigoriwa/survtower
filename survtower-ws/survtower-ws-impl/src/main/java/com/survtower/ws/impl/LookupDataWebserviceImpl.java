@@ -1,5 +1,7 @@
 package com.survtower.ws.impl;
 
+import com.survtower.business.central.domain.MemberSecurity;
+import com.survtower.business.central.service.MemberSecurityService;
 import com.survtower.business.common.domain.Lookup;
 import com.survtower.business.common.service.DataElementService;
 import com.survtower.business.common.service.DataSourceCategoryService;
@@ -13,7 +15,10 @@ import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.ws.api.LookupDataWebservice;
 import com.survtower.ws.api.domain.LookupMetaDataCollectionPayload;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -43,13 +48,15 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
     private IndicatorTypeService indicatorTypeService;
     @Autowired
     private IndicatorGroupService indicatorGroupService;
+    @Autowired
+    private MemberSecurityService memberSecurityService;
 
     public LookupMetaDataCollectionPayload getLookupMetaDataList() {
         LookupMetaDataCollectionPayload payload = new LookupMetaDataCollectionPayload();
+        payload.add(Lookup.MEMBER, findMaximumUpdateForMember());
         payload.add(Lookup.INDICATOR, indicatorService.findMaximumUpdateDate());
         payload.add(Lookup.PERIOD, periodService.findMaximumUpdateDate());
         payload.add(Lookup.PROGRAM, programService.findMaximumUpdateDate());
-        payload.add(Lookup.COUNTRY, countryService.findMaximumUpdateDate());
         payload.add(Lookup.DATASOURCE, dataSourceService.findMaximumUpdateDate());
         payload.add(Lookup.DATASOURCECATEGORY, dataSourceCategoryService.findMaximumUpdateDate());
         payload.add(Lookup.INDICATORTYPE, indicatorTypeService.findMaximumUpdateDate());
@@ -57,6 +64,13 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
         payload.add(Lookup.INDICATORGROUP, indicatorGroupService.findMaximumUpdateDate());
          payload.add(Lookup.FREQUENCY, frequencyService.findMaximumUpdateDate());        
         return payload;
+    }
+    
+    private Date findMaximumUpdateForMember(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String memberID = auth.getName();        
+        MemberSecurity memberSecurity=memberSecurityService.findByMemberID(memberID);
+        return memberSecurity.getMember().getUpdateDate();
     }
 
 }

@@ -1,68 +1,59 @@
 package com.survtower.ws.impl;
 
+import com.survtower.business.central.service.MemberSecurityService;
 import com.survtower.business.common.domain.Member;
-import com.survtower.business.common.service.MemberService;
 import com.survtower.ws.api.MemberWebservice;
 import com.survtower.ws.api.domain.MemberCollectionPayload;
 import com.survtower.ws.api.domain.RequestMetaData;
 import com.survtower.ws.api.domain.ResponseMetaData;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Takunda Dhlakama
+ * @author Charles Chigoriwa
+ * 
+ * This getMembers is a bit different from other webservices
+ * We only want to get specific member details of a member querying this.
+ * We don't want to get details of other members.
+ * 
  */
 @Component
 public class MemberWebserviceImpl implements MemberWebservice {
 
     @Autowired
-    private MemberService memberService;
+    private MemberSecurityService memberSecurityService;
 
     public MemberCollectionPayload getMembers(RequestMetaData requestMetaData) {
 
-        List<Member> members;
-        
         Date startDate = null;
-        Date endDate;
         if (requestMetaData != null) {
             if (requestMetaData.getMinimumDate() != null) {
                 startDate = requestMetaData.getMinimumDate();
             }
         }
 
-        if (startDate != null) {
-            endDate = memberService.findMaximumUpdateDate(startDate);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String memberID = auth.getName();
+        Member member;
+        member = memberSecurityService.findByMemberID(memberID).getMember();
+
+        ResponseMetaData responseMetaData = new ResponseMetaData();
+        if (startDate == null || member.getUpdateDate().after(startDate)) {
+            responseMetaData.setMaximumDate(member.getUpdateDate());
         }else{
-            endDate=memberService.findMaximumUpdateDate();
+            member=null;
         }
         
-        if(endDate!=null){
-            if(startDate==null){
-                //inclusive endDate (before or as at)-name is a bit misleading
-                members=memberService.findMembersUpdatedBefore(endDate);
-            }else{
-                //exclusive startDate and inclusive endDate
-                members=memberService.findMembersUpdatedAfter(startDate, endDate);
-            }
-        }else{
-            members=new ArrayList<Member>();
-        }
-        
-        ResponseMetaData responseMetaData=new ResponseMetaData();
-        responseMetaData.setMaximumDate(endDate);
-        
-        MemberCollectionPayload memberCollectionPayload=new MemberCollectionPayload();
+        MemberCollectionPayload memberCollectionPayload = new MemberCollectionPayload();
         memberCollectionPayload.setPayloadMetaData(responseMetaData);
-        memberCollectionPayload.setMembers(members);
-        
+        memberCollectionPayload.setMember(member);
+
         return memberCollectionPayload;
-        
-        
-        
 
     }
 }

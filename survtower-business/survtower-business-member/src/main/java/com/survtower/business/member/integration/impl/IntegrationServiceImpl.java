@@ -5,6 +5,7 @@ import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.CentralSecurityService;
 import com.survtower.ws.api.IndicatorWebservice;
 import com.survtower.ws.api.LookupDataWebservice;
+import com.survtower.ws.api.MemberWebservice;
 import javax.annotation.Resource;
 import org.jboss.resteasy.client.jaxrs.BasicAuthentication;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -36,6 +37,13 @@ public class IntegrationServiceImpl implements IntegrationService {
     public LookupDataWebservice getLookupDataWebservice() {
         return getWebserviceTarget().proxy(LookupDataWebservice.class);
     }
+    
+    @Override
+    public MemberWebservice getMemberWebservice() {
+        return getWebserviceTarget().proxy(MemberWebservice.class);
+    }
+    
+    
 
     protected ResteasyWebTarget getWebserviceTarget() {
         ResteasyClient client = new ResteasyClientBuilder().build();
@@ -47,5 +55,7 @@ public class IntegrationServiceImpl implements IntegrationService {
         ResteasyWebTarget target = client.target(environment.getRequiredProperty("central.webservice.url"));
         return target;
     }
+
+    
 
 }

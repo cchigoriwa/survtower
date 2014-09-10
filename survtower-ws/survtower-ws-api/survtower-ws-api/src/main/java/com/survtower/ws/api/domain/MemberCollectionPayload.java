@@ -12,15 +12,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class MemberCollectionPayload extends ResponsePayload{
     
-    private List<Member> members;
+    private Member member;
 
-    public List<Member> getMembers() {
-        return members;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMembers(List<Member> members) {
-        this.members = members;
+    public void setMember(Member member) {
+        this.member = member;
     }
+    
+    
     
     
     
