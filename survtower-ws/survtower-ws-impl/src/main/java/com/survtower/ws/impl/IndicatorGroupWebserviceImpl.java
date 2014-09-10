@@ -1,9 +1,9 @@
 package com.survtower.ws.impl;
 
-import com.survtower.business.common.domain.Indicator;
-import com.survtower.business.common.service.IndicatorService;
-import com.survtower.ws.api.IndicatorWebservice;
-import com.survtower.ws.api.domain.IndicatorCollectionPayload;
+import com.survtower.business.common.domain.IndicatorGroup;
+import com.survtower.business.common.service.IndicatorGroupService;
+import com.survtower.ws.api.IndicatorGroupWebservice;
+import com.survtower.ws.api.domain.IndicatorGroupCollectionPayload;
 import com.survtower.ws.api.domain.RequestMetaData;
 import com.survtower.ws.api.domain.ResponseMetaData;
 import java.util.ArrayList;
@@ -17,14 +17,14 @@ import org.springframework.stereotype.Component;
  * @author Takunda Dhlakama
  */
 @Component
-public class IndicatorGroupWebserviceImpl implements IndicatorWebservice {
+public class IndicatorGroupWebserviceImpl implements IndicatorGroupWebservice {
 
     @Autowired
-    private IndicatorService indicatorService;
+    private IndicatorGroupService indicatorGroupService;
 
-    public IndicatorCollectionPayload getIndicators(RequestMetaData requestMetaData) {
+    public IndicatorGroupCollectionPayload getIndicatorGroups(RequestMetaData requestMetaData) {
 
-        List<Indicator> indicators;
+        List<IndicatorGroup> indicatorGroups;
         
         Date startDate = null;
         Date endDate;
@@ -35,31 +35,31 @@ public class IndicatorGroupWebserviceImpl implements IndicatorWebservice {
         }
 
         if (startDate != null) {
-            endDate = indicatorService.findMaximumUpdateDate(startDate);
+            endDate = indicatorGroupService.findMaximumUpdateDate(startDate);
         }else{
-            endDate=indicatorService.findMaximumUpdateDate();
+            endDate=indicatorGroupService.findMaximumUpdateDate();
         }
         
         if(endDate!=null){
             if(startDate==null){
                 //inclusive endDate (before or as at)-name is a bit misleading
-                indicators=indicatorService.findIndicatorsUpdatedBefore(endDate);
+                indicatorGroups=indicatorGroupService.findIndicatorGroupsUpdatedBefore(endDate);
             }else{
                 //exclusive startDate and inclusive endDate
-                indicators=indicatorService.findIndicatorsUpdatedAfter(startDate, endDate);
+                indicatorGroups=indicatorGroupService.findIndicatorGroupsUpdatedAfter(startDate, endDate);
             }
         }else{
-            indicators=new ArrayList<Indicator>();
+            indicatorGroups=new ArrayList<IndicatorGroup>();
         }
         
         ResponseMetaData responseMetaData=new ResponseMetaData();
         responseMetaData.setMaximumDate(endDate);
         
-        IndicatorCollectionPayload indicatorCollectionPayload=new IndicatorCollectionPayload();
-        indicatorCollectionPayload.setPayloadMetaData(responseMetaData);
-        indicatorCollectionPayload.setIndicators(indicators);
+        IndicatorGroupCollectionPayload indicatorGroupCollectionPayload=new IndicatorGroupCollectionPayload();
+        indicatorGroupCollectionPayload.setPayloadMetaData(responseMetaData);
+        indicatorGroupCollectionPayload.setIndicatorGroups(indicatorGroups);
         
-        return indicatorCollectionPayload;
+        return indicatorGroupCollectionPayload;
         
         
         

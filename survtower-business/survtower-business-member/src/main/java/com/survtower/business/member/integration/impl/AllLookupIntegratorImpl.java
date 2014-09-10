@@ -3,9 +3,15 @@ package com.survtower.business.member.integration.impl;
 import com.survtower.business.common.domain.Lookup;
 import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.AllLookupIntegrator;
+import com.survtower.business.member.integration.DataSourceCategoryIntegrator;
+import com.survtower.business.member.integration.FrequencyIntegrator;
+import com.survtower.business.member.integration.IndicatorGroupIntegrator;
 import com.survtower.business.member.integration.IndicatorIntegrator;
+import com.survtower.business.member.integration.IndicatorTypeIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.integration.MemberIntegrator;
+import com.survtower.business.member.integration.PeriodIntegrator;
+import com.survtower.business.member.integration.ProgramIntegrator;
 import com.survtower.business.member.service.LookupMetaService;
 import com.survtower.ws.api.domain.ServerLookupMetaData;
 import com.survtower.ws.api.domain.LookupMetaDataCollectionPayload;
@@ -28,6 +34,18 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator {
     private LookupMetaService lookupMetaService;
     @Autowired
     private MemberIntegrator memberIntegrator;
+    @Autowired
+    private DataSourceCategoryIntegrator dataSourceCategoryIntegrator;
+    @Autowired
+    private PeriodIntegrator periodIntegrator;
+    @Autowired
+    private FrequencyIntegrator frequencyIntegrator;
+    @Autowired
+    private IndicatorTypeIntegrator indicatorTypeIntegrator;
+    @Autowired
+    private ProgramIntegrator programIntegrator;
+    @Autowired
+    private IndicatorGroupIntegrator indicatorGroupIntegrator;
 
     @Override
     public synchronized void pull() {
@@ -42,9 +60,21 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator {
                         if (localLookupMeta == null || serverLookupMetaData.getLastUpdateTimestamp().after(localLookupMeta.getLastServerTimestamp())) {
                             if (Lookup.INDICATOR.equals(serverLookupMetaData.getLookup())) {
                                 indicatorIntegrator.pull();
-                            }else if (Lookup.MEMBER.equals(serverLookupMetaData.getLookup())) {
+                            } else if (Lookup.MEMBER.equals(serverLookupMetaData.getLookup())) {
                                 memberIntegrator.pull();
-                            } //////PUT AS MANY ALTERNATIVES AS YOU CAN
+                            } else if (Lookup.DATA_SOURCE_CATEGORY.equals(serverLookupMetaData.getLookup())) {
+                                dataSourceCategoryIntegrator.pull();
+                            } else if (Lookup.PERIOD.equals(serverLookupMetaData.getLookup())) {
+                                periodIntegrator.pull();
+                            } else if (Lookup.FREQUENCY.equals(serverLookupMetaData.getLookup())) {
+                                frequencyIntegrator.pull();
+                            }else if (Lookup.INDICATOR_TYPE.equals(serverLookupMetaData.getLookup())) {
+                                indicatorTypeIntegrator.pull();
+                            }else if (Lookup.PROGRAM.equals(serverLookupMetaData.getLookup())) {
+                                programIntegrator.pull();
+                            }else if (Lookup.INDICATOR_GROUP.equals(serverLookupMetaData.getLookup())) {
+                                indicatorGroupIntegrator.pull();
+                            }
                         }
                     }
                 }

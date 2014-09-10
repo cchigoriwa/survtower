@@ -1,6 +1,6 @@
 package com.survtower.ws.api.domain;
 
-import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.IndicatorGroup;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,14 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class IndicatorGroupCollectionPayload extends ResponsePayload{
     
-    private List<Indicator> indicators;
+    private List<IndicatorGroup> indicatorGroups;
 
-    public List<Indicator> getIndicators() {
-        return indicators;
+    public List<IndicatorGroup> getIndicatorGroups() {
+        return indicatorGroups;
     }
 
-    public void setIndicators(List<Indicator> indicators) {
-        this.indicators = indicators;
+    public void setIndicatorGroups(List<IndicatorGroup> indicatorGroups) {
+        this.indicatorGroups = indicatorGroups;
     }
     
     

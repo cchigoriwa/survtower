@@ -35,8 +35,6 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
     @Autowired
     private ProgramService programService;
     @Autowired
-    private MemberService countryService;
-    @Autowired
     private DataSourceService dataSourceService;
     @Autowired
     private DataElementService dataElementService;
@@ -54,22 +52,22 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
     public LookupMetaDataCollectionPayload getLookupMetaDataList() {
         LookupMetaDataCollectionPayload payload = new LookupMetaDataCollectionPayload();
         payload.add(Lookup.MEMBER, findMaximumUpdateForMember());
-        payload.add(Lookup.INDICATOR, indicatorService.findMaximumUpdateDate());
         payload.add(Lookup.PERIOD, periodService.findMaximumUpdateDate());
         payload.add(Lookup.PROGRAM, programService.findMaximumUpdateDate());
-        payload.add(Lookup.DATASOURCE, dataSourceService.findMaximumUpdateDate());
-        payload.add(Lookup.DATASOURCECATEGORY, dataSourceCategoryService.findMaximumUpdateDate());
-        payload.add(Lookup.INDICATORTYPE, indicatorTypeService.findMaximumUpdateDate());
-        payload.add(Lookup.DATAELEMENT, dataElementService.findMaximumUpdateDate());
-        payload.add(Lookup.INDICATORGROUP, indicatorGroupService.findMaximumUpdateDate());
-         payload.add(Lookup.FREQUENCY, frequencyService.findMaximumUpdateDate());        
+        payload.add(Lookup.FREQUENCY, frequencyService.findMaximumUpdateDate());
+        payload.add(Lookup.DATA_SOURCE_CATEGORY, dataSourceCategoryService.findMaximumUpdateDate());
+        payload.add(Lookup.DATA_SOURCE, dataSourceService.findMaximumUpdateDate());
+        payload.add(Lookup.INDICATOR_TYPE, indicatorTypeService.findMaximumUpdateDate());
+        payload.add(Lookup.DATA_ELEMENT, dataElementService.findMaximumUpdateDate());
+        payload.add(Lookup.INDICATOR_GROUP, indicatorGroupService.findMaximumUpdateDate());
+        payload.add(Lookup.INDICATOR, indicatorService.findMaximumUpdateDate());
         return payload;
     }
-    
-    private Date findMaximumUpdateForMember(){
+
+    private Date findMaximumUpdateForMember() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String memberID = auth.getName();        
-        MemberSecurity memberSecurity=memberSecurityService.findByMemberID(memberID);
+        String memberID = auth.getName();
+        MemberSecurity memberSecurity = memberSecurityService.findByMemberID(memberID);
         return memberSecurity.getMember().getUpdateDate();
     }
 
