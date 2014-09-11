@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Program extends NamedBaseEntity {
 
     private static final long serialVersionUID = 1L;
-    @XmlTransient
     @OneToMany
     private Set<IndicatorGroup> indicatorGroups = new HashSet<IndicatorGroup>();
-
+    
+    @XmlTransient
     public Set<IndicatorGroup> getIndicatorGroups() {
         return indicatorGroups;
     }
