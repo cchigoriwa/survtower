@@ -1,6 +1,8 @@
 package com.survtower.business.member.integration;
 
+import com.survtower.ws.api.DataElementWebservice;
 import com.survtower.ws.api.DataSourceCategoryWebservice;
+import com.survtower.ws.api.DataSourceWebservice;
 import com.survtower.ws.api.FrequencyWebservice;
 import com.survtower.ws.api.IndicatorGroupWebservice;
 import com.survtower.ws.api.IndicatorTypeWebservice;
@@ -34,5 +36,9 @@ public interface IntegrationService extends Serializable{
     public ProgramWebservice getProgramWebservice();
     
     public IndicatorGroupWebservice getIndicatorGroupWebservice();
+    
+    public DataSourceWebservice getDataSourceWebservice();
+    
+    public DataElementWebservice getDataElementWebservice();
     
 }

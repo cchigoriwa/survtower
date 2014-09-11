@@ -1,8 +1,11 @@
 package com.survtower.business.member.integration.impl;
 
+import com.survtower.business.common.SurvtowerRuntimeException;
 import com.survtower.business.common.domain.IndicatorGroup;
 import com.survtower.business.common.domain.Lookup;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.IndicatorGroupService;
+import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.IndicatorGroupIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
@@ -28,6 +31,8 @@ public class IndicatorGroupIntegratorImpl implements IndicatorGroupIntegrator {
     private IndicatorGroupService indicatorGroupService;
     @Autowired
     private IntegrationService integrationService;
+    @Autowired
+    private ProgramService programService;
 
     @Override
     public synchronized LookupMeta pull() {
@@ -57,6 +62,18 @@ public class IndicatorGroupIntegratorImpl implements IndicatorGroupIntegrator {
                     //it must be a new object
                     indicatorGroup.setId(null);
                 }
+                
+                Program serverProgram=indicatorGroup.getProgram();
+                if(serverProgram!=null){
+                    Program localProgram=programService.findByUuid(serverProgram.getUuid());
+                    if(localProgram==null){
+                        throw new SurvtowerRuntimeException(String.format("localProgram with global uuid %s not found",serverProgram.getUuid()));
+                    }else{
+                        indicatorGroup.setProgram(localProgram);
+                    }
+                }
+                
+                
                 indicatorGroupService.save(indicatorGroup);
             }
         }

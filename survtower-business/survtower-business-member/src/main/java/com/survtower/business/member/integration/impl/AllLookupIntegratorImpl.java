@@ -3,7 +3,9 @@ package com.survtower.business.member.integration.impl;
 import com.survtower.business.common.domain.Lookup;
 import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.AllLookupIntegrator;
+import com.survtower.business.member.integration.DataElementIntegrator;
 import com.survtower.business.member.integration.DataSourceCategoryIntegrator;
+import com.survtower.business.member.integration.DataSourceIntegrator;
 import com.survtower.business.member.integration.FrequencyIntegrator;
 import com.survtower.business.member.integration.IndicatorGroupIntegrator;
 import com.survtower.business.member.integration.IndicatorIntegrator;
@@ -46,6 +48,10 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator {
     private ProgramIntegrator programIntegrator;
     @Autowired
     private IndicatorGroupIntegrator indicatorGroupIntegrator;
+    @Autowired
+    private DataSourceIntegrator dataSourceIntegrator;
+    @Autowired
+    private DataElementIntegrator dataElementIntegrator;
 
     @Override
     public synchronized void pull() {
@@ -68,12 +74,16 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator {
                                 periodIntegrator.pull();
                             } else if (Lookup.FREQUENCY.equals(serverLookupMetaData.getLookup())) {
                                 frequencyIntegrator.pull();
-                            }else if (Lookup.INDICATOR_TYPE.equals(serverLookupMetaData.getLookup())) {
+                            } else if (Lookup.INDICATOR_TYPE.equals(serverLookupMetaData.getLookup())) {
                                 indicatorTypeIntegrator.pull();
-                            }else if (Lookup.PROGRAM.equals(serverLookupMetaData.getLookup())) {
+                            } else if (Lookup.PROGRAM.equals(serverLookupMetaData.getLookup())) {
                                 programIntegrator.pull();
-                            }else if (Lookup.INDICATOR_GROUP.equals(serverLookupMetaData.getLookup())) {
+                            } else if (Lookup.INDICATOR_GROUP.equals(serverLookupMetaData.getLookup())) {
                                 indicatorGroupIntegrator.pull();
+                            } else if (Lookup.DATA_SOURCE.equals(serverLookupMetaData.getLookup())) {
+                                dataSourceIntegrator.pull();
+                            }else if (Lookup.DATA_ELEMENT.equals(serverLookupMetaData.getLookup())) {
+                                dataElementIntegrator.pull();
                             }
                         }
                     }

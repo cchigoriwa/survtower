@@ -3,7 +3,9 @@ package com.survtower.business.member.integration.impl;
 import com.survtower.business.member.domain.CentralSecurity;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.CentralSecurityService;
+import com.survtower.ws.api.DataElementWebservice;
 import com.survtower.ws.api.DataSourceCategoryWebservice;
+import com.survtower.ws.api.DataSourceWebservice;
 import com.survtower.ws.api.FrequencyWebservice;
 import com.survtower.ws.api.IndicatorGroupWebservice;
 import com.survtower.ws.api.IndicatorTypeWebservice;
@@ -92,6 +94,14 @@ public class IntegrationServiceImpl implements IntegrationService {
         return getWebserviceTarget().proxy(IndicatorGroupWebservice.class);
     }
 
-    
+    @Override
+    public DataSourceWebservice getDataSourceWebservice() {
+       return getWebserviceTarget().proxy(DataSourceWebservice.class);
+    }
+
+    @Override
+    public DataElementWebservice getDataElementWebservice() {
+        return getWebserviceTarget().proxy(DataElementWebservice.class);
+    }
 
 }
