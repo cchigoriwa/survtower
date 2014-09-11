@@ -19,6 +19,7 @@ public class Member extends NamedBaseEntity{
     private static final long serialVersionUID = 1L;
     
     private String code; 
+    private String logo;
 
     public String getCode() {
         return code;
@@ -27,6 +28,16 @@ public class Member extends NamedBaseEntity{
     public void setCode(String code) {
         this.code = code;
     }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+    
+    
 
    @Override
     public String toString() {
