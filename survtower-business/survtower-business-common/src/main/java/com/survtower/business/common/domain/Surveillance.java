@@ -4,6 +4,7 @@ import com.survtower.business.common.BaseEntity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,7 +28,7 @@ public class Surveillance extends BaseEntity {
     private Period period;
     @ManyToOne
     private Member member;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<SurveillanceData> surveillanceDataSet = new HashSet<SurveillanceData>();
 
     public Program getProgram() {
@@ -53,7 +54,7 @@ public class Surveillance extends BaseEntity {
     public void setMember(Member member) {
         this.member = member;
     }
-
+    
     public Set<SurveillanceData> getSurveillanceDataSet() {
         return surveillanceDataSet;
     }

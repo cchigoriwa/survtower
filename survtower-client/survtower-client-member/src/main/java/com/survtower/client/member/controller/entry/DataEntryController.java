@@ -159,7 +159,6 @@ public class DataEntryController extends MessageInfor implements Serializable {
             submitted = Boolean.TRUE;
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-            inforMessages("Surveillance Data Processed Succefully");
         } catch (Exception ex) {
             submitted = Boolean.FALSE;
             errorMessages("Surveillance Data Not Processed Succefully");
@@ -184,6 +183,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
             surveillanceService.save(surveillance);
             inforMessages("Surviellance Data Saved Successfully");
         } catch (Exception ex) {
+            ex.printStackTrace();
             submitted = Boolean.FALSE;
             errorMessages("Surveillance Data Not Processed Succefully");
         }
