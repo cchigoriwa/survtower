@@ -17,7 +17,7 @@ import javax.faces.bean.ViewScoped;
  * @author Takund Dhlakama
  */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class DataSelectController extends MessageInfor implements Serializable {
 
     public DataSelectController() {
@@ -69,7 +69,7 @@ public class DataSelectController extends MessageInfor implements Serializable {
     }
 
     public String submittSelection() {
-        return "data_entry?faces-redirect=true&includeViewParams=true";
+        return "data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId" + period.getUuid();
     }
 
 }

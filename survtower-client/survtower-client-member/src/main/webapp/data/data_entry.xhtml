@@ -10,11 +10,6 @@
 
     <ui:define name="title">
         Online Upload of Surveillance Data
-        <f:metadata>
-            <f:viewParam name="programId" value="#{dataEntryController.programId}" />
-            <f:viewParam name="periodId" value="#{dataEntryController.periodId}" />
-            <f:event type="preRenderView" listener="#{dataEntryController.loadData()}"/>
-        </f:metadata>
     </ui:define>
 
     <ui:define name="content">

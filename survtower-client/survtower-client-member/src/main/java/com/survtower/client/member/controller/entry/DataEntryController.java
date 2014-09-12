@@ -19,16 +19,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Takund Dhlakama
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class DataEntryController extends MessageInfor implements Serializable {
 
     public DataEntryController() {
@@ -49,10 +52,10 @@ public class DataEntryController extends MessageInfor implements Serializable {
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
 
-    @ManagedProperty(value = "#{param.programId}")
+    //@ManagedProperty(value = "#{param.programId}")
     private String programId;
 
-    @ManagedProperty(value = "#{param.periodId}")
+    //@ManagedProperty(value = "#{param.periodId}")
     private String periodId;
 
     public String getProgramId() {
@@ -159,7 +162,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
             inforMessages("Surviellance Data Updated Successfully");
         } catch (Exception ex) {
-        ex.printStackTrace();
+            ex.printStackTrace();
         }
         return null;
     }
@@ -181,7 +184,12 @@ public class DataEntryController extends MessageInfor implements Serializable {
         this.surveillanceDataList = surveillanceDataList;
     }
 
+    @PostConstruct
     public void loadData() {
+        programId=FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap().get("programId");
+        periodId=FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap().get("periodId");
         program = programService.findByUuid(programId);
         period = periodService.findByUuid(periodId);
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
@@ -202,9 +210,5 @@ public class DataEntryController extends MessageInfor implements Serializable {
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
         }
-    }
-
-    public String submittSelection() {
-        return "data_entry?faces-redirect=true&includeViewParams=true";
     }
 }
