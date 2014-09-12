@@ -8,9 +8,19 @@
     </parent>
     <artifactId>survtower-client</artifactId>
     <packaging>pom</packaging>
-  <modules>
-    <module>survtower-client-central</module>
-    <module>survtower-client-member</module>
-    <module>survtower-client-linker</module>
-  </modules>
+    <modules>
+        <module>survtower-client-central</module>
+        <module>survtower-client-member</module>
+        <module>survtower-client-linker</module>
+    </modules>
+    <dependencies>
+                
+        <!--As of now you need to install it manually. If unable to do so please comment it out-->  
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>sadc</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+    </dependencies>
 </project>

@@ -3,7 +3,21 @@
 
 <h2>Member DashBoard</h2>
 
+<spring:url value="/webjars/sadc/1.0.0/img/logo.png" var="centralLogoImg" />
+
+<spring:url value="/webjars/sadc/1.0.0/img/${memberSecurity.member.logo}" var="memberlogoImg" />
+
+<div>
+    <img src="${centralLogoImg}" alt="Central-Logo" />
+</div>
+
+
+
 <table>
+    <tr>
+        <th>&nbsp;</th>
+        <td><img src="${memberlogoImg}" alt="Member-Logo" /></td>
+    </tr>
     <tr>
         <th>Name</th>
         <td>${memberSecurity.member.name}</td>
