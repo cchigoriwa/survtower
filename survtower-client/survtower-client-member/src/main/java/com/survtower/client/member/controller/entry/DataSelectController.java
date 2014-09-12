@@ -69,7 +69,7 @@ public class DataSelectController extends MessageInfor implements Serializable {
     }
 
     public String submittSelection() {
-        return "data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId" + period.getUuid();
+        return "data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid();
     }
 
 }

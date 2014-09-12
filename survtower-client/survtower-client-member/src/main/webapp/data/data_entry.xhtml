@@ -20,7 +20,7 @@
                 <p>Selected Period - #{dataEntryController.period.name}</p>
                 <p>Selected Country - <b>#{generalController.member.name}</b></p>
 
-                <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item">  
+                <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{!dataEntryController.submitted}">  
                     <p:column headerText="Indicator Name">  
                         #{item.indicator.name}
                     </p:column>  
@@ -33,8 +33,37 @@
                         <h:inputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
                     </p:column>  
 
-                </p:dataTable>            
-                <p:commandButton value="Submit" action="#{dataEntryController.saveSurviellanceForm()}" ajax="false"/>
+                </p:dataTable>
+
+                <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{dataEntryController.submitted}">  
+                    <p:column headerText="Indicator Name">  
+                        #{item.indicator.name}
+                    </p:column>  
+
+                    <p:column headerText="Numerator">  
+                        <h:outputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Denominator">  
+                        <h:outputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Indicator Value">  
+                        <h:outputText value="#{item.calculatedValue}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.calculatedValue}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                    </p:column>  
+
+                    <p:column headerText="Valid">  
+                        <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.valid}"/> 
+                        <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.valid}"/> 
+                    </p:column>  
+
+                </p:dataTable>
+                <p:commandButton value="Process" action="#{dataEntryController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataEntryController.submitted}"/>
+                <p:commandButton value="Edit" action="#{dataEntryController.editSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
+                <p:commandButton value="Save" action="#{dataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
             </h:form>
         </p:panel>
     </ui:define>

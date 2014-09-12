@@ -52,11 +52,21 @@ public class DataEntryController extends MessageInfor implements Serializable {
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
 
+    private Boolean submitted = Boolean.FALSE;
+
     //@ManagedProperty(value = "#{param.programId}")
     private String programId;
 
     //@ManagedProperty(value = "#{param.periodId}")
     private String periodId;
+
+    public Boolean getSubmitted() {
+        return submitted;
+    }
+
+    public void setSubmitted(Boolean submitted) {
+        this.submitted = submitted;
+    }
 
     public String getProgramId() {
         return programId;
@@ -142,28 +152,46 @@ public class DataEntryController extends MessageInfor implements Serializable {
         this.surveillance = surveillance;
     }
 
-    public String saveSurviellanceForm() {
-        errorMessages("Submission Start");
+    public String submitSurviellanceForm() {
         try {
-            System.out.println("-----------" + program.getName());
+            getSurveillance().getSurveillanceDataSet().clear();
+            getSurveillance().getSurveillanceDataSet().addAll(getSurveillanceDataList());
+            submitted = Boolean.TRUE;
+            getSurveillanceDataList().clear();
+            getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+            inforMessages("Surveillance Data Processed Succefully");
+        } catch (Exception ex) {
+            submitted = Boolean.FALSE;
+            errorMessages("Surveillance Data Not Processed Succefully");
+        }
+        return null;
+    }
+
+    public String saveSurviellanceForm() {
+        try {
             getSurveillance().getSurveillanceDataSet().clear();
             getSurveillance().getSurveillanceDataSet().addAll(getSurveillanceDataList());
             for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
-                if (data.getNumeratorValue() == 0.0 || data.getDenominatorValue() == 0.0) {
-                    errorMessages("Data Incomplete Submission Error");
+                if (!data.getValid()) {
+                    errorMessages("Data Incomplete");
+                    submitted = Boolean.TRUE;
                     return null;
                 }
             }
-            for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
-                System.out.println("indicator Values" + data.getCalculateValue());
-            }
-            //surveillanceService.save(getSurveillance());
+            submitted = Boolean.TRUE;
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-            inforMessages("Surviellance Data Updated Successfully");
+            surveillanceService.save(surveillance);
+            inforMessages("Surviellance Data Saved Successfully");
         } catch (Exception ex) {
-            ex.printStackTrace();
+            submitted = Boolean.FALSE;
+            errorMessages("Surveillance Data Not Processed Succefully");
         }
+        return null;
+    }
+
+    public String editSurviellanceForm() {
+        submitted = Boolean.FALSE;
         return null;
     }
 
@@ -186,29 +214,35 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
     @PostConstruct
     public void loadData() {
-        programId=FacesContext.getCurrentInstance().getExternalContext()
+        programId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("programId");
-        periodId=FacesContext.getCurrentInstance().getExternalContext()
+        periodId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("periodId");
         program = programService.findByUuid(programId);
         period = periodService.findByUuid(periodId);
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        if (surveillance != null) {
-            inforMessages("Indicators for this period have been created Already");
-        }
-        setSurveillance(new Surveillance());
-        getSurveillance().setPeriod(getPeriod());
-        getSurveillance().setProgram(getProgram());
-        getSurveillance().setCreateDate(new Date());
 
-        for (Indicator indicator : indicatorService.findIndicatorsInProgram(getProgram())) {
-            SurveillanceData data = new SurveillanceData();
-            data.setCreateDate(new Date());
-            data.setIndicator(indicator);
-            data.setSurveillance(this.surveillance);
-            getSurveillance().getSurveillanceDataSet().add(data);
+        if (getSurveillance() != null) {
+            //if surveillance data has been created load file
+            inforMessages("Indicators for this period have been created Already");
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+
+        } else {
+            //create new surveillance 
+            setSurveillance(new Surveillance());
+            getSurveillance().setPeriod(getPeriod());
+            getSurveillance().setProgram(getProgram());
+            getSurveillance().setCreateDate(new Date());
+            for (Indicator indicator : indicatorService.findIndicatorsInProgram(getProgram())) {
+                SurveillanceData data = new SurveillanceData();
+                data.setCreateDate(new Date());
+                data.setIndicator(indicator);
+                data.setSurveillance(getSurveillance());
+                getSurveillance().getSurveillanceDataSet().add(data);
+                getSurveillanceDataList().clear();
+                getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+            }
         }
     }
 }

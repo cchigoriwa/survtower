@@ -33,7 +33,9 @@ public class SurveillanceData extends BaseEntity {
     private Double manualValue;
     private Boolean manual = Boolean.FALSE;
     @Transient
-    private Double calculateValue;
+    private Double calculatedValue;
+    @Transient
+    private Boolean valid;
 
     public Surveillance getSurveillance() {
         return surveillance;
@@ -83,7 +85,7 @@ public class SurveillanceData extends BaseEntity {
         this.manual = manual;
     }
 
-    public Double getCalculateValue() {
+    public Double getCalculatedValue() {
         if (isManual()) {
             return getManualValue(); // if manual value ignore Denominator value - Consider Only Numerator value
         } else {
@@ -101,6 +103,19 @@ public class SurveillanceData extends BaseEntity {
                 return 0.0;
             }
         }
+    }
+
+    public Boolean getValid() {
+        if (getNumeratorValue() == 0.0) {
+            return Boolean.FALSE;
+        }
+        if (getDenominatorValue() == 0.0) {
+            return Boolean.FALSE;
+        }
+        if (getNumeratorValue() > getDenominatorValue()) {
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 
     @Override
