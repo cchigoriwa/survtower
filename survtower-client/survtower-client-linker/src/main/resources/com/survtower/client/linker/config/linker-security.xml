@@ -14,7 +14,7 @@
 
     <http auto-config="true" use-expressions="true">
         <form-login login-page="/login" login-processing-url="/loginProcess" 
-                    default-target-url="/member" authentication-failure-url="/login?login_error=1" />
+                    default-target-url="/member/dashboard" authentication-failure-url="/login?login_error=1" />
         <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
         <intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>         
     </http>

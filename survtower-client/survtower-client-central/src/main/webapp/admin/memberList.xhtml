@@ -14,6 +14,11 @@
     <ui:define name="content">
         <p:dataTable value="#{memberListController.members}" var="member">
             
+            <p:column headerText="Logo">
+                <h:graphicImage width="60" height="30" library="webjars/sadc/1.0.0/img"
+                                name="#{member.logo}" />
+            </p:column>
+            
             <p:column headerText="Name">
                 #{member.name}
             </p:column>
