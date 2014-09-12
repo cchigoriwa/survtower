@@ -5,20 +5,37 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
 
     <ui:composition template="/WEB-INF/template/DefaultTemplate.xhtml">
+
+        <ui:define name="title">
+            SADC Surveillance System-#{generalController.member.name}
+        </ui:define>
+
         <ui:define name="content">
+
 
             <h:form>
                 <p:growl id="msgs" showDetail="true" />
                 <h:graphicImage library="webjars/sadc/1.0.0/img"
                                 name="#{generalController.member.logo}" />
-                <p:panel id="basic" header="Basic" footer="Movie Details" style="margin-bottom:20px">
+                <p:panel id="basic" header="Dash Board - #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
+
                     <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputText value="The story begins as Don Vito Corleone..." />
+                        <p:panel id="notificationOne" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
+
+                            <h:commandLink value="Data Entry" action="flow1"/>
+
+                        </p:panel>
+                        <p:panel id="notificationTwo" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
+
+                        </p:panel>
+                        <p:panel id="notificationThree" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
+
+                        </p:panel>
+                        <p:panel id="notificationFour" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
+
+                        </p:panel>
                     </h:panelGrid>
                 </p:panel>
             </h:form>

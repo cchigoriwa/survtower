@@ -13,19 +13,19 @@ import org.springframework.stereotype.Repository;
  * @author Charles Chigoriwa
  */
 @Repository
-public class PeriodDaoImpl implements PeriodDao{
-    
+public class PeriodDaoImpl implements PeriodDao {
+
     @Autowired
     private PeriodRepository periodRepository;
 
     @Override
     public Period save(Period period) {
-       return periodRepository.save(period);
+        return periodRepository.save(period);
     }
 
     @Override
     public List<Period> findAll() {
-       return periodRepository.findAll();
+        return periodRepository.findAll();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class PeriodDaoImpl implements PeriodDao{
 
     @Override
     public Period findByUuid(String uuid) {
-       return periodRepository.findByUuid(uuid);
+        return periodRepository.findByUuid(uuid);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PeriodDaoImpl implements PeriodDao{
 
     @Override
     public Date findMaximumUpdateDate(Date afterDate) {
-       return periodRepository.findMaximumUpdateDate(afterDate);
+        return periodRepository.findMaximumUpdateDate(afterDate);
     }
 
     @Override
@@ -60,7 +60,22 @@ public class PeriodDaoImpl implements PeriodDao{
 
     @Override
     public List<Period> findPeriodsUpdatedBefore(Date maxDate) {
-      return periodRepository.findPeriodsUpdatedBefore(maxDate);
+        return periodRepository.findPeriodsUpdatedBefore(maxDate);
     }
-    
+
+    @Override
+    public List<Period> fetchActive() {
+        return periodRepository.fetchActive();
+    }
+
+    @Override
+    public List<Period> fetchAllAscending() {
+        return periodRepository.fetchAllAscending();
+    }
+
+    @Override
+    public List<Period> fetchAllDescending() {
+        return periodRepository.fetchAllDescending();
+    }
+
 }

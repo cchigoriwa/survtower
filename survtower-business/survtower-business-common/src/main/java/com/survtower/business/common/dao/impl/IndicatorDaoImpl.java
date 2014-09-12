@@ -2,6 +2,8 @@ package com.survtower.business.common.dao.impl;
 
 import com.survtower.business.common.dao.IndicatorDao;
 import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.IndicatorGroup;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.repository.IndicatorRepository;
 import java.util.Date;
 import java.util.List;
@@ -13,19 +15,19 @@ import org.springframework.stereotype.Repository;
  * @author Charles Chigoriwa
  */
 @Repository
-public class IndicatorDaoImpl implements IndicatorDao{
-    
+public class IndicatorDaoImpl implements IndicatorDao {
+
     @Autowired
     private IndicatorRepository indicatorRepository;
 
     @Override
     public Indicator save(Indicator indicator) {
-       return indicatorRepository.save(indicator);
+        return indicatorRepository.save(indicator);
     }
 
     @Override
     public List<Indicator> findAll() {
-       return indicatorRepository.findAll();
+        return indicatorRepository.findAll();
     }
 
     @Override
@@ -35,7 +37,7 @@ public class IndicatorDaoImpl implements IndicatorDao{
 
     @Override
     public Indicator findByUuid(String uuid) {
-       return indicatorRepository.findByUuid(uuid);
+        return indicatorRepository.findByUuid(uuid);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class IndicatorDaoImpl implements IndicatorDao{
 
     @Override
     public Date findMaximumUpdateDate(Date afterDate) {
-       return indicatorRepository.findMaximumUpdateDate(afterDate);
+        return indicatorRepository.findMaximumUpdateDate(afterDate);
     }
 
     @Override
@@ -60,7 +62,17 @@ public class IndicatorDaoImpl implements IndicatorDao{
 
     @Override
     public List<Indicator> findIndicatorsUpdatedBefore(Date maxDate) {
-      return indicatorRepository.findIndicatorsUpdatedBefore(maxDate);
+        return indicatorRepository.findIndicatorsUpdatedBefore(maxDate);
     }
-    
+
+    @Override
+    public List<Indicator> findIndicatorsInProgram(Program program) {
+        return indicatorRepository.findIndicatorsInProgram(program);
+    }
+
+    @Override
+    public List<Indicator> findIndicatorsIndicatorGroup(IndicatorGroup indicatorGroup) {
+        return indicatorRepository.findIndicatorsIndicatorGroup(indicatorGroup);
+    }
+
 }

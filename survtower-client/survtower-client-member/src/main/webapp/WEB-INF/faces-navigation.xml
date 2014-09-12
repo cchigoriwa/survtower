@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+              
+    <faces-flow-definition>
+        
+    </faces-flow-definition>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>download_Look_Up_Data</from-outcome>
+            <to-view-id>/admin/downloadLookUpData.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>data_select</from-outcome>
+            <to-view-id>/data/data_select.xhtml</to-view-id>
+        </navigation-case>   
+          
+        <navigation-case>
+            <from-outcome>data_entry</from-outcome>
+            <to-view-id>/data/data_entry.xhtml</to-view-id>
+        </navigation-case>    
+        
+    </navigation-rule>
+
+    <!-- =========== Look Up Data Under /admin (Will be the same as surv member and tower) ================================== -->    
+    <navigation-rule>
+
+        <navigation-case>
+            <from-outcome>dataSourceCategoryList</from-outcome>
+            <to-view-id>/admin/dataSourceCategoryList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>dataSourceList</from-outcome>
+            <to-view-id>/admin/dataSourceList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>periodList</from-outcome>
+            <to-view-id>/admin/periodList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>indicatorList</from-outcome>
+            <to-view-id>/admin/indicatorList.xhtml</to-view-id>
+        </navigation-case>        
+        
+        <navigation-case>
+            <from-outcome>indicatorGroupList</from-outcome>
+            <to-view-id>/admin/indicatorGroupList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>indicatorTypeList</from-outcome>
+            <to-view-id>/admin/indicatorTypeList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>frequencyList</from-outcome>
+            <to-view-id>/admin/frequencyList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>programList</from-outcome>
+            <to-view-id>/admin/programList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>dataElementList</from-outcome>
+            <to-view-id>/admin/dataElementList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>admin_home</from-outcome>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+</faces-config>

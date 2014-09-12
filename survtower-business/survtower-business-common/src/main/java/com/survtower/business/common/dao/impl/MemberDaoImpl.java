@@ -11,56 +11,57 @@ import org.springframework.stereotype.Repository;
 /**
  *
  * @author Charles Chigoriwa
+ * @author Takunda Dhlakama
  */
 @Repository
 public class MemberDaoImpl implements MemberDao{
     
     @Autowired
-    private MemberRepository countryRepository;
+    private MemberRepository memberRepository;
 
     @Override
-    public Member save(Member country) {
-       return countryRepository.save(country);
+    public Member save(Member member) {
+       return memberRepository.save(member);
     }
 
     @Override
     public List<Member> findAll() {
-       return countryRepository.findAll();
+       return memberRepository.findAll();
     }
 
     @Override
     public Member find(Long id) {
-        return countryRepository.findOne(id);
+        return memberRepository.findOne(id);
     }
 
     @Override
     public Member findByUuid(String uuid) {
-       return countryRepository.findByUuid(uuid);
+       return memberRepository.findByUuid(uuid);
     }
 
     @Override
     public List<Member> findMembersUpdatedAfter(Date afterDate) {
-        return countryRepository.findMembersUpdatedAfter(afterDate);
+        return memberRepository.findMembersUpdatedAfter(afterDate);
     }
 
     @Override
     public Date findMaximumUpdateDate(Date afterDate) {
-       return countryRepository.findMaximumUpdateDate(afterDate);
+       return memberRepository.findMaximumUpdateDate(afterDate);
     }
 
     @Override
     public List<Member> findMembersUpdatedAfter(Date afterDate, Date maxDate) {
-        return countryRepository.findMembersUpdatedAfter(afterDate, maxDate);
+        return memberRepository.findMembersUpdatedAfter(afterDate, maxDate);
     }
 
     @Override
     public Date findMaximumUpdateDate() {
-        return countryRepository.findMaximumUpdateDate();
+        return memberRepository.findMaximumUpdateDate();
     }
 
     @Override
     public List<Member> findMembersUpdatedBefore(Date maxDate) {
-      return countryRepository.findMembersUpdatedBefore(maxDate);
+      return memberRepository.findMembersUpdatedBefore(maxDate);
     }
     
 }

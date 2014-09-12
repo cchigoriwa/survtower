@@ -1,6 +1,7 @@
 package com.survtower.business.common.domain;
 
 import com.survtower.business.common.BaseEntity;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Surveillance extends BaseEntity {
     private Member member;
     @OneToMany
     private Set<SurveillanceData> surveillanceDataSet = new HashSet<SurveillanceData>();
-    
+
     public Program getProgram() {
         return program;
     }

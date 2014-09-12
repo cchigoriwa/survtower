@@ -11,6 +11,7 @@ import javax.faces.bean.RequestScoped;
 /**
  *
  * @author Charles Chigoriwa
+ * @author Takunda Dhlakama
  */
 @ManagedBean
 @RequestScoped
@@ -20,15 +21,7 @@ public class GeneralController {
     private MemberService memberService;
 
     public Member getMember() {
-        Member member = null;
-        List<Member> list = memberService.findAll();
-        if (list.size() > 1) {
-            throw new SurvtowerRuntimeException("Members in a member state app should not exceed 1");
-        } else if (list.size() == 1) {
-            member=list.get(0);
-        }
-
-        return member;
+        return memberService.getCurrentMember();
     }
 
     public MemberService getMemberService() {

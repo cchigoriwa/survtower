@@ -1,0 +1,73 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../layout.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="Administrator" class="nav"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <f:view transient="true">
+
+            <h:form>
+                <div align="center">
+                    <h:outputText value="&nbsp;"/>
+                    <h:panelGrid columns="3" cellpadding="25px" cellspacing="45px">
+                        <h:panelGroup>
+                            <h:panelGrid columns="2">
+
+                                <h:graphicImage name="1.png" />
+                                <h:link  value="Members" outcome="memberList" />
+
+                                <h:graphicImage name="2.png" />
+                                <h:link  value="Data Source Category" outcome="dataSourceCategoryList" />
+
+                                <h:graphicImage name="3.png" />
+                                <h:link  value="Data Source" outcome="dataSourceList" />
+
+                                <h:graphicImage name="4.png" />
+                                <h:link  value="Data Elements" outcome="dataElementList" />
+
+                                <h:graphicImage name="5.png" />
+                                <h:link  value="Indicator Type" outcome="indicatorTypeList" />
+                            </h:panelGrid>
+                        </h:panelGroup>
+                        <h:graphicImage name="sadc.png" ></h:graphicImage>
+                        <h:panelGroup>
+                            <h:panelGrid columns="2">
+
+                                <h:graphicImage name="6.png" />
+                                <h:link  value="Program" outcome="programList" />
+
+                                <h:graphicImage name="7.png" />
+                                <h:link  value="Indicator Group" outcome="indicatorGroupList" />
+
+                                <h:graphicImage name="8.png" />
+                                <h:link  value="Indicator" outcome="indicatorList" />
+
+                                <h:graphicImage name="9.png" />
+                                <h:link  value="Frequency" outcome="frequencyList" />
+
+                                <h:graphicImage name="10.png" />
+                                <h:link value="Period" outcome="periodList" />
+
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGrid>               
+
+                </div>
+            </h:form>
+            <center>
+
+            </center>
+        </f:view>
+
+    </ui:define>
+
+</ui:composition>

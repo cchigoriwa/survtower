@@ -66,4 +66,19 @@ public class PeriodServiceImpl implements PeriodService {
     public List<Period> findPeriodsUpdatedBefore(Date maxDate) {
         return periodDao.findPeriodsUpdatedBefore(maxDate);
     }
+
+    @Override
+    public List<Period> fetchActive() {
+        return periodDao.fetchActive();
+    }
+
+    @Override
+    public List<Period> fetchAllAscending() {
+        return periodDao.fetchAllAscending();
+    }
+
+    @Override
+    public List<Period> fetchAllDescending() {
+        return periodDao.fetchAllDescending();
+    }
 }

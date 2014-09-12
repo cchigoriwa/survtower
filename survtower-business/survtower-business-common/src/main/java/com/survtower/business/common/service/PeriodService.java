@@ -20,4 +20,10 @@ public interface PeriodService extends GenericService<Period>{
     public Date findMaximumUpdateDate();
     
     public List<Period> findPeriodsUpdatedBefore(Date maxDate);
+    
+     public List<Period> fetchActive();
+
+    public List<Period> fetchAllAscending();
+
+    public List<Period> fetchAllDescending();
 }

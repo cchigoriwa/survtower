@@ -8,6 +8,7 @@ import java.util.List;
 /**
  *
  * @author Charles Chigoriwa
+ * @author Takunda Dhlakama
  */
 public interface PeriodDao extends GenericDao<Period> {
 
@@ -18,7 +19,13 @@ public interface PeriodDao extends GenericDao<Period> {
     public List<Period> findPeriodsUpdatedAfter(Date afterDate, Date maxDate);
 
     public Date findMaximumUpdateDate();
-    
+
     public List<Period> findPeriodsUpdatedBefore(Date maxDate);
+
+    public List<Period> fetchActive();
+
+    public List<Period> fetchAllAscending();
+
+    public List<Period> fetchAllDescending();
 
 }

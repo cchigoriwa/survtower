@@ -15,20 +15,26 @@ public interface PeriodRepository extends GenericRepository<Period, Long> {
 
     @Query("select i from Period i where i.updateDate>:afterDate")
     public List<Period> findPeriodsUpdatedAfter(@Param("afterDate") Date afterDate);
-    
+
     @Query("select max(i.updateDate) from Period i where i.updateDate>:afterDate")
     public Date findMaximumUpdateDate(@Param("afterDate") Date afterDate);
-    
+
     @Query("select max(i.updateDate) from Period i")
     public Date findMaximumUpdateDate();
-    
+
     @Query("select i from Period i where i.updateDate>:afterDate and i.updateDate<=:maxDate")
-    public List<Period> findPeriodsUpdatedAfter(@Param("afterDate") Date afterDate,@Param("maxDate") Date maxDate);
-    
+    public List<Period> findPeriodsUpdatedAfter(@Param("afterDate") Date afterDate, @Param("maxDate") Date maxDate);
+
     @Query("select i from Period i where i.updateDate<=:maxDate")
     public List<Period> findPeriodsUpdatedBefore(@Param("maxDate") Date maxDate);
 
+    @Query("select i from Period i where i.active = true and i.deleted = false order by i.name asc")
+    public List<Period> fetchActive();
     
-    
+    @Query("select i from Period i where i.deleted = false order by i.name asc")
+    public List<Period> fetchAllAscending();
+
+    @Query("select i from Period i where i.deleted = false order by i.name desc")
+    public List<Period> fetchAllDescending();
 
 }

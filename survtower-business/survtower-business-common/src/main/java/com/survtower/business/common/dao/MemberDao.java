@@ -20,5 +20,5 @@ public interface MemberDao extends GenericDao<Member> {
     public Date findMaximumUpdateDate();
     
     public List<Member> findMembersUpdatedBefore(Date maxDate);
-
+    
 }

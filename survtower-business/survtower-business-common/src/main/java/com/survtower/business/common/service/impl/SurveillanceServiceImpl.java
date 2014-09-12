@@ -1,6 +1,9 @@
 package com.survtower.business.common.service.impl;
 
 import com.survtower.business.common.dao.SurveillanceDao;
+import com.survtower.business.common.domain.Member;
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.SurveillanceService;
 import java.util.Date;
@@ -42,4 +45,13 @@ public class SurveillanceServiceImpl implements SurveillanceService {
         return surveillanceDao.findByUuid(uuid);
     }
 
+    @Override
+    public Surveillance get(Program program, Period period, Member member){
+    return surveillanceDao.get(program, period, member);
+    }
+    
+    @Override
+    public List<Surveillance> getSurviellances(Program program, Period period){
+    return surveillanceDao.getSurviellances(program, period);
+    }
 }

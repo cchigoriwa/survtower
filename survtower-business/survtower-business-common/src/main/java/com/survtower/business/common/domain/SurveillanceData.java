@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.text.NumberFormat;
+import java.util.Objects;
 
 /**
  *
@@ -32,7 +33,7 @@ public class SurveillanceData extends BaseEntity {
     private Double manualValue;
     private Boolean manual = Boolean.FALSE;
     @Transient
-    public Double calculateValue;
+    private Double calculateValue;
 
     public Surveillance getSurveillance() {
         return surveillance;
@@ -81,9 +82,8 @@ public class SurveillanceData extends BaseEntity {
     public void setManual(Boolean manual) {
         this.manual = manual;
     }
-    
-    
-    public Double getCalculateValue() {        
+
+    public Double getCalculateValue() {
         if (isManual()) {
             return getManualValue(); // if manual value ignore Denominator value - Consider Only Numerator value
         } else {
@@ -101,6 +101,32 @@ public class SurveillanceData extends BaseEntity {
                 return 0.0;
             }
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.surveillance);
+        hash = 67 * hash + Objects.hashCode(this.indicator);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SurveillanceData other = (SurveillanceData) obj;
+        if (!Objects.equals(this.surveillance, other.surveillance)) {
+            return false;
+        }
+        if (!Objects.equals(this.indicator, other.indicator)) {
+            return false;
+        }
+        return true;
     }
 
 }

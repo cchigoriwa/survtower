@@ -58,10 +58,18 @@ public class Indicator extends NamedBaseEntity {
     public void setIndicatorType(IndicatorType indicatorType) {
         this.indicatorType = indicatorType;
     }
-    
+
     @Override
     public String toString() {
         return getName();
+    }
+
+    public Boolean getIndicatorIsACount() {
+        if (getIndicatorType() != null && 1 == getIndicatorType().getFactor()) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
     }
 
 }

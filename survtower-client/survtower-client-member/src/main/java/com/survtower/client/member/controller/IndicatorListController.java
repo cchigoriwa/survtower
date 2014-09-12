@@ -13,7 +13,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class ListIndicatorController {
+public class IndicatorListController {
     
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
@@ -29,6 +29,5 @@ public class ListIndicatorController {
     public void setIndicatorService(IndicatorService indicatorService) {
         this.indicatorService = indicatorService;
     }
-    
     
 }

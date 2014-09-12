@@ -8,42 +8,19 @@
 
     <h:form> 
         <p:menubar>
-            <p:submenu label="File" icon="ui-icon-document">
-                <p:submenu label="New" icon="ui-icon-contact">
-                    <p:menuitem value="Project" url="#" />
-                    <p:menuitem value="Other" url="#" />
-                </p:submenu>
-                <p:menuitem value="Open" url="#" />
-                <p:separator />
-                <p:menuitem value="Quit" url="#" />
+            <p:menuitem value="Dash Board" outcome="index" />
+           
+            <p:menuitem value="Data Entry" outcome="data_select" icon="ui-icon-arrowreturnthick-1-w" />
+
+            <p:submenu label="Reporting Periods" icon="ui-icon-pencil">
+                <p:menuitem value="Data Entry" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                <p:menuitem value="Export" url="#" icon="ui-icon-arrowreturnthick-1-e" />
             </p:submenu>
 
-            <p:submenu label="Edit" icon="ui-icon-pencil">
-                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
-                <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+            <p:submenu label="Settings" icon="ui-icon-pencil">
+                <p:menuitem value="Look up Data" outcome="admin_home"/>
+                <p:menuitem value="Download look Up Data" outcome="download_Look_Up_Data"/>
             </p:submenu>
-
-            <p:submenu label="Help" icon="ui-icon-help">
-                <p:menuitem value="Contents" url="#" />
-                <p:submenu label="Search" icon="ui-icon-search">
-                    <p:submenu label="Text">
-                        <p:menuitem value="Workspace" url="#" />
-                    </p:submenu>
-                    <p:menuitem value="File" url="#" />
-                </p:submenu>
-            </p:submenu>
-
-            <p:submenu label="Actions" icon="ui-icon-gear">
-                <p:submenu label="Ajax" icon="ui-icon-refresh">
-                    <p:menuitem value="Save"  icon="ui-icon-disk" />
-                    <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w" />
-                </p:submenu>
-                <p:submenu label="Non-Ajax" icon="ui-icon-newwin">
-                    <p:menuitem value="Delete"  icon="ui-icon-close" />
-                </p:submenu>
-            </p:submenu>
-
-            <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
 
             <f:facet name="options">
                 <p:inputText style="margin-right:10px" placeholder="Search"/>

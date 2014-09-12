@@ -2,6 +2,8 @@ package com.survtower.business.common.service.impl;
 
 import com.survtower.business.common.dao.IndicatorDao;
 import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.IndicatorGroup;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.IndicatorService;
 import java.util.Date;
 import java.util.List;
@@ -65,5 +67,15 @@ public class IndicatorServiceImpl implements IndicatorService {
     @Override
     public List<Indicator> findIndicatorsUpdatedBefore(Date maxDate) {
         return indicatorDao.findIndicatorsUpdatedBefore(maxDate);
+    }
+
+    @Override
+    public List<Indicator> findIndicatorsInProgram(Program program) {
+        return indicatorDao.findIndicatorsInProgram(program);
+    }
+
+    @Override
+    public List<Indicator> findIndicatorsIndicatorGroup(IndicatorGroup indicatorGroup) {
+        return indicatorDao.findIndicatorsIndicatorGroup(indicatorGroup);
     }
 }

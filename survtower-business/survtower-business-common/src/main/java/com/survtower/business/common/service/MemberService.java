@@ -20,4 +20,6 @@ public interface MemberService extends GenericService<Member>{
     public Date findMaximumUpdateDate();
     
     public List<Member> findMembersUpdatedBefore(Date maxDate);
+    
+    public Member getCurrentMember();
 }
