@@ -2,7 +2,9 @@ package com.survtower.business.member.integration.impl;
 
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Lookup;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.PeriodService;
+import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.PeriodIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
@@ -11,7 +13,9 @@ import com.survtower.ws.api.PeriodWebservice;
 import com.survtower.ws.api.domain.PeriodCollectionPayload;
 import com.survtower.ws.api.domain.RequestMetaData;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +32,8 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
     private PeriodService periodService;
     @Autowired
     private IntegrationService integrationService;
+    @Autowired
+    private ProgramService programService;
 
     @Override
     public synchronized LookupMeta pull() {
@@ -57,6 +63,19 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
                     //it must be a new object
                     period.setId(null);
                 }
+                
+                //Reset @OneToMany programs before saving
+                if(period.getPrograms()!=null && !period.getPrograms().isEmpty()){
+                    Set<Program> serverPrograms=period.getPrograms();
+                    Set<Program> localPrograms=new LinkedHashSet<>();
+                    for(Program serverProgram:serverPrograms){
+                        Program localProgram=programService.findByUuid(serverProgram.getUuid());
+                        localPrograms.add(localProgram);
+                    }
+                    period.setPrograms(localPrograms);                    
+                }
+                
+                
                 periodService.save(period);
             }
         }
