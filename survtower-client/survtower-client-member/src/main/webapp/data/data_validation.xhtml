@@ -9,33 +9,18 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Online Upload of Surveillance Data
+        Approval of Surveillance Data
     </ui:define>
 
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
-        <p:panel header="Data Entry">
+        <p:panel header="Data Validation and Aprroval">
             <h:form>
-                <p>Selected Program - #{dataEntryController.program.name} </p>
-                <p>Selected Period - #{dataEntryController.period.name}</p>
-                <p>Selected Country - <b>#{generalController.member.name}</b></p>
+                <p>Selected Program - #{dataValidationController.surveillance.program.name} </p>
+                <p>Selected Period - #{dataValidationController.surveillance.period.name}</p>
+                <p>Selected Country - <b>#{dataValidationController.surveillance.member.name}</b></p>
 
-                <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{!dataEntryController.submitted}">  
-                    <p:column headerText="Indicator Name">  
-                        #{item.indicator.name}
-                    </p:column>  
-
-                    <p:column headerText="Numerator">  
-                        <h:inputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
-                    </p:column>  
-
-                    <p:column headerText="Denominator">  
-                        <h:inputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
-                    </p:column>  
-
-                </p:dataTable>
-
-                <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{dataEntryController.submitted}">  
+                <p:dataTable value="#{dataValidationController.surveillanceDataList}" var="item">  
                     <p:column headerText="Indicator Name">  
                         #{item.indicator.name}
                     </p:column>  
@@ -61,10 +46,9 @@
                     </p:column>  
 
                 </p:dataTable>
-                <p:commandButton value="Process" action="#{dataEntryController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataEntryController.submitted}"/>
-                <p:commandButton value="Edit" action="#{dataEntryController.editSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
-                <p:commandButton value="Save" action="#{dataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
-                <p:commandButton value="Data Validation and Approval" action="#{dataEntryController.dataValidationSelection()}" ajax="false" rendered="#{dataEntryController.surveillanceAudit!=null and dataEntryController.surveillanceAudit.approvedByOn==null}"/>                        
+                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedByOn==null}"/>
+                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedByOn==null}"/>
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedByOn==null}"/>
             </h:form>
         </p:panel>
     </ui:define>

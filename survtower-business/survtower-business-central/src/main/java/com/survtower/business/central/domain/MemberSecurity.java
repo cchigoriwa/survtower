@@ -33,7 +33,7 @@ public class MemberSecurity extends BaseEntity {
     private String memberID;
     @Column(updatable = false)
     private String memberKey;
-    private boolean deactivated;
+    private Boolean deactivated = Boolean.FALSE;
 
     @OneToOne
     private Member member;
@@ -80,11 +80,11 @@ public class MemberSecurity extends BaseEntity {
         this.member = member;
     }
 
-    public boolean isDeactivated() {
+    public Boolean isDeactivated() {
         return deactivated;
     }
 
-    public void setDeactivated(boolean deactivated) {
+    public void setDeactivated(Boolean deactivated) {
         this.deactivated = deactivated;
     }
     
@@ -138,7 +138,7 @@ public class MemberSecurity extends BaseEntity {
 
     @Override
     public String toString() {
-        return "com.survtower.business.central.domain.CountrySecurity[ id=" + id + " ]";
+        return getEmailAddress();
     }
 
 }

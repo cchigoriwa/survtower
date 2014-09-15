@@ -1,8 +1,6 @@
 package com.survtower.client.member.controller.entry;
 
-import com.survtower.business.common.SurvtowerRuntimeException;
 import com.survtower.business.common.domain.Indicator;
-import com.survtower.business.common.domain.Member;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
@@ -12,6 +10,8 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
+import com.survtower.business.member.domain.SurveillanceAudit;
+import com.survtower.business.member.service.SurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
 import static com.survtower.client.member.utility.MessageInfor.inforMessages;
@@ -22,7 +22,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -52,12 +51,21 @@ public class DataEntryController extends MessageInfor implements Serializable {
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
 
+    @ManagedProperty(value = "#{surveillanceAuditService}")
+    private SurveillanceAuditService surveillanceAuditService;
+
+    public SurveillanceAuditService getSurveillanceAuditService() {
+        return surveillanceAuditService;
+    }
+
+    public void setSurveillanceAuditService(SurveillanceAuditService surveillanceAuditService) {
+        this.surveillanceAuditService = surveillanceAuditService;
+    }
+
     private Boolean submitted = Boolean.FALSE;
 
-    //@ManagedProperty(value = "#{param.programId}")
     private String programId;
 
-    //@ManagedProperty(value = "#{param.periodId}")
     private String periodId;
 
     public Boolean getSubmitted() {
@@ -87,6 +95,15 @@ public class DataEntryController extends MessageInfor implements Serializable {
     private Period period;
     private Program program;
     private Surveillance surveillance;
+    private SurveillanceAudit surveillanceAudit;
+
+    public SurveillanceAudit getSurveillanceAudit() {
+        return surveillanceAudit;
+    }
+
+    public void setSurveillanceAudit(SurveillanceAudit surveillanceAudit) {
+        this.surveillanceAudit = surveillanceAudit;
+    }
 
     public ProgramService getProgramService() {
         return programService;
@@ -180,11 +197,24 @@ public class DataEntryController extends MessageInfor implements Serializable {
             submitted = Boolean.TRUE;
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+
+            if (surveillanceAudit != null && surveillanceAudit.getApprovedByOn() != null) {//check audit for Approval
+                errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
+                return null;
+            }
             surveillanceService.save(surveillance);
+            if (surveillanceAudit == null) {
+                surveillanceAudit = new SurveillanceAudit();
+                surveillanceAudit.setPeriod(period);
+                surveillanceAudit.setProgram(program);
+                surveillanceAudit.setUploadedBy(null);
+                surveillanceAudit.setUploadedOn(new Date());
+            } else {
+                surveillanceAudit.setUploadedOn(new Date());
+            }
+            surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            submitted = Boolean.FALSE;
+        } catch (Exception ex) {            
             errorMessages("Surveillance Data Not Processed Succefully");
         }
         return null;
@@ -220,20 +250,21 @@ public class DataEntryController extends MessageInfor implements Serializable {
                 .getRequestParameterMap().get("periodId");
         program = programService.findByUuid(programId);
         period = periodService.findByUuid(periodId);
-        surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
 
+        surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
         if (getSurveillance() != null) {
             //if surveillance data has been created load file
             inforMessages("Indicators for this period have been created Already");
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-
+            surveillanceAudit = surveillanceAuditService.get(getSurveillance().getProgram(), getSurveillance().getPeriod());
         } else {
             //create new surveillance 
             setSurveillance(new Surveillance());
             getSurveillance().setPeriod(getPeriod());
             getSurveillance().setProgram(getProgram());
             getSurveillance().setCreateDate(new Date());
+            getSurveillance().setMember(memberService.getCurrentMember());
             for (Indicator indicator : indicatorService.findIndicatorsInProgram(getProgram())) {
                 SurveillanceData data = new SurveillanceData();
                 data.setCreateDate(new Date());
@@ -243,6 +274,16 @@ public class DataEntryController extends MessageInfor implements Serializable {
                 getSurveillanceDataList().clear();
                 getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
             }
+        }
+    }
+    
+    public String dataValidationSelection() {
+        SurveillanceAudit audit = surveillanceAuditService.get(program, period);
+        if (getSurveillance() != null && audit != null) {
+            return "data_validation?faces-redirect=true&surveillanceId=" + getSurveillance().getUuid();
+        } else {
+            errorMessages("Surveillance Data Not Uploaded - Redirect to Data Entry");
+            return "data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid();
         }
     }
 }

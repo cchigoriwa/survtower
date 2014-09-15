@@ -6,10 +6,19 @@
 
 package com.survtower.business.member.dao;
 
+import com.survtower.business.common.GenericDao;
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
+import com.survtower.business.member.domain.SurveillanceAudit;
+import java.util.List;
+
 /**
  *
  * @author tdhlakama
  */
-public class SurveillanceAuditDao {
+public interface SurveillanceAuditDao extends GenericDao<SurveillanceAudit> {
     
+    public SurveillanceAudit get(Program program, Period period);
+
+    public List<SurveillanceAudit> getSurviellanceAudits(Program program, Period period);
 }

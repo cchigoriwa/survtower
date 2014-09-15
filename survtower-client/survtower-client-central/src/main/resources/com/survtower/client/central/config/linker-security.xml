@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    
+
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/webjars/**" security="none"/>
+    <http pattern="/loggedout.jsp" security="none"/>
+
+    <http auto-config="true" use-expressions="true">
+        <form-login login-page="/login" login-processing-url="/loginProcess" 
+                    default-target-url="/member/dashboard" authentication-failure-url="/login?login_error=1" />
+        <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
+        <intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>         
+    </http>
+
+    
+    <authentication-manager >
+        <authentication-provider user-service-ref="memberDetailService">
+            <password-encoder ref="doNothingPasswordEncoder">
+                <!--<salt-source user-property="username" /> -->
+                <salt-source user-property="uuid" />
+            </password-encoder>
+        </authentication-provider>           
+    </authentication-manager>
+
+    
+
+    <!-- Automatically receives AuthenticationEvent messages -->
+    <beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener"/>
+
+</beans:beans>

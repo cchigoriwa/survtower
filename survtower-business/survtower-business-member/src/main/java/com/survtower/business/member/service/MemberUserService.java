@@ -11,13 +11,8 @@ import java.util.List;
  */
 public interface MemberUserService extends GenericService<MemberUser>{
     
-    public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate);
+    public MemberUser findByUserName(String username);
 
-    public Date findMaximumUpdateDate(Date afterDate);
+    public int updatePassword(String password, String username);  public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate);
 
-    public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate, Date maxDate);
-    
-    public Date findMaximumUpdateDate();
-    
-    public List<MemberUser> findMemberUsersUpdatedBefore(Date maxDate);
 }

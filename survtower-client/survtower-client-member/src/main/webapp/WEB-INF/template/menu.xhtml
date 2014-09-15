@@ -10,14 +10,11 @@
         <p:menubar>
             <p:menuitem value="Dash Board" outcome="index" />
            
-            <p:menuitem value="Data Entry" outcome="data_select" icon="ui-icon-arrowreturnthick-1-w" />
-
-            <p:submenu label="Reporting Periods" icon="ui-icon-pencil">
-                <p:menuitem value="Data Entry" url="#" icon="ui-icon-arrowreturnthick-1-w" />
-                <p:menuitem value="Export" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-            </p:submenu>
-
+            <p:menuitem value="Data Entry" outcome="data_select" icon="ui-icon-pencil" />
+            
             <p:submenu label="Settings" icon="ui-icon-pencil">
+                <p:menuitem value="New User" outcome="memberUserEdit"/>
+                <p:menuitem value="Users" outcome="memberUserList"/>
                 <p:menuitem value="Look up Data" outcome="admin_home"/>
                 <p:menuitem value="Download look Up Data" outcome="download_Look_Up_Data"/>
             </p:submenu>
