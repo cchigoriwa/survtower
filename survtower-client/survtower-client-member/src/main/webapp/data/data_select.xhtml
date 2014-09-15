@@ -20,17 +20,17 @@
                 <p>Selected Country is <b>#{generalController.member.name}</b></p>
                 <h:panelGrid columns="2"> 
 
-                    <h:outputText value="Select Program:"/>
-                    <h:selectOneMenu value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
-                                     converter="#{programConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{programListController.programs}"/>
-                    </h:selectOneMenu>
                     <h:outputText value="Select Period"/>
                     <h:selectOneMenu value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
                                      converter="#{periodConverter}">
                         <f:selectItem itemLabel="--Select One--"/>
                         <f:selectItems value="#{dataSelectController.activePeriods}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Select Program:"/>
+                    <h:selectOneMenu value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
+                                     converter="#{programConverter}">
+                        <f:selectItem itemLabel="--Select One--"/>
+                        <f:selectItems value="#{loggedOnProgramListController.programs}"/>
                     </h:selectOneMenu>
                     <h:outputText value=""/>
                     <h:panelGrid columns="2">                    

@@ -28,7 +28,7 @@
                                     #{item.name} 
                                 </p:column>
                                 <p:column headerText="Due Date In">
-                                    #{item.dueDate} Days
+                                    #{item.numberOfDaysLeftToDueDate} Days
                                 </p:column>
                                 <p:column headerText="Submitted">  
                                     <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 

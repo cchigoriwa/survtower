@@ -1,8 +1,10 @@
 package com.survtower.business.member.service.impl;
 
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.service.MemberUserService;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,6 @@ public class MemberUserServiceImpl implements MemberUserService {
     // -------------------------------------------------------------------------
     // Get Current user Implementation
     // -------------------------------------------------------------------------
-
     @Override
     public MemberUser getCurrentUser() {
         String username = getCurrentUsername();
@@ -107,4 +108,21 @@ public class MemberUserServiceImpl implements MemberUserService {
         return userDetails.getUsername();
     }
 
+    @Override
+    public List<String> getCurrentUserRoles() {
+        if (getCurrentUser() != null) {
+            return getCurrentUser().getRoles();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Program> getCurrentUserPrograms() {
+        if (getCurrentUser() != null) {
+            return getCurrentUser().getProgramList();
+        } else {
+            return new ArrayList<>();
+        }
+    }
 }
