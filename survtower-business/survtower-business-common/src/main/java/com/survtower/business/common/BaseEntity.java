@@ -24,8 +24,7 @@ public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)    
-    @XmlTransient
+    @GeneratedValue(strategy = GenerationType.AUTO)  
     protected Long id;
     
     @Column(nullable = false, updatable = false)
@@ -40,8 +39,7 @@ public abstract class BaseEntity implements Serializable {
     private Date updateDate=new Date();
     
     
-   
-
+    @XmlTransient
     public Long getId() {
         return id;
     }
