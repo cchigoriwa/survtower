@@ -15,6 +15,7 @@ public class HomeController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String viewProfile(Model model, Principal principal) {
+        model.addAttribute("loggedIn", principal!=null);
         return "home";
     }
 }
