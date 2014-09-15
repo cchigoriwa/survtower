@@ -17,7 +17,6 @@ public class CentralSecurityDaoImpl implements CentralSecurityDao{
     @Autowired
     private CentralSecurityRepository centralSecurityRepository;
 
-
     @Override
     public CentralSecurity save(CentralSecurity centralSecurity) {
        return centralSecurityRepository.save(centralSecurity);
