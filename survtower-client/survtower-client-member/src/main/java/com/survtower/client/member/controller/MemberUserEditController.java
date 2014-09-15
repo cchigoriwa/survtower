@@ -1,12 +1,13 @@
 package com.survtower.client.member.controller;
 
 import com.survtower.business.common.domain.Program;
-import com.survtower.business.member.domain.MemberRole;
 import com.survtower.business.member.domain.MemberUser;
+import com.survtower.business.member.domain.MemberUserRole;
 import com.survtower.business.member.service.MemberUserService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -28,14 +29,14 @@ public class MemberUserEditController {
 
     private MemberUser memberUser;
 
-    private List<MemberRole> roles = new ArrayList<>();
+    private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
 
-    public List<MemberRole> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<MemberRole> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
@@ -47,8 +48,11 @@ public class MemberUserEditController {
         this.programs = programs;
     }
 
-    public MemberRole[] getMemberRoles() {
-        return MemberRole.values();
+    public List<String> getMemberRoles() {
+        List<String> list = new ArrayList<>();
+        list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
+        list.add(MemberUser.ROLE_HEALTH_INFORMATION_OFFICER);
+        return list;
     }
 
     public MemberUser getMemberUser() {
@@ -57,6 +61,14 @@ public class MemberUserEditController {
 
     public String save() {
         memberUser.setPrograms(new HashSet<Program>(programs));
+        Set<MemberUserRole> memberUserRoles = new HashSet<>();
+        for (String role : getRoles()) {
+            MemberUserRole memberUserRole = new MemberUserRole();
+            memberUserRole.setMemberRole(role);
+            memberUserRole.setDeactivated(Boolean.TRUE);
+            memberUserRoles.add(memberUserRole);
+        }
+        memberUser.setMemberUserRoles(memberUserRoles);
         memberUserService.save(memberUser);
         return "memberUserList?faces-redirect=true&src=edit";
     }
@@ -87,6 +99,7 @@ public class MemberUserEditController {
             memberUser = memberUserService.findByUuid(uuid);
             if (memberUser != null) {
                 setPrograms(new ArrayList<Program>(memberUser.getPrograms()));
+                setRoles(new ArrayList<String>(memberUser.getRoles()));
             }
             if (memberUser == null) {
                 memberUser = new MemberUser();

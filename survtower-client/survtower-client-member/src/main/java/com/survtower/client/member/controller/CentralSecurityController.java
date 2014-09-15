@@ -38,7 +38,7 @@ public class CentralSecurityController {
     
     public String save(){
         centralSecurityService.save(centralSecurity);
-        return "adminHome";
+        return "admin_home";
     }
     
     @PostConstruct

@@ -8,12 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -32,17 +30,22 @@ import org.springframework.security.core.userdetails.UserDetails;
     @UniqueConstraint(columnNames = {"uuid"})})
 public class MemberUser extends BaseEntity {
 
+    @Transient
+    public static String ROLE_COUNTRY_ADMINISTRATOR = "ROLE_COUNTRY_ADMINISTRATOR";
+    @Transient
+    public static String ROLE_HEALTH_INFORMATION_OFFICER = "ROLE_HEALTH_INFORMATION_OFFICER";
     private String username;
     private String password;
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
-    @ElementCollection(targetClass = MemberRole.class)
-    @Enumerated(EnumType.STRING)
-    private Set<MemberRole> memberRoles = new HashSet<MemberRole>();
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "MemberUser_Program", joinColumns = { @JoinColumn(name = "member_user_id") }, inverseJoinColumns = { @JoinColumn(name = "program_id") })
     private Set<Program> programs = new HashSet<Program>();
+    @JoinTable(name = "MemberUser_Role", joinColumns = { @JoinColumn(name = "member_user_id") }, inverseJoinColumns = { @JoinColumn(name = "member_role") })
+    @ManyToMany(cascade = CascadeType.ALL)    
+    private Set<MemberUserRole> memberUserRoles = new HashSet<MemberUserRole>();
     @Transient
-    private List<MemberRole> roles;
+    private List<String> roles;
     @Transient
     private List<Program> programList;
 
@@ -60,14 +63,6 @@ public class MemberUser extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<MemberRole> getMemberRoles() {
-        return memberRoles;
-    }
-
-    public void setMemberRoles(Set<MemberRole> memberRoles) {
-        this.memberRoles = memberRoles;
     }
 
     public Set<Program> getPrograms() {
@@ -91,12 +86,24 @@ public class MemberUser extends BaseEntity {
         this.deactivated = deactivated;
     }
 
-    public List<MemberRole> getRoles() {
-        return new ArrayList<MemberRole>(getMemberRoles());
+    public List<String> getRoles() {
+        Set<String> memberRoles = new HashSet<String>();
+        for (MemberUserRole userRole : getMemberUserRoles()) {
+            memberRoles.add(userRole.getMemberRole());
+        }
+        return new ArrayList<String>(memberRoles);
     }
 
     public List<Program> getProgramList() {
         return new ArrayList<Program>(getPrograms());
+    }
+
+    public Set<MemberUserRole> getMemberUserRoles() {
+        return memberUserRoles;
+    }
+
+    public void setMemberUserRoles(Set<MemberUserRole> memberUserRoles) {
+        this.memberUserRoles = memberUserRoles;
     }
 
     public UserDetails toUserDetails() {
@@ -110,8 +117,8 @@ public class MemberUser extends BaseEntity {
         userDetails.setAccountNonExpired(!this.deactivated);
 
         List<GrantedAuthority> list = new ArrayList<>();
-        for (MemberRole role : getMemberRoles()) {
-            list.add(new SimpleGrantedAuthority(role.name()));
+        for (String role : getRoles()) {
+            list.add(new SimpleGrantedAuthority(role));
         }
         userDetails.setAuthorities(list);
         return userDetails;
