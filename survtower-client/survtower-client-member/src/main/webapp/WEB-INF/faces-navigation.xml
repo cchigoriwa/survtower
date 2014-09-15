@@ -53,8 +53,8 @@
         </navigation-case>  
         
         <navigation-case>
-            <from-outcome>loggedout</from-outcome>
-            <to-view-id>/loggedout.xhtml</to-view-id>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>    
         
     </navigation-rule>
