@@ -16,6 +16,20 @@
                     <p><a href="#">@SADCSurveil</a><br />Ping us on Twitter if you have questions.</p>
                 </div>        
             </div>
+            <div class="row">
+                <spring:url value="/login" var="loginUrl"/>
+                <spring:url value="/logout" var="logoutUrl"/>
+                <c:choose>
+                    <c:when test="${loggedIn}">
+                        <a href="${logoutUrl}">Logout</a>
+                    </c:when>
+                    <c:otherwise>                         
+                        <a href="${loginUrl}">Login</a>
+                    </c:otherwise>
+                </c:choose>
+                
+               
+            </div>
         </div>
     </div>
 </div>
