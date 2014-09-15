@@ -43,27 +43,18 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     @Override
+    public MemberUser findByUserName(String username) {
+        return memberUserDao.findByUserName(username);
+    }
+
+    @Override
+    public int updatePassword(String password, String username) {
+        return memberUserDao.updatePassword(password, username);
+    }
+
+    @Override
     public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate) {
-        return memberUserDao.findMemberUsersUpdatedAfter(afterDate);
+        return null;
     }
 
-    @Override
-    public Date findMaximumUpdateDate(Date afterDate) {
-        return memberUserDao.findMaximumUpdateDate(afterDate);
-    }
-
-    @Override
-    public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate, Date maxDate) {
-        return memberUserDao.findMemberUsersUpdatedAfter(afterDate, maxDate);
-    }
-
-    @Override
-    public Date findMaximumUpdateDate() {
-        return memberUserDao.findMaximumUpdateDate();
-    }
-
-    @Override
-    public List<MemberUser> findMemberUsersUpdatedBefore(Date maxDate) {
-        return memberUserDao.findMemberUsersUpdatedBefore(maxDate);
-    }
 }

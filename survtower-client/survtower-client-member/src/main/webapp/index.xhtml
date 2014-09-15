@@ -21,13 +21,41 @@
                 <p:panel id="basic" header="Dash Board - #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
 
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:panel id="notificationOne" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
+                        <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
 
-                            <h:commandLink value="Data Entry" action="flow1"/>
+                            <p:dataTable value="#{indexController.activePeriods}" var="item">
+                                <p:column headerText="Name">
+                                    #{item.name} 
+                                </p:column>
+                                <p:column headerText="Due Date In">
+                                    #{item.dueDate} Days
+                                </p:column>
+                                <p:column headerText="Submitted">  
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
+                                </p:column>  
+                                <p:column headerText="Approved">  
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
+                                </p:column>  
+                            </p:dataTable>
+
 
                         </p:panel>
-                        <p:panel id="notificationTwo" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
-
+                        <p:panel id="notificationTwo" header="Reporting Period Missed" footer="Details" style="margin-bottom:20px">
+                            <p:dataTable value="#{indexController.pastDueDatePeriods}" var="item">
+                                <p:column headerText="Name">
+                                    #{item.name} 
+                                </p:column>
+                                <p:column headerText="Submitted">  
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
+                                </p:column>  
+                                <p:column headerText="Approved">  
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
+                                </p:column>  
+                            </p:dataTable>
                         </p:panel>
                         <p:panel id="notificationThree" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
 

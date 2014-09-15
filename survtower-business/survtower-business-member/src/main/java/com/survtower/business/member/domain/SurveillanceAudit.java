@@ -6,7 +6,8 @@
 package com.survtower.business.member.domain;
 
 import com.survtower.business.common.BaseEntity;
-import com.survtower.business.common.domain.Surveillance;
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -21,7 +22,9 @@ public class SurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
     @ManyToOne
-    private Surveillance surveillance;
+    private Program program;
+    @ManyToOne
+    private Period period;
     @ManyToOne
     private MemberUser uploadedBy;
     @ManyToOne
@@ -31,12 +34,20 @@ public class SurveillanceAudit extends BaseEntity {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date approvedByOn;
 
-    public Surveillance getSurveillance() {
-        return surveillance;
+    public Period getPeriod() {
+        return period;
     }
 
-    public void setSurveillance(Surveillance surveillance) {
-        this.surveillance = surveillance;
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 
     public MemberUser getUploadedBy() {

@@ -19,6 +19,6 @@ public interface SurveillanceRepository extends GenericRepository<Surveillance, 
     public Surveillance get(@Param("program") Program program, @Param("period") Period period, @Param("member") Member member);
 
     @Query("select distinct s from Surveillance s where s.program=:program and s.period=:period")
-    public List<Surveillance> getSurviellances(Program program, Period period);
+    public List<Surveillance> getSurviellances(@Param("program") Program program, @Param("period") Period period);
 
 }

@@ -30,6 +30,31 @@
         <navigation-case>
             <from-outcome>data_entry</from-outcome>
             <to-view-id>/data/data_entry.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>data_validation</from-outcome>
+            <to-view-id>/data/data_validation.xhtml</to-view-id>
+        </navigation-case>   
+        
+        <navigation-case>
+            <from-outcome>memberUserList</from-outcome>
+            <to-view-id>/admin/memberUserList.xhtml</to-view-id>
+        </navigation-case>    
+        
+        <navigation-case>
+            <from-outcome>memberUserEdit</from-outcome>
+            <to-view-id>/admin/memberUserEdit.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>loggedout</from-outcome>
+            <to-view-id>/loggedout.xhtml</to-view-id>
         </navigation-case>    
         
     </navigation-rule>
