@@ -5,7 +5,7 @@
         <ul class="title-area"> 
             <li class="name"> 
                 <h1>
-                    <a href="#">My Site</a>
+                    <a href="${memberDashboardUrl}">Dashboard</a>
                 </h1> 
             </li> 
             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone --> 
@@ -17,24 +17,27 @@
             <!-- Right Nav Section --> 
             <ul class="right"> 
                 <li class="active">
-                    <a href="#">Right Button Active</a>
+                    <a href="#">Member State: Active</a>
                 </li> 
                 <li class="has-dropdown"> 
-                    <a href="#">Right Button Dropdown</a> 
+                    <a href="#">Security</a> 
                     <ul class="dropdown"> 
                         <li>
-                            <a href="#">First link in dropdown</a>
+                            <a href="${memberSecurityUrl}">Member Security Details</a>
                         </li> 
-                        <li class="active">
-                            <a href="#">Active link in dropdown</a>
-                        </li> 
+                        <li>
+                            <a href="${changePasswordUrl}">Change Password</a>
+                        </li>
+                        <li>
+                            <a href="${logoutUrl}">Logout</a>
+                        </li>
                     </ul> 
                 </li> 
             </ul> 
             <!-- Left Nav Section --> 
             <ul class="left">
                 <li>
-                    <a href="#">Left Nav Button</a>
+                    <a href="#"></a>
                 </li>
             </ul> 
         </section>

@@ -8,3 +8,9 @@
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <%@ taglib prefix="appTags" tagdir="/WEB-INF/tags" %>
 <sec:authentication property="name" var="userName"></sec:authentication>
+<spring:url value="/member/change_password" var="changePasswordUrl"></spring:url> 
+<spring:url value="/member/security" var="memberSecurityUrl"></spring:url> 
+<spring:url value="/" var="homeUrl"></spring:url>
+<spring:url value="/member/dashboard" var="memberDashboardUrl"/>
+<spring:url value="/login" var="loginUrl"/>
+<spring:url value="/logout" var="logoutUrl"/>

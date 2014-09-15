@@ -17,10 +17,9 @@
                 </div>        
             </div>
             <div class="row">
-                <spring:url value="/login" var="loginUrl"/>
-                <spring:url value="/logout" var="logoutUrl"/>
                 <c:choose>
                     <c:when test="${loggedIn}">
+                        <a href="${memberDashboardUrl}">Member Dashboard</a> ||
                         <a href="${logoutUrl}">Logout</a>
                     </c:when>
                     <c:otherwise>                         

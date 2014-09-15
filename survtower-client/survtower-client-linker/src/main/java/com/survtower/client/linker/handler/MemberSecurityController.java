@@ -15,18 +15,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Charles Chigoriwa
  */
 @Controller
-public class MemberController {
+public class MemberSecurityController {
     
-    @Autowired
+     @Autowired
     private MemberSecurityService memberSecurityService;
     
-    @RequestMapping(value = "/member/dashboard", method = RequestMethod.GET)
+    @RequestMapping(value = "/member/security", method = RequestMethod.GET)
     public String viewProfile(Model model, Principal principal) {
         String emailAddress = principal.getName();
         MemberSecurity memberSecurity=this.memberSecurityService.findByEmailAddress(emailAddress);
         model.addAttribute("memberSecurity", memberSecurity);
-        return "member";
+        return "memberSecurity";
     }
     
+    @RequestMapping(value = "/member/memberkey/generate", method = RequestMethod.POST)
+    public String generateMemberKey(Model model, Principal principal) {
+        String emailAddress = principal.getName();
+        memberSecurityService.updateMemberKey(UUID.randomUUID().toString(), emailAddress);
+        return "redirect:/member/security";
+    }
     
 }
