@@ -29,6 +29,12 @@
                         <f:selectItems value="#{programListController.programs}"/>
                     </h:selectManyCheckbox>
                 </tr>
+                  <tr>
+                    <h:outputLabel value="Select Roles"/>
+                    <h:selectManyCheckbox value="#{memberUserEditController.roles}">
+                        <f:selectItems value="#{memberUserEditController.memberRoles}"/>
+                    </h:selectManyCheckbox>
+                </tr>
             </table>
             <h:commandButton value="Save" action="#{memberUserEditController.save()}">
                 <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
