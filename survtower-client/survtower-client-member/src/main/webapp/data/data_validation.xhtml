@@ -46,9 +46,17 @@
                     </p:column>  
 
                 </p:dataTable>
-                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedByOn==null}"/>
-                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedByOn==null}"/>
-                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedByOn==null}"/>
+                <br/><br/>
+                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedOn==null}"/>
+                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedOn==null}"/>
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedOn==null}"/>
+                
+                <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.approvedBy!=null and dataValidationController.surveillanceAudit.approvedOn!=null}">
+                    <p>Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
+                    <p>Date On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
+                    <p>Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
+                    <p>Date On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
+                </p:panel>
             </h:form>
         </p:panel>
     </ui:define>

@@ -6,6 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  *
  * @author Takunda Dhlakama
  */
-public interface MemberUserDetailService extends UserDetailsService{
-    
+public interface MemberUserDetailService extends UserDetailsService {
+
 }

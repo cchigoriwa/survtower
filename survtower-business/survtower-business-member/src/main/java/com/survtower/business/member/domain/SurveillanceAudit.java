@@ -32,7 +32,7 @@ public class SurveillanceAudit extends BaseEntity {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date uploadedOn;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date approvedByOn;
+    private Date approvedOn;
 
     public Period getPeriod() {
         return period;
@@ -74,12 +74,12 @@ public class SurveillanceAudit extends BaseEntity {
         this.uploadedOn = uploadedOn;
     }
 
-    public Date getApprovedByOn() {
-        return approvedByOn;
+    public Date getApprovedOn() {
+        return approvedOn;
     }
 
-    public void setApprovedByOn(Date approvedByOn) {
-        this.approvedByOn = approvedByOn;
+    public void setApprovedOn(Date approvedOn) {
+        this.approvedOn = approvedOn;
     }
 
 }

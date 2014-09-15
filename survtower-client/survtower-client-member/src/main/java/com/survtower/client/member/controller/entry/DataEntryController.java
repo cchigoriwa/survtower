@@ -10,7 +10,9 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
+import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.SurveillanceAudit;
+import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
@@ -23,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -53,6 +56,13 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
     @ManagedProperty(value = "#{surveillanceAuditService}")
     private SurveillanceAuditService surveillanceAuditService;
+
+    @ManagedProperty(value = "#{memberUserService}")
+    private MemberUserService memberUserService;
+
+    public void setMemberUserService(MemberUserService memberUserService) {
+        this.memberUserService = memberUserService;
+    }
 
     public SurveillanceAuditService getSurveillanceAuditService() {
         return surveillanceAuditService;
@@ -184,6 +194,11 @@ public class DataEntryController extends MessageInfor implements Serializable {
     }
 
     public String saveSurviellanceForm() {
+        MemberUser currentMemberUser = memberUserService.getCurrentUser();
+        if (currentMemberUser == null) {
+            errorMessages("User needs to login to continue");
+            return null;
+        }
         try {
             getSurveillance().getSurveillanceDataSet().clear();
             getSurveillance().getSurveillanceDataSet().addAll(getSurveillanceDataList());
@@ -198,7 +213,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
 
-            if (surveillanceAudit != null && surveillanceAudit.getApprovedByOn() != null) {//check audit for Approval
+            if (surveillanceAudit != null && surveillanceAudit.getApprovedBy() != null && surveillanceAudit.getApprovedOn() != null) {//check audit for Approval
                 errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
                 return null;
             }
@@ -207,14 +222,14 @@ public class DataEntryController extends MessageInfor implements Serializable {
                 surveillanceAudit = new SurveillanceAudit();
                 surveillanceAudit.setPeriod(period);
                 surveillanceAudit.setProgram(program);
-                surveillanceAudit.setUploadedBy(null);
+                surveillanceAudit.setUploadedBy(currentMemberUser);
                 surveillanceAudit.setUploadedOn(new Date());
             } else {
                 surveillanceAudit.setUploadedOn(new Date());
             }
             surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
-        } catch (Exception ex) {            
+        } catch (Exception ex) {
             errorMessages("Surveillance Data Not Processed Succefully");
         }
         return null;
@@ -276,7 +291,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
             }
         }
     }
-    
+
     public String dataValidationSelection() {
         SurveillanceAudit audit = surveillanceAuditService.get(program, period);
         if (getSurveillance() != null && audit != null) {

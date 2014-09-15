@@ -1,7 +1,10 @@
 package com.survtower.client.member.controller;
 
+import com.survtower.business.member.domain.MemberUser;
+import com.survtower.business.member.service.MemberUserService;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -21,6 +24,13 @@ public class LoginController {
     private String username = "";
     private String password = "";
     private Boolean loggedIn = false;
+
+    @ManagedProperty(value = "#{memberUserService}")
+    private MemberUserService memberUserService;
+
+    public void setMemberUserService(MemberUserService memberUserService) {
+        this.memberUserService = memberUserService;
+    }
 
     /**
      * @return @throws IOException
@@ -89,5 +99,21 @@ public class LoginController {
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index?faces-redirect=true";
+    }
+
+    public MemberUser getCurrentUser() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = fc.getExternalContext();
+        if (externalContext.getUserPrincipal() == null) {
+            return null;
+        } else {
+            String user = externalContext.getUserPrincipal().getName();
+            MemberUser memberUser = memberUserService.findByUserName(user);
+            if (memberUser != null) {
+                return memberUser;
+            } else {
+                return null;
+            }
+        }
     }
 }

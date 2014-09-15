@@ -15,4 +15,20 @@ public interface MemberUserService extends GenericService<MemberUser>{
 
     public int updatePassword(String password, String username);  public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate);
 
+    /**
+     * @return the username of the currently logged in user. If no user is
+     * logged in or the auto access admin is active, null is returned.
+     */
+    String getCurrentUsername();
+
+    /**
+     * @return the currently logged in user. If no user is logged in or the auto
+     * access admin is active, null is returned.
+     */
+    MemberUser getCurrentUser();
+
+    /**
+     * @return true if the current logged in user has the ALL priviliges set,
+     * false otherwise.
+     */
 }

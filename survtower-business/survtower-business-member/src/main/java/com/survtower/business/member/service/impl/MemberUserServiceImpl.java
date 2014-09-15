@@ -6,6 +6,9 @@ import com.survtower.business.member.service.MemberUserService;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,6 +58,53 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Override
     public List<MemberUser> findMemberUsersUpdatedAfter(Date afterDate) {
         return null;
+    }
+
+    // -------------------------------------------------------------------------
+    // Get Current user Implementation
+    // -------------------------------------------------------------------------
+
+    @Override
+    public MemberUser getCurrentUser() {
+        String username = getCurrentUsername();
+
+        if (username == null) {
+            return null;
+        }
+
+        MemberUser user = memberUserDao.findByUserName(username);
+
+        if (user == null) {
+            return null;
+        }
+        return user;
+    }
+
+    @Override
+    public String getCurrentUsername() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() == null) {
+            return null;
+        }
+        /*
+         * If getPrincipal returns a string, it means that the user has been
+         * authenticated anonymous (String == anonymousUser).
+         */
+        if (authentication.getPrincipal() instanceof String) {
+            String principal = (String) authentication.getPrincipal();
+
+            if (principal.compareTo("anonymousUser") != 0) {
+                return null;
+            }
+
+            return principal;
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        return userDetails.getUsername();
     }
 
 }
