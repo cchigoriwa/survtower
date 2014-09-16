@@ -70,12 +70,15 @@ public class PeriodEditController {
             programs = new ArrayList<Program>();
         } else {
             period = periodService.findByUuid(uuid);
-            setPrograms(new ArrayList<Program>(period.getPrograms()));
             if (period == null) {
                 period = new Period();
                 programs = new ArrayList<Program>();
+            }else{
+                programs=new ArrayList<Program>(period.getPrograms());
             }
-        }
+        }        
+        
+        setPrograms(programs);
     }
 
 }
