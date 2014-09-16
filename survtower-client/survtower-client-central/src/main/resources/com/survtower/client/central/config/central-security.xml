@@ -14,8 +14,9 @@
         <form-login
             login-processing-url="/j_spring_security_check"
             login-page="/faces/login.xhtml"
-            default-target-url="/index.xhtml"
-            authentication-failure-url="/faces/login.xhtml"/>
+            default-target-url="/faces/index.xhtml"
+            authentication-failure-url="/faces/login.xhtml"
+            access-denied-page="/faces/access_denied.xhtml"/>
         <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/index.xhtml" delete-cookies="JSESSIONID"/>
         <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_GLOBAL_ADMINISTRATOR')" />        
     </http>

@@ -3,10 +3,14 @@ package com.survtower.business.member.service.impl;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
+import com.survtower.business.member.domain.MemberUserRole;
 import com.survtower.business.member.service.MemberUserService;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -123,6 +127,31 @@ public class MemberUserServiceImpl implements MemberUserService {
             return getCurrentUser().getProgramList();
         } else {
             return new ArrayList<>();
+        }
+    }
+
+    public List<String> getMemberRoles() {
+        List<String> list = new ArrayList<String>();
+        list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
+        return list;
+    }
+
+    @PostConstruct
+    public void init() {
+        if (memberUserDao.findAll().isEmpty()) {
+            Set<MemberUserRole> memberUserRoles = new HashSet<MemberUserRole>();
+            MemberUser memberUser = new MemberUser();
+            memberUser.setUsername("admin");
+            memberUser.setPassword("memberuser");
+            memberUser.setDeactivated(Boolean.FALSE);
+            for (String role : getMemberRoles()) {
+                MemberUserRole memberUserRole = new MemberUserRole();
+                memberUserRole.setMemberRole(role);
+                memberUserRole.setDeactivated(Boolean.TRUE);
+                memberUserRoles.add(memberUserRole);
+            }
+            memberUser.setMemberUserRoles(memberUserRoles);
+            memberUserDao.save(memberUser);
         }
     }
 }

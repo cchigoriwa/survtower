@@ -3,10 +3,14 @@ package com.survtower.business.central.service.impl;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.central.dao.CentralUserDao;
 import com.survtower.business.central.domain.CentralUser;
+import com.survtower.business.central.domain.MemberUserRole;
 import com.survtower.business.central.service.CentralUserService;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -116,5 +120,30 @@ public class CentralUserServiceImpl implements CentralUserService {
             return new ArrayList<>();
         }
     }
-  
+
+    public List<String> getMemberRoles() {
+        List<String> list = new ArrayList<String>();
+        list.add(CentralUser.ROLE_GLOBAL_ADMINISTRATOR);
+        return list;
+    }
+
+    @PostConstruct
+    public void init() {
+        Set<MemberUserRole> centralUserRoles = new HashSet<MemberUserRole>();
+        if (centralUserDao.findAll().isEmpty()) {
+            CentralUser centralUser = new CentralUser();
+            centralUser.setUsername("admin");
+            centralUser.setPassword("centraluser");
+            for (String role : getMemberRoles()) {
+                MemberUserRole memberUserRole = new MemberUserRole();
+                memberUserRole.setMemberRole(role);
+                memberUserRole.setDeactivated(Boolean.TRUE);
+                centralUserRoles.add(memberUserRole);
+            }
+            centralUser.setMemberUserRoles(centralUserRoles);
+            centralUserDao.save(centralUser);
+        }
+
+    }
+
 }
