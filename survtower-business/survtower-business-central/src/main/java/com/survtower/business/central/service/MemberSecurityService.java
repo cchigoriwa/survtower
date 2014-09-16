@@ -3,7 +3,6 @@ package com.survtower.business.central.service;
 import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.common.GenericService;
 import com.survtower.business.common.domain.Member;
-import java.util.List;
 
 /**
  *
