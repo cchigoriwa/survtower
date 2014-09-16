@@ -3,9 +3,10 @@ package com.survtower.ws.impl;
 import com.survtower.business.central.service.MemberSecurityService;
 import com.survtower.business.common.domain.Indicator;
 import com.survtower.business.common.domain.Member;
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
-import com.survtower.business.common.service.DataElementService;
 import com.survtower.business.common.service.IndicatorService;
 import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
@@ -18,13 +19,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Charles Chigoriwa
  */
-@Service
+@Component
 public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
 
     @Autowired
@@ -40,17 +41,19 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
     @Autowired
     private IndicatorService indicatorService;
 
-    public synchronized boolean processData(SurveillancePayload surveillancePayload) {
+    public synchronized void processData(SurveillancePayload surveillancePayload) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String memberID = auth.getName();
-        Member member = memberSecurityService.findByMemberID(memberID).getMember();
+        Member serverMember = memberSecurityService.findByMemberID(memberID).getMember();
 
 
             if (surveillancePayload != null && surveillancePayload.getSurveillances() != null && !surveillancePayload.getSurveillances().isEmpty()) {
                 for (Surveillance surveillance : surveillancePayload.getSurveillances()) {
-                    if (member.equals(memberService.findByUuid(surveillance.getMember().getUuid()))) {
-                        Surveillance existing = surveillanceService.findByProgramAndPeriodAndMember(surveillance.getProgram(), surveillance.getPeriod(), member);
+                    if (serverMember.equals(memberService.findByUuid(surveillance.getMember().getUuid()))) {
+                        Program serverProgram=programService.findByUuid(surveillance.getProgram().getUuid());
+                        Period serverPeriod=periodService.findByUuid(surveillance.getPeriod().getUuid());
+                        Surveillance existing = surveillanceService.findByProgramAndPeriodAndMember(serverProgram, serverPeriod, serverMember);
                         if (existing == null) {
                             Set<SurveillanceData> clientSurveillanceDatas = surveillance.getSurveillanceDataSet();
                             Set<SurveillanceData> serverSurveillanceDatas = new LinkedHashSet<SurveillanceData>();
@@ -58,6 +61,7 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
                                 Indicator serverIndicator = indicatorService.findByUuid(surveillanceData.getIndicator().getUuid());
                                 if (serverIndicator != null) {
                                     surveillanceData.setId(null);
+                                    surveillanceData.setSurveillance(surveillance);
                                     surveillanceData.setIndicator(serverIndicator);
                                     serverSurveillanceDatas.add(surveillanceData);
                                 }
@@ -66,9 +70,9 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
                             if (!serverSurveillanceDatas.isEmpty()) {
                                 surveillance.setId(null);
                                 surveillance.setSurveillanceDataSet(serverSurveillanceDatas);
-                                surveillance.setMember(member);
-                                surveillance.setPeriod(periodService.findByUuid(surveillance.getPeriod().getUuid()));
-                                surveillance.setProgram(programService.findByUuid(surveillance.getProgram().getUuid()));
+                                surveillance.setMember(serverMember);
+                                surveillance.setPeriod(serverPeriod);
+                                surveillance.setProgram(serverProgram);
                                 surveillanceService.save(surveillance);
                             }
 
@@ -77,7 +81,6 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
                 }
             
         }
-        return true;
 
     }
 

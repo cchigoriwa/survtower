@@ -16,12 +16,14 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Service("surveillanceIntegrator")
+@Transactional(readOnly = true)
 public class SurveillanceIntegratorImpl implements SurveillanceIntegrator {
 
     @Autowired
@@ -35,6 +37,7 @@ public class SurveillanceIntegratorImpl implements SurveillanceIntegrator {
 
     @Override
     public synchronized void push() {
+        System.out.println("GLOBAL SURVEILLANCE PUSH");
         List<SurveillanceAudit> surveillanceAudits;
 
         Date startDate = null;

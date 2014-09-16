@@ -11,6 +11,7 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.text.NumberFormat;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,7 +25,8 @@ public class SurveillanceData extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
+    @ManyToOne    
+    @XmlTransient
     private Surveillance surveillance;
     @ManyToOne
     private Indicator indicator;
@@ -37,6 +39,7 @@ public class SurveillanceData extends BaseEntity {
     @Transient
     private Boolean valid;
 
+    @XmlTransient
     public Surveillance getSurveillance() {
         return surveillance;
     }

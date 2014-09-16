@@ -19,7 +19,7 @@ public interface SurveillanceWebservice extends Serializable{
     
     @Path("/surveillance")
     @POST
-    public boolean processData(SurveillancePayload surveillancePayload);
+    public void processData(SurveillancePayload surveillancePayload);
     
     
 }

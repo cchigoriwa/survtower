@@ -19,7 +19,7 @@ public class DynamicSchedulerConfiguration {
     private SurveillanceIntegrator surveillanceIntegrator;
     
     @Bean
-    public MethodInvokingJobDetailFactoryBean createMethodInvokingJobDetailFactoryBean(){
+    public MethodInvokingJobDetailFactoryBean createMethodInvokingJobDetailFactoryBean1(){
         MethodInvokingJobDetailFactoryBean bean=new MethodInvokingJobDetailFactoryBean();
         bean.setTargetObject(surveillanceIntegrator);
         bean.setTargetMethod("push");
@@ -28,18 +28,18 @@ public class DynamicSchedulerConfiguration {
     }
     
     @Bean
-    public SimpleTriggerBean createSimpleTriggerBean(){
+    public SimpleTriggerBean createSimpleTriggerBean1(){
         SimpleTriggerBean bean=new SimpleTriggerBean();
-        bean.setJobDetail(createMethodInvokingJobDetailFactoryBean().getObject());
+        bean.setJobDetail(createMethodInvokingJobDetailFactoryBean1().getObject());
         bean.setStartDelay(15000);
         bean.setRepeatInterval(50000);
         return bean;
     }
     
     @Bean
-    public SchedulerFactoryBean createSchedulerFactoryBean(){
+    public SchedulerFactoryBean createSchedulerFactoryBean1(){
         SchedulerFactoryBean bean=new SchedulerFactoryBean();
-        bean.setTriggers(createSimpleTriggerBean());      
+        bean.setTriggers(createSimpleTriggerBean1());      
         return bean;
     }
     
