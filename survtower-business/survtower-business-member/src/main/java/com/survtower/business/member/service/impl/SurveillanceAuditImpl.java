@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.business.member.service.impl;
 
-import com.survtower.business.common.domain.Member;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.dao.SurveillanceAuditDao;
@@ -30,7 +24,7 @@ public class SurveillanceAuditImpl implements SurveillanceAuditService {
 
     @Transactional
     @Override
-    public SurveillanceAudit save(SurveillanceAudit surveillanceAudit) {
+    public synchronized SurveillanceAudit save(SurveillanceAudit surveillanceAudit) {
         surveillanceAudit.setUpdateDate(new Date());
         return surveillanceAuditDao.save(surveillanceAudit);
     }
@@ -58,5 +52,34 @@ public class SurveillanceAuditImpl implements SurveillanceAuditService {
     @Override
     public List<SurveillanceAudit> getSurviellanceAudits(Program program, Period period) {
         return surveillanceAuditDao.getSurviellanceAudits(program, period);
+    }
+
+    @Override
+    public SurveillanceAudit findByProgramAndPeriod(Program program, Period period) {
+        return surveillanceAuditDao.findByProgramAndPeriod(program, period);
+    }
+ @Override
+    public List<SurveillanceAudit> findSurveillanceAuditsUpdatedAfter(Date afterDate) {
+       return surveillanceAuditDao.findSurveillanceAuditsUpdatedAfter(afterDate);
+    }
+
+    @Override
+    public Date findMaximumUpdateDate(Date afterDate) {
+        return surveillanceAuditDao.findMaximumUpdateDate(afterDate);
+    }
+
+    @Override
+    public List<SurveillanceAudit> findSurveillanceAuditsUpdatedAfter(Date afterDate, Date maxDate) {
+        return surveillanceAuditDao.findSurveillanceAuditsUpdatedAfter(afterDate, maxDate);
+    }
+
+    @Override
+    public Date findMaximumUpdateDate() {
+        return surveillanceAuditDao.findMaximumUpdateDate();
+    }
+
+    @Override
+    public List<SurveillanceAudit> findSurveillanceAuditsUpdatedBefore(Date maxDate) {
+       return surveillanceAuditDao.findSurveillanceAuditsUpdatedBefore(maxDate);
     }
 }

@@ -89,5 +89,9 @@ public class SurveillanceAudit extends BaseEntity {
     public void setApprovedOn(Date approvedOn) {
         this.approvedOn = approvedOn;
     }
+    
+    public boolean approved(){
+        return approvedBy!=null && approvedOn!=null;
+    }
 
 }

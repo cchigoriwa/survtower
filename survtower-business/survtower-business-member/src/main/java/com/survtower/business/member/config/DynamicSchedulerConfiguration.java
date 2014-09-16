@@ -1,6 +1,6 @@
 package com.survtower.business.member.config;
 
-import com.survtower.business.member.integration.AllLookupIntegrator;
+import com.survtower.business.member.integration.SurveillanceIntegrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,16 +13,16 @@ import org.springframework.scheduling.quartz.SimpleTriggerBean;
  * @author Charles Chigoriwa
  */
 @Configuration
-public class SchedulerConfiguration {
+public class DynamicSchedulerConfiguration {
     
     @Autowired
-    private AllLookupIntegrator allLookupIntegrator;
+    private SurveillanceIntegrator surveillanceIntegrator;
     
     @Bean
     public MethodInvokingJobDetailFactoryBean createMethodInvokingJobDetailFactoryBean(){
         MethodInvokingJobDetailFactoryBean bean=new MethodInvokingJobDetailFactoryBean();
-        bean.setTargetObject(allLookupIntegrator);
-        bean.setTargetMethod("pull");
+        bean.setTargetObject(surveillanceIntegrator);
+        bean.setTargetMethod("push");
         bean.setConcurrent(false);
         return bean;
     }
@@ -31,7 +31,7 @@ public class SchedulerConfiguration {
     public SimpleTriggerBean createSimpleTriggerBean(){
         SimpleTriggerBean bean=new SimpleTriggerBean();
         bean.setJobDetail(createMethodInvokingJobDetailFactoryBean().getObject());
-        bean.setStartDelay(10000);
+        bean.setStartDelay(15000);
         bean.setRepeatInterval(50000);
         return bean;
     }

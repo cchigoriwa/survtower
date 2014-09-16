@@ -25,7 +25,7 @@ public class SurveillanceServiceImpl implements SurveillanceService {
 
     @Transactional
     @Override
-    public Surveillance save(Surveillance surveillance) {
+    public synchronized Surveillance save(Surveillance surveillance) {
         surveillance.setUpdateDate(new Date());
         return surveillanceDao.save(surveillance);
     }
@@ -53,5 +53,15 @@ public class SurveillanceServiceImpl implements SurveillanceService {
     @Override
     public List<Surveillance> getSurviellances(Program program, Period period){
     return surveillanceDao.getSurviellances(program, period);
+    }
+
+    @Override
+    public Surveillance findByProgramAndPeriod(Program program, Period period) {
+        return surveillanceDao.findByProgramAndPeriod(program, period);
+    }
+
+    @Override
+    public Surveillance findByProgramAndPeriodAndMember(Program program, Period period, Member member) {
+        return surveillanceDao.findByProgramAndPeriodAndMember(program, period, member);
     }
 }

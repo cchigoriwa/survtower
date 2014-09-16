@@ -17,8 +17,6 @@ public enum Lookup {
     INDICATOR_TYPE,
     INDICATOR_GROUP,
     FREQUENCY,
-    SURVEILLANCE,
-    SURVEILLANCE_DATA,
     DATA_ELEMENT
     
 }

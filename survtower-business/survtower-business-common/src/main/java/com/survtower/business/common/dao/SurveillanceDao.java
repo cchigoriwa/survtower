@@ -17,5 +17,9 @@ public interface SurveillanceDao extends GenericDao<Surveillance> {
     
     public List<Surveillance> getSurviellances(Program program, Period period);
     
+    //To be used on the member side only otherwise a non single result exception will be thrown
     public Surveillance findByProgramAndPeriod(Program program,Period period);
+    
+    //Can be used by both but is suited on the central side
+    public Surveillance findByProgramAndPeriodAndMember(Program program,Period period,Member member);
 }

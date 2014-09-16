@@ -14,6 +14,7 @@ import com.survtower.ws.api.LookupDataWebservice;
 import com.survtower.ws.api.MemberWebservice;
 import com.survtower.ws.api.PeriodWebservice;
 import com.survtower.ws.api.ProgramWebservice;
+import com.survtower.ws.api.SurveillanceWebservice;
 import javax.annotation.Resource;
 import org.jboss.resteasy.client.jaxrs.BasicAuthentication;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -102,6 +103,11 @@ public class IntegrationServiceImpl implements IntegrationService {
     @Override
     public DataElementWebservice getDataElementWebservice() {
         return getWebserviceTarget().proxy(DataElementWebservice.class);
+    }
+
+    @Override
+    public SurveillanceWebservice getSurveillanceWebservice() {
+        return getWebserviceTarget().proxy(SurveillanceWebservice.class);
     }
 
 }

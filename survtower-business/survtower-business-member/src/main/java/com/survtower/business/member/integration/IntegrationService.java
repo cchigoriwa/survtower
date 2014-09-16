@@ -11,6 +11,7 @@ import com.survtower.ws.api.LookupDataWebservice;
 import com.survtower.ws.api.MemberWebservice;
 import com.survtower.ws.api.PeriodWebservice;
 import com.survtower.ws.api.ProgramWebservice;
+import com.survtower.ws.api.SurveillanceWebservice;
 import java.io.Serializable;
 
 /**
@@ -40,5 +41,7 @@ public interface IntegrationService extends Serializable{
     public DataSourceWebservice getDataSourceWebservice();
     
     public DataElementWebservice getDataElementWebservice();
+    
+    public SurveillanceWebservice getSurveillanceWebservice();
     
 }

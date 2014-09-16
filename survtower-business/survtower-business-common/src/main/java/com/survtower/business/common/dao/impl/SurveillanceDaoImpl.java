@@ -55,4 +55,9 @@ public class SurveillanceDaoImpl implements SurveillanceDao {
         return surveillanceRepository.findByProgramAndPeriod(program, period);
     }
 
+    @Override
+    public Surveillance findByProgramAndPeriodAndMember(Program program, Period period, Member member) {
+        return surveillanceRepository.findByProgramAndPeriodAndMember(program, period, member);
+    }
+
 }
