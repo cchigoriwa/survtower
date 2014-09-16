@@ -16,7 +16,7 @@
             <h:graphicImage library="webjars/sadc/1.0.0/img"
                             name="logo.png" />
 
-            <p align="left">Logged On as  : </p>
+            <p>Logged On as  : #{loginController.currentUser}</p>
 
         </h:panelGrid>
         <ui:insert name="content">SADC Surveillance System</ui:insert>

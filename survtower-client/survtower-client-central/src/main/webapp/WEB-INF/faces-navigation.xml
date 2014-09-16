@@ -17,6 +17,17 @@
             <from-outcome>memberList</from-outcome>
             <to-view-id>/admin/memberList.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>data_select</from-outcome>
+            <to-view-id>/data/data_select.xhtml</to-view-id>
+        </navigation-case>   
+          
+        <navigation-case>
+            <from-outcome>data_view</from-outcome>
+            <to-view-id>/data/data_view.xhtml</to-view-id>
+        </navigation-case>  
+        
     </navigation-rule>
     
     <!-- =========== Look Up Data Under /admin (Will be the same as surv member and tower) ================================== -->    

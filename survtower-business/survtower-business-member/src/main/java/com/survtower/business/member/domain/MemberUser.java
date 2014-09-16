@@ -34,6 +34,8 @@ public class MemberUser extends BaseEntity {
     public static String ROLE_COUNTRY_ADMINISTRATOR = "ROLE_COUNTRY_ADMINISTRATOR";
     @Transient
     public static String ROLE_HEALTH_INFORMATION_OFFICER = "ROLE_HEALTH_INFORMATION_OFFICER";
+    @Transient
+    public static final String SADC_CD_MANAGER = "SADC_CD_MANAGER";
     private String username;
     private String password;
     private Boolean deactivated = Boolean.FALSE;

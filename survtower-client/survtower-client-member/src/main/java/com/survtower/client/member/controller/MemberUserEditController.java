@@ -31,7 +31,7 @@ public class MemberUserEditController {
 
     private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
-
+    
     public List<String> getRoles() {
         return roles;
     }
@@ -65,7 +65,7 @@ public class MemberUserEditController {
         for (String role : getRoles()) {
             MemberUserRole memberUserRole = new MemberUserRole();
             memberUserRole.setMemberRole(role);
-            memberUserRole.setDeactivated(Boolean.TRUE);
+            memberUserRole.setDeactivated(Boolean.FALSE);
             memberUserRoles.add(memberUserRole);
         }
         memberUser.setMemberUserRoles(memberUserRoles);

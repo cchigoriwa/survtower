@@ -1,7 +1,7 @@
-package com.survtower.client.member.controller;
+package com.survtower.client.central.controller;
 
-import com.survtower.business.member.domain.MemberUser;
-import com.survtower.business.member.service.MemberUserService;
+import com.survtower.business.central.domain.MemberSecurity;
+import com.survtower.business.central.service.MemberSecurityService;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,11 +21,11 @@ import javax.servlet.ServletResponse;
 @RequestScoped
 public class LoginController {
 
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
+    @ManagedProperty(value = "#{memberSecurityService}")
+    private MemberSecurityService memberSecurityService;
 
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
+    public void setMemberSecurityService(MemberSecurityService memberSecurityService) {
+        this.memberSecurityService = memberSecurityService;
     }
 
     /**
@@ -55,7 +55,8 @@ public class LoginController {
         return "/index?faces-redirect=true";
     }
 
-    public MemberUser getCurrentUser() {
-        return memberUserService.getCurrentUser();
+    public MemberSecurity getCurrentUser() {
+        return memberSecurityService.getCurrentUser();
     }
 }
+

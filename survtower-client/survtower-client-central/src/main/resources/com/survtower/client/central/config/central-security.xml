@@ -6,30 +6,27 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    
-
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
-    <http pattern="/loggedout.jsp" security="none"/>
-
+    <http pattern="/login.xhtml" security="none"/>
+ 
     <http auto-config="true" use-expressions="true">
-        <form-login login-page="/login" login-processing-url="/loginProcess" 
-                    default-target-url="/member/dashboard" authentication-failure-url="/login?login_error=1" />
-        <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
-        <intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>         
+        <form-login
+            login-processing-url="/j_spring_security_check"
+            login-page="/faces/login.xhtml"
+            default-target-url="/index.xhtml"
+            authentication-failure-url="/faces/login.xhtml"/>
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/index.xhtml" delete-cookies="JSESSIONID"/>
+        <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_COUNTRY_ADMINISTRATOR')" />        
     </http>
 
-    
     <authentication-manager >
         <authentication-provider user-service-ref="memberDetailService">
             <password-encoder ref="doNothingPasswordEncoder">
-                <!--<salt-source user-property="username" /> -->
                 <salt-source user-property="uuid" />
             </password-encoder>
         </authentication-provider>           
     </authentication-manager>
-
-    
 
     <!-- Automatically receives AuthenticationEvent messages -->
     <beans:bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener"/>

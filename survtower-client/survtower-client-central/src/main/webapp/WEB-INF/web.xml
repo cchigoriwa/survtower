@@ -21,7 +21,7 @@
     <!-- Location of Java @Configuration classes that configure the components that makeup this application -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>com.survtower.business.central.config</param-value>      
+        <param-value>com.survtower.business.central.config,com.survtower.client.central.config</param-value>      
     </context-param>
     
     
@@ -58,6 +58,21 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
+    <!--     Enable Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+   
+    <!--     Allow login pages with JSF which redirects to security check,
+    therefore we have to add the forward entry here -->
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
     
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

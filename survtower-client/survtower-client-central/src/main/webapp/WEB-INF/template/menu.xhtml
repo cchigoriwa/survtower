@@ -9,15 +9,21 @@
     <h:form> 
         <p:menubar>
             <p:menuitem value="Dash Board" outcome="index" />
-     
+
             <p:submenu label="Settings" icon="ui-icon-pencil">
                 <p:menuitem value="Look up Data" outcome="admin_home"/>
             </p:submenu>
 
-            <f:facet name="options">
-                <p:inputText style="margin-right:10px" placeholder="Search"/>
-                <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
-            </f:facet>
+            <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-pencil" />
+            
+            <p:submenu label="Reporting" icon="ui-icon-pencil">
+               <p:menuitem value="Select Surviellance" outcome="data_select"/>
+            </p:submenu>
+            
+            <p:menuitem value="Pivot Tables" outcome="data_select" icon="ui-icon-pencil" />
+
+            <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false"/>
+
         </p:menubar>
     </h:form>
 
