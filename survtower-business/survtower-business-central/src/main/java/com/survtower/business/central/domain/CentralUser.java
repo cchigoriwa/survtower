@@ -38,11 +38,11 @@ public class CentralUser extends BaseEntity {
     private String password;
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
-    @JoinTable(name = "MemberUser_Role", joinColumns = {
-        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "member_role")})
+    @JoinTable(name = "CentralUser_Role", joinColumns = {
+        @JoinColumn(name = "central_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "central_role")})
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<MemberUserRole> memberUserRoles = new HashSet<MemberUserRole>();
+    private Set<CentralUserRole> centralUserRoles = new HashSet<CentralUserRole>();
     @Transient
     private List<String> roles;
 
@@ -77,18 +77,18 @@ public class CentralUser extends BaseEntity {
 
     public List<String> getRoles() {
         Set<String> memberRoles = new HashSet<String>();
-        for (MemberUserRole userRole : getMemberUserRoles()) {
+        for (CentralUserRole userRole : getCentralUserRoles()) {
             memberRoles.add(userRole.getMemberRole());
         }        
         return new ArrayList<String>(memberRoles);
     }
 
-    public Set<MemberUserRole> getMemberUserRoles() {
-        return memberUserRoles;
+    public Set<CentralUserRole> getCentralUserRoles() {
+        return centralUserRoles;
     }
 
-    public void setMemberUserRoles(Set<MemberUserRole> memberUserRoles) {
-        this.memberUserRoles = memberUserRoles;
+    public void setCentralUserRoles(Set<CentralUserRole> centralUserRoles) {
+        this.centralUserRoles = centralUserRoles;
     }
 
     public UserDetails toUserDetails() {

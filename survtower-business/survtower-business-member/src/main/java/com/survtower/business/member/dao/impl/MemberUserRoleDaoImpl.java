@@ -37,9 +37,4 @@ public class MemberUserRoleDaoImpl implements MemberUserRoleDao {
         return memberUserRoleRepository.findByUuid(uuid);
     }
 
-    @Override
-    public List<MemberUserRole> findMemberRolesbyUser(String memberUser) {
-        return null;
-    }
-
 }

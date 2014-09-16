@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"})})
-public class MemberUserRole extends BaseEntity {
+public class CentralUserRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
    
@@ -53,7 +53,7 @@ public class MemberUserRole extends BaseEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final MemberUserRole other = (MemberUserRole) obj;
+        final CentralUserRole other = (CentralUserRole) obj;
         if (!Objects.equals(this.memberRole, other.memberRole)) {
             return false;
         }

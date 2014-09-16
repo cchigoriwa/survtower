@@ -42,9 +42,4 @@ public class MemberUserRoleServiceImpl implements MemberUserRoleService {
         return memberUserRoleDao.findByUuid(uuid);
     }
 
-    @Override
-    public List<MemberUserRole> findMemberRolesbyUser(String memberUser) {
-        return memberUserRoleDao.findMemberRolesbyUser(memberUser);
-    }
-
 }

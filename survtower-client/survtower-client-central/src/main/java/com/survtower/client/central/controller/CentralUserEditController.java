@@ -1,7 +1,7 @@
 package com.survtower.client.central.controller;
 
 import com.survtower.business.central.domain.CentralUser;
-import com.survtower.business.central.domain.MemberUserRole;
+import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,14 +50,14 @@ public class CentralUserEditController {
     }
 
     public String save() {
-        Set<MemberUserRole> centralUserRoles = new HashSet<MemberUserRole>();
+        Set<CentralUserRole> centralUserRoles = new HashSet<CentralUserRole>();
         for (String role : getRoles()) {
-            MemberUserRole memberUserRole = new MemberUserRole();
-            memberUserRole.setMemberRole(role);
-            memberUserRole.setDeactivated(Boolean.TRUE);
-            centralUserRoles.add(memberUserRole);
+            CentralUserRole centralUserRole = new CentralUserRole();
+            centralUserRole.setMemberRole(role);
+            centralUserRole.setDeactivated(Boolean.TRUE);
+            centralUserRoles.add(centralUserRole);
         }
-        centralUser.setMemberUserRoles(centralUserRoles);
+        centralUser.setCentralUserRoles(centralUserRoles);
         centralUserService.save(centralUser);
         return "centralUserList?faces-redirect=true&src=edit";
     }

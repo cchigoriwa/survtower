@@ -3,7 +3,7 @@ package com.survtower.business.central.service.impl;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.central.dao.CentralUserDao;
 import com.survtower.business.central.domain.CentralUser;
-import com.survtower.business.central.domain.MemberUserRole;
+import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -129,19 +129,19 @@ public class CentralUserServiceImpl implements CentralUserService {
 
     @PostConstruct
     public void init() {
-        Set<MemberUserRole> centralUserRoles = new HashSet<MemberUserRole>();
+        Set<CentralUserRole> centralUserRoles = new HashSet<CentralUserRole>();
         if (centralUserDao.findAll().isEmpty()) {
             CentralUser centralUser = new CentralUser();
             centralUser.setUsername("admin");
             centralUser.setPassword("centraluser");
             centralUser.setDeactivated(Boolean.FALSE);
             for (String role : getMemberRoles()) {
-                MemberUserRole memberUserRole = new MemberUserRole();
-                memberUserRole.setMemberRole(role);
-                memberUserRole.setDeactivated(Boolean.FALSE);
-                centralUserRoles.add(memberUserRole);
+                CentralUserRole centralUserRole = new CentralUserRole();
+                centralUserRole.setMemberRole(role);
+                centralUserRole.setDeactivated(Boolean.FALSE);
+                centralUserRoles.add(centralUserRole);
             }
-            centralUser.setMemberUserRoles(centralUserRoles);
+            centralUser.setCentralUserRoles(centralUserRoles);
             centralUserDao.save(centralUser);
         }
 
