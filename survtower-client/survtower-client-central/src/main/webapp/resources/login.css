@@ -556,9 +556,6 @@ font-size: 15px;
 .call p a.button:hover {
 background: #69933c;
 }
-.call span.or {
-padding: 0 5px 0 0;
-}
 
 .call .main-button {
 color: #eef2e1 !important;
