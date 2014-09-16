@@ -11,13 +11,21 @@ import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Takunda Dhlakama
+ * @author Charles Chigoriwa
  */
 @Entity
+@XmlRootElement
+@Table(uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"uuid"}),
+    @UniqueConstraint(columnNames = {"program_id","period_id"})})
 public class SurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
