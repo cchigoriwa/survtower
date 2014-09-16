@@ -21,20 +21,4 @@ public interface MemberSecurityService extends GenericService<MemberSecurity> {
 
     public MemberSecurity findByMemberID(String memberID);
 
-    /**
-     * @return the username of the currently logged in user. If no user is
-     * logged in null is returned.
-     */
-    String getCurrentUsername();
-
-    /**
-     * @return the currently logged in user. If no user is logged in null is
-     * returned if not active.
-     */
-    MemberSecurity getCurrentUser();
-
-    /**
-     * @return a list of role of the current logged in
-     */
-    List<String> getCurrentUserRoles();
 }

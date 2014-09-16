@@ -17,11 +17,11 @@
             default-target-url="/index.xhtml"
             authentication-failure-url="/faces/login.xhtml"/>
         <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/index.xhtml" delete-cookies="JSESSIONID"/>
-        <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_COUNTRY_ADMINISTRATOR')" />        
+        <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_GLOBAL_ADMINISTRATOR')" />        
     </http>
 
     <authentication-manager >
-        <authentication-provider user-service-ref="memberDetailService">
+        <authentication-provider user-service-ref="centralUserDetailService">
             <password-encoder ref="doNothingPasswordEncoder">
                 <salt-source user-property="uuid" />
             </password-encoder>

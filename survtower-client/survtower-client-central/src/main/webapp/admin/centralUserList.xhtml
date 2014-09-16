@@ -1,0 +1,41 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
+
+    <ui:define name="title">
+        Data Elements
+    </ui:define>
+
+    <ui:define name="content">
+        <p:dataTable value="#{centralUserListController.centralUsers}" var="centralUser">
+
+            <p:column headerText="Name">
+                #{centralUser.username}
+            </p:column>
+
+            <p:column headerText="">
+                #{centralUser.createDate}
+            </p:column>
+
+            <p:column>
+                <h:form>
+                    <h:link value="Edit" outcome="centralUserEdit">                        
+                        <f:param name="uuid" value="#{centralUser.uuid}" />
+                    </h:link>
+                </h:form>
+            </p:column>
+
+        </p:dataTable>
+        <h:form>
+            <h:link value="New Member User" outcome="centralUserEdit" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

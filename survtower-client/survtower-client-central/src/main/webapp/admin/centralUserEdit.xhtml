@@ -17,31 +17,25 @@
             <table>
                 <tr>
                     <th>User Name</th>
-                    <td><h:inputText value="#{memberUserEditController.memberUser.username}" /></td>
+                    <td><h:inputText value="#{centralUserEditController.centralUser.username}" /></td>
                 </tr>
                 <tr>
                     <th>Password</th>
-                    <td><h:inputText value="#{memberUserEditController.memberUser.password}" /></td>
-                </tr>
-                <tr>
-                    <h:outputLabel value="Select Programs"/>
-                    <h:selectManyCheckbox value="#{memberUserEditController.programs}" converter="#{programConverter}">
-                        <f:selectItems value="#{programListController.programs}"/>
-                    </h:selectManyCheckbox>
+                    <td><h:inputText value="#{centralUserEditController.centralUser.password}" /></td>
                 </tr>
                 <tr>
                     <h:outputLabel value="Select Roles"/>
-                    <h:selectManyCheckbox value="#{memberUserEditController.roles}">
-                        <f:selectItems value="#{memberUserEditController.memberRoles}"/>
+                    <h:selectManyCheckbox value="#{centralUserEditController.roles}">
+                        <f:selectItems value="#{centralUserEditController.memberRoles}"/>
                     </h:selectManyCheckbox>
                 </tr>
                 <tr>
                     <h:outputLabel value="Active"/>
-                    <h:selectBooleanCheckbox value="#{memberUserEditController.memberUser.deactivated}"/>
+                    <h:selectBooleanCheckbox value="#{centralUserEditController.centralUser.deactivated}"/>
                 </tr>
             </table>
-            <h:commandButton value="Save" action="#{memberUserEditController.save()}">
-                <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
+            <h:commandButton value="Save" action="#{centralUserEditController.save()}">
+                <f:param name="uuid" value="#{centralUserEditController.centralUser.uuid}" />
             </h:commandButton>
         </h:form>
     </ui:define>

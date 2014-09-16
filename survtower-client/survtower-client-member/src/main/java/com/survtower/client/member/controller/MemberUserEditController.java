@@ -65,7 +65,7 @@ public class MemberUserEditController {
         for (String role : getRoles()) {
             MemberUserRole memberUserRole = new MemberUserRole();
             memberUserRole.setMemberRole(role);
-            memberUserRole.setDeactivated(Boolean.FALSE);
+            memberUserRole.setDeactivated(Boolean.TRUE);
             memberUserRoles.add(memberUserRole);
         }
         memberUser.setMemberUserRoles(memberUserRoles);

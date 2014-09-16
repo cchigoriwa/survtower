@@ -65,7 +65,7 @@
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
    
-    <!--     Allow login pages with JSF which redirects to security check,
+    <!--         Allow login pages with JSF which redirects to security check,
     therefore we have to add the forward entry here -->
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>

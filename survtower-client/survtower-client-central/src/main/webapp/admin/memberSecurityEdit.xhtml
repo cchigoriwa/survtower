@@ -22,12 +22,6 @@
                     <th>Password</th>
                     <td><h:inputText value="#{memberSecurityEditController.memberSecurity.password}" /></td>
                 </tr>
-                <tr>
-                    <h:outputLabel value="Select Roles"/>
-                    <h:selectManyCheckbox value="#{memberSecurityEditController.roles}">
-                        <f:selectItems value="#{memberSecurityEditController.memberRoles}"/>
-                    </h:selectManyCheckbox>
-                </tr>
             </table>
             <h:commandButton value="Save" action="#{memberSecurityEditController.save()}">
                 <f:param name="memberUuid" value="#{memberSecurityEditController.memberSecurity.member.uuid}" />

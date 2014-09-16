@@ -28,6 +28,31 @@
             <to-view-id>/data/data_view.xhtml</to-view-id>
         </navigation-case>  
         
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>access_denied</from-outcome>
+            <to-view-id>/access_denied.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
+            <from-outcome>centralUserList</from-outcome>
+            <to-view-id>/admin/centralUserList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>centralUserEdit</from-outcome>
+            <to-view-id>/admin/centralUserEdit.xhtml</to-view-id>
+        </navigation-case>
+        
     </navigation-rule>
     
     <!-- =========== Look Up Data Under /admin (Will be the same as surv member and tower) ================================== -->    

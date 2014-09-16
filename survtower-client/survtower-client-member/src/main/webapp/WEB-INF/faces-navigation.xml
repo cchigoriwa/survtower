@@ -53,6 +53,11 @@
         </navigation-case>  
         
         <navigation-case>
+            <from-outcome>access_denied</from-outcome>
+            <to-view-id>/access_denied.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>    

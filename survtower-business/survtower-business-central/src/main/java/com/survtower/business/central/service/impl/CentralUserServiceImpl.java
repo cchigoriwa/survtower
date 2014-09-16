@@ -1,0 +1,120 @@
+package com.survtower.business.central.service.impl;
+
+import com.survtower.business.common.domain.Program;
+import com.survtower.business.central.dao.CentralUserDao;
+import com.survtower.business.central.domain.CentralUser;
+import com.survtower.business.central.service.CentralUserService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *
+ * @author Takunda Dhlakama
+ */
+@Service("centralUserService")
+@Transactional(readOnly = true)
+public class CentralUserServiceImpl implements CentralUserService {
+
+    @Autowired
+    private CentralUserDao centralUserDao;
+
+    @Transactional
+    @Override
+    public CentralUser save(CentralUser centralUser) {
+        centralUser.setUpdateDate(new Date());
+        return centralUserDao.save(centralUser);
+    }
+
+    @Override
+    public List<CentralUser> findAll() {
+        return centralUserDao.findAll();
+    }
+
+    @Override
+    public CentralUser find(Long id) {
+        return centralUserDao.find(id);
+    }
+
+    @Override
+    public CentralUser findByUuid(String uuid) {
+        return centralUserDao.findByUuid(uuid);
+    }
+
+    @Override
+    public CentralUser findByUserName(String username) {
+        return centralUserDao.findByUserName(username);
+    }
+
+    @Override
+    public int updatePassword(String password, String username) {
+        return centralUserDao.updatePassword(password, username);
+    }
+
+    @Override
+    public List<CentralUser> findCentralUsersUpdatedAfter(Date afterDate) {
+        return null;
+    }
+
+    // -------------------------------------------------------------------------
+    // Get Current user Implementation
+    // -------------------------------------------------------------------------
+    @Override
+    public CentralUser getCurrentUser() {
+        String username = getCurrentUsername();
+
+        if (username == null) {
+            return null;
+        }
+
+        CentralUser user = centralUserDao.findByUserName(username);
+
+        if (user == null) {
+            return null;
+        }
+        return user;
+    }
+
+    @Override
+    public String getCurrentUsername() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() == null) {
+            return null;
+        }
+        /*
+         * If getPrincipal returns a string, it means that the user has been
+         * authenticated anonymous (String == anonymousUser).
+         */
+        if (authentication.getPrincipal() instanceof String) {
+            String principal = (String) authentication.getPrincipal();
+
+            if (principal.compareTo("anonymousUser") != 0) {
+                return null;
+            }
+
+            return principal;
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        return userDetails.getUsername();
+    }
+
+    @Override
+    public List<String> getCurrentUserRoles() {
+        if (getCurrentUser() != null) {
+            return getCurrentUser().getRoles();
+        } else {
+            return new ArrayList<>();
+        }
+    }
+  
+}
