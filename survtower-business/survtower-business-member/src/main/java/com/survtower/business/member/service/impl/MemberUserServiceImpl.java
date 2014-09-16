@@ -147,7 +147,7 @@ public class MemberUserServiceImpl implements MemberUserService {
             for (String role : getMemberRoles()) {
                 MemberUserRole memberUserRole = new MemberUserRole();
                 memberUserRole.setMemberRole(role);
-                memberUserRole.setDeactivated(Boolean.TRUE);
+                memberUserRole.setDeactivated(Boolean.FALSE);
                 memberUserRoles.add(memberUserRole);
             }
             memberUser.setMemberUserRoles(memberUserRoles);

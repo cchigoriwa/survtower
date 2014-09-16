@@ -134,10 +134,11 @@ public class CentralUserServiceImpl implements CentralUserService {
             CentralUser centralUser = new CentralUser();
             centralUser.setUsername("admin");
             centralUser.setPassword("centraluser");
+            centralUser.setDeactivated(Boolean.FALSE);
             for (String role : getMemberRoles()) {
                 MemberUserRole memberUserRole = new MemberUserRole();
                 memberUserRole.setMemberRole(role);
-                memberUserRole.setDeactivated(Boolean.TRUE);
+                memberUserRole.setDeactivated(Boolean.FALSE);
                 centralUserRoles.add(memberUserRole);
             }
             centralUser.setMemberUserRoles(centralUserRoles);
