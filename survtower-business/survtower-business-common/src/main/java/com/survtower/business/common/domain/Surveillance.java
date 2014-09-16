@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"}),
-    @UniqueConstraint(columnNames = {"program_id","period_id"})})
+    @UniqueConstraint(columnNames = {"program_id","period_id","member_id"})})
 public class Surveillance extends BaseEntity {
 
     @ManyToOne
