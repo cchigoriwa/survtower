@@ -15,11 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Takunda Dhlakama
+ * @author Charles Chigoriwa
  */
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
+    @UniqueConstraint(columnNames = {"uuid"}),
+    @UniqueConstraint(columnNames = {"program_id","period_id"})})
 public class Surveillance extends BaseEntity {
 
     @ManyToOne
@@ -54,7 +56,7 @@ public class Surveillance extends BaseEntity {
     public void setMember(Member member) {
         this.member = member;
     }
-    
+
     public Set<SurveillanceData> getSurveillanceDataSet() {
         return surveillanceDataSet;
     }
