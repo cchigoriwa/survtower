@@ -36,7 +36,7 @@ public class MemberSecurityServiceImpl implements MemberSecurityService {
             //To be improved later so far based on UUID --hackable
             memberSecurity.setMemberID(UUID.randomUUID().toString());
             memberSecurity.setMemberKey(UUID.randomUUID().toString());
-            memberSecurity.setPassword("test" + new Random().nextInt());
+            memberSecurity.setPassword("test1234");
         }
         return memberSecurityDao.save(memberSecurity);
     }
