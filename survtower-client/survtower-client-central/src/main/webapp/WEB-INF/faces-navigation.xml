@@ -7,25 +7,11 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-    <navigation-rule>
+        <navigation-rule>
+        
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-        
-        <navigation-case>
-            <from-outcome>memberList</from-outcome>
-            <to-view-id>/admin/memberList.xhtml</to-view-id>
-        </navigation-case>
-        
-        <navigation-case>
-            <from-outcome>data_select</from-outcome>
-            <to-view-id>/data/data_select.xhtml</to-view-id>
-        </navigation-case>   
-          
-        <navigation-case>
-            <from-outcome>data_view</from-outcome>
-            <to-view-id>/data/data_view.xhtml</to-view-id>
         </navigation-case>  
         
         <navigation-case>
@@ -41,7 +27,36 @@
         <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case> 
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>data_select</from-outcome>
+            <to-view-id>/data/data_select.xhtml</to-view-id>
+        </navigation-case>   
+        
+        <navigation-case>
+            <from-outcome>multiple_period_indicator_view</from-outcome>
+            <to-view-id>/report/multiple_period_indicator_view.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>single_period_indicator_view</from-outcome>
+            <to-view-id>/report/single_period_indicator_view.xhtml</to-view-id>
+        </navigation-case>
+       
+    </navigation-rule>
+    
+    <navigation-rule>
+
+        <navigation-case>
+            <from-outcome>memberList</from-outcome>
+            <to-view-id>/admin/memberList.xhtml</to-view-id>
+        </navigation-case>
+          
+        <navigation-case>
+            <from-outcome>data_view</from-outcome>
+            <to-view-id>/data/data_view.xhtml</to-view-id>
+        </navigation-case>  
         
         <navigation-case>
             <from-outcome>centralUserList</from-outcome>

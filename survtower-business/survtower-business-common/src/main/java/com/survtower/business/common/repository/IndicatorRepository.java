@@ -36,4 +36,7 @@ public interface IndicatorRepository extends GenericRepository<Indicator, Long> 
     @Query("select i from Indicator i where i.indicatorGroup=:indicatorGroup")
     public List<Indicator> findIndicatorsIndicatorGroup(@Param("indicatorGroup") IndicatorGroup indicatorGroup);
 
+    @Query("select i from Indicator i where i.name LIKE %:searchTerm%")
+    public List<Indicator> getIndicatorAutoComplete(@Param("searchTerm") String searchTerm);
+
 }

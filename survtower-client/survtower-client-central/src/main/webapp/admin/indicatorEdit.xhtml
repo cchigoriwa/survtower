@@ -41,7 +41,7 @@
                 <tr>
                     <th>Numerator</th>
                     <td>
-                        <p:autoComplete widgetVar="numerator" id="numerator" size="50" value="#{indicatorEditController.indicator.numerator}" completeMethod="#{indicatorEditController.dataElementAutoComplete}"  
+                        <p:autoComplete widgetVar="numerator" id="numerator" size="50" value="#{indicatorEditController.indicator.numerator}" completeMethod="#{autoCompleteController.dataElementAutoComplete}"  
                                         var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
                                         maxlength="3"/>                                                
                     </td>
@@ -49,7 +49,7 @@
                 <tr>
                     <th>Denominator</th>
                     <td>
-                        <p:autoComplete widgetVar="denominator" id="denominator" size="50" value="#{indicatorEditController.indicator.denominator}" completeMethod="#{indicatorEditController.dataElementAutoComplete}"  
+                        <p:autoComplete widgetVar="denominator" id="denominator" size="50" value="#{indicatorEditController.indicator.denominator}" completeMethod="#{autoCompleteController.dataElementAutoComplete}"  
                                         var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
                                         maxlength="3"/>                                                
                     </td>

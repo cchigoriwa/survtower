@@ -16,11 +16,13 @@
             </p:submenu>
 
             <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-pencil" />
-            
-            <p:submenu label="Reporting" icon="ui-icon-pencil">
-               <p:menuitem value="Select Surviellance" outcome="data_select"/>
+
+            <p:submenu label="View Reporting" icon="ui-icon-pencil">
+                <p:menuitem value="Select Surviellance" outcome="data_select"/>
+                <p:menuitem value="Single Period Indicator View" outcome="single_period_indicator_view"/>
+                <p:menuitem value="Multiple Period Indicator View" outcome="multiple_period_indicator_view"/>
             </p:submenu>
-            
+
             <p:menuitem value="Pivot Tables" outcome="data_select" icon="ui-icon-pencil" />
 
             <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false"/>

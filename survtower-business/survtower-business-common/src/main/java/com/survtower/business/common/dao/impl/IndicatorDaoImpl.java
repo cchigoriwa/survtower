@@ -8,6 +8,7 @@ import com.survtower.business.common.repository.IndicatorRepository;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -75,4 +76,8 @@ public class IndicatorDaoImpl implements IndicatorDao {
         return indicatorRepository.findIndicatorsIndicatorGroup(indicatorGroup);
     }
 
+    @Override
+    public List<Indicator> getIndicatorAutoComplete(String searchTerm) {
+        return indicatorRepository.getIndicatorAutoComplete(searchTerm);
+    }
 }

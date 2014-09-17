@@ -78,4 +78,9 @@ public class IndicatorServiceImpl implements IndicatorService {
     public List<Indicator> findIndicatorsIndicatorGroup(IndicatorGroup indicatorGroup) {
         return indicatorDao.findIndicatorsIndicatorGroup(indicatorGroup);
     }
+    
+    @Override
+    public List<Indicator> getIndicatorAutoComplete(String searchTerm){
+    return indicatorDao.getIndicatorAutoComplete(searchTerm);
+    }
 }

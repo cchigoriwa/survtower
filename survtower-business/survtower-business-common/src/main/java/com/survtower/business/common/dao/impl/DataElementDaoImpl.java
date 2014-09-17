@@ -63,6 +63,7 @@ public class DataElementDaoImpl implements DataElementDao {
         return dataElementRepository.findDataElementsUpdatedBefore(maxDate);
     }
 
+    @Override
     public List<DataElement> getDataElementAutoComplete(String searchTerm) {
         return dataElementRepository.getDataElementAutoComplete(searchTerm);
     }

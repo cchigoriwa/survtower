@@ -26,5 +26,7 @@ public interface IndicatorDao extends GenericDao<Indicator> {
     public List<Indicator> findIndicatorsInProgram(Program program);
 
     public List<Indicator> findIndicatorsIndicatorGroup(IndicatorGroup indicatorGroup);
+    
+    public List<Indicator> getIndicatorAutoComplete(String searchTerm);
 
 }
