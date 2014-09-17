@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -102,13 +103,11 @@ public class DataValidationController extends MessageInfor implements Serializab
     }
 
     public String finalSaveSurviellanceForm() {
-        MemberUser currentMemberUser = memberUserService.getCurrentUser();
-
         if (surveillanceAudit == null) {
             errorMessages("Surveillance Audit Error - Data Entry Not Done");
             return null;
         }
-        if (currentMemberUser == null) {
+        if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
         }
@@ -117,8 +116,7 @@ public class DataValidationController extends MessageInfor implements Serializab
             submitted = Boolean.TRUE;
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-            surveillanceService.save(surveillance);
-            surveillanceAudit.setApprovedBy(currentMemberUser);
+            surveillanceAudit.setApprovedBy(getCurrentUser());
             surveillanceAudit.setApprovedOn(new Date());
             surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
@@ -151,5 +149,21 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
         getSurveillanceDataList().clear();
         getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+    }
+
+    public MemberUser getCurrentUser() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = fc.getExternalContext();
+        if (externalContext.getUserPrincipal() == null) {
+            return null;
+        } else {
+            String user = externalContext.getUserPrincipal().getName();
+            MemberUser memberUser = memberUserService.findByUserName(user);
+            if (memberUser != null) {
+                return memberUser;
+            } else {
+                return null;
+            }
+        }
     }
 }

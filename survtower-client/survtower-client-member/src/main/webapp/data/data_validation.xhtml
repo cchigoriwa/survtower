@@ -20,9 +20,24 @@
                 <p>Selected Period - #{dataValidationController.surveillance.period.name}</p>
                 <p>Selected Country - <b>#{dataValidationController.surveillance.member.name}</b></p>
 
-                <p:dataTable value="#{dataValidationController.surveillanceDataList}" var="item">  
-                    <p:column headerText="Indicator Name">  
-                        #{item.indicator.name}
+                <p:dataTable id="tbl" value="#{dataValidationController.surveillanceDataList}" var="item">  
+
+                    <p:column width="10%">  
+                        <h:commandLink value="xls">  
+                            <p:dataExporter type="xls" target="tbl" fileName="#{dataValidationController.surveillance.program.name} - #{dataValidationController.surveillance.period.name} - #{dataValidationController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                        <h:commandLink value="pdf"> 
+                            <p:dataExporter type="pdf" target="tbl" fileName="#{dataValidationController.surveillance.program.name} - #{dataValidationController.surveillance.period.name} - #{dataValidationController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                        <h:commandLink value="csv"> 
+                            <p:dataExporter type="csv" target="tbl" fileName="#{dataValidationController.surveillance.program.name} - #{dataValidationController.surveillance.period.name} - #{dataValidationController.surveillance.member.name}" />
+                        </h:commandLink>
+                    </p:column>
+
+                    <p:column headerText="Indicator Name">
+                        <h:outputText value="#{item.indicator.name}" title="#{item.indicator.numerator.name}" /> 
                     </p:column>  
 
                     <p:column headerText="Numerator">  
@@ -49,13 +64,13 @@
                 <br/><br/>
                 <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved}"/>
                 <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved}"/>
-                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and dataValidationController.surveillanceAudit.approved}"/>
-                
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved}"/>
+
                 <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
-                    <p>Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
-                    <p>Date On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
-                    <p>Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
-                    <p>Date On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
+                    <p>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
+                    <p>Date Approved On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
+                    <p>Data Entry Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
+                    <p>Data Entry Done On <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
                 </p:panel>
             </h:form>
         </p:panel>

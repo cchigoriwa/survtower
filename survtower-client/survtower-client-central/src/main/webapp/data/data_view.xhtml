@@ -13,16 +13,32 @@
     </ui:define>
 
     <ui:define name="content">
-        
+
         <p:panel header="View Surveillance Data Upload">
             <h:form>
                 <p>Selected Program - #{dataViewController.surveillance.program.name} </p>
                 <p>Selected Period - #{dataViewController.surveillance.period.name}</p>
                 <p>Selected Country - <b>#{dataViewController.surveillance.member.name}</b></p>
 
-                <p:dataTable value="#{dataViewController.surveillanceDataList}" var="item">  
+                <p:dataTable id="tbl" value="#{dataViewController.surveillanceDataList}" var="item">  
+
+                    <p:column width="10%">  
+                        <h:commandLink value="xls">  
+                            <p:dataExporter type="xls" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                        <h:commandLink value="pdf"> 
+                            <p:dataExporter type="pdf" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                        <h:commandLink value="csv"> 
+                            <p:dataExporter type="csv" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                    </p:column>
+
                     <p:column headerText="Indicator Name">  
-                        #{item.indicator.name}
+                        <h:outputText value="#{item.indicator.name}"/>
                     </p:column>  
 
                     <p:column headerText="Numerator">  
@@ -46,7 +62,7 @@
                     </p:column>  
 
                 </p:dataTable>
-                
+
             </h:form>
         </p:panel>
     </ui:define>

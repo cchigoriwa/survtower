@@ -22,7 +22,7 @@
 
                 <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{!dataEntryController.submitted}">  
                     <p:column headerText="Indicator Name">  
-                        #{item.indicator.name}
+                        <h:outputText value="#{item.indicator.name}"/>
                     </p:column>  
 
                     <p:column headerText="Numerator">  
@@ -37,7 +37,7 @@
 
                 <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{dataEntryController.submitted}">  
                     <p:column headerText="Indicator Name">  
-                        #{item.indicator.name}
+                        <h:outputText value="#{item.indicator.name}"/>}
                     </p:column>  
 
                     <p:column headerText="Numerator">  
@@ -69,8 +69,8 @@
                 <br/><br/>
 
                 <p:panel header="Data Entry Summary " rendered="#{dataEntryController.surveillanceAudit.uploaded}">
-                    <p>Done By - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedBy}"/> </b></p>
-                    <p>Date On - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedOn}"/> </b></p>
+                    <p>Data Entry Done By - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedBy}"/> </b></p>
+                    <p>Data Entry Done On - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedOn}"/> </b></p>
                 </p:panel>
             </h:form>
         </p:panel>

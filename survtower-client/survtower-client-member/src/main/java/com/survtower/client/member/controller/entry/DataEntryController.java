@@ -193,7 +193,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
         return null;
     }
 
-    public String saveSurviellanceForm() {        
+    public String saveSurviellanceForm() {
         if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
@@ -215,17 +215,17 @@ public class DataEntryController extends MessageInfor implements Serializable {
                 errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
                 return null;
             }
-            
+
             surveillanceService.save(surveillance);
-            if (surveillanceAudit == null) {
-                surveillanceAudit.setPeriod(period);
-                surveillanceAudit.setProgram(program);
-                surveillanceAudit.setUploadedBy(getCurrentUser());
-                surveillanceAudit.setUploadedOn(new Date());
+            if (getSurveillanceAudit().getId() == null) {
+                getSurveillanceAudit().setPeriod(period);
+                getSurveillanceAudit().setProgram(program);
+                getSurveillanceAudit().setUploadedBy(getCurrentUser());
+                getSurveillanceAudit().setUploadedOn(new Date());
             } else {
-                surveillanceAudit.setUploadedOn(new Date());
+                getSurveillanceAudit().setUploadedOn(new Date());
             }
-            if (surveillanceAudit.getUploadedBy() == null) {
+            if (getSurveillanceAudit().getUploadedBy() == null) {
                 errorMessages("Audit Trail - Not Working");
                 return null;
             }
@@ -271,11 +271,8 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
         if (getSurveillance() != null) {
-            //if surveillance data has been created load file
-            inforMessages("Indicators for this period have been created Already");
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-            surveillanceAudit = surveillanceAuditService.get(getSurveillance().getProgram(), getSurveillance().getPeriod());
         } else {
             //create new surveillance 
             setSurveillance(new Surveillance());
@@ -283,7 +280,6 @@ public class DataEntryController extends MessageInfor implements Serializable {
             getSurveillance().setProgram(getProgram());
             getSurveillance().setCreateDate(new Date());
             getSurveillance().setMember(memberService.getCurrentMember());
-            setSurveillanceAudit(new SurveillanceAudit());
             for (Indicator indicator : indicatorService.findIndicatorsInProgram(getProgram())) {
                 SurveillanceData data = new SurveillanceData();
                 data.setCreateDate(new Date());
@@ -294,6 +290,12 @@ public class DataEntryController extends MessageInfor implements Serializable {
                 getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
             }
         }
+        surveillanceAudit = surveillanceAuditService.get(program, period);
+        //create new surveillance audit
+        if (getSurveillanceAudit() == null) {
+            setSurveillanceAudit(new SurveillanceAudit());
+        }
+
     }
 
     public String dataValidationSelection() {
