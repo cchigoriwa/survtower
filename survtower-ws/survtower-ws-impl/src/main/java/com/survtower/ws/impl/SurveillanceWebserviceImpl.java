@@ -47,39 +47,43 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
         String memberID = auth.getName();
         Member serverMember = memberSecurityService.findByMemberID(memberID).getMember();
 
+        if (surveillancePayload != null && surveillancePayload.getSurveillances() != null && !surveillancePayload.getSurveillances().isEmpty()) {
+            for (Surveillance surveillance : surveillancePayload.getSurveillances()) {
+                if (serverMember.equals(memberService.findByUuid(surveillance.getMember().getUuid()))) {
+                    Program serverProgram = programService.findByUuid(surveillance.getProgram().getUuid());
+                    Period serverPeriod = periodService.findByUuid(surveillance.getPeriod().getUuid());
+                    Surveillance existing = surveillanceService.findByProgramAndPeriodAndMember(serverProgram, serverPeriod, serverMember);
+                    if (existing == null) {
+                        Set<SurveillanceData> clientSurveillanceDatas = surveillance.getSurveillanceDataSet();
+                        Set<SurveillanceData> serverSurveillanceDatas = new LinkedHashSet<SurveillanceData>();
 
-            if (surveillancePayload != null && surveillancePayload.getSurveillances() != null && !surveillancePayload.getSurveillances().isEmpty()) {
-                for (Surveillance surveillance : surveillancePayload.getSurveillances()) {
-                    if (serverMember.equals(memberService.findByUuid(surveillance.getMember().getUuid()))) {
-                        Program serverProgram=programService.findByUuid(surveillance.getProgram().getUuid());
-                        Period serverPeriod=periodService.findByUuid(surveillance.getPeriod().getUuid());
-                        Surveillance existing = surveillanceService.findByProgramAndPeriodAndMember(serverProgram, serverPeriod, serverMember);
-                        if (existing == null) {
-                            Set<SurveillanceData> clientSurveillanceDatas = surveillance.getSurveillanceDataSet();
-                            Set<SurveillanceData> serverSurveillanceDatas = new LinkedHashSet<SurveillanceData>();
-                            for (SurveillanceData surveillanceData : clientSurveillanceDatas) {
-                                Indicator serverIndicator = indicatorService.findByUuid(surveillanceData.getIndicator().getUuid());
-                                if (serverIndicator != null) {
-                                    surveillanceData.setId(null);
-                                    surveillanceData.setSurveillance(surveillance);
-                                    surveillanceData.setIndicator(serverIndicator);
-                                    serverSurveillanceDatas.add(surveillanceData);
-                                }
+                        System.out.println("fROM clIENT 000099-----------------------------------------------" + surveillance.getSurveillanceDataSet().size());
+
+                        for (SurveillanceData surveillanceData : clientSurveillanceDatas) {
+                            Indicator serverIndicator = indicatorService.findByUuid(surveillanceData.getIndicator().getUuid());
+                            if (serverIndicator != null) {
+                                surveillanceData.setId(null);
+                                surveillanceData.setSurveillance(surveillance);
+                                surveillanceData.setIndicator(serverIndicator);
+                                serverSurveillanceDatas.add(surveillanceData);
                             }
-
-                            if (!serverSurveillanceDatas.isEmpty()) {
-                                surveillance.setId(null);
-                                surveillance.setSurveillanceDataSet(serverSurveillanceDatas);
-                                surveillance.setMember(serverMember);
-                                surveillance.setPeriod(serverPeriod);
-                                surveillance.setProgram(serverProgram);
-                                surveillanceService.save(surveillance);
-                            }
-
                         }
+
+                         System.out.println("LAST 000099-----------------------------------------------" + serverSurveillanceDatas.size());
+
+                        if (!serverSurveillanceDatas.isEmpty()) {
+                            surveillance.setId(null);
+                            surveillance.setSurveillanceDataSet(serverSurveillanceDatas);
+                            surveillance.setMember(serverMember);
+                            surveillance.setPeriod(serverPeriod);
+                            surveillance.setProgram(serverProgram);
+                            surveillanceService.save(surveillance);
+                        }
+
                     }
                 }
-            
+            }
+
         }
 
     }

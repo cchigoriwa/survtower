@@ -2674,6 +2674,9 @@ div.separator-label span { background: #f7f6f3; }
 
 body.small #container { background: #f7f6f3; border: 1px solid #e1dfd4; }
 
+.inputInvalid {
+   border: 2px solid red;
+}
 
 
 

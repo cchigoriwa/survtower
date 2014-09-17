@@ -26,11 +26,11 @@
                     </p:column>  
 
                     <p:column headerText="Numerator">  
-                        <h:inputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
+                        <h:inputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" />
                     </p:column>  
 
                     <p:column headerText="Denominator">  
-                        <h:inputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
+                        <h:inputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}"/>
                     </p:column>  
 
                 </p:dataTable>
@@ -67,7 +67,7 @@
                 <p:commandButton value="Save" action="#{dataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
                 <p:commandButton value="Data Validation and Approval" action="#{dataEntryController.dataValidationSelection()}" ajax="false" rendered="#{dataEntryController.surveillanceAudit!=null and dataEntryController.surveillanceAudit.approvedOn==null}"/>                        
                 <br/><br/>
-                
+
                 <p:panel header="Data Entry Summary " rendered="#{dataEntryController.surveillanceAudit.uploadedBy!=null and dataEntryController.surveillanceAudit.uploadedOn!=null}">
                     <p>Done By - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedBy}"/> </b></p>
                     <p>Date On - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedOn}"/> </b></p>

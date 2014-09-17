@@ -83,7 +83,7 @@ public abstract class BaseEntity implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.uuid);
         return hash;
     }
 
@@ -96,7 +96,7 @@ public abstract class BaseEntity implements Serializable {
             return false;
         }
         final BaseEntity other = (BaseEntity) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.uuid, other.uuid)) {
             return false;
         }
         return true;

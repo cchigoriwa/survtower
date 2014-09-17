@@ -1,5 +1,6 @@
 package com.survtower.business.member.integration.impl;
 
+import com.survtower.business.common.dao.SurveillanceDao;
 import com.survtower.business.common.domain.Dynamic;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.SurveillanceService;
@@ -73,10 +74,13 @@ public class SurveillanceIntegratorImpl implements SurveillanceIntegrator {
                     }
                 }
 
-                if (!surveillances.isEmpty()) {                    
-                    SurveillanceWebservice surveillanceWebservice=integrationService.getSurveillanceWebservice();
+                if (!surveillances.isEmpty()) {
+                    for (Surveillance surveillance : surveillances) {
+                        System.out.println("clIENT 000099-----------------------------------------------" + surveillance.getSurveillanceDataSet().size());
+                    }
+                    SurveillanceWebservice surveillanceWebservice = integrationService.getSurveillanceWebservice();
                     surveillanceWebservice.processData(new SurveillancePayload(surveillances));
-                    
+
                     //now Update or create local meta for surveillance
                     if (surveillanceAuditDynamicMeta == null) {
                         surveillanceAuditDynamicMeta = new DynamicMeta(Dynamic.SURVEILLANCE);
