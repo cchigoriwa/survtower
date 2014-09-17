@@ -10,12 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
-import javax.swing.text.StyledEditorKit;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -37,7 +35,7 @@ public class Period extends NamedBaseEntity {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dueDate;
     private Boolean active = Boolean.FALSE;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "Period_Program", joinColumns = { @JoinColumn(name = "period_id") }, inverseJoinColumns = { @JoinColumn(name = "program_id") })
     private Set<Program> programs = new HashSet<Program>();
     @Transient

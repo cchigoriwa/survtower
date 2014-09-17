@@ -51,9 +51,9 @@ public class LookupDataWebserviceImpl implements LookupDataWebservice {
 
     public LookupMetaDataCollectionPayload getLookupMetaDataList() {
         LookupMetaDataCollectionPayload payload = new LookupMetaDataCollectionPayload();
-        payload.add(Lookup.MEMBER, findMaximumUpdateForMember());
-        payload.add(Lookup.PERIOD, periodService.findMaximumUpdateDate());
+        payload.add(Lookup.MEMBER, findMaximumUpdateForMember());        
         payload.add(Lookup.PROGRAM, programService.findMaximumUpdateDate());
+        payload.add(Lookup.PERIOD, periodService.findMaximumUpdateDate());
         payload.add(Lookup.FREQUENCY, frequencyService.findMaximumUpdateDate());
         payload.add(Lookup.DATA_SOURCE_CATEGORY, dataSourceCategoryService.findMaximumUpdateDate());
         payload.add(Lookup.DATA_SOURCE, dataSourceService.findMaximumUpdateDate());

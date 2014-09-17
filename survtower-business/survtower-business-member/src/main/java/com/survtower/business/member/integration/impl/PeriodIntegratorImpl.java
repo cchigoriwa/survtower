@@ -64,7 +64,7 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
                     period.setId(null);
                 }
                 
-                //Reset @OneToMany programs before saving
+                //Reset ManyToMany programs before saving
                 if(period.getPrograms()!=null && !period.getPrograms().isEmpty()){
                     Set<Program> serverPrograms=period.getPrograms();
                     Set<Program> localPrograms=new LinkedHashSet<>();
