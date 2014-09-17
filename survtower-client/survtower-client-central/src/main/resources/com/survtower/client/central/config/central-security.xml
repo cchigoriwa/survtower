@@ -9,14 +9,15 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
     <http pattern="/login.xhtml" security="none"/>
+    <http pattern="/faces/index.xhtml" security="none"/>
  
     <http auto-config="true" use-expressions="true">
         <form-login
             login-processing-url="/j_spring_security_check"
             login-page="/faces/login.xhtml"
-            default-target-url="/faces/index.xhtml"
+            default-target-url="/faces/dash_board.xhtml"
             authentication-failure-url="/faces/login.xhtml"/>
-        <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/index.xhtml" delete-cookies="JSESSIONID"/>
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/dash_board.xhtml" delete-cookies="JSESSIONID"/>
         <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_GLOBAL_ADMINISTRATOR')" />        
     </http>
 

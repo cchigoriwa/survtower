@@ -106,7 +106,13 @@ body {
 }
 #header .wrapper {
     position: relative;
+    text-align: center;
 }
+
+#header .wrapper h1{
+    text-align: center;
+}
+
 #header h1 {
     text-align: left;
 }

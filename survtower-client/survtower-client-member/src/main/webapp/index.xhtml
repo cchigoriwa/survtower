@@ -9,65 +9,31 @@
     <ui:composition template="/WEB-INF/template/DefaultTemplate.xhtml">
 
         <ui:define name="title">
-            SADC Surveillance System-#{generalController.member.name}
+            SADC Surveillance System - #{generalController.member.name}
         </ui:define>
 
         <ui:define name="content">
-
-
             <h:form>
-                <p:growl id="msgs" showDetail="true" />
 
                 <p:panel id="basic" header="Dash Board - #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
 
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
+                    <p>Background HIV and AIDS, Malaria and Tuberculosis (TB) are
+                        three diseases that impose the heaviest burden in the SADC region. Member States (MS)
+                        of the SADC region realised the potential negative impact of these diseases and responded by proclaiming in the 1999 “SADC Protocol on Health” the need to cooperate in regional surveillance with respect to communicable and non-communicable diseases and to develop a common set of indicators for these diseases (Article 6).
+                        The Surveillance Database system will be used to monitor the agreed indicators.
+                    </p> 
+                    <p>
+                        <p:commandButton value="login" action="login" rendered="#{!checkLoggedOn.loggedOn}"/>
 
-                            <p:dataTable value="#{indexController.aduitItems}" var="item">
-                                <p:column headerText="Name">
-                                    #{item.period.name} 
-                                </p:column>
-                                <p:column headerText="Due Date In">
-                                    #{item.period.numberOfDaysLeftToDueDate} Days
-                                </p:column>
-                                <p:column headerText="Submitted">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.uploaded}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.uploaded}"/> 
-                                </p:column>  
-                                <p:column headerText="Approved">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.approved}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.approved}"/> 
-                                </p:column>  
-                            </p:dataTable>
+                        <p:commandButton value="Dash Board" action="dash_board" rendered="#{checkLoggedOn.loggedOn}"/>
 
+                        <p:commandButton value="Logout" action="#{loginController.logout()}" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+                    </p>
 
-                        </p:panel>
-                        <p:panel id="notificationTwo" header="Reporting Period Missed" footer="Details" style="margin-bottom:20px">
-                            <p:dataTable value="#{indexController.pastDueDatePeriods}" var="item">
-                                <p:column headerText="Name">
-                                    #{item.name} 
-                                </p:column>
-                                <p:column headerText="Submitted">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
-                                </p:column>  
-                                <p:column headerText="Approved">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
-                                </p:column>  
-                            </p:dataTable>
-                        </p:panel>
-                        <p:panel id="notificationThree" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
-
-                        </p:panel>
-                        <p:panel id="notificationFour" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
-
-                        </p:panel>
-                    </h:panelGrid>
                 </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>
 
-</html>
+</html> 
 

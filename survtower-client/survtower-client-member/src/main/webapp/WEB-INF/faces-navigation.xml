@@ -15,6 +15,11 @@
         </navigation-case>  
         
         <navigation-case>
+            <from-outcome>dash_board</from-outcome>
+            <to-view-id>/dash_board.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>  

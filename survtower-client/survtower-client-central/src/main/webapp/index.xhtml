@@ -9,28 +9,32 @@
     <ui:composition template="/WEB-INF/template/DefaultTemplate.xhtml">
 
         <ui:define name="title">
-            SADC Surveillance System
+            SADC Surveillance System-#{generalController.member.name}
         </ui:define>
 
         <ui:define name="content">
-
             <h:form>
-                <p:growl id="msgs" showDetail="true" />
 
-                <p:panel id="basic" header="Dash Board" footer="Status" style="margin-bottom:20px">
+                <p:panel id="basic" header="Dash Board - #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
 
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:panel id="notificationOne" header="Reporting Periods" footer="Details" style="margin-bottom:20px">
+                    <p>Background HIV and AIDS, Malaria and Tuberculosis (TB) are
+                        three diseases that impose the heaviest burden in the SADC region. Member States (MS)
+                        of the SADC region realised the potential negative impact of these diseases and responded by proclaiming in the 1999 “SADC Protocol on Health” the need to cooperate in regional surveillance with respect to communicable and non-communicable diseases and to develop a common set of indicators for these diseases (Article 6).
+                        The Surveillance Database system will be used to monitor the agreed indicators.
+                    </p>  
 
-                        </p:panel>
-                        <p:panel id="notificationTwo" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
+                    <p>
+                        <p:commandButton value="login" action="login" rendered="#{!checkLoggedOn.loggedOn}"/>
 
-                        </p:panel>                        
-                    </h:panelGrid>
+                        <p:commandButton value="Dash Board" action="dash_board" rendered="#{checkLoggedOn.loggedOn}"/>
+
+                        <p:commandButton value="Logout" action="#{loginController.logout()}" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+                    </p>
+
                 </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>
 
-</html>
+</html> 
 

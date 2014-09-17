@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -192,9 +193,8 @@ public class DataEntryController extends MessageInfor implements Serializable {
         return null;
     }
 
-    public String saveSurviellanceForm() {
-        MemberUser currentMemberUser = memberUserService.getCurrentUser();
-        if (currentMemberUser == null) {
+    public String saveSurviellanceForm() {        
+        if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
         }
@@ -211,24 +211,28 @@ public class DataEntryController extends MessageInfor implements Serializable {
             submitted = Boolean.TRUE;
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-
-            if (surveillanceAudit.getSubmissionDone()) {//Check for Final Submission
+            if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
                 errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
                 return null;
             }
+            
             surveillanceService.save(surveillance);
             if (surveillanceAudit == null) {
-                surveillanceAudit = new SurveillanceAudit();
                 surveillanceAudit.setPeriod(period);
                 surveillanceAudit.setProgram(program);
-                surveillanceAudit.setUploadedBy(currentMemberUser);
+                surveillanceAudit.setUploadedBy(getCurrentUser());
                 surveillanceAudit.setUploadedOn(new Date());
             } else {
                 surveillanceAudit.setUploadedOn(new Date());
             }
+            if (surveillanceAudit.getUploadedBy() == null) {
+                errorMessages("Audit Trail - Not Working");
+                return null;
+            }
             surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
         } catch (Exception ex) {
+            ex.printStackTrace();
             errorMessages("Surveillance Data Not Processed Succefully");
         }
         return null;
@@ -279,6 +283,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
             getSurveillance().setProgram(getProgram());
             getSurveillance().setCreateDate(new Date());
             getSurveillance().setMember(memberService.getCurrentMember());
+            setSurveillanceAudit(new SurveillanceAudit());
             for (Indicator indicator : indicatorService.findIndicatorsInProgram(getProgram())) {
                 SurveillanceData data = new SurveillanceData();
                 data.setCreateDate(new Date());
@@ -298,6 +303,22 @@ public class DataEntryController extends MessageInfor implements Serializable {
         } else {
             errorMessages("Surveillance Data Not Uploaded - Redirect to Data Entry");
             return "data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid();
+        }
+    }
+
+    public MemberUser getCurrentUser() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = fc.getExternalContext();
+        if (externalContext.getUserPrincipal() == null) {
+            return null;
+        } else {
+            String user = externalContext.getUserPrincipal().getName();
+            MemberUser memberUser = memberUserService.findByUserName(user);
+            if (memberUser != null) {
+                return memberUser;
+            } else {
+                return null;
+            }
         }
     }
 }

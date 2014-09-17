@@ -1,8 +1,6 @@
 package com.survtower.business.member.repository;
 
 import com.survtower.business.member.domain.MemberUser;
-import java.util.Date;
-import java.util.List;
 import net.sadc.business.common.GenericRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

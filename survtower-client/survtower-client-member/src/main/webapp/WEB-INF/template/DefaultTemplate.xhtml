@@ -18,7 +18,7 @@
 
             <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" />
 
-            <p>Logged On as  : #{loginController.currentUser}</p>
+            <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
 
         </h:panelGrid>
         <ui:insert name="content">SADC Surveillance System</ui:insert>
