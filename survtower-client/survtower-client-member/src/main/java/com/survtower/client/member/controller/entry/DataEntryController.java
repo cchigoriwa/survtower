@@ -212,7 +212,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
             getSurveillanceDataList().clear();
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
 
-            if (surveillanceAudit != null && surveillanceAudit.getApprovedBy() != null && surveillanceAudit.getApprovedOn() != null) {//check audit for Approval
+            if (surveillanceAudit.getSubmissionDone()) {//Check for Final Submission
                 errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
                 return null;
             }

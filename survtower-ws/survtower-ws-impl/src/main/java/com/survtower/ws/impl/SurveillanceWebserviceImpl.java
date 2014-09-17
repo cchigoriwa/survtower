@@ -57,8 +57,6 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
                         Set<SurveillanceData> clientSurveillanceDatas = surveillance.getSurveillanceDataSet();
                         Set<SurveillanceData> serverSurveillanceDatas = new LinkedHashSet<SurveillanceData>();
 
-                        System.out.println("fROM clIENT 000099-----------------------------------------------" + surveillance.getSurveillanceDataSet().size());
-
                         for (SurveillanceData surveillanceData : clientSurveillanceDatas) {
                             Indicator serverIndicator = indicatorService.findByUuid(surveillanceData.getIndicator().getUuid());
                             if (serverIndicator != null) {
@@ -68,8 +66,6 @@ public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
                                 serverSurveillanceDatas.add(surveillanceData);
                             }
                         }
-
-                         System.out.println("LAST 000099-----------------------------------------------" + serverSurveillanceDatas.size());
 
                         if (!serverSurveillanceDatas.isEmpty()) {
                             surveillance.setId(null);

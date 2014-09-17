@@ -68,16 +68,13 @@ public class SurveillanceIntegratorImpl implements SurveillanceIntegrator {
 
                 List<Surveillance> surveillances = new ArrayList<>();
                 for (SurveillanceAudit surveillanceAudit : surveillanceAudits) {
-                    if (surveillanceAudit.approved()) {
+                    if (surveillanceAudit.getSubmissionDone()) {
                         Surveillance surveillance = surveillanceService.findByProgramAndPeriod(surveillanceAudit.getProgram(), surveillanceAudit.getPeriod());
                         surveillances.add(surveillance);
                     }
                 }
 
                 if (!surveillances.isEmpty()) {
-                    for (Surveillance surveillance : surveillances) {
-                        System.out.println("clIENT 000099-----------------------------------------------" + surveillance.getSurveillanceDataSet().size());
-                    }
                     SurveillanceWebservice surveillanceWebservice = integrationService.getSurveillanceWebservice();
                     surveillanceWebservice.processData(new SurveillancePayload(surveillances));
 

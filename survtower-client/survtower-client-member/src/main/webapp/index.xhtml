@@ -23,20 +23,20 @@
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
 
-                            <p:dataTable value="#{indexController.activePeriods}" var="item">
+                            <p:dataTable value="#{indexController.aduitItems}" var="item">
                                 <p:column headerText="Name">
-                                    #{item.name} 
+                                    #{item.period.name} 
                                 </p:column>
                                 <p:column headerText="Due Date In">
-                                    #{item.numberOfDaysLeftToDueDate} Days
+                                    #{item.period.numberOfDaysLeftToDueDate} Days
                                 </p:column>
                                 <p:column headerText="Submitted">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.uploaded}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.uploaded}"/> 
                                 </p:column>  
                                 <p:column headerText="Approved">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{!item.dueDatePassed}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{item.dueDatePassed}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.approved}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.approved}"/> 
                                 </p:column>  
                             </p:dataTable>
 

@@ -65,10 +65,10 @@
                 <p:commandButton value="Process" action="#{dataEntryController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataEntryController.submitted}"/>
                 <p:commandButton value="Edit" action="#{dataEntryController.editSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
                 <p:commandButton value="Save" action="#{dataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
-                <p:commandButton value="Data Validation and Approval" action="#{dataEntryController.dataValidationSelection()}" ajax="false" rendered="#{dataEntryController.surveillanceAudit!=null and dataEntryController.surveillanceAudit.approvedOn==null}"/>                        
+                <p:commandButton value="Data Validation and Approval" action="#{dataEntryController.dataValidationSelection()}" ajax="false" rendered="#{dataEntryController.surveillanceAudit!=null and dataEntryController.surveillanceAudit.uploaded}"/>                        
                 <br/><br/>
 
-                <p:panel header="Data Entry Summary " rendered="#{dataEntryController.surveillanceAudit.uploadedBy!=null and dataEntryController.surveillanceAudit.uploadedOn!=null}">
+                <p:panel header="Data Entry Summary " rendered="#{dataEntryController.surveillanceAudit.uploaded}">
                     <p>Done By - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedBy}"/> </b></p>
                     <p>Date On - <b><h:outputText value="#{dataEntryController.surveillanceAudit.uploadedOn}"/> </b></p>
                 </p:panel>

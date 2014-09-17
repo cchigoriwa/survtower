@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"}),
-    @UniqueConstraint(columnNames = {"program_id","period_id"})})
+    @UniqueConstraint(columnNames = {"program_id", "period_id"})})
 public class SurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +42,12 @@ public class SurveillanceAudit extends BaseEntity {
     private Date uploadedOn;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date approvedOn;
+    @Transient
+    private boolean approved;
+    @Transient
+    private boolean uploaded;
+    @Transient
+    private boolean submissionDone;
 
     public Period getPeriod() {
         return period;
@@ -89,9 +96,17 @@ public class SurveillanceAudit extends BaseEntity {
     public void setApprovedOn(Date approvedOn) {
         this.approvedOn = approvedOn;
     }
-    
-    public boolean approved(){
-        return approvedBy!=null && approvedOn!=null;
+
+    public boolean getApproved() {//approval of data upload.
+        return approvedBy != null;
+    }
+
+    public boolean getSubmissionDone() {//final submission of data
+        return getApproved() && getUploaded();
+    }
+
+    public boolean getUploaded() {//upload of data
+        return uploadedBy != null;
     }
 
 }

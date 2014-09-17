@@ -47,11 +47,11 @@
 
                 </p:dataTable>
                 <br/><br/>
-                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedOn==null}"/>
-                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedOn==null}"/>
-                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and dataValidationController.surveillanceAudit.approvedOn==null}"/>
+                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved}"/>
+                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved}"/>
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and dataValidationController.surveillanceAudit.approved}"/>
                 
-                <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.approvedBy!=null and dataValidationController.surveillanceAudit.approvedOn!=null}">
+                <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
                     <p>Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
                     <p>Date On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
                     <p>Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
