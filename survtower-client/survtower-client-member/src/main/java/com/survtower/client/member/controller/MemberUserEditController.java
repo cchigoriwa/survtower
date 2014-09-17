@@ -52,6 +52,7 @@ public class MemberUserEditController {
         List<String> list = new ArrayList<>();
         list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
         list.add(MemberUser.ROLE_HEALTH_INFORMATION_OFFICER);
+        list.add(MemberUser.ROLE_COUNTRY_DISEASE_MANAGER);
         return list;
     }
 

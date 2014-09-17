@@ -43,11 +43,11 @@ public class SurveillanceAudit extends BaseEntity {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date approvedOn;
     @Transient
-    private boolean approved;
+    private Boolean approved;
     @Transient
-    private boolean uploaded;
+    private Boolean uploaded;
     @Transient
-    private boolean submissionDone;
+    private Boolean submissionDone;
 
     public Period getPeriod() {
         return period;
@@ -97,15 +97,15 @@ public class SurveillanceAudit extends BaseEntity {
         this.approvedOn = approvedOn;
     }
 
-    public boolean getApproved() {//approval of data upload.
+    public Boolean getApproved() {//approval of data upload.
         return approvedBy != null;
     }
 
-    public boolean getSubmissionDone() {//final submission of data
+    public Boolean getSubmissionDone() {//final submission of data
         return getApproved() && getUploaded();
     }
 
-    public boolean getUploaded() {//upload of data
+    public Boolean getUploaded() {//upload of data
         return uploadedBy != null;
     }
 
