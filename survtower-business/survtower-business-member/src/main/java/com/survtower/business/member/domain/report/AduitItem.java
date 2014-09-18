@@ -43,6 +43,8 @@ public class AduitItem implements Serializable {
     public void setSurveillanceAudit(SurveillanceAudit surveillanceAudit) {
         this.surveillanceAudit = surveillanceAudit;
     }
+    
+    
 
     public Boolean getDataEntryDone() {
         if (surveillanceAudit != null) {

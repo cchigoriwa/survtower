@@ -42,12 +42,6 @@ public class SurveillanceAudit extends BaseEntity {
     private Date uploadedOn;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date approvedOn;
-    @Transient
-    private Boolean approved;
-    @Transient
-    private Boolean uploaded;
-    @Transient
-    private Boolean submissionDone;
 
     public Period getPeriod() {
         return period;

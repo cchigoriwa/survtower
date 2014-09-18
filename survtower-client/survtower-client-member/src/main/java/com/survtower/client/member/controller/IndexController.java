@@ -107,13 +107,16 @@ public class IndexController {
                 item.setPeriod(period);
                 item.setProgram(program);
                 item.setSurveillanceAudit(surveillanceAuditService.findByProgramAndPeriod(program, period));
+                //if (item.getDataEntryDone()) {
                 aduitItems.add(item);
+                //}
             }
         }
     }
 
     public String surveillanceId(Program program, Period period) {
         Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        return surveillance.getUuid();
+
+        return surveillance == null ? null : surveillance.getUuid();
     }
 }
