@@ -1,9 +1,9 @@
-package com.survtower.client.central.controller.entry;
+package com.survtower.client.member.controller.entry;
 
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.common.service.SurveillanceService;
-import com.survtower.client.central.utility.MessageInfor;
+import com.survtower.client.member.utility.MessageInfor;
 
 import java.io.Serializable;
 import java.util.ArrayList;

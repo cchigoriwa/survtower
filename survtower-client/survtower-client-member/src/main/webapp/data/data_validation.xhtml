@@ -22,20 +22,6 @@
 
                 <p:dataTable id="tbl" value="#{dataValidationController.surveillanceDataList}" var="item">  
 
-                    <p:column width="10%">  
-                        <h:commandLink value="xls">  
-                            <p:dataExporter type="xls" target="tbl" fileName="#{dataValidationController.surveillance.program.name} - #{dataValidationController.surveillance.period.name} - #{dataValidationController.surveillance.member.name}" />
-                        </h:commandLink>
-                        <p:spacer width="3"/>
-                        <h:commandLink value="pdf"> 
-                            <p:dataExporter type="pdf" target="tbl" fileName="#{dataValidationController.surveillance.program.name} - #{dataValidationController.surveillance.period.name} - #{dataValidationController.surveillance.member.name}" />
-                        </h:commandLink>
-                        <p:spacer width="3"/>
-                        <h:commandLink value="csv"> 
-                            <p:dataExporter type="csv" target="tbl" fileName="#{dataValidationController.surveillance.program.name} - #{dataValidationController.surveillance.period.name} - #{dataValidationController.surveillance.member.name}" />
-                        </h:commandLink>
-                    </p:column>
-
                     <p:column headerText="Indicator Name">
                         <h:outputText value="#{item.indicator.name}" title="#{item.indicator.numerator.name}" /> 
                     </p:column>  

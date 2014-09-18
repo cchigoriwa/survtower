@@ -23,17 +23,17 @@ public class CheckLoggedOn implements Serializable {
 
     public void userNotLoggedOn() {
         //check to see if user is logged off and deny access dash board 
-        if (getCurrentUser() == null) {
+        if (!getLoggedOn()) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) facesContext.getApplication().getNavigationHandler();
-            nav.performNavigation("access_denied");
+            nav.performNavigation("login");
 
         }
     }
 
     public void userLoggedOn() {
         //check to see if user is already logged on and redirect to index page
-        if (getCurrentUser() == null) {
+        if (getLoggedOn()) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) facesContext.getApplication().getNavigationHandler();
             nav.performNavigation("index");

@@ -13,20 +13,30 @@
         </ui:define>
 
         <ui:define name="content">
-
+            <f:event listener="#{checkLoggedOn.userNotLoggedOn()}" type="preRenderView" />
             <h:form>
                 <p:growl id="msgs" showDetail="true" />
 
                 <p:panel id="basic" header="Dash Board" footer="Status" style="margin-bottom:20px">
 
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:panel id="notificationOne" header="Reporting Periods" footer="Details" style="margin-bottom:20px">
-
-                        </p:panel>
-                        <p:panel id="notificationTwo" header="Open Reporting Periods" footer="Details" style="margin-bottom:20px">
-
-                        </p:panel>                        
-                    </h:panelGrid>
+                    <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
+                        <p:dataTable value="#{indexController.surveillances}" var="item">
+                            <p:column headerText="Program">
+                                #{item.program.name} 
+                            </p:column>
+                            <p:column headerText="Period">
+                                #{item.period.name} 
+                            </p:column>
+                            <p:column headerText="Member">
+                                #{item.member.name} 
+                            </p:column>
+                            <p:column>  
+                                <h:link value="View" outcome="data_view">                        
+                                    <f:param name="surveillanceId" value="#{item.uuid}" />
+                                </h:link>
+                            </p:column>  
+                        </p:dataTable>
+                    </p:panel>
                 </p:panel>
             </h:form>
         </ui:define>

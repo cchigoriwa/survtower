@@ -166,7 +166,6 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     }
 
     public String loadSinglePeriodIndicator() {
-        System.out.println("------------------------" + indicator.getName());
         getSurveillanceDataList().clear();
         createSinglePeriodIndicatorChart();
         if (linearModel.getSeries().isEmpty()) {

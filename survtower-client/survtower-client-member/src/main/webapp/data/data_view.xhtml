@@ -1,0 +1,70 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
+
+    <ui:define name="title">
+        View Surveillance Upload
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:panel header="View Surveillance Data Upload">
+            <h:form>
+                <p>Selected Program - #{dataViewController.surveillance.program.name} </p>
+                <p>Selected Period - #{dataViewController.surveillance.period.name}</p>
+                <p>Selected Country - <b>#{dataViewController.surveillance.member.name}</b></p>
+
+                <p:dataTable id="tbl" value="#{dataViewController.surveillanceDataList}" var="item">  
+
+                    <p:column width="10%">  
+                        <h:commandLink value="xls">  
+                            <p:dataExporter type="xls" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                        <h:commandLink value="pdf"> 
+                            <p:dataExporter type="pdf" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                        <h:commandLink value="csv"> 
+                            <p:dataExporter type="csv" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
+                        </h:commandLink>
+                        <p:spacer width="3"/>
+                    </p:column>
+
+                    <p:column headerText="Indicator Name">  
+                        <h:outputText value="#{item.indicator.name}"/>
+                    </p:column>  
+
+                    <p:column headerText="Numerator">  
+                        <h:outputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Denominator">  
+                        <h:outputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Indicator Value">  
+                        <h:outputText value="#{item.calculatedValue}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.calculatedValue}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                    </p:column>  
+
+                    <p:column headerText="Valid">  
+                        <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.valid}"/> 
+                        <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.valid}"/> 
+                    </p:column>  
+
+                </p:dataTable>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>
