@@ -14,7 +14,7 @@ import java.io.Serializable;
  *
  * @author tdhlakama
  */
-public class AduitItem implements Serializable {
+public class AuditItem implements Serializable {
 
     private Program program;
     private Period period;
