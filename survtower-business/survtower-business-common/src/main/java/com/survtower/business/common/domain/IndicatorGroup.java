@@ -36,7 +36,8 @@ public class IndicatorGroup extends NamedBaseEntity {
     public void setProgram(Program program) {
         this.program = program;
     }
-
+    
+    @XmlTransient    
     public Set<Indicator> getIndicators() {
         return indicators;
     }
