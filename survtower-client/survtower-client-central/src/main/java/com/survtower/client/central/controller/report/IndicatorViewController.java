@@ -58,37 +58,27 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     public void setMemberService(MemberService memberService) {
         this.memberService = memberService;
     }
-    
+
     private Indicator indicator;
-    private Period period;
     private CartesianChartModel linearModel = new CartesianChartModel();
     private CartesianChartModel dataElementsModel = new CartesianChartModel();
-    private Member member;
-
+    private List<Member> members = new ArrayList<Member>();
     private List<Period> periods = new ArrayList<Period>();
 
-    public Member getMember() {
-        return member;
+    public List<Member> getMembers() {
+        return members;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
-    
+
     public List<Period> getPeriods() {
         return periods;
     }
 
     public void setPeriods(List<Period> periods) {
         this.periods = periods;
-    }
-
-    public Period getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
     }
 
     public CartesianChartModel getLinearModel() {
@@ -115,31 +105,6 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         this.indicator = indicator;
     }
 
-    public void createSinglePeriodIndicatorChart() {
-        linearModel = new CartesianChartModel();
-        ChartSeries series = new ChartSeries();
-        ChartSeries numerator = new ChartSeries();
-        ChartSeries denominator = new ChartSeries();
-        dataElementsModel = new CartesianChartModel();
-        series.setLabel(getIndicator().getName());
-        numerator.setLabel(getIndicator().getNumerator().getName());
-        denominator.setLabel(getIndicator().getDenominator().getName());
-        getSurveillanceDataList().clear();
-        getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(getPeriod(), getMember(), getIndicator()));
-        for (SurveillanceData data : getSurveillanceDataList()) {
-            if (data.getIndicator().equals(getIndicator())) {
-                series.set(data.getSurveillance().getPeriod().getName(), data.getCalculatedValue());
-            }
-            numerator.set(data.getSurveillance().getPeriod().getName(), data.getNumeratorValue());
-            denominator.set(data.getSurveillance().getPeriod().getName(), data.getDenominatorValue());
-        }
-
-        linearModel.addSeries(series);
-        dataElementsModel.addSeries(numerator);
-        dataElementsModel.addSeries(denominator);
-
-    }
-
     public void createMuptiplePeriodIndicatorChart() {
         linearModel = new CartesianChartModel();
         ChartSeries series = new ChartSeries();
@@ -150,8 +115,10 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         numerator.setLabel(getIndicator().getNumerator().getName());
         denominator.setLabel(getIndicator().getDenominator().getName());
         getSurveillanceDataList().clear();
-        for (Period p : periods) {
-            getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(p, getMember(), getIndicator()));
+        for (Member member : members) {
+            for (Period period : periods) {
+                getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(period, member, getIndicator()));
+            }
         }
         for (SurveillanceData data : getSurveillanceDataList()) {
             if (data.getIndicator().equals(getIndicator())) {
@@ -177,17 +144,6 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         this.surveillanceDataList = surveillanceDataList;
     }
 
-    public String loadSinglePeriodIndicator() {
-        getSurveillanceDataList().clear();
-        createSinglePeriodIndicatorChart();
-        if (linearModel.getSeries().isEmpty()) {
-            inforMessages("No data has been loaded for the selected criteria.");
-            return null;
-        } else {
-            return null;
-        }
-    }
-
     public String loadMuptiplePeriodIndicator() {
         getSurveillanceDataList().clear();
         createMuptiplePeriodIndicatorChart();
@@ -204,6 +160,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         indicator = null;
         getSurveillanceDataList().clear();
         getPeriods().clear();
+        getMembers().clear();
         return null;
     }
 
