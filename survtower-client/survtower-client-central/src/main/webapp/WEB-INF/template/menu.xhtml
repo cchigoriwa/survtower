@@ -8,23 +8,23 @@
 
     <h:form> 
         <p:menubar>
-            <p:menuitem value="Dash Board" outcome="index" rendered="#{!checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Dash Board" outcome="index" rendered="#{!checkLoggedOn.loggedOn}" icon="ui-icon-home" />
 
-            <p:menuitem value="Dash Board" outcome="dash_board" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Dash Board" outcome="dash_board" rendered="#{checkLoggedOn.loggedOn}" icon="ui-icon-home"  />
 
-            <p:submenu label="Settings" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
-                <p:menuitem value="Users" outcome="centralUserList"/>
+            <p:submenu label="Settings" icon="ui-icon-wrench" rendered="#{checkLoggedOn.loggedOn}">
+                <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person" />
                 <p:menuitem value="Look up Data" outcome="admin_home"/>
             </p:submenu>
 
-            <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-calendar" rendered="#{checkLoggedOn.loggedOn}"/>
 
             <p:submenu label="View Reporting" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
                 <p:menuitem value="Select Surviellance" outcome="data_select"/>
                 <p:menuitem value="Multiple Period Indicator View" outcome="multiple_period_indicator_view"/>
             </p:submenu>
 
-            <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-circle-zoomin" rendered="#{checkLoggedOn.loggedOn}"/>
 
             <p:menuitem value="login" action="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
             

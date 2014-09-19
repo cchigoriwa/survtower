@@ -8,17 +8,21 @@
         <title>
             <ui:insert name="title">SADC Surveillance System</ui:insert>            
         </title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['webjars/sadc/1.0.0/img:favicon.ico']}"></link>
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/template/menu.xhtml" />
-        <h:panelGrid columns="2">
+        <div style="margin: 10px;">
+            <div style="float: left;">
+                <h:graphicImage library="webjars/sadc/1.0.0/img" name="logo.png"  />
+            </div>
 
-            <h:graphicImage library="webjars/sadc/1.0.0/img"
-                            name="logo.png" />
+            <div style="float: right;">
+                <h:outputText  style="text-align: right;" value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
+            </div>
 
-            <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
-           
-        </h:panelGrid>
+            <div style="clear: both;"></div>
+        </div>
         <ui:insert name="content">SADC Surveillance System</ui:insert>
     </h:body>
 </html>
