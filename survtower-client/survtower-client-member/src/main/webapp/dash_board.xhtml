@@ -43,7 +43,7 @@
                             </p:column>  
 
                             <p:column>  
-                                <h:link value="View" outcome="data_view">                        
+                                <h:link rendered="#{item.dataEntryDone}" value="View" outcome="data_view">                        
                                     <f:param name="surveillanceId" value="#{indexController.surveillanceId(item.program, item.period)}" />
                                 </h:link>
                             </p:column> 

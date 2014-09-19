@@ -14,7 +14,7 @@ import java.io.Serializable;
  *
  * @author tdhlakama
  */
-public class AduitItem implements Serializable {
+public class AuditItem implements Serializable {
 
     private Program program;
     private Period period;
@@ -43,6 +43,8 @@ public class AduitItem implements Serializable {
     public void setSurveillanceAudit(SurveillanceAudit surveillanceAudit) {
         this.surveillanceAudit = surveillanceAudit;
     }
+    
+    
 
     public Boolean getDataEntryDone() {
         if (surveillanceAudit != null) {

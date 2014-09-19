@@ -7,7 +7,7 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.SurveillanceAudit;
-import com.survtower.business.member.domain.report.AduitItem;
+import com.survtower.business.member.domain.report.AuditItem;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
 import java.util.ArrayList;
@@ -49,17 +49,17 @@ public class IndexController {
         this.memberService = memberService;
     }
 
-    private List<AduitItem> aduitItems;
+    private List<AuditItem> aduitItems;
 
     private List<Period> activePeriods;
 
     private List<Period> pastDueDatePeriods;
 
-    public List<AduitItem> getAduitItems() {
+    public List<AuditItem> getAduitItems() {
         return aduitItems;
     }
 
-    public void setAduitItems(List<AduitItem> aduitItems) {
+    public void setAduitItems(List<AuditItem> aduitItems) {
         this.aduitItems = aduitItems;
     }
 
@@ -103,17 +103,20 @@ public class IndexController {
 
         for (Period period : activePeriods) {
             for (Program program : period.getPrograms()) {
-                AduitItem item = new AduitItem();
+                AuditItem item = new AuditItem();
                 item.setPeriod(period);
                 item.setProgram(program);
                 item.setSurveillanceAudit(surveillanceAuditService.findByProgramAndPeriod(program, period));
+                //if (item.getDataEntryDone()) {
                 aduitItems.add(item);
+                //}
             }
         }
     }
 
     public String surveillanceId(Program program, Period period) {
         Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        return surveillance.getUuid();
+
+        return surveillance == null ? null : surveillance.getUuid();
     }
 }
