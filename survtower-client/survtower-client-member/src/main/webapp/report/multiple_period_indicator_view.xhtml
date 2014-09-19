@@ -16,9 +16,11 @@
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Indicator View">
             <h:form>
-                <p>Select Period report</p>
-                <p>Selected Country is <b>#{generalController.member.name}</b></p>
                 <h:panelGrid columns="2"> 
+                    <h:outputText value="Select Members"/>
+                    <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.members}" converter="#{memberConverter}" requiredMessage="Period field is required.">
+                        <f:selectItems value="#{memberListController.members}"/>
+                    </h:selectManyCheckbox>
 
                     <h:outputText value="Select Periods"/>
                     <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.periods}" converter="#{periodConverter}" requiredMessage="Period field is required.">
@@ -40,7 +42,7 @@
 
             </h:form>
         </p:panel>
-         <p:panel header="#{indicatorViewController.indicator.name} Summary" rendered="#{indicatorViewController.indicator!=null}">
+        <p:panel header="#{indicatorViewController.indicator.name} Summary" rendered="#{indicatorViewController.indicator!=null}">
 
             <p:dataTable value="#{indicatorViewController.surveillanceDataList}" var="item">  
 
