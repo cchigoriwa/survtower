@@ -22,7 +22,7 @@
 
                 <p:dataTable value="#{dataEntryController.surveillanceDataList}" var="item" rendered="#{!dataEntryController.submitted}">  
                     <p:column headerText="Indicator Name">  
-                        <h:outputText value="#{item.indicator.name}"/>
+                        <h:outputText value="#{item.indicator.name}" />
                     </p:column>  
 
                     <p:column headerText="Numerator">  

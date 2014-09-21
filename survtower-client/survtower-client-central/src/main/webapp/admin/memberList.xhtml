@@ -5,48 +5,56 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Member List
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable value="#{memberListController.members}" var="member">
-            
-            <p:column headerText="Logo">
-                <h:graphicImage width="60" height="30" library="webjars/sadc/1.0.0/img"
-                                name="#{member.logo}" />
-            </p:column>
-            
-            <p:column headerText="Name">
-                #{member.name}
-            </p:column>
 
-            <p:column headerText="Description">
-                #{member.description}
-            </p:column>
+        <p:layout style="min-width:500px;min-height:500px;">
 
-            <p:column>
-                <h:form>
-                    <h:link value="Edit" outcome="memberEdit">                        
-                        <f:param name="uuid" value="#{member.uuid}" />
-                    </h:link>
-                </h:form>
-            </p:column>
 
-            <p:column>
-                <h:form>
-                    <h:link value="View" outcome="memberView">
-                        <f:param name="uuid" value="#{member.uuid}" />
-                    </h:link>
-                </h:form>
-            </p:column>
-        </p:dataTable>
-           
-        <h:form>
-            <h:link value="New Member" outcome="memberEdit" />
-        </h:form>
+            <p:layoutUnit position="center">
+
+                <p:panel header="Member States">
+                    <p:dataTable value="#{memberListController.members}" var="member">
+
+                        <p:column headerText="Logo">
+                            <h:graphicImage width="60" height="30" library="webjars/sadc/1.0.0/img"
+                                            name="#{member.logo}" />
+                        </p:column>
+
+                        <p:column headerText="Name">
+                            <h:form>
+                                <h:link value="#{member.name}" outcome="memberView">
+                                    <f:param name="uuid" value="#{member.uuid}" />
+                                </h:link>
+                            </h:form>
+                        </p:column>
+
+                        <p:column headerText="Description">
+                            #{member.description}
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <h:form>
+                        <h:link value="New Member" outcome="memberEdit" />
+                    </h:form>
+                </p:panel>
+
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="east" size="400" minSize="400" maxSize="400">
+                <h:graphicImage width="400" library="webjars/sadc/1.0.0/img"
+                            name="SADC_Member_States_lowres.jpg" />
+            </p:layoutUnit>
+
+        </p:layout>
+
     </ui:define>
 
 </ui:composition>

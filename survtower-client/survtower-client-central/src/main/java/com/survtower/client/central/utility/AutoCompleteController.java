@@ -24,7 +24,7 @@ public class AutoCompleteController implements Serializable {
 
     @ManagedProperty(value = "#{indicatorService}")
     private IndicatorService indicatorService;
-    @ManagedProperty(value = "#{memberUserService}")
+    @ManagedProperty(value = "#{dataElementService}")
     private DataElementService dataElementService;
 
     public void setIndicatorService(IndicatorService indicatorService) {

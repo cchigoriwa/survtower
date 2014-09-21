@@ -19,13 +19,6 @@
                 <table cellspacing="10" cellpadding="10">
                     <tr>
                         <td valign="top">
-                            <h:outputText value="Select Member:"/>
-                            <br/>
-                            <h:selectManyCheckbox layout="pageDirection" value="#{pivotTableController.members}" converter="#{memberConverter}">
-                                <f:selectItems value="#{memberListController.members}"/>
-                            </h:selectManyCheckbox>
-                        </td>
-                        <td valign="top">
                             <h:outputText value="Select Periods"/>
                             <br/>
                             <h:selectManyCheckbox layout="pageDirection" value="#{pivotTableController.periods}" converter="#{periodConverter}">

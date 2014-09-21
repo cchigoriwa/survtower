@@ -176,9 +176,6 @@ public class PivotTableController extends MessageInfor implements Serializable {
             externalContext.setResponseContentType("application/vnd.pdf");
             externalContext.setResponseHeader("Content-Disposition", "attachment; filename=" + getProgram().getName() + " Surviellance Data.pdf");
 
-            //show the report
-            report.show();
-
             //export the report to a pdf file
             report.toPdf(externalContext.getResponseOutputStream());
             facesContext.responseComplete();

@@ -62,16 +62,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     private Indicator indicator;
     private CartesianChartModel linearModel = new CartesianChartModel();
     private CartesianChartModel dataElementsModel = new CartesianChartModel();
-    private List<Member> members = new ArrayList<Member>();
     private List<Period> periods = new ArrayList<Period>();
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
 
     public List<Period> getPeriods() {
         return periods;
@@ -115,11 +106,10 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         numerator.setLabel(getIndicator().getNumerator().getName());
         denominator.setLabel(getIndicator().getDenominator().getName());
         getSurveillanceDataList().clear();
-        for (Member member : members) {
-            for (Period period : periods) {
-                getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(period, member, getIndicator()));
-            }
+        for (Period period : periods) {
+            getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(period, memberService.getCurrentMember(), getIndicator()));
         }
+
         for (SurveillanceData data : getSurveillanceDataList()) {
             if (data.getIndicator().equals(getIndicator())) {
                 series.set(data.getSurveillance().getPeriod().getName(), data.getCalculatedValue());
@@ -160,7 +150,6 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         indicator = null;
         getSurveillanceDataList().clear();
         getPeriods().clear();
-        getMembers().clear();
         return null;
     }
 

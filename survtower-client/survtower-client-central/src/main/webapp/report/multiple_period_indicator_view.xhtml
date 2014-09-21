@@ -18,11 +18,10 @@
             <h:form>
                 <h:panelGrid columns="2"> 
                     <h:outputText value="Select Member"/>
-                    <h:selectOneMenu value="#{indicatorViewController.member}" required="true" requiredMessage="Member field is required." 
+                    <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.members}" required="true" requiredMessage="Member field is required." 
                                      converter="#{memberConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
                         <f:selectItems value="#{memberListController.members}"/>
-                    </h:selectOneMenu>
+                    </h:selectManyCheckbox>
 
                     <h:outputText value="Select Periods"/>
                     <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.periods}" converter="#{periodConverter}" requiredMessage="Period field is required.">

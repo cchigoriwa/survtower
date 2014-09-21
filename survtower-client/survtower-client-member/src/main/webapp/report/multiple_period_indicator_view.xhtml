@@ -17,10 +17,6 @@
         <p:panel header="Indicator View">
             <h:form>
                 <h:panelGrid columns="2"> 
-                    <h:outputText value="Select Members"/>
-                    <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.members}" converter="#{memberConverter}" requiredMessage="Period field is required.">
-                        <f:selectItems value="#{memberListController.members}"/>
-                    </h:selectManyCheckbox>
 
                     <h:outputText value="Select Periods"/>
                     <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.periods}" converter="#{periodConverter}" requiredMessage="Period field is required.">

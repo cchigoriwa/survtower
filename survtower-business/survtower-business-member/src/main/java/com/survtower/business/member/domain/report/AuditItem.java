@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.business.member.domain.report;
 
 import com.survtower.business.common.domain.Period;
@@ -12,7 +7,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author tdhlakama
+ * @author Takunda Dhlakama
  */
 public class AuditItem implements Serializable {
 

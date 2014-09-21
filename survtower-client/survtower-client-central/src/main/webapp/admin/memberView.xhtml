@@ -5,58 +5,83 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Member Dash Board
     </ui:define>
 
     <ui:define name="content">
-        <h:panelGroup>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <td><h:outputText  value="#{memberViewController.member.name}" /></td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td><h:outputText value="#{memberViewController.member.description}" /></td>
-                </tr>
 
-                <tr>
-                    <th>Code</th>
-                    <td><h:outputText value="#{memberViewController.member.code}" /></td>
-                </tr>
-            </table>
-        </h:panelGroup>
-        
-        <h4>Member Security</h4>
+        <p:breadCrumb>
+            <p:menuitem value="Settings" outcome="admin_home" />
+            <p:menuitem value="Member States" outcome="memberList" />
+            <p:menuitem value="#{memberViewController.member.name}" outcome="memberView?uuid=#{memberViewController.member.uuid}" />
+        </p:breadCrumb>
 
-        <h:panelGroup rendered="#{memberViewController.memberSecurity!=null}">
-               <table>
-                <tr>
-                    <th>Email Address</th>
-                    <td><h:outputText  value="#{memberViewController.memberSecurity.emailAddress}" /></td>
-                </tr>
-                <tr>
-                    <th>Member ID</th>
-                    <td><h:outputText value="#{memberViewController.memberSecurity.memberID}" /></td>
-                </tr>
+        <h:form id="form">     
+            <h3>Member State</h3>
+            <p:accordionPanel>
+                <p:tab title="General Info">
+                    <h:panelGrid columns="2" cellpadding="10">  
+                        <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{memberViewController.member.logo}" />
+                        <h:outputText  value="#{memberViewController.member.name}" />
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Security Settings">
+                    <h:panelGroup rendered="#{memberViewController.memberSecurity!=null}">
+                        <table>
+                            <tr>
+                                <th>Email Address</th>
+                                <td><h:outputText  value="#{memberViewController.memberSecurity.emailAddress}" /></td>
+                            </tr>
+                            <tr>
+                                <th>Member ID</th>
+                                <td><h:outputText value="#{memberViewController.memberSecurity.memberID}" /></td>
+                            </tr>
 
-                <tr>
-                    <th>Member Key</th>
-                    <td><h:outputText value="#{memberViewController.memberSecurity.memberKey}" /></td>
-                </tr>
-            </table>
-        </h:panelGroup>
-        
-        <h:panelGroup>
-            <h:form>
-                    <h:link value="Add/Edit Member Security Details" outcome="memberSecurityEdit">
-                        <f:param name="memberUuid" value="#{memberViewController.member.uuid}" />
-                    </h:link>
-                </h:form>
-        </h:panelGroup>
+                            <tr>
+                                <th>Member Key</th>
+                                <td><h:outputText value="#{memberViewController.memberSecurity.memberKey}" /></td>
+                            </tr>
+                        </table>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:form>
+                            <h:link value="Add/Edit Member Security Details" outcome="memberSecurityEdit">
+                                <f:param name="memberUuid" value="#{memberViewController.member.uuid}" />
+                            </h:link>
+                        </h:form>
+                    </h:panelGroup>
+                </p:tab>
+                <p:tab title="Surveillance">
+                    <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
+                        <p:dataTable value="#{memberViewController.auditItems}" var="item">
+                            <p:column headerText="Program">
+                                #{item.program.name} 
+                            </p:column>
+                            <p:column headerText="Period">
+                                #{item.period.name} 
+                            </p:column>
+                            <p:column headerText="Due Date In">
+                                #{item.period.numberOfDaysLeftToDueDate} Days
+                            </p:column>
+                            <p:column headerText="Submitted">  
+                                <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.submitted}"/> 
+                                <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.submitted}"/> 
+                            </p:column> 
+
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:accordionPanel>
+        </h:form>
+
+
+
+
+
     </ui:define>
 
 </ui:composition>

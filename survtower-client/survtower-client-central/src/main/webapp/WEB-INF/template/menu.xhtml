@@ -14,19 +14,19 @@
 
             <p:submenu label="Settings" icon="ui-icon-wrench" rendered="#{checkLoggedOn.loggedOn}">
                 <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person" />
-                <p:menuitem value="Look up Data" outcome="admin_home"/>
+                <p:menuitem value="Look up Data" outcome="admin_home" icon="ui-icon-bookmark" />
             </p:submenu>
 
             <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-calendar" rendered="#{checkLoggedOn.loggedOn}"/>
 
-            <p:submenu label="View Reporting" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
-                <p:menuitem value="Select Surviellance" outcome="data_select"/>
-                <p:menuitem value="Multiple Period Indicator View" outcome="multiple_period_indicator_view"/>
+            <p:submenu label="View Reporting" icon="ui-icon-document" rendered="#{checkLoggedOn.loggedOn}">
+                <p:menuitem value="Surveillance" icon="ui-icon-note" outcome="data_select"/>
+                <p:menuitem value="Period Indicator View" icon="ui-icon-calculator" outcome="multiple_period_indicator_view"/>
             </p:submenu>
 
             <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-circle-zoomin" rendered="#{checkLoggedOn.loggedOn}"/>
 
-            <p:menuitem value="login" action="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="login" outcome="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
             
             <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
             

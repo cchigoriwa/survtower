@@ -50,7 +50,7 @@ public class IndexController {
         surveillances = new ArrayList<Surveillance>();
         for (Period period : periodService.fetchActive()) {
             for (Program program : period.getPrograms()) {
-                surveillances.add(surveillanceService.findByProgramAndPeriod(program, period));
+                surveillances.addAll(surveillanceService.getSurviellances(program, period));
             }
         }
     }

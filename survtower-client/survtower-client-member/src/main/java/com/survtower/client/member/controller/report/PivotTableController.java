@@ -1,6 +1,6 @@
 package com.survtower.client.member.controller.report;
 
-import com.survtower.business.common.domain.Member;
+import com.survtower.business.common.SurvtowerRuntimeException;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.SurveillanceData;
@@ -46,7 +46,6 @@ public class PivotTableController extends MessageInfor implements Serializable {
     private MemberService memberService;
     private List<SurveillanceData> surveillanceDataList = new ArrayList<SurveillanceData>();
     private List<Period> periods = new ArrayList<Period>();
-    private List<Member> members = new ArrayList<Member>();
     private Program program;
 
     public SurveillanceDataService getSurveillanceDataService() {
@@ -68,9 +67,8 @@ public class PivotTableController extends MessageInfor implements Serializable {
     public void createPivotTableIndicatorChart() {
         getSurveillanceDataList().clear();
         for (Period period : getPeriods()) {
-            for (Member member : getMembers()) {
-                getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(program, period, member));
-            }
+                getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(program, period, memberService.getCurrentMember()));
+            
         }
     }
 
@@ -90,13 +88,7 @@ public class PivotTableController extends MessageInfor implements Serializable {
         this.periods = periods;
     }
 
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
+   
 
     public Program getProgram() {
         return program;
@@ -109,7 +101,6 @@ public class PivotTableController extends MessageInfor implements Serializable {
     public String reset() {
         getSurveillanceDataList().clear();
         getPeriods().clear();
-        getMembers().clear();
         return null;
     }
 
@@ -177,16 +168,12 @@ public class PivotTableController extends MessageInfor implements Serializable {
             externalContext.setResponseHeader("Content-Disposition", "attachment; filename=" + getProgram().getName() + " Surviellance Data.pdf");
 
             //show the report
-            report.show();
-
             //export the report to a pdf file
             report.toPdf(externalContext.getResponseOutputStream());
             facesContext.responseComplete();
 
-        } catch (DRException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (DRException | FileNotFoundException e) {
+           throw new SurvtowerRuntimeException(e);
         }
     }
 
