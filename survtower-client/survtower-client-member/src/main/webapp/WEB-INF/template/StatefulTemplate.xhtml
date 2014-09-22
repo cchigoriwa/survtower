@@ -5,28 +5,25 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <f:view transient="true">
         <h:head>
             <title>
-                <ui:insert name="title">SADC Harmonized Surveillance System-Secretariat</ui:insert>            
+                <ui:insert name="title">SADC Surveillance System-#{generalController.member.name}</ui:insert>
             </title>
             <link rel="shortcut icon" type="image/x-icon" href="#{resource['webjars/sadc/1.0.0/img:favicon.ico']}"></link>
         </h:head>
         <h:body>
             <ui:include src="/WEB-INF/template/menu.xhtml" />
-            <div style="margin: 10px;">
-                <div style="float: left;">
-                    <h:graphicImage library="webjars/sadc/1.0.0/img" name="logo.png"  />
-                </div>
+            <h:panelGrid columns="3">
 
-                <div style="float: right;">
-                    <h:outputText  style="text-align: right;" value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
-                </div>
+                <h:graphicImage library="webjars/sadc/1.0.0/img"
+                                name="logo.png" />
 
-                <div style="clear: both;"></div>
-            </div>
+                <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" />
+
+                <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
+
+            </h:panelGrid>
             <ui:insert name="content">SADC Surveillance System</ui:insert>
         </h:body>
-    </f:view>
 </html>
 
