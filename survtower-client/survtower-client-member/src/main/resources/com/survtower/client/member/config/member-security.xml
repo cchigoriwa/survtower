@@ -23,12 +23,8 @@
         <intercept-url pattern="/faces/report/**" access="hasAnyRole('ROLE_COUNTRY_ADMINISTRATOR','ROLE_COUNTRY_DISEASE_MANAGER','ROLE_HEALTH_INFORMATION_OFFICER')" />   
     </http>
 
-    <authentication-manager >
+    <authentication-manager>
         <authentication-provider user-service-ref="memberUserDetailService">
-<!--            <password-encoder ref="doNothingPasswordEncoder">
-                <salt-source user-property="uuid" />
-            </password-encoder>
-            -->
             <password-encoder ref="passwordEncoder">
                 <salt-source user-property="uuid" />
             </password-encoder>
