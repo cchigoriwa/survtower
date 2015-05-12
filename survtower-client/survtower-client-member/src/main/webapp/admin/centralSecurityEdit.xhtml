@@ -13,22 +13,24 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <div>
-                <h:messages />
-            </div>
-            <table>
-                <tr>
-                    <th>Member ID</th>
-                    <td><h:inputText value="#{centralSecurityController.centralSecurity.memberID}" required="true" size="40" /></td>
-                </tr>
-                <tr>
-                    <th>Member Key</th>
-                    <td><h:inputText value="#{centralSecurityController.centralSecurity.memberKey}" required="true" size="40" /></td>
-                </tr>
-            </table>
-            <h:commandButton value="Save" action="#{centralSecurityController.save()}" />
-        </h:form>
+        <p:panel header="Member Security Keys">
+            <h:form>
+                <div>
+                    <h:messages />
+                </div>
+                <table>
+                    <tr>
+                        <th>Member ID</th>
+                        <td><h:inputText value="#{centralSecurityController.centralSecurity.memberID}" required="true" size="40" /></td>
+                    </tr>
+                    <tr>
+                        <th>Member Key</th>
+                        <td><h:inputText value="#{centralSecurityController.centralSecurity.memberKey}" required="true" size="40" /></td>
+                    </tr>
+                </table>
+                <h:commandButton value="Save" action="#{centralSecurityController.save()}" />
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

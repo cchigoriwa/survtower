@@ -8,32 +8,35 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Data Elements
+        Member Users
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable value="#{memberUserListController.memberUsers}" var="memberUser">
+        <p:panel header="Member Users">
+            <h:form>
+                <h:link value="New Member User" outcome="memberUserEdit" />
+            </h:form>
+            <p:dataTable value="#{memberUserListController.memberUsers}" var="memberUser">
 
-            <p:column headerText="Name">
-                #{memberUser.username}
-            </p:column>
+                <p:column headerText="Name">
+                    #{memberUser.username}
+                </p:column>
 
-            <p:column headerText="">
-                #{memberUser.createDate}
-            </p:column>
+                <p:column headerText="">
+                    #{memberUser.createDate}
+                </p:column>
 
-            <p:column>
-                <h:form>
-                    <h:link value="Edit" outcome="memberUserEdit">                        
-                        <f:param name="uuid" value="#{memberUser.uuid}" />
-                    </h:link>
-                </h:form>
-            </p:column>
+                <p:column>
+                    <h:form>
+                        <h:link value="Edit" outcome="memberUserEdit">                        
+                            <f:param name="uuid" value="#{memberUser.uuid}" />
+                        </h:link>
+                    </h:form>
+                </p:column>
 
-        </p:dataTable>
-        <h:form>
-            <h:link value="New Member User" outcome="memberUserEdit" />
-        </h:form>
+            </p:dataTable>
+
+        </p:panel>
     </ui:define>
 
 </ui:composition>

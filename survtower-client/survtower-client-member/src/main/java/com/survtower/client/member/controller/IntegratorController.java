@@ -9,6 +9,7 @@ import com.survtower.business.member.integration.IndicatorIntegrator;
 import com.survtower.business.member.integration.IndicatorTypeIntegrator;
 import com.survtower.business.member.integration.PeriodIntegrator;
 import com.survtower.business.member.integration.ProgramIntegrator;
+import com.survtower.client.member.utility.MessageInfor;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -49,52 +50,112 @@ public class IntegratorController {
     private IndicatorTypeIntegrator indicatorTypeIntegrator;
 
     public String pullDataElements() {
-        dataElementIntegrator.pull();
+        try {
+            dataElementIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "dataElementList?faces-redirect=true";
     }
 
     public String pullIndicators() {
-        indicatorIntegrator.pull();
+        try {
+            indicatorIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+
         return "indicatorList?faces-redirect=true";
     }
 
     public String pullDataSources() {
-        dataSourceIntegrator.pull();
+        try {
+            dataSourceIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "dataSourceList?faces-redirect=true";
     }
 
     public String pullDataSourceCategorys() {
-        dataSourceCategoryIntegrator.pull();
+        try {
+            dataSourceCategoryIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "dataSourceList?faces-redirect=true";
     }
 
     public String pull() {
-        frequencyIntegrator.pull();
+        try {
+            frequencyIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+
         return "frequencyList?faces-redirect=true";
     }
 
     public String pullIndicatorGroups() {
-        indicatorGroupIntegrator.pull();
+        try {
+            indicatorGroupIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+
         return "indicatorGroupList?faces-redirect=true";
     }
 
     public String pullIndicatorTypes() {
-        indicatorTypeIntegrator.pull();
+        try {
+            indicatorTypeIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "indicatorTypeList?faces-redirect=true";
     }
 
     public String pullPeriods() {
-        periodIntegrator.pull();
+        try {
+            periodIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "periodList?faces-redirect=true";
     }
 
     public String pullPrograms() {
-        programIntegrator.pull();
+        try {
+            programIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "programList?faces-redirect=true";
     }
 
     public String pullFrequencys() {
-        frequencyIntegrator.pull();
+        try {
+            frequencyIntegrator.pull();
+        } catch (Exception e) {
+            MessageInfor.errorMessages("Could not update from surveillance server");
+            return null;
+        }
+        
         return "frequencyList?faces-redirect=true";
     }
 

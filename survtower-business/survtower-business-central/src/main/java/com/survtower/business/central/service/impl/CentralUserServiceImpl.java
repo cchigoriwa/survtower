@@ -5,6 +5,7 @@ import com.survtower.business.central.dao.CentralUserDao;
 import com.survtower.business.central.domain.CentralUser;
 import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
+import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,6 +29,9 @@ public class CentralUserServiceImpl implements CentralUserService {
 
     @Autowired
     private CentralUserDao centralUserDao;
+
+    @Autowired
+    private PasswordEncoderImpl passwordEncoder;
 
     @Transactional
     @Override
@@ -141,6 +145,7 @@ public class CentralUserServiceImpl implements CentralUserService {
                 centralUserRole.setDeactivated(Boolean.FALSE);
                 centralUserRoles.add(centralUserRole);
             }
+            centralUser.setPassword(passwordEncoder.encodePassword(centralUser.getPassword(), centralUser.getUuid()));
             centralUser.setCentralUserRoles(centralUserRoles);
             centralUserDao.save(centralUser);
         }

@@ -56,40 +56,46 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator {
     @Override
     public synchronized void pull() {
         System.out.println("GLOBAL LOOKUP POOLING");
-        LookupMetaDataCollectionPayload payload = integrationService.getLookupDataWebservice().getLookupMetaDataList();
-        if (payload != null) {
-            List<ServerLookupMetaData> lookupMetaDataList = payload.getLookupMetaDataList();
-            if (lookupMetaDataList != null && !lookupMetaDataList.isEmpty()) {
-                for (ServerLookupMetaData serverLookupMetaData : lookupMetaDataList) {
-                    if (serverLookupMetaData.getLastUpdateTimestamp() != null) {
-                        LookupMeta localLookupMeta = lookupMetaService.findByLookup(serverLookupMetaData.getLookup());
-                        if (localLookupMeta == null || serverLookupMetaData.getLastUpdateTimestamp().after(localLookupMeta.getLastServerTimestamp())) {
-                            if (Lookup.INDICATOR.equals(serverLookupMetaData.getLookup())) {
-                                indicatorIntegrator.pull();
-                            } else if (Lookup.MEMBER.equals(serverLookupMetaData.getLookup())) {
-                                memberIntegrator.pull();
-                            } else if (Lookup.DATA_SOURCE_CATEGORY.equals(serverLookupMetaData.getLookup())) {
-                                dataSourceCategoryIntegrator.pull();
-                            } else if (Lookup.PERIOD.equals(serverLookupMetaData.getLookup())) {
-                                periodIntegrator.pull();
-                            } else if (Lookup.FREQUENCY.equals(serverLookupMetaData.getLookup())) {
-                                frequencyIntegrator.pull();
-                            } else if (Lookup.INDICATOR_TYPE.equals(serverLookupMetaData.getLookup())) {
-                                indicatorTypeIntegrator.pull();
-                            } else if (Lookup.PROGRAM.equals(serverLookupMetaData.getLookup())) {
-                                programIntegrator.pull();
-                            } else if (Lookup.INDICATOR_GROUP.equals(serverLookupMetaData.getLookup())) {
-                                indicatorGroupIntegrator.pull();
-                            } else if (Lookup.DATA_SOURCE.equals(serverLookupMetaData.getLookup())) {
-                                dataSourceIntegrator.pull();
-                            }else if (Lookup.DATA_ELEMENT.equals(serverLookupMetaData.getLookup())) {
-                                dataElementIntegrator.pull();
+
+        try {
+            LookupMetaDataCollectionPayload payload = integrationService.getLookupDataWebservice().getLookupMetaDataList();
+            if (payload != null) {
+                List<ServerLookupMetaData> lookupMetaDataList = payload.getLookupMetaDataList();
+                if (lookupMetaDataList != null && !lookupMetaDataList.isEmpty()) {
+                    for (ServerLookupMetaData serverLookupMetaData : lookupMetaDataList) {
+                        if (serverLookupMetaData.getLastUpdateTimestamp() != null) {
+                            LookupMeta localLookupMeta = lookupMetaService.findByLookup(serverLookupMetaData.getLookup());
+                            if (localLookupMeta == null || serverLookupMetaData.getLastUpdateTimestamp().after(localLookupMeta.getLastServerTimestamp())) {
+                                if (Lookup.INDICATOR.equals(serverLookupMetaData.getLookup())) {
+                                    indicatorIntegrator.pull();
+                                } else if (Lookup.MEMBER.equals(serverLookupMetaData.getLookup())) {
+                                    memberIntegrator.pull();
+                                } else if (Lookup.DATA_SOURCE_CATEGORY.equals(serverLookupMetaData.getLookup())) {
+                                    dataSourceCategoryIntegrator.pull();
+                                } else if (Lookup.PERIOD.equals(serverLookupMetaData.getLookup())) {
+                                    periodIntegrator.pull();
+                                } else if (Lookup.FREQUENCY.equals(serverLookupMetaData.getLookup())) {
+                                    frequencyIntegrator.pull();
+                                } else if (Lookup.INDICATOR_TYPE.equals(serverLookupMetaData.getLookup())) {
+                                    indicatorTypeIntegrator.pull();
+                                } else if (Lookup.PROGRAM.equals(serverLookupMetaData.getLookup())) {
+                                    programIntegrator.pull();
+                                } else if (Lookup.INDICATOR_GROUP.equals(serverLookupMetaData.getLookup())) {
+                                    indicatorGroupIntegrator.pull();
+                                } else if (Lookup.DATA_SOURCE.equals(serverLookupMetaData.getLookup())) {
+                                    dataSourceIntegrator.pull();
+                                } else if (Lookup.DATA_ELEMENT.equals(serverLookupMetaData.getLookup())) {
+                                    dataElementIntegrator.pull();
+                                }
                             }
                         }
                     }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("------ Failed to Download From Server");
         }
+
     }
 
 }

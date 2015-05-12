@@ -6,10 +6,8 @@ import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
-import com.survtower.business.member.domain.SurveillanceAudit;
 import com.survtower.business.member.domain.report.AuditItem;
 import com.survtower.business.member.service.SurveillanceAuditService;
-import static com.survtower.client.member.utility.MessageInfor.errorMessages;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -36,7 +34,7 @@ public class IndexController {
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
-
+    
     public void setSurveillanceAuditService(SurveillanceAuditService surveillanceAuditService) {
         this.surveillanceAuditService = surveillanceAuditService;
     }
@@ -107,9 +105,7 @@ public class IndexController {
                 item.setPeriod(period);
                 item.setProgram(program);
                 item.setSurveillanceAudit(surveillanceAuditService.findByProgramAndPeriod(program, period));
-                //if (item.getDataEntryDone()) {
-                aduitItems.add(item);
-                //}
+                aduitItems.add(item);              
             }
         }
     }

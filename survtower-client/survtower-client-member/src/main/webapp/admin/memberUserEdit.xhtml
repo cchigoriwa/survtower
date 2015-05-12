@@ -8,7 +8,7 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Edit Data Element
+        Edit User Details
     </ui:define>
 
     <ui:define name="content">
@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                     <th>Password</th>
-                    <td><h:inputText value="#{memberUserEditController.memberUser.password}" /></td>
+                    <td><p:password value="#{memberUserEditController.memberUser.password}" /></td>
                 </tr>
                 <tr>
                     <h:outputLabel value="Select Programs"/>

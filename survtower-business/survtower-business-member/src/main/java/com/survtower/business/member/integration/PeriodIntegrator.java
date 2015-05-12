@@ -10,5 +10,5 @@ import java.io.Serializable;
 public interface PeriodIntegrator extends Serializable{
     
     public LookupMeta pull();
-    
+  
 }

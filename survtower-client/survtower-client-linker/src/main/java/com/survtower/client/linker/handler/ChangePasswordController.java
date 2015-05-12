@@ -2,12 +2,12 @@ package com.survtower.client.linker.handler;
 
 import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.central.service.MemberSecurityService;
+import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.client.linker.util.AppUserUtil;
 import java.security.Principal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +23,9 @@ public class ChangePasswordController {
 
     @Autowired
     private MemberSecurityService memberSecurityService;
-    @Qualifier(value = "doNothingPasswordEncoder")
+    @Qualifier(value = "passwordEncoder")
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoderImpl passwordEncoder;
 
     @RequestMapping(value = "/member/change_password", method = RequestMethod.GET)
     public String showChangePasswordForm(Model model, Principal principal) {

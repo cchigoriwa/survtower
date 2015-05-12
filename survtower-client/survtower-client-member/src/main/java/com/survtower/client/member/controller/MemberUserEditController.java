@@ -1,9 +1,11 @@
 package com.survtower.client.member.controller;
 
 import com.survtower.business.common.domain.Program;
+import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.client.member.utility.MessageInfor;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -27,11 +30,14 @@ public class MemberUserEditController {
     @ManagedProperty(value = "#{param.uuid}")
     private String uuid;
 
+    @ManagedProperty(value = "#{passwordEncoder}")
+    private PasswordEncoderImpl passwordEncoder;
+
     private MemberUser memberUser;
 
     private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
-    
+
     public List<String> getRoles() {
         return roles;
     }
@@ -61,7 +67,11 @@ public class MemberUserEditController {
     }
 
     public String save() {
-        memberUser.setPrograms(new HashSet<Program>(programs));
+        if (StringUtils.isEmpty(memberUser.getPassword())) {
+            MessageInfor.errorMessages("Enter Password to Continue");
+            return null;
+        }
+        memberUser.setPrograms(new HashSet<>(programs));
         Set<MemberUserRole> memberUserRoles = new HashSet<>();
         for (String role : getRoles()) {
             MemberUserRole memberUserRole = new MemberUserRole();
@@ -69,6 +79,7 @@ public class MemberUserEditController {
             memberUserRole.setDeactivated(Boolean.TRUE);
             memberUserRoles.add(memberUserRole);
         }
+        memberUser.setPassword(passwordEncoder.encodePassword(memberUser.getPassword(), memberUser.getUuid()));
         memberUser.setMemberUserRoles(memberUserRoles);
         memberUserService.save(memberUser);
         return "memberUserList?faces-redirect=true&src=edit";
@@ -86,6 +97,14 @@ public class MemberUserEditController {
         return uuid;
     }
 
+    public PasswordEncoderImpl getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoderImpl passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
@@ -97,10 +116,10 @@ public class MemberUserEditController {
             programs = new ArrayList<>();
             roles = new ArrayList<>();
         } else {
-            memberUser = memberUserService.findByUuid(uuid);
+            memberUser = memberUserService.findByUuid(uuid);            
             if (memberUser != null) {
-                setPrograms(new ArrayList<Program>(memberUser.getPrograms()));
-                setRoles(new ArrayList<String>(memberUser.getRoles()));
+                setPrograms(new ArrayList<>(memberUser.getPrograms()));
+                setRoles(new ArrayList<>(memberUser.getRoles()));
             }
             if (memberUser == null) {
                 memberUser = new MemberUser();

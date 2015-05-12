@@ -53,6 +53,11 @@
             <from-outcome>pivot</from-outcome>
             <to-view-id>/report/pivot.xhtml</to-view-id>
         </navigation-case>
+        
+         <navigation-case>
+            <from-outcome>changePassword</from-outcome>
+            <to-view-id>/changePassword.xhtml</to-view-id>
+        </navigation-case>
        
     </navigation-rule>
     

@@ -1,6 +1,7 @@
 package com.survtower.business.member.service.impl;
 
 import com.survtower.business.common.domain.Program;
+import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
@@ -28,6 +29,9 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Autowired
     private MemberUserDao memberUserDao;
+
+    @Autowired
+    private PasswordEncoderImpl passwordEncoder;
 
     @Transactional
     @Override
@@ -150,6 +154,7 @@ public class MemberUserServiceImpl implements MemberUserService {
                 memberUserRole.setDeactivated(Boolean.FALSE);
                 memberUserRoles.add(memberUserRole);
             }
+            memberUser.setPassword(passwordEncoder.encodePassword(memberUser.getPassword(), memberUser.getUuid()));
             memberUser.setMemberUserRoles(memberUserRoles);
             memberUserDao.save(memberUser);
         }

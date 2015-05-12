@@ -63,7 +63,7 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
                     //it must be a new object
                     period.setId(null);
                 }
-                
+
                 //Reset ManyToMany programs before saving
                 if(period.getPrograms()!=null && !period.getPrograms().isEmpty()){
                     Set<Program> serverPrograms=period.getPrograms();
@@ -72,9 +72,9 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
                         Program localProgram=programService.findByUuid(serverProgram.getUuid());
                         localPrograms.add(localProgram);
                     }
-                    period.setPrograms(localPrograms);                    
+                    period.setPrograms(localPrograms);
                 }
-                
+
                 
                 periodService.save(period);
             }
@@ -87,7 +87,7 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
         if (periodCollectionPayload.getPayloadMetaData() != null && periodCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
             periodLookupMeta.setLastServerTimestamp(periodCollectionPayload.getPayloadMetaData().getMaximumDate());
         }
-        
+
         periodLookupMeta.setUpdateDate(new Date());
         lookupMetaService.save(periodLookupMeta);
 

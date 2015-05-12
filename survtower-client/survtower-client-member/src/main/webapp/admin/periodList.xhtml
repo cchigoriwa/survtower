@@ -7,22 +7,24 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     template="../WEB-INF/template/DefaultTemplate.xhtml">
-        
+
     <ui:define name="title">
         Period List
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Periods" action="#{integratorController.pullPeriods()}" />
-        </h:form>
-        <p:dataTable value="#{periodListController.periods}" var="period">
+        <p:panel header="Periods">
+            <h:form>
+                <h:commandButton value="Pull Periods" action="#{integratorController.pullPeriods()}" />
+            </h:form>
+            <p:dataTable value="#{periodListController.periods}" var="period">
 
-            <p:column headerText="Name">
-                #{period.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{period.name}
+                </p:column>
 
-        </p:dataTable>
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

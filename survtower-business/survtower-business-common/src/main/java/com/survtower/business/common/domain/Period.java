@@ -36,7 +36,9 @@ public class Period extends NamedBaseEntity {
     private Date dueDate;
     private Boolean active = Boolean.FALSE;
     @ManyToMany
-    @JoinTable(name = "Period_Program", joinColumns = { @JoinColumn(name = "period_id") }, inverseJoinColumns = { @JoinColumn(name = "program_id") })
+    @JoinTable(name = "Period_Program", joinColumns = {
+        @JoinColumn(name = "period_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "program_id")})
     private Set<Program> programs = new HashSet<Program>();
     @Transient
     private Boolean dueDatePassed;
@@ -126,12 +128,16 @@ public class Period extends NamedBaseEntity {
         if (getDueDate() == null) {
             return Boolean.FALSE;
         }
-        if (getNumberOfDaysLeftToDueDate() <= -1) {
+        if (new Date().after(getDueDate())) {
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;
         }
 
+    }
+
+    public String getDueDateStatus() {
+        return getDueDatePassed() ? "-" + getNumberOfDaysLeftToDueDate() +" Days" : "+" + getNumberOfDaysLeftToDueDate() + " Days";
     }
 
 }

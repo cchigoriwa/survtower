@@ -2,6 +2,7 @@ package com.survtower.business.common.dao;
 
 import com.survtower.business.common.GenericDao;
 import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface PeriodDao extends GenericDao<Period> {
     public List<Period> findPeriodsUpdatedBefore(Date maxDate);
 
     public List<Period> fetchActive();
+    
+    public List<Period> fetchActive(Program program);
 
     public List<Period> fetchAllAscending();
 

@@ -13,17 +13,19 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Data Sources" action="#{integratorController.pullDataSources()}" />
-        </h:form>
-        <p:dataTable value="#{dataSourceListController.dataSources}" var="data">
+        <p:panel header="Data Sources">
+            <h:form>
+                <h:commandButton value="Pull Data Sources" action="#{integratorController.pullDataSources()}" />
+            </h:form>
+            <p:dataTable value="#{dataSourceListController.dataSources}" var="data">
 
-            <p:column headerText="Name">
-                #{data.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{data.name}
+                </p:column>
 
-        </p:dataTable>
-        
+            </p:dataTable>
+        </p:panel>
+
     </ui:define>
 
 </ui:composition>

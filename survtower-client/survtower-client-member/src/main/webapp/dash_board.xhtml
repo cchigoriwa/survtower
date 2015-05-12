@@ -19,9 +19,9 @@
             <h:form>
                 <p:growl id="msgs" showDetail="true" />
 
-                <p:panel id="basic" header="Dash Board - #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
+                <p:panel id="basic" header="Dash Board - #{generalController.member.name}" style="margin-bottom:20px">
 
-                    <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
+                    <p:panel id="notificationOne" header="Open Periods" style="margin-bottom:20px">
 
                         <p:dataTable value="#{indexController.aduitItems}" var="item">
                             <p:column headerText="Program">
@@ -30,8 +30,14 @@
                             <p:column headerText="Period">
                                 #{item.period.name} 
                             </p:column>
-                            <p:column headerText="Due Date In">
-                                #{item.period.numberOfDaysLeftToDueDate} Days
+                             <p:column headerText="Due Date">
+                                #{item.period.dueDate} 
+                            </p:column>
+                            <p:column headerText="Due In">
+                                
+                                <h:outputText value="#{item.period.dueDateStatus}" rendered="#{item.period.dueDatePassed}" style="color: red;" title="Error"/> 
+                                <h:outputText value="#{item.period.dueDateStatus}" rendered="#{!item.period.dueDatePassed}" /> 
+                                
                             </p:column>
                             <p:column headerText="Submitted">  
                                 <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.uploaded}"/> 

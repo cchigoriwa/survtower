@@ -2,6 +2,7 @@ package com.survtower.business.common.service;
 
 import com.survtower.business.common.GenericService;
 import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface PeriodService extends GenericService<Period>{
     public List<Period> findPeriodsUpdatedBefore(Date maxDate);
     
      public List<Period> fetchActive();
+     
+     public List<Period> fetchActive(Program program);
 
     public List<Period> fetchAllAscending();
 

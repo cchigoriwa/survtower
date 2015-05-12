@@ -9,21 +9,22 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Data Elements
+
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" />
-        </h:form>
-        <p:dataTable value="#{dataElementListController.dataElements}" var="dataElement">
+        <p:panel header=" Data Elements">
+            <h:form>
+                <h:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" />
+            </h:form>
+            <p:dataTable value="#{dataElementListController.dataElements}" var="dataElement">
 
-            <p:column headerText="Name">
-                #{dataElement.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{dataElement.name}
+                </p:column>
 
-        </p:dataTable>
-
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

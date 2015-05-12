@@ -13,20 +13,22 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}" />
-        </h:form>
-        <p:dataTable value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
+        <p:panel header="Indicator Groups">
+            <h:form>
+                <h:commandButton value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}" />
+            </h:form>
+            <p:dataTable value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
 
-            <p:column headerText="Name">
-                #{indicatorGroup.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{indicatorGroup.name}
+                </p:column>
 
-            <p:column headerText="Program">
-                #{indicatorGroup.program}
-            </p:column>
+                <p:column headerText="Program">
+                    #{indicatorGroup.program}
+                </p:column>
 
-        </p:dataTable>
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

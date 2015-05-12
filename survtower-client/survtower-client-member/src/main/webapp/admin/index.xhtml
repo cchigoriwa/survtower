@@ -16,13 +16,15 @@
 
         <h:form>
             <p:growl id="msgs" showDetail="true" />
-            <h:graphicImage library="webjars/sadc/1.0.0/img"
-                            name="#{generalController.member.logo}" />
             <p:panel id="basic" header="Settings- #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
 
                 <h:panelGrid columns="2">
 
                     <h:link  value="Member Security" outcome="centralSecurityEdit" />
+
+                    <h:link  value="Program" outcome="programList" />
+
+                    <h:link  value="Indicator Group" outcome="indicatorGroupList" />
 
                     <h:link  value="Data Source Category" outcome="dataSourceCategoryList" />
 
@@ -32,13 +34,9 @@
 
                     <h:link  value="Indicator Type" outcome="indicatorTypeList" />
 
-                    <h:link  value="Program" outcome="programList" />
-
-                    <h:link  value="Indicator Group" outcome="indicatorGroupList" />
+                    <h:link  value="Frequency" outcome="frequencyList" />
 
                     <h:link  value="Indicator" outcome="indicatorList" />
-
-                    <h:link  value="Frequency" outcome="frequencyList" />
 
                     <h:link value="Period" outcome="periodList" />
 

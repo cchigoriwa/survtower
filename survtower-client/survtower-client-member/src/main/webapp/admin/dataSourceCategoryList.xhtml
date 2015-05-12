@@ -13,17 +13,18 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" />
-        </h:form>
-        <p:dataTable value="#{dataSourceCategoryListController.dataSourceCategorys}" var="dataSourceCategory">
+        <p:panel header="Data Source Categories">
+            <h:form>
+                <h:commandButton value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" />
+            </h:form>
+            <p:dataTable value="#{dataSourceCategoryListController.dataSourceCategorys}" var="dataSourceCategory">
 
-            <p:column headerText="Name">
-                #{dataSourceCategory.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{dataSourceCategory.name}
+                </p:column>
 
-        </p:dataTable>
-
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

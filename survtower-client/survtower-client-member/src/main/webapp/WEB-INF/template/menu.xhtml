@@ -14,20 +14,21 @@
 
             <p:menuitem value="Data Entry" outcome="data_select" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}"/>
 
-                        <p:submenu label="Settings" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
-                    <p:menuitem value="Users" outcome="memberUserList"/>
-                    <p:menuitem value="Look up Data" outcome="admin_home"/>
-                    <p:menuitem value="Download look Up Data" outcome="download_Look_Up_Data"/>
-                </p:submenu>
+            <p:submenu label="Settings" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
+                <p:menuitem value="Users" outcome="memberUserList" rendered="#{request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}"/>
+                <p:menuitem value="Change Password" outcome="changePassword" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER') || request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}"/>
+                <p:menuitem value="Look up Data" outcome="admin_home" rendered="#{request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}"/>
+                <p:menuitem value="Download look Up Data" outcome="download_Look_Up_Data" rendered="#{request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}"/>
+            </p:submenu>
 
-                <p:submenu label="View Reporting" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
-                    <p:menuitem value="Multiple Period Indicator View" outcome="multiple_period_indicator_view"/>
-                </p:submenu>
+            <p:submenu label="View Reporting" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">
+                <p:menuitem value="Multiple Period Indicator View" outcome="multiple_period_indicator_view"/>
+            </p:submenu>
 
-                <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}"/>
 
-                <p:menuitem value="login" action="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
-                <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="login" action="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
 
         </p:menubar>
     </h:form>

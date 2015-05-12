@@ -2,6 +2,7 @@ package com.survtower.business.common.dao.impl;
 
 import com.survtower.business.common.dao.PeriodDao;
 import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.repository.PeriodRepository;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +67,11 @@ public class PeriodDaoImpl implements PeriodDao {
     @Override
     public List<Period> fetchActive() {
         return periodRepository.fetchActive();
+    }
+
+    @Override
+    public List<Period> fetchActive(Program program) {
+        return periodRepository.fetchActive(program);
     }
 
     @Override

@@ -13,16 +13,18 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
-        </h:form>
-        <p:dataTable value="#{frequencyListController.frequencys}" var="frequency">
+        <p:panel header="Frequency List">
+            <h:form>
+                <h:commandButton value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
+            </h:form>
+            <p:dataTable value="#{frequencyListController.frequencys}" var="frequency">
 
-            <p:column headerText="Name">
-                #{frequency.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{frequency.name}
+                </p:column>
 
-        </p:dataTable>
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

@@ -1,6 +1,7 @@
 package com.survtower.business.common.repository;
 
 import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import java.util.List;
 import net.sadc.business.common.GenericRepository;
@@ -30,7 +31,10 @@ public interface PeriodRepository extends GenericRepository<Period, Long> {
 
     @Query("select i from Period i where i.active = true and i.deleted = false order by i.name asc")
     public List<Period> fetchActive();
-    
+
+    @Query("select i from Period i where i.active = true and i.deleted = false order by i.name asc")
+    public List<Period> fetchActive(Program program);
+
     @Query("select i from Period i where i.deleted = false order by i.name asc")
     public List<Period> fetchAllAscending();
 

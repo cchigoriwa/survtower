@@ -13,17 +13,19 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Indicators" action="#{integratorController.pullIndicators()}" />
-        </h:form>
+        <p:panel header="Indicators">
+            <h:form>
+                <h:commandButton value="Pull Indicators" action="#{integratorController.pullIndicators()}" />
+            </h:form>
 
-        <p:dataTable value="#{indicatorListController.indicators}" var="indicator">
+            <p:dataTable value="#{indicatorListController.indicators}" var="indicator">
 
-            <p:column headerText="Name">
-                #{indicator.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{indicator.name}
+                </p:column>
 
-        </p:dataTable>
+            </p:dataTable>
+        </p:panel>
 
     </ui:define>
 

@@ -39,8 +39,6 @@ public class AuditItem implements Serializable {
         this.surveillanceAudit = surveillanceAudit;
     }
     
-    
-
     public Boolean getDataEntryDone() {
         if (surveillanceAudit != null) {
             return Boolean.TRUE;

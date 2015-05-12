@@ -26,6 +26,11 @@
             <password-encoder ref="doNothingPasswordEncoder">
                 <salt-source user-property="uuid" />
             </password-encoder>
+<!--            
+            <password-encoder ref="passwordEncoder">
+                <salt-source user-property="uuid" />
+            </password-encoder>-->
+            
         </authentication-provider>           
     </authentication-manager>
 

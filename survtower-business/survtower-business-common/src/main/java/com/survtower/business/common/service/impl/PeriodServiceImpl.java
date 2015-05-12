@@ -2,6 +2,7 @@ package com.survtower.business.common.service.impl;
 
 import com.survtower.business.common.dao.PeriodDao;
 import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.PeriodService;
 import java.util.Date;
 import java.util.List;
@@ -70,6 +71,11 @@ public class PeriodServiceImpl implements PeriodService {
     @Override
     public List<Period> fetchActive() {
         return periodDao.fetchActive();
+    }
+
+    @Override
+    public List<Period> fetchActive(Program program) {
+        return periodDao.fetchActive(program);
     }
 
     @Override

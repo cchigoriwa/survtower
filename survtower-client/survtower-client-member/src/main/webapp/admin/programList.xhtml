@@ -13,17 +13,18 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="Pull Programs" action="#{integratorController.pullPrograms()}" />
-        </h:form>
-        <p:dataTable value="#{programListController.programs}" var="program">
+        <p:panel header="Program List">
+            <h:form>
+                <h:commandButton value="Pull Programs" action="#{integratorController.pullPrograms()}" />
+            </h:form>
+            <p:dataTable value="#{programListController.programs}" var="program">
 
-            <p:column headerText="Name">
-                #{program.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{program.name}
+                </p:column>
 
-        </p:dataTable>
-
+            </p:dataTable>
+        </p:panel>
     </ui:define>
 
 </ui:composition>
