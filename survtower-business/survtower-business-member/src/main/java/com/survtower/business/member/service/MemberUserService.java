@@ -3,6 +3,7 @@ package com.survtower.business.member.service;
 import com.survtower.business.common.GenericService;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.domain.MemberUser;
+import com.survtower.business.member.domain.Region;
 import java.util.Date;
 import java.util.List;
 
@@ -39,5 +40,10 @@ public interface MemberUserService extends GenericService<MemberUser> {
      * @return a list of programs of the current logged in user
      */
     List<Program> getCurrentUserPrograms();
+    
+     /**
+     * @return a list of regions of the current logged in user
+     */
+    List<Region> getCurrentUserRegions();
 
 }

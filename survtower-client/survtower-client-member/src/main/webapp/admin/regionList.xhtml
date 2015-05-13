@@ -1,0 +1,42 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
+
+    <ui:define name="title">
+        Region List
+    </ui:define>
+
+    <ui:define name="content">
+        <p:panel header="Region List">
+            <h:form>
+                <h:link value="Add New Region" outcome="regionEdit" />
+            </h:form>
+            <p:dataTable value="#{regionListController.regions}" var="region">
+
+                <p:column headerText="Name">
+                    #{region.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{region.description}
+                </p:column>
+
+                <p:column>
+                    <h:form>
+                        <h:link value="Edit" outcome="regionEdit">                        
+                            <f:param name="uuid" value="#{region.uuid}" />
+                        </h:link>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>
+

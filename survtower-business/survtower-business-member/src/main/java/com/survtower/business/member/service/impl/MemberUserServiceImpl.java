@@ -5,6 +5,7 @@ import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
+import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.service.MemberUserService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,6 +133,16 @@ public class MemberUserServiceImpl implements MemberUserService {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public List<Region> getCurrentUserRegions() {
+        if (getCurrentUser() != null) {
+            return getCurrentUser().getRegionList();
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     public List<String> getMemberRoles() {

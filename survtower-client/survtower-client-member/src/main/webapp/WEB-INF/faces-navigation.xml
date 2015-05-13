@@ -54,19 +54,29 @@
             <to-view-id>/report/pivot.xhtml</to-view-id>
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             <from-outcome>changePassword</from-outcome>
             <to-view-id>/changePassword.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>region_data_entry</from-outcome>
+            <to-view-id>/data/region_data_entry.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
+            <from-outcome>region_data_select</from-outcome>
+            <to-view-id>/data/region_data_select.xhtml</to-view-id>
+        </navigation-case>   
+        
+        <navigation-case>
+            <from-outcome>region_data_validation</from-outcome>
+            <to-view-id>/data/region_data_validation.xhtml</to-view-id>
         </navigation-case>
        
     </navigation-rule>
     
     <navigation-rule>
-      
-        <navigation-case>
-            <from-outcome>download_Look_Up_Data</from-outcome>
-            <to-view-id>/admin/downloadLookUpData.xhtml</to-view-id>
-        </navigation-case>
           
         <navigation-case>
             <from-outcome>data_entry</from-outcome>
@@ -86,7 +96,8 @@
         <navigation-case>
             <from-outcome>memberUserEdit</from-outcome>
             <to-view-id>/admin/memberUserEdit.xhtml</to-view-id>
-        </navigation-case>  
+        </navigation-case>          
+        
     </navigation-rule>
   
     <!-- =========== Look Up Data Under /admin (Will be the same as surv member and tower) ================================== -->    
@@ -141,6 +152,17 @@
             <from-outcome>admin_home</from-outcome>
             <to-view-id>/admin/index.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>regionList</from-outcome>
+            <to-view-id>/admin/regionList.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>regionEdit</from-outcome>
+            <to-view-id>/admin/regionEdit.xhtml</to-view-id>
+        </navigation-case>
+        
     </navigation-rule>
     
 </faces-config>

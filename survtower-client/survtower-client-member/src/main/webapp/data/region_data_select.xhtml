@@ -1,0 +1,53 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
+
+    <ui:define name="title">
+        Region Online Upload of Surveillance Data
+    </ui:define>
+
+    <ui:define name="content">
+        <p:growl showDetail="true" showSummary="true" id="messages" />
+        <p:panel header="Region Data Entry Selection">
+            <h:form>
+                <p>Select Program and Period to report</p>
+                <p>Selected Country is <b>#{generalController.member.name}</b></p>
+                <h:panelGrid columns="2"> 
+
+                    <h:outputText value="Select Period"/>
+                    <h:selectOneMenu value="#{regionDataSelectController.period}" required="true" requiredMessage="Period field is required."
+                                     converter="#{periodConverter}">
+                        <f:selectItem itemLabel="--Select One--"/>
+                        <f:selectItems value="#{regionDataSelectController.activePeriods}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Select Program:"/>
+                    <h:selectOneMenu value="#{regionDataSelectController.program}" required="true" requiredMessage="Program field is required." 
+                                     converter="#{programConverter}">
+                        <f:selectItem itemLabel="--Select One--"/>
+                        <f:selectItems value="#{loggedOnProgramListController.programs}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value="Select Region:"/>
+                    <h:selectOneMenu value="#{regionDataSelectController.region}" required="true" requiredMessage="Region field is required." 
+                                     converter="#{regionConverter}">
+                        <f:selectItem itemLabel="--Select One--"/>
+                        <f:selectItems value="#{loggedOnRegionListController.regions}"/>
+                    </h:selectOneMenu>
+                    <h:outputText value=""/>
+                    <h:panelGrid columns="2">                   
+
+                        <p:commandButton value="Data Entry" action="#{regionDataSelectController.dataEntrySelection()}" ajax="false"/>                        
+                        <h:outputText value=""/>
+                    </h:panelGrid>
+                </h:panelGrid>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>

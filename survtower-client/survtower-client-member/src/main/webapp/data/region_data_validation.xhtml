@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="../WEB-INF/template/StatefulTemplate.xhtml">
+
+    <ui:define name="title">
+        Approval of Surveillance Data
+    </ui:define>
+
+    <ui:define name="content">
+        <p:growl showDetail="true" showSummary="true" id="messages" />
+        <p:panel header="Data Validation and Aprroval">
+            <h:form>
+                <p>Selected Program - #{dataValidationController.surveillance.program.name} </p>
+                <p>Selected Period - #{dataValidationController.surveillance.period.name}</p>
+                <p>Selected Country - <b>#{dataValidationController.surveillance.member.name}</b></p>
+
+                <p:dataTable id="tbl" value="#{dataValidationController.surveillanceDataList}" var="item">  
+
+                    <p:column headerText="Indicator Name">
+                        <h:outputText value="#{item.indicator.name}" title="#{item.indicator.numerator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Numerator">  
+                        <h:outputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Denominator">  
+                        <h:outputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
+                    </p:column>  
+
+                    <p:column headerText="Indicator Value">  
+                        <h:outputText value="#{item.calculatedValue}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.calculatedValue}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                    </p:column>  
+
+                    <p:column headerText="Valid">  
+                        <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.valid}"/> 
+                        <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.valid}"/> 
+                    </p:column>  
+
+                </p:dataTable>
+                <br/><br/>
+                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+
+                <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
+                    <p>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
+                    <p>Date Approved On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
+                    <p>Data Entry Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
+                    <p>Data Entry Done On <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
+                </p:panel>
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>

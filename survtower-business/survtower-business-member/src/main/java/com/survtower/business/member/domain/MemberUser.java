@@ -43,15 +43,27 @@ public class MemberUser extends BaseEntity {
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "MemberUser_Program", joinColumns = { @JoinColumn(name = "member_user_id") }, inverseJoinColumns = { @JoinColumn(name = "program_id") })
+    @JoinTable(name = "MemberUser_Program", joinColumns = {
+        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "program_id")})
     private Set<Program> programs = new HashSet<Program>();
-    @JoinTable(name = "MemberUser_Role", joinColumns = { @JoinColumn(name = "member_user_id") }, inverseJoinColumns = { @JoinColumn(name = "member_role") })
-    @ManyToMany(cascade = CascadeType.ALL)    
+    @JoinTable(name = "MemberUser_Role", joinColumns = {
+        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "member_role")})
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<MemberUserRole> memberUserRoles = new HashSet<MemberUserRole>();
     @Transient
     private List<String> roles;
     @Transient
     private List<Program> programList;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "MemberUser_Region", joinColumns = {
+        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "program_id")})
+    private Set<Region> regions = new HashSet<Region>();
+    @Transient
+    private List<Region> regionList;
 
     public String getUsername() {
         return username;
@@ -75,6 +87,18 @@ public class MemberUser extends BaseEntity {
 
     public void setPrograms(Set<Program> programs) {
         this.programs = programs;
+    }
+
+    public Set<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(Set<Region> regions) {
+        this.regions = regions;
+    }
+
+    public List<Region> getRegionList() {
+        return new ArrayList<>(getRegions());
     }
 
     @Override

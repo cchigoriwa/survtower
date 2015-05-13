@@ -13,6 +13,7 @@ import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.SurveillanceAudit;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
@@ -59,6 +60,17 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
+
+    @ManagedProperty(value = "#{regionSurveillanceDataService}")
+    RegionSurveillanceDataService regionSurveillanceDataService;
+
+    public RegionSurveillanceDataService getRegionSurveillanceDataService() {
+        return regionSurveillanceDataService;
+    }
+
+    public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
+        this.regionSurveillanceDataService = regionSurveillanceDataService;
+    }
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
@@ -181,11 +193,15 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
     public String submitSurviellanceForm() {
         try {
-            getSurveillance().getSurveillanceDataSet().clear();
-            getSurveillance().getSurveillanceDataSet().addAll(getSurveillanceDataList());
+
+            for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
+                if (!data.getValid()) {
+                    errorMessages("Data Incomplete");
+                    submitted = Boolean.FALSE;
+                    return null;
+                }
+            }
             submitted = Boolean.TRUE;
-            getSurveillanceDataList().clear();
-            getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
         } catch (Exception ex) {
             submitted = Boolean.FALSE;
             errorMessages("Surveillance Data Not Processed Succefully");
@@ -199,18 +215,19 @@ public class DataEntryController extends MessageInfor implements Serializable {
             return null;
         }
         try {
-            getSurveillance().getSurveillanceDataSet().clear();
-            getSurveillance().getSurveillanceDataSet().addAll(getSurveillanceDataList());
             for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
                 if (!data.getValid()) {
                     errorMessages("Data Incomplete");
-                    submitted = Boolean.TRUE;
+                    submitted = Boolean.FALSE;
                     return null;
                 }
             }
-            submitted = Boolean.TRUE;
-            getSurveillanceDataList().clear();
-            getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+
+            for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
+                data.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(data));
+                data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
+            }
+
             if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
                 errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
                 return null;
@@ -235,11 +252,6 @@ public class DataEntryController extends MessageInfor implements Serializable {
             ex.printStackTrace();
             errorMessages("Surveillance Data Not Processed Succefully");
         }
-        return null;
-    }
-
-    public String editSurviellanceForm() {
-        submitted = Boolean.FALSE;
         return null;
     }
 
@@ -271,7 +283,14 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
         if (getSurveillance() != null) {
-            getSurveillanceDataList().clear();
+
+            for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
+                System.out.println("----------------------------------- Data Numberator" + regionSurveillanceDataService.getNumeratorCalculatedValue(data));
+                System.out.println("----------------------------------- Data Denominator" + regionSurveillanceDataService.getDenominatedCalculatedValue(data));
+                data.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(data));
+                data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
+            }
+
             getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
         } else {
             //create new surveillance 
@@ -289,6 +308,7 @@ public class DataEntryController extends MessageInfor implements Serializable {
                 getSurveillanceDataList().clear();
                 getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
             }
+            surveillanceService.save(surveillance);
         }
         surveillanceAudit = surveillanceAuditService.get(program, period);
         //create new surveillance audit

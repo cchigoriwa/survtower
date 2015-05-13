@@ -35,6 +35,12 @@
                         <f:selectItems value="#{memberUserEditController.memberRoles}"/>
                     </h:selectManyCheckbox>
                 </tr>
+                 <tr>
+                    <h:outputLabel value="Select Regions"/>
+                    <h:selectManyCheckbox value="#{memberUserEditController.regions}" converter="#{regionConverter}">
+                        <f:selectItems value="#{regionListController.regions}"/>
+                    </h:selectManyCheckbox>
+                </tr>
                 <tr>
                     <h:outputLabel value="Active"/>
                     <h:selectBooleanCheckbox value="#{memberUserEditController.memberUser.deactivated}"/>

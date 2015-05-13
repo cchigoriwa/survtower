@@ -4,6 +4,7 @@ import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
+import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.client.member.utility.MessageInfor;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MemberUserEditController {
 
     private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
+    private List<Region> regions = new ArrayList<>();
 
     public List<String> getRoles() {
         return roles;
@@ -54,6 +56,14 @@ public class MemberUserEditController {
         this.programs = programs;
     }
 
+    public List<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<Region> regions) {
+        this.regions = regions;
+    }
+    
     public List<String> getMemberRoles() {
         List<String> list = new ArrayList<>();
         list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
@@ -72,6 +82,7 @@ public class MemberUserEditController {
             return null;
         }
         memberUser.setPrograms(new HashSet<>(programs));
+        memberUser.setRegions(new HashSet<>(regions));
         Set<MemberUserRole> memberUserRoles = new HashSet<>();
         for (String role : getRoles()) {
             MemberUserRole memberUserRole = new MemberUserRole();
@@ -120,6 +131,7 @@ public class MemberUserEditController {
             if (memberUser != null) {
                 setPrograms(new ArrayList<>(memberUser.getPrograms()));
                 setRoles(new ArrayList<>(memberUser.getRoles()));
+                setRegions(new ArrayList<>(memberUser.getRegions()));
             }
             if (memberUser == null) {
                 memberUser = new MemberUser();

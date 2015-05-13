@@ -16,7 +16,7 @@
 
         <h:form>
             <p:growl id="msgs" showDetail="true" />
-            <p:panel id="basic" header="Settings- #{generalController.member.name}" footer="Status" style="margin-bottom:20px">
+            <p:panel id="basic" header="Administrator Settings - #{generalController.member.name}">
 
                 <h:panelGrid columns="2">
 
@@ -40,9 +40,29 @@
 
                     <h:link value="Period" outcome="periodList" />
 
+                    <h:link value="Region" outcome="regionList" />
+
                 </h:panelGrid>
 
             </p:panel>
+
+            <p:panel id="basic" header="Pull Options - #{generalController.member.name}">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="Pull Programs" action="#{integratorController.pullPrograms()}" />
+                        <h:commandButton value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}" />
+                        <h:commandButton value="Pull Indicator Type" action="#{integratorController.pullIndicatorTypes()}" />
+                        <h:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" />
+                        <h:commandButton value="Pull Periods" action="#{integratorController.pullPeriods()}" />
+                        <h:commandButton value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" />
+                        <h:commandButton value="Pull Data Sources" action="#{integratorController.pullDataSources()}" />
+                        <h:commandButton value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
+                        <h:commandButton value="Pull Indicators" action="#{integratorController.pullIndicators()}" />
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>
+            
         </h:form>
+        
     </ui:define>
 </ui:composition>
