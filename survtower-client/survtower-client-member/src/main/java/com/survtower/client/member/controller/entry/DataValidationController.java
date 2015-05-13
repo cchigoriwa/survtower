@@ -29,6 +29,11 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class DataValidationController extends MessageInfor implements Serializable {
 
+    private Boolean submitted = Boolean.FALSE;
+    private String surveillanceId;
+    private Surveillance surveillance;
+    private SurveillanceAudit surveillanceAudit;
+
     @ManagedProperty(value = "#{surveillanceService}")
     private SurveillanceService surveillanceService;
 
@@ -37,13 +42,6 @@ public class DataValidationController extends MessageInfor implements Serializab
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
-
-    private Boolean submitted = Boolean.FALSE;
-
-    private String surveillanceId;
-
-    private Surveillance surveillance;
-    private SurveillanceAudit surveillanceAudit;
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
@@ -114,8 +112,6 @@ public class DataValidationController extends MessageInfor implements Serializab
 
         try {
             submitted = Boolean.TRUE;
-            getSurveillanceDataList().clear();
-            getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
             surveillanceAudit.setApprovedBy(getCurrentUser());
             surveillanceAudit.setApprovedOn(new Date());
             surveillanceAuditService.save(surveillanceAudit);
@@ -131,7 +127,7 @@ public class DataValidationController extends MessageInfor implements Serializab
         return "data_entry?faces-redirect=true&programId=" + getSurveillance().getProgram().getUuid() + "&periodId=" + getSurveillance().getPeriod().getUuid();
     }
 
-    private List<SurveillanceData> surveillanceDataList = new ArrayList<SurveillanceData>();
+    private List<SurveillanceData> surveillanceDataList = new ArrayList<>();
 
     public List<SurveillanceData> getSurveillanceDataList() {
         return surveillanceDataList;
@@ -149,6 +145,9 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
         getSurveillanceDataList().clear();
         getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+        if (surveillanceAudit.getApproved()) {
+            submitted = Boolean.TRUE;
+        }
     }
 
     public MemberUser getCurrentUser() {

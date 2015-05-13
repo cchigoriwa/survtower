@@ -87,4 +87,14 @@ public class PeriodServiceImpl implements PeriodService {
     public List<Period> fetchAllDescending() {
         return periodDao.fetchAllDescending();
     }
+
+    @Override
+    public List<Period> fetchInActive(Program program) {
+        return periodDao.fetchInActive(program);
+    }
+
+    @Override
+    public List<Period> fetchAll(Program program) {
+        return periodDao.fetchAll(program);
+    }
 }

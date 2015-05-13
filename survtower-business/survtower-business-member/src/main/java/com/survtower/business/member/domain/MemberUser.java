@@ -40,6 +40,7 @@ public class MemberUser extends BaseEntity {
     public static final String SADC_CD_MANAGER = "SADC_CD_MANAGER";
     private String username;
     private String password;
+    private String email;
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -64,6 +65,14 @@ public class MemberUser extends BaseEntity {
     private Set<Region> regions = new HashSet<Region>();
     @Transient
     private List<Region> regionList;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getUsername() {
         return username;

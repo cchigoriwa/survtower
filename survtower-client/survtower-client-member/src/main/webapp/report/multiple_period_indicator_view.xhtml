@@ -19,19 +19,19 @@
                 <h:panelGrid columns="2"> 
 
                     <h:outputText value="Select Periods"/>
-                    <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.periods}" converter="#{periodConverter}" requiredMessage="Period field is required.">
+                    <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.periods}" converter="#{periodConverter}" required="true" requiredMessage="Period field is required.">
                         <f:selectItems value="#{periodListController.periods}"/>
                     </h:selectManyCheckbox>
 
                     <h:outputText value="Indicator:"/>
-                    <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{indicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}"  
+                    <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{indicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}" 
                                     var="item" itemLabel="#{item.name}" converter="#{indicatorConverter}" itemValue="#{item}"
                                     maxlength="3"/>     
                     <h:outputText value=""/>
                     <h:panelGrid columns="2">                    
 
                         <p:commandButton value="Process" action="#{indicatorViewController.loadMuptiplePeriodIndicator()}" ajax="false" rendered="#{indicatorViewController.indicator==null}"/>                        
-                        <p:commandButton value="Reset" action="#{indicatorViewController.reset()}" ajax="false" rendered="#{indicatorViewController.indicator!=null}" />                        
+                        <p:commandButton value="Reset" action="#{indicatorViewController.reset()}" ajax="false" rendered="#{indicatorViewController.indicator!=null}" immediate="true"/>                        
 
                     </h:panelGrid>
                 </h:panelGrid>

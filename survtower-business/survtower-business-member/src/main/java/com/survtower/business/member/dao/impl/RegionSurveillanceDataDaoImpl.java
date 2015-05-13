@@ -1,5 +1,6 @@
 package com.survtower.business.member.dao.impl;
 
+import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.member.dao.RegionSurveillanceDataDao;
 import com.survtower.business.member.domain.Region;
@@ -62,6 +63,11 @@ public class RegionSurveillanceDataDaoImpl implements RegionSurveillanceDataDao 
     @Override
     public Double getDenominatedCalculatedValue(SurveillanceData surveillanceData) {
         return (Double) entityManager.createQuery("select sum(r.denominatorValue) from RegionSurveillanceData r where r.surveillanceData=:surveillanceData").setParameter("surveillanceData", surveillanceData).getSingleResult();
+    }
+
+    @Override
+    public List<RegionSurveillanceData> findAll(Surveillance surveillance, Region region) {
+        return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.surveillanceData.surveillance=:surveillance and r.region=:region").setParameter("surveillance", surveillance).setParameter("region", region).getResultList();
     }
 
 }

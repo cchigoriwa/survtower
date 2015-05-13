@@ -17,33 +17,57 @@
             <table>
                 <tr>
                     <th>User Name</th>
-                    <td><h:inputText value="#{memberUserEditController.memberUser.username}" /></td>
+                    <td><h:inputText value="#{memberUserEditController.memberUser.username}"
+                                     required="true" label="email" size="60"
+                                     requiredMessage="Enter Username."/></td>
                 </tr>
                 <tr>
                     <th>Password</th>
                     <td><p:password value="#{memberUserEditController.memberUser.password}" /></td>
                 </tr>
                 <tr>
-                    <h:outputLabel value="Select Programs"/>
-                    <h:selectManyCheckbox value="#{memberUserEditController.programs}" converter="#{programConverter}">
-                        <f:selectItems value="#{programListController.programs}"/>
-                    </h:selectManyCheckbox>
+                    <th>Confirm Password</th>
+                    <td><p:password value="#{memberUserEditController.confirmPassword}" /></td>
                 </tr>
                 <tr>
-                    <h:outputLabel value="Select Roles"/>
-                    <h:selectManyCheckbox value="#{memberUserEditController.roles}">
-                        <f:selectItems value="#{memberUserEditController.memberRoles}"/>
-                    </h:selectManyCheckbox>
-                </tr>
-                 <tr>
-                    <h:outputLabel value="Select Regions"/>
-                    <h:selectManyCheckbox value="#{memberUserEditController.regions}" converter="#{regionConverter}">
-                        <f:selectItems value="#{regionListController.regions}"/>
-                    </h:selectManyCheckbox>
+                    <th>Email</th>
+                    <td><h:inputText value="#{memberUserEditController.memberUser.email}"
+                                     required="true" label="email" size="60"
+                                     requiredMessage="Please enter your email address."
+                                     validatorMessage="Invalid email format">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </h:inputText>
+                    </td>
                 </tr>
                 <tr>
-                    <h:outputLabel value="Active"/>
-                    <h:selectBooleanCheckbox value="#{memberUserEditController.memberUser.deactivated}"/>
+                    <th> Select Programs</th>
+                    <td>
+                        <h:selectManyCheckbox value="#{memberUserEditController.programs}" converter="#{programConverter}">
+                            <f:selectItems value="#{programListController.programs}"/>
+                        </h:selectManyCheckbox>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Select Roles</th>
+                    <td>
+                        <h:selectManyCheckbox value="#{memberUserEditController.roles}">
+                            <f:selectItems value="#{memberUserEditController.memberRoles}"/>
+                        </h:selectManyCheckbox>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Select Regions</th>
+                    <td>
+                        <h:selectManyCheckbox value="#{memberUserEditController.regions}" converter="#{regionConverter}">
+                            <f:selectItems value="#{regionListController.regions}"/>
+                        </h:selectManyCheckbox>
+                    </td>
+                </tr>
+                <tr>
+                    <th>De-activated</th>
+                    <td>
+                        <h:selectBooleanCheckbox value="#{memberUserEditController.memberUser.deactivated}"/>
+                    </td>
                 </tr>
             </table>
             <h:commandButton value="Save" action="#{memberUserEditController.save()}">

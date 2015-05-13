@@ -19,10 +19,10 @@
                 <p>Selected Program - #{regionDataEntryController.program.name} </p>
                 <p>Selected Period - #{regionDataEntryController.period.name}</p>
                 <p>Selected Country - <b>#{generalController.member.name}</b></p>
-                <p>Selected Country - <b>#{regionDataEntryController.region.name}</b></p>
+                <p>Selected Region - <b>#{regionDataEntryController.region.name}</b></p>
 
                 <p:dataTable value="#{regionDataEntryController.surveillanceDataList}" var="item" rendered="#{!regionDataEntryController.submitted}">  
-                    
+
                     <p:column headerText="Indicator Name">  
                         <h:outputText value="#{item.surveillanceData.indicator}" />
                     </p:column>  
@@ -69,6 +69,11 @@
                 <p:commandButton value="Edit" action="#{regionDataEntryController.editSurviellanceForm()}" ajax="false" rendered="#{regionDataEntryController.submitted}"/>
                 <p:commandButton value="Save" action="#{regionDataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{regionDataEntryController.submitted}"/>
                 <br/><br/>
+                
+                <p:panel header="Region Surviellance Summary " rendered="#{regionDataEntryController.surveillanceAudit.uploaded}">
+                    <p>Data Uploaded By - <b><h:outputText value="#{regionDataEntryController.surveillanceAudit.uploadedBy}"/> </b></p>
+                    <p>Date Upload On - <b><h:outputText value="#{regionDataEntryController.surveillanceAudit.uploadedOn}"/> </b></p>
+                </p:panel>
 
             </h:form>
         </p:panel>

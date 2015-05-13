@@ -7,6 +7,7 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.report.AuditItem;
+import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class IndexController {
 
+    private List<AuditItem> aduitItems;
+
     @ManagedProperty(value = "#{periodService}")
     PeriodService periodService;
 
@@ -34,7 +37,14 @@ public class IndexController {
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
-    
+
+    @ManagedProperty(value = "#{memberUserService}")
+    private MemberUserService memberUserService;
+
+    public void setMemberUserService(MemberUserService memberUserService) {
+        this.memberUserService = memberUserService;
+    }
+
     public void setSurveillanceAuditService(SurveillanceAuditService surveillanceAuditService) {
         this.surveillanceAuditService = surveillanceAuditService;
     }
@@ -46,12 +56,6 @@ public class IndexController {
     public void setMemberService(MemberService memberService) {
         this.memberService = memberService;
     }
-
-    private List<AuditItem> aduitItems;
-
-    private List<Period> activePeriods;
-
-    private List<Period> pastDueDatePeriods;
 
     public List<AuditItem> getAduitItems() {
         return aduitItems;
@@ -69,50 +73,26 @@ public class IndexController {
         this.periodService = periodService;
     }
 
-    public List<Period> getActivePeriods() {
-        return activePeriods;
-    }
-
-    public void setActivePeriods(List<Period> activePeriods) {
-        this.activePeriods = activePeriods;
-    }
-
-    public List<Period> getPastDueDatePeriods() {
-        return pastDueDatePeriods;
-    }
-
-    public void setPastDueDatePeriods(List<Period> pastDueDatePeriods) {
-        this.pastDueDatePeriods = pastDueDatePeriods;
-    }
-
     @PostConstruct
     public void init() {
-        activePeriods = new ArrayList<>();
-        pastDueDatePeriods = new ArrayList<>();
         aduitItems = new ArrayList<>();
-        for (Period p : periodService.fetchActive()) {
-            if (p.getActive()) {
-                activePeriods.add(p);
-            }
-            if (p.getDueDatePassed()) {
-                pastDueDatePeriods.add(p);
-            }
-        }
-
-        for (Period period : activePeriods) {
-            for (Program program : period.getPrograms()) {
+        for (Program program : getPrograms()) {
+            for (Period period : periodService.fetchActive(program)) {
                 AuditItem item = new AuditItem();
                 item.setPeriod(period);
                 item.setProgram(program);
                 item.setSurveillanceAudit(surveillanceAuditService.findByProgramAndPeriod(program, period));
-                aduitItems.add(item);              
+                aduitItems.add(item);
             }
         }
     }
 
     public String surveillanceId(Program program, Period period) {
         Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-
         return surveillance == null ? null : surveillance.getUuid();
+    }
+
+    public List<Program> getPrograms() {
+        return memberUserService.getCurrentUserPrograms();
     }
 }

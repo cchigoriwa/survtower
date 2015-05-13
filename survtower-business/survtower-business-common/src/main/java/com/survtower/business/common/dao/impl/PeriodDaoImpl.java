@@ -6,6 +6,8 @@ import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.repository.PeriodRepository;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class PeriodDaoImpl implements PeriodDao {
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     private PeriodRepository periodRepository;
@@ -71,7 +76,17 @@ public class PeriodDaoImpl implements PeriodDao {
 
     @Override
     public List<Period> fetchActive(Program program) {
-        return periodRepository.fetchActive(program);
+        return entityManager.createQuery("select p from Period p join p.programs pp where pp =:program and p.active=TRUE and pp.deleted=FALSE").setParameter("program", program).getResultList();
+    }
+
+    @Override
+    public List<Period> fetchInActive(Program program) {
+        return entityManager.createQuery("select p from Period p join p.programs pp where pp =:program and p.active=FALSE and pp.deleted=FALSE").setParameter("program", program).getResultList();
+    }
+
+    @Override
+    public List<Period> fetchAll(Program program) {
+        return entityManager.createQuery("select p from Period p join p.programs pp where pp =:program and pp.deleted=FALSE and pp.deleted=FALSE").setParameter("program", program).getResultList();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.common.service.MemberService;
+import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceDataService;
 import com.survtower.client.member.utility.MessageInfor;
 import java.io.FileNotFoundException;
@@ -44,9 +45,20 @@ public class PivotTableController extends MessageInfor implements Serializable {
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
-    private List<SurveillanceData> surveillanceDataList = new ArrayList<SurveillanceData>();
-    private List<Period> periods = new ArrayList<Period>();
+
+    @ManagedProperty(value = "#{periodService}")
+    private PeriodService periodService;
+    private List<SurveillanceData> surveillanceDataList = new ArrayList<>();
+    private List<Period> periods = new ArrayList<>();
     private Program program;
+
+    public PeriodService getPeriodService() {
+        return periodService;
+    }
+
+    public void setPeriodService(PeriodService periodService) {
+        this.periodService = periodService;
+    }
 
     public SurveillanceDataService getSurveillanceDataService() {
         return surveillanceDataService;
@@ -66,9 +78,15 @@ public class PivotTableController extends MessageInfor implements Serializable {
 
     public void createPivotTableIndicatorChart() {
         getSurveillanceDataList().clear();
-        for (Period period : getPeriods()) {
+        if (getPeriods().isEmpty()) {
+            for (Period period : periodService.fetchAll(program)) {
                 getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(program, period, memberService.getCurrentMember()));
-            
+            }
+            inforMessages("All Periods Selected");
+        } else {
+            for (Period period : getPeriods()) {
+                getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(program, period, memberService.getCurrentMember()));
+            }
         }
     }
 
@@ -88,8 +106,6 @@ public class PivotTableController extends MessageInfor implements Serializable {
         this.periods = periods;
     }
 
-   
-
     public Program getProgram() {
         return program;
     }
@@ -99,9 +115,8 @@ public class PivotTableController extends MessageInfor implements Serializable {
     }
 
     public String reset() {
-        getSurveillanceDataList().clear();
-        getPeriods().clear();
-        return null;
+        return "pivot?faces-redirect=true";
+
     }
 
     public void exportToExcel() throws IOException {
@@ -173,7 +188,7 @@ public class PivotTableController extends MessageInfor implements Serializable {
             facesContext.responseComplete();
 
         } catch (DRException | FileNotFoundException e) {
-           throw new SurvtowerRuntimeException(e);
+            throw new SurvtowerRuntimeException(e);
         }
     }
 

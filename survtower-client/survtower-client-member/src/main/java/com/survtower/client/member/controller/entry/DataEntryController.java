@@ -1,6 +1,5 @@
 package com.survtower.client.member.controller.entry;
 
-import com.survtower.business.common.domain.Indicator;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
@@ -36,6 +35,12 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class DataEntryController extends MessageInfor implements Serializable {
+
+    private Boolean submitted = Boolean.FALSE;
+    private Period period;
+    private Program program;
+    private Surveillance surveillance;
+    private SurveillanceAudit surveillanceAudit;
 
     public DataEntryController() {
     }
@@ -84,12 +89,6 @@ public class DataEntryController extends MessageInfor implements Serializable {
         this.surveillanceAuditService = surveillanceAuditService;
     }
 
-    private Boolean submitted = Boolean.FALSE;
-
-    private String programId;
-
-    private String periodId;
-
     public Boolean getSubmitted() {
         return submitted;
     }
@@ -97,27 +96,6 @@ public class DataEntryController extends MessageInfor implements Serializable {
     public void setSubmitted(Boolean submitted) {
         this.submitted = submitted;
     }
-
-    public String getProgramId() {
-        return programId;
-    }
-
-    public void setProgramId(String programId) {
-        this.programId = programId;
-    }
-
-    public String getPeriodId() {
-        return periodId;
-    }
-
-    public void setPeriodId(String periodId) {
-        this.periodId = periodId;
-    }
-
-    private Period period;
-    private Program program;
-    private Surveillance surveillance;
-    private SurveillanceAudit surveillanceAudit;
 
     public SurveillanceAudit getSurveillanceAudit() {
         return surveillanceAudit;
@@ -193,7 +171,6 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
     public String submitSurviellanceForm() {
         try {
-
             for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
                 if (!data.getValid()) {
                     errorMessages("Data Incomplete");
@@ -274,58 +251,31 @@ public class DataEntryController extends MessageInfor implements Serializable {
 
     @PostConstruct
     public void loadData() {
-        programId = FacesContext.getCurrentInstance().getExternalContext()
+        String programId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("programId");
-        periodId = FacesContext.getCurrentInstance().getExternalContext()
+        String periodId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("periodId");
         program = programService.findByUuid(programId);
         period = periodService.findByUuid(periodId);
 
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        if (getSurveillance() != null) {
 
-            for (SurveillanceData data : getSurveillance().getSurveillanceDataSet()) {
-                System.out.println("----------------------------------- Data Numberator" + regionSurveillanceDataService.getNumeratorCalculatedValue(data));
-                System.out.println("----------------------------------- Data Denominator" + regionSurveillanceDataService.getDenominatedCalculatedValue(data));
+        if (surveillance == null) {
+            surveillance = surveillanceService.createSurveillanceData(program, period, memberService.getCurrentMember());
+        } else {
+            for (SurveillanceData data : surveillance.getSurveillanceDataSet()) {
                 data.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(data));
                 data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
             }
-
-            getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-        } else {
-            //create new surveillance 
-            setSurveillance(new Surveillance());
-            getSurveillance().setPeriod(getPeriod());
-            getSurveillance().setProgram(getProgram());
-            getSurveillance().setCreateDate(new Date());
-            getSurveillance().setMember(memberService.getCurrentMember());
-            for (Indicator indicator : indicatorService.findIndicatorsInProgram(getProgram())) {
-                SurveillanceData data = new SurveillanceData();
-                data.setCreateDate(new Date());
-                data.setIndicator(indicator);
-                data.setSurveillance(getSurveillance());
-                getSurveillance().getSurveillanceDataSet().add(data);
-                getSurveillanceDataList().clear();
-                getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-            }
-            surveillanceService.save(surveillance);
         }
+
+        getSurveillanceDataList().clear();
+        getSurveillanceDataList().addAll(surveillance.getSurveillanceDataSet());
         surveillanceAudit = surveillanceAuditService.get(program, period);
-        //create new surveillance audit
-        if (getSurveillanceAudit() == null) {
+
+        if (surveillanceAudit == null) {
             setSurveillanceAudit(new SurveillanceAudit());
-        }
-
-    }
-
-    public String dataValidationSelection() {
-        SurveillanceAudit audit = surveillanceAuditService.get(program, period);
-        if (getSurveillance() != null && audit != null) {
-            return "data_validation?faces-redirect=true&surveillanceId=" + getSurveillance().getUuid();
-        } else {
-            errorMessages("Surveillance Data Not Uploaded - Redirect to Data Entry");
-            return "data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid();
-        }
+        } 
     }
 
     public MemberUser getCurrentUser() {

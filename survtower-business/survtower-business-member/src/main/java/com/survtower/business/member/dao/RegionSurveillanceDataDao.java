@@ -1,6 +1,7 @@
 package com.survtower.business.member.dao;
 
 import com.survtower.business.common.GenericDao;
+import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceData;
@@ -19,4 +20,6 @@ public interface RegionSurveillanceDataDao extends GenericDao<RegionSurveillance
     public Double getNumeratorCalculatedValue(SurveillanceData surveillanceData);
 
     public Double getDenominatedCalculatedValue(SurveillanceData surveillanceData);
+    
+    public List<RegionSurveillanceData> findAll(Surveillance surveillance , Region region);
 }

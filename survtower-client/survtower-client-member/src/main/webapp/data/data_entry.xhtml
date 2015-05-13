@@ -49,7 +49,6 @@
                 <br/>
                 <p:commandButton value="Process" action="#{dataEntryController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataEntryController.submitted}"/>
                 <p:commandButton value="Save" action="#{dataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{dataEntryController.submitted}"/>
-                <p:commandButton value="Data Validation and Approval" action="#{dataEntryController.dataValidationSelection()}" ajax="false" rendered="#{dataEntryController.surveillanceAudit.uploaded and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>                        
                 <br/><br/>
 
                 <p:panel header="Data Entry Summary " rendered="#{dataEntryController.surveillanceAudit.uploaded}">

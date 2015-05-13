@@ -24,11 +24,15 @@ public interface PeriodDao extends GenericDao<Period> {
     public List<Period> findPeriodsUpdatedBefore(Date maxDate);
 
     public List<Period> fetchActive();
-    
+
     public List<Period> fetchActive(Program program);
 
     public List<Period> fetchAllAscending();
 
     public List<Period> fetchAllDescending();
+
+    public List<Period> fetchInActive(Program program);
+
+    public List<Period> fetchAll(Program program);
 
 }

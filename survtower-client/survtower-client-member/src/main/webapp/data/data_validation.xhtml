@@ -48,9 +48,9 @@
 
                 </p:dataTable>
                 <br/><br/>
-                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
-                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
-                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
 
                 <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
                     <p>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>

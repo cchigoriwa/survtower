@@ -34,11 +34,21 @@ public class MemberUserEditController {
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoderImpl passwordEncoder;
 
+    private String confirmPassword;
+
     private MemberUser memberUser;
 
     private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
     private List<Region> regions = new ArrayList<>();
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
     public List<String> getRoles() {
         return roles;
@@ -63,7 +73,7 @@ public class MemberUserEditController {
     public void setRegions(List<Region> regions) {
         this.regions = regions;
     }
-    
+
     public List<String> getMemberRoles() {
         List<String> list = new ArrayList<>();
         list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
@@ -81,6 +91,31 @@ public class MemberUserEditController {
             MessageInfor.errorMessages("Enter Password to Continue");
             return null;
         }
+        if (StringUtils.isEmpty(getConfirmPassword())) {
+            MessageInfor.errorMessages("Confirm Password to Continue");
+            return null;
+        }
+
+        if (!confirmPassword.equals(memberUser.getPassword())) {
+            MessageInfor.errorMessages("Password do not match");
+            return null;
+        }
+
+        if (getPrograms().isEmpty()) {
+            MessageInfor.errorMessages("Select User Programs");
+            return null;
+        }
+
+        if (getRoles().isEmpty()) {
+            MessageInfor.errorMessages("Select User Roles");
+            return null;
+        }
+
+        if (getRegions().isEmpty()) {
+            MessageInfor.errorMessages("Select User Regions");
+            return null;
+        }
+
         memberUser.setPrograms(new HashSet<>(programs));
         memberUser.setRegions(new HashSet<>(regions));
         Set<MemberUserRole> memberUserRoles = new HashSet<>();
@@ -127,7 +162,7 @@ public class MemberUserEditController {
             programs = new ArrayList<>();
             roles = new ArrayList<>();
         } else {
-            memberUser = memberUserService.findByUuid(uuid);            
+            memberUser = memberUserService.findByUuid(uuid);
             if (memberUser != null) {
                 setPrograms(new ArrayList<>(memberUser.getPrograms()));
                 setRoles(new ArrayList<>(memberUser.getRoles()));

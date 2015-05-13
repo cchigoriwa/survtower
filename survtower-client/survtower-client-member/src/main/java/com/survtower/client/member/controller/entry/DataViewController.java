@@ -26,7 +26,6 @@ public class DataViewController extends MessageInfor implements Serializable {
     private SurveillanceService surveillanceService;
 
     private String surveillanceId;
-
     private Surveillance surveillance;
 
     public String getSurveillanceId() {
@@ -53,7 +52,7 @@ public class DataViewController extends MessageInfor implements Serializable {
         this.surveillanceService = surveillanceService;
     }
 
-    private List<SurveillanceData> surveillanceDataList = new ArrayList<SurveillanceData>();
+    private List<SurveillanceData> surveillanceDataList = new ArrayList<>();
 
     public List<SurveillanceData> getSurveillanceDataList() {
         return surveillanceDataList;

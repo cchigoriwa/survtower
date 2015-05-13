@@ -16,7 +16,7 @@
             <table>
                 <tr>
                     <th>Name</th>
-                    <td><h:inputText value="#{indicatorEditController.indicator.name}" /></td>
+                    <td><h:inputText value="#{indicatorEditController.indicator.name}" required="true" requiredMessage="Enter Name" /></td>
                 </tr>
                 <tr>
                     <th>Description</th>
@@ -25,7 +25,7 @@
                 <tr>
                     <th>Indicator Group</th>
                     <td>
-                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorGroup}" converter="#{indicatorGroupConverter}" >
+                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorGroup}" converter="#{indicatorGroupConverter}" required="true" requiredMessage="Select Indicator Group">
                             <f:selectItems value="#{indicatorEditController.indicatorGroups}" var="item" itemLabel="#{item.name}"  />
                         </h:selectOneMenu>
                     </td>
@@ -33,7 +33,7 @@
                 <tr>
                     <th>Indicator Type</th>
                     <td>
-                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorType}" converter="#{indicatorTypeConverter}" >
+                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorType}" converter="#{indicatorTypeConverter}" required="true" requiredMessage="Select Indicator Type">
                             <f:selectItems value="#{indicatorEditController.indicatorTypes}" var="item" itemLabel="#{item.name}"  />
                         </h:selectOneMenu>
                     </td>

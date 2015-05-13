@@ -16,29 +16,30 @@
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Data Validation and Aprroval">
             <h:form>
-                <p>Selected Program - #{dataValidationController.surveillance.program.name} </p>
-                <p>Selected Period - #{dataValidationController.surveillance.period.name}</p>
-                <p>Selected Country - <b>#{dataValidationController.surveillance.member.name}</b></p>
+                <p>Selected Program - #{regionDataValidationController.surveillance.program.name} </p>
+                <p>Selected Period - #{regionDataValidationController.surveillance.period.name}</p>
+                <p>Selected Country - <b>#{regionDataValidationController.surveillance.member.name}</b></p>
+                <p>Selected Region - <b>#{regionDataEntryController.region.name}</b></p>
 
-                <p:dataTable id="tbl" value="#{dataValidationController.surveillanceDataList}" var="item">  
+                <p:dataTable value="#{regionDataValidationController.surveillanceDataList}" var="item">  
 
-                    <p:column headerText="Indicator Name">
-                        <h:outputText value="#{item.indicator.name}" title="#{item.indicator.numerator.name}" /> 
+                    <p:column headerText="Indicator Name">  
+                        <h:outputText value="#{item.surveillanceData.indicator.name}"/>
                     </p:column>  
 
                     <p:column headerText="Numerator">  
-                        <h:outputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
+                        <h:outputText value="#{item.numeratorValue}" title="#{item.surveillanceData.indicator.numerator.name}" /> 
                     </p:column>  
 
                     <p:column headerText="Denominator">  
-                        <h:outputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
+                        <h:outputText value="#{item.denominatorValue}" title="#{item.surveillanceData.indicator.denominator.name}" /> 
                     </p:column>  
 
                     <p:column headerText="Indicator Value">  
                         <h:outputText value="#{item.calculatedValue}" rendered="#{item.valid}"/> 
                         <h:outputText value="#{item.calculatedValue}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
-                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
-                        <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                        <h:outputText value="#{item.surveillanceData.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
+                        <h:outputText value="#{item.surveillanceData.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
                     </p:column>  
 
                     <p:column headerText="Valid">  
@@ -47,16 +48,17 @@
                     </p:column>  
 
                 </p:dataTable>
-                <br/><br/>
-                <p:commandButton value="Approve" action="#{dataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
-                <p:commandButton value="Edit" action="#{dataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
-                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{dataValidationController.submitted and !dataValidationController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
 
-                <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
-                    <p>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
-                    <p>Date Approved On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
-                    <p>Data Entry Done By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
-                    <p>Data Entry Done On <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
+                <br/><br/>
+                <p:commandButton value="Approve" action="#{regionDataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.surveillanceAudit.approved}"/>
+                <p:commandButton value="Edit" action="#{regionDataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.surveillanceAudit.approved}"/>
+                <p:commandButton value="Final Submit" action="#{regionDataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{regionDataValidationController.submitted and !regionDataValidationController.surveillanceAudit.approved}"/>
+
+                <p:panel header="Region Surviellance Summary " rendered="#{regionDataValidationController.surveillanceAudit.submissionDone}">
+                    <p>Data Approved By - <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
+                    <p>Date Approved On - <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
+                    <p>Data Entry Done By - <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
+                    <p>Data Entry Done On <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
                 </p:panel>
             </h:form>
         </p:panel>

@@ -7,13 +7,17 @@ package com.survtower.client.member.controller.entry;
 
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
+import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.Region;
+import com.survtower.business.member.domain.RegionSurveillanceAudit;
 import com.survtower.business.member.service.RegionService;
+import com.survtower.business.member.service.RegionSurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
+import static com.survtower.client.member.utility.MessageInfor.errorMessages;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -27,6 +31,10 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class RegionDataSelectController extends MessageInfor implements Serializable {
+
+    private Period period;
+    private Program program;
+    private Region region;
 
     public RegionDataSelectController() {
     }
@@ -46,9 +54,16 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
 
-    private Period period;
-    private Program program;
-    private Region region;
+    @ManagedProperty(value = "#{regionSurveillanceAuditService}")
+    private RegionSurveillanceAuditService surveillanceAuditService;
+
+    public RegionSurveillanceAuditService getSurveillanceAuditService() {
+        return surveillanceAuditService;
+    }
+
+    public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
+        this.surveillanceAuditService = surveillanceAuditService;
+    }
 
     public ProgramService getProgramService() {
         return programService;
@@ -120,6 +135,17 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
 
     public String dataEntrySelection() {
         return "region_data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
+    }
+
+    public String dataValidationSelection() {
+        Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
+        RegionSurveillanceAudit audit = surveillanceAuditService.get(program, period, region);
+        if (surveillance != null && audit != null) {
+            return "region_data_validation?faces-redirect=true&surveillanceId=" + surveillance.getUuid() + "&regionId=" + region.getUuid();
+        } else {
+            errorMessages("Region Surveillance Data Not Uploaded - Redirect to Regional Data Entry");
+            return "region_data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
+        }
     }
 
 }

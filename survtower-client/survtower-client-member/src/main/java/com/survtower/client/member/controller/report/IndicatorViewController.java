@@ -62,7 +62,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     private Indicator indicator;
     private CartesianChartModel linearModel = new CartesianChartModel();
     private CartesianChartModel dataElementsModel = new CartesianChartModel();
-    private List<Period> periods = new ArrayList<Period>();
+    private List<Period> periods = new ArrayList<>();
 
     public List<Period> getPeriods() {
         return periods;
@@ -135,6 +135,16 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     }
 
     public String loadMuptiplePeriodIndicator() {
+        if (indicator == null) {
+            inforMessages("Select Indicator to Continue.");
+            return null;
+        }
+
+        if (periods.isEmpty()) {
+            inforMessages("Select Periods to Continue.");
+            return null;
+        }
+        
         getSurveillanceDataList().clear();
         createMuptiplePeriodIndicatorChart();
         if (linearModel.getSeries().isEmpty()) {
@@ -147,10 +157,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     }
 
     public String reset() {
-        indicator = null;
-        getSurveillanceDataList().clear();
-        getPeriods().clear();
-        return null;
+        return "multiple_period_indicator_view?faces-redirect=true";
     }
 
 }

@@ -1,5 +1,6 @@
 package com.survtower.business.member.service.impl;
 
+import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.member.dao.RegionSurveillanceDataDao;
 import com.survtower.business.member.domain.Region;
@@ -62,5 +63,10 @@ public class RegionSurveillanceDataServiceImpl implements RegionSurveillanceData
     @Override
     public Double getDenominatedCalculatedValue(SurveillanceData surveillanceData) {
         return regionSurveillanceDataDao.getDenominatedCalculatedValue(surveillanceData);
+    }
+
+    @Override
+    public List<RegionSurveillanceData> findAll(Surveillance surveillance, Region region) {
+        return regionSurveillanceDataDao.findAll(surveillance, region);
     }
 }

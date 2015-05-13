@@ -16,9 +16,11 @@ import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.Region;
+import com.survtower.business.member.domain.RegionSurveillanceAudit;
 import com.survtower.business.member.domain.RegionSurveillanceData;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.RegionService;
+import com.survtower.business.member.service.RegionSurveillanceAuditService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
@@ -45,6 +47,13 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     public RegionDataEntryController() {
     }
 
+    private Boolean submitted = Boolean.FALSE;
+    private Period period;
+    private Program program;
+    private Region region;
+    private Surveillance surveillance;
+    private RegionSurveillanceAudit surveillanceAudit;
+
     @ManagedProperty(value = "#{regionService}")
     RegionService regionService;
 
@@ -69,6 +78,17 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
 
+    @ManagedProperty(value = "#{regionSurveillanceAuditService}")
+    private RegionSurveillanceAuditService surveillanceAuditService;
+
+    public RegionSurveillanceAuditService getSurveillanceAuditService() {
+        return surveillanceAuditService;
+    }
+
+    public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
+        this.surveillanceAuditService = surveillanceAuditService;
+    }
+
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
     }
@@ -81,13 +101,13 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         this.regionSurveillanceDataService = regionSurveillanceDataService;
     }
 
-    private Boolean submitted = Boolean.FALSE;
+    public RegionSurveillanceAudit getSurveillanceAudit() {
+        return surveillanceAudit;
+    }
 
-    private String programId;
-
-    private String periodId;
-
-    private String regionId;
+    public void setSurveillanceAudit(RegionSurveillanceAudit surveillanceAudit) {
+        this.surveillanceAudit = surveillanceAudit;
+    }
 
     public Boolean getSubmitted() {
         return submitted;
@@ -96,35 +116,6 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     public void setSubmitted(Boolean submitted) {
         this.submitted = submitted;
     }
-
-    public String getProgramId() {
-        return programId;
-    }
-
-    public void setProgramId(String programId) {
-        this.programId = programId;
-    }
-
-    public String getPeriodId() {
-        return periodId;
-    }
-
-    public void setPeriodId(String periodId) {
-        this.periodId = periodId;
-    }
-
-    public String getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(String regionId) {
-        this.regionId = regionId;
-    }
-
-    private Period period;
-    private Program program;
-    private Region region;
-    private Surveillance surveillance;
 
     public Region getRegion() {
         return region;
@@ -221,12 +212,33 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                     return null;
                 }
             }
+
+            if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
+                errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
+                return null;
+            }
+
             submitted = Boolean.TRUE;
             for (RegionSurveillanceData data : getSurveillanceDataList()) {
                 if (data.getValid()) {
                     regionSurveillanceDataService.save(data);
                 }
             }
+
+            if (getSurveillanceAudit().getId() == null) {
+                getSurveillanceAudit().setPeriod(period);
+                getSurveillanceAudit().setProgram(program);
+                getSurveillanceAudit().setUploadedBy(getCurrentUser());
+                getSurveillanceAudit().setUploadedOn(new Date());
+                getSurveillanceAudit().setRegion(region);
+            } else {
+                getSurveillanceAudit().setUploadedOn(new Date());
+            }
+            if (getSurveillanceAudit().getUploadedBy() == null) {
+                errorMessages("Audit Trail - Not Working");
+                return null;
+            }
+            surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -267,18 +279,26 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
 
     @PostConstruct
     public void loadData() {
-        programId = FacesContext.getCurrentInstance().getExternalContext()
+        String programId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("programId");
-        periodId = FacesContext.getCurrentInstance().getExternalContext()
+        String periodId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("periodId");
-        regionId = FacesContext.getCurrentInstance().getExternalContext()
+        String regionId = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("regionId");
         program = programService.findByUuid(programId);
         period = periodService.findByUuid(periodId);
         region = regionService.findByUuid(regionId);
 
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        if (getSurveillance() != null) {
+
+        if (surveillance == null) {
+            surveillance = surveillanceService.createSurveillanceData(program, period, memberService.getCurrentMember());
+        }
+
+        surveillanceAudit = surveillanceAuditService.get(program, period, region);
+
+        if (surveillanceAudit == null) {
+            surveillanceAudit = new RegionSurveillanceAudit();            
             for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
                 RegionSurveillanceData data = null;
                 data = regionSurveillanceDataService.find(surveillanceData, region);
@@ -287,17 +307,13 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                     data.setSurveillanceData(surveillanceData);
                     data.setCreateDate(new Date());
                     data.setRegion(region);
-                } else {
-                    submitted = Boolean.TRUE;
                 }
                 surveillanceDataList.add(data);
             }
+        } else {            
+            surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         }
 
-    }
-
-    public String dataValidationSelection() {
-        return "";
     }
 
     public MemberUser getCurrentUser() {
@@ -315,4 +331,5 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             }
         }
     }
+
 }

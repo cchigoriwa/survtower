@@ -1,10 +1,13 @@
 package com.survtower.business.common.service.impl;
 
 import com.survtower.business.common.dao.SurveillanceDao;
+import com.survtower.business.common.domain.Indicator;
 import com.survtower.business.common.domain.Member;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
+import com.survtower.business.common.domain.SurveillanceData;
+import com.survtower.business.common.service.IndicatorService;
 import com.survtower.business.common.service.SurveillanceService;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +25,9 @@ public class SurveillanceServiceImpl implements SurveillanceService {
 
     @Autowired
     private SurveillanceDao surveillanceDao;
+
+    @Autowired
+    private IndicatorService indicatorService;
 
     @Transactional
     @Override
@@ -46,13 +52,13 @@ public class SurveillanceServiceImpl implements SurveillanceService {
     }
 
     @Override
-    public Surveillance get(Program program, Period period, Member member){
-    return surveillanceDao.get(program, period, member);
+    public Surveillance get(Program program, Period period, Member member) {
+        return surveillanceDao.get(program, period, member);
     }
-    
+
     @Override
-    public List<Surveillance> getSurviellances(Program program, Period period){
-    return surveillanceDao.getSurviellances(program, period);
+    public List<Surveillance> getSurviellances(Program program, Period period) {
+        return surveillanceDao.getSurviellances(program, period);
     }
 
     @Override
@@ -63,5 +69,23 @@ public class SurveillanceServiceImpl implements SurveillanceService {
     @Override
     public Surveillance findByProgramAndPeriodAndMember(Program program, Period period, Member member) {
         return surveillanceDao.findByProgramAndPeriodAndMember(program, period, member);
+    }
+
+    @Override
+    public Surveillance createSurveillanceData(Program program, Period period, Member member) {
+        Surveillance surveillance = new Surveillance();
+        surveillance.setProgram(program);
+        surveillance.setPeriod(period);
+        surveillance.setCreateDate(new Date());
+        surveillance.setMember(member);
+        for (Indicator indicator : indicatorService.findIndicatorsInProgram(program)) {
+            SurveillanceData data = new SurveillanceData();
+            data.setCreateDate(new Date());
+            data.setIndicator(indicator);
+            data.setSurveillance(surveillance);
+            surveillance.getSurveillanceDataSet().add(data);
+        }
+        return surveillanceDao.save(surveillance);
+
     }
 }

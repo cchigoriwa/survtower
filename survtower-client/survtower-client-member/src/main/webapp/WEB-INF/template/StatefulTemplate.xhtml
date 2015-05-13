@@ -5,25 +5,31 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-        <h:head>
-            <title>
-                <ui:insert name="title">SADC Surveillance System-#{generalController.member.name}</ui:insert>
-            </title>
-            <link rel="shortcut icon" type="image/x-icon" href="#{resource['webjars/sadc/1.0.0/img:favicon.ico']}"></link>
-        </h:head>
-        <h:body>
-            <ui:include src="/WEB-INF/template/menu.xhtml" />
-            <h:panelGrid columns="3">
+    <h:head>
+        <title>
+            <ui:insert name="title">SADC Surveillance System-#{generalController.member.name}</ui:insert>
+        </title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['webjars/sadc/1.0.0/img:favicon.ico']}"></link>
+        <style>
+            body {
+                padding-right: 50px;
+                padding-left: 50px;
+            }
+           </style>
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/template/menu.xhtml" />
+        <h:panelGrid columns="3">
 
-                <h:graphicImage library="webjars/sadc/1.0.0/img"
-                                name="logo.png" />
+            <h:graphicImage library="webjars/sadc/1.0.0/img"
+                            name="logo.png" />
 
-                <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" />
+            <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" />
 
-                <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
+            <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
 
-            </h:panelGrid>
-            <ui:insert name="content">SADC Surveillance System</ui:insert>
-        </h:body>
+        </h:panelGrid>
+        <ui:insert name="content">SADC Surveillance System</ui:insert>
+    </h:body>
 </html>
 
