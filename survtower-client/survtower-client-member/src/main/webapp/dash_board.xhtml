@@ -20,7 +20,7 @@
             <p:tabView>
 
                 <p:tab title="Region">
-                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;">
+                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
 
                         <h:form>
                             <p:fragment autoUpdate="true">
