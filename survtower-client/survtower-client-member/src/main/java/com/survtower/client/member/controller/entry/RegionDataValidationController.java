@@ -127,7 +127,7 @@ public class RegionDataValidationController extends MessageInfor implements Seri
     }
 
     public String editSurviellanceForm() {
-        return "data_entry?faces-redirect=true&programId=" + getSurveillance().getProgram().getUuid() + "&periodId=" + getSurveillance().getPeriod().getUuid() + "&regionId=" + getRegion().getUuid();
+        return "region_data_entry?faces-redirect=true&programId=" + getSurveillance().getProgram().getUuid() + "&periodId=" + getSurveillance().getPeriod().getUuid() + "&regionId=" + getRegion().getUuid();
     }
 
     public String finalSaveSurviellanceForm() {

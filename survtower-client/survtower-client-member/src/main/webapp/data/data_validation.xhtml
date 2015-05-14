@@ -48,7 +48,7 @@
 
                 </p:dataTable>
                 <br/>
-                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false"/>
+                <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.surveillanceAudit.submissionDone}"/>
 
                 <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
                     <p>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>

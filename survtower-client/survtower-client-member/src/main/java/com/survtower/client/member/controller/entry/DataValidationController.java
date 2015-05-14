@@ -79,27 +79,32 @@ public class DataValidationController extends MessageInfor implements Serializab
     }
 
     public String submitSurviellanceForm() {
-        if (getSurveillanceAudit().getId() == null) {
-            getSurveillanceAudit().setPeriod(getSurveillance().getPeriod());
-            getSurveillanceAudit().setProgram(getSurveillance().getProgram());
-            getSurveillanceAudit().setUploadedBy(getCurrentUser());
-            getSurveillanceAudit().setUploadedOn(new Date());
-        } else {
-            getSurveillanceAudit().setUploadedOn(new Date());
+        if (!getSurveillanceAudit().getSubmissionDone()) {
+            if (getSurveillanceAudit().getId() == null) {
+                getSurveillanceAudit().setPeriod(getSurveillance().getPeriod());
+                getSurveillanceAudit().setProgram(getSurveillance().getProgram());
+                getSurveillanceAudit().setUploadedBy(getCurrentUser());
+                getSurveillanceAudit().setUploadedOn(new Date());
+            } else {
+                getSurveillanceAudit().setUploadedOn(new Date());
+            }
+            if (getSurveillanceAudit().getUploadedBy() == null) {
+                errorMessages("Audit Trail - Not Working");
+                return null;
+            }
+            surveillanceAuditService.save(surveillanceAudit);
         }
-        if (getSurveillanceAudit().getUploadedBy() == null) {
-            errorMessages("Audit Trail - Not Working");
-            return null;
-        }
-        surveillanceAuditService.save(surveillanceAudit);
+
         return null;
     }
 
     public String finalSaveSurviellanceForm() {
+        
         if (surveillanceAudit == null) {
             errorMessages("Surveillance Audit Error - Data Entry Not Done");
             return null;
         }
+        
         if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
@@ -110,7 +115,7 @@ public class DataValidationController extends MessageInfor implements Serializab
             surveillanceAudit.setApprovedOn(new Date());
             surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
-        } catch (Exception ex) {            
+        } catch (Exception ex) {
             errorMessages("Surveillance Data Not Processed Succefully");
         }
         return null;

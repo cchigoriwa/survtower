@@ -60,4 +60,14 @@ public class RegionSurveillanceAuditImpl implements RegionSurveillanceAuditServi
         return surveillanceAuditDao.findByProgramAndPeriodAndRegion(program, period, region);
     }
 
+    @Override
+    public List<RegionSurveillanceAudit> findPendingApproval(Program program, Region region) {
+        return surveillanceAuditDao.findPendingApproval(program, region);
+    }
+
+    @Override
+    public List<RegionSurveillanceAudit> findApproved(Program program, Region region) {
+        return surveillanceAuditDao.findApproved(program, region);
+    }
+
 }

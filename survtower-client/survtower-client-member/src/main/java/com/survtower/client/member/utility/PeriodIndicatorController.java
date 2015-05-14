@@ -11,6 +11,7 @@ import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceData;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,12 +27,12 @@ import org.primefaces.model.chart.ChartSeries;
  */
 @ManagedBean
 @ViewScoped
-public class PeriodIndicatorController {
+public class PeriodIndicatorController implements Serializable{
 
     private Period period;
     private List<RegionSurveillanceData> surveillanceDataList;
     private List<ProgramRegion> programRegions;
-  
+
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
 
@@ -63,7 +64,7 @@ public class PeriodIndicatorController {
     }
 
     public void onProgramChange() {
-    
+
         surveillanceDataList = new ArrayList<>();
         programRegions = new ArrayList<>();
 
@@ -73,7 +74,7 @@ public class PeriodIndicatorController {
 
         ChartSeries numerator = new ChartSeries();
         ChartSeries denominator = new ChartSeries();
-      
+
         for (RegionSurveillanceData data : getSurveillanceDataList()) {
             numerator.setLabel(data.getSurveillanceData().getIndicator().getNumerator().getName());
             denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominator().getName());
@@ -122,31 +123,4 @@ public class PeriodIndicatorController {
         return model;
     }
 
-    class ProgramRegion {
-
-        private Region region;
-        private Program program;
-
-        public ProgramRegion(Region region, Program program) {
-            this.region = region;
-            this.program = program;
-        }
-
-        public Region getRegion() {
-            return region;
-        }
-
-        public void setRegion(Region region) {
-            this.region = region;
-        }
-
-        public Program getProgram() {
-            return program;
-        }
-
-        public void setProgram(Program program) {
-            this.program = program;
-        }
-
-    }
 }

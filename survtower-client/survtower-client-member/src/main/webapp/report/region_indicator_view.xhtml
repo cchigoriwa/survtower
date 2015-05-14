@@ -19,7 +19,7 @@
                 <h:panelGrid columns="2"> 
 
                     <h:outputText value="Select Region"/>
-                    <h:selectOneMenu value="#{pivotTableController.program}" required="true" requiredMessage="Select Region." converter="#{regionConverter}">
+                    <h:selectOneMenu value="#{regionIndicatorViewController.region}" required="true" requiredMessage="Select Region." converter="#{regionConverter}">
                         <f:selectItem itemLabel="--Select One--"/>
                         <f:selectItems value="#{regionListController.regions}"/>
                     </h:selectOneMenu>

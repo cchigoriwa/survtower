@@ -50,7 +50,7 @@ public class RegionSurveillanceAudit extends BaseEntity {
     public void setRegion(Region region) {
         this.region = region;
     }
-    
+
     public Period getPeriod() {
         return period;
     }
@@ -109,6 +109,10 @@ public class RegionSurveillanceAudit extends BaseEntity {
 
     public Boolean getUploaded() {//upload of data
         return uploadedBy != null;
+    }
+
+    public String getForApproval() {
+        return getRegion() + "-" + getProgram();
     }
 
 }

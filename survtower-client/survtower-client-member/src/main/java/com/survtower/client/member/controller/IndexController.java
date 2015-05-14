@@ -6,7 +6,6 @@ import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
-import com.survtower.business.member.domain.RegionSurveillanceData;
 import com.survtower.business.member.domain.report.AuditItem;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.SurveillanceAuditService;
@@ -25,8 +24,8 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class IndexController {
 
-    private List<AuditItem> aduitItems;    
-
+    private List<AuditItem> aduitItems; 
+    
     @ManagedProperty(value = "#{periodService}")
     PeriodService periodService;
 
@@ -73,7 +72,8 @@ public class IndexController {
     @PostConstruct
     public void init() {
         aduitItems = new ArrayList<>();
-        for (Program program : getPrograms()) {
+        
+        for (Program program : memberUserService.getCurrentUserPrograms()) {
             for (Period p : periodService.fetchActive(program)) {
                 AuditItem item = new AuditItem();
                 item.setPeriod(p);
@@ -82,6 +82,8 @@ public class IndexController {
                 aduitItems.add(item);
             }
         }
+        
+        
     }
 
     public String surveillanceId(Program program, Period p) {
@@ -89,7 +91,4 @@ public class IndexController {
         return surveillance == null ? null : surveillance.getUuid();
     }
 
-    public List<Program> getPrograms() {
-        return memberUserService.getCurrentUserPrograms();
-    }
 }
