@@ -44,10 +44,6 @@ public class DataViewController extends MessageInfor implements Serializable {
         this.surveillance = surveillance;
     }
 
-    public SurveillanceService getSurveillanceService() {
-        return surveillanceService;
-    }
-
     public void setSurveillanceService(SurveillanceService surveillanceService) {
         this.surveillanceService = surveillanceService;
     }

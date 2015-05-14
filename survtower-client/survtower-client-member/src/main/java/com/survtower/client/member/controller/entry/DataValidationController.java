@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class DataValidationController extends MessageInfor implements Serializable {
 
-    private Boolean submitted = Boolean.FALSE;
     private String surveillanceId;
     private Surveillance surveillance;
     private SurveillanceAudit surveillanceAudit;
@@ -45,14 +44,6 @@ public class DataValidationController extends MessageInfor implements Serializab
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
-    }
-
-    public Boolean getSubmitted() {
-        return submitted;
-    }
-
-    public void setSubmitted(Boolean submitted) {
-        this.submitted = submitted;
     }
 
     public String getSurveillanceId() {
@@ -79,16 +70,8 @@ public class DataValidationController extends MessageInfor implements Serializab
         this.surveillance = surveillance;
     }
 
-    public SurveillanceService getSurveillanceService() {
-        return surveillanceService;
-    }
-
     public void setSurveillanceService(SurveillanceService surveillanceService) {
         this.surveillanceService = surveillanceService;
-    }
-
-    public SurveillanceAuditService getSurveillanceAuditService() {
-        return surveillanceAuditService;
     }
 
     public void setSurveillanceAuditService(SurveillanceAuditService surveillanceAuditService) {
@@ -96,7 +79,19 @@ public class DataValidationController extends MessageInfor implements Serializab
     }
 
     public String submitSurviellanceForm() {
-        submitted = Boolean.TRUE;
+        if (getSurveillanceAudit().getId() == null) {
+            getSurveillanceAudit().setPeriod(getSurveillance().getPeriod());
+            getSurveillanceAudit().setProgram(getSurveillance().getProgram());
+            getSurveillanceAudit().setUploadedBy(getCurrentUser());
+            getSurveillanceAudit().setUploadedOn(new Date());
+        } else {
+            getSurveillanceAudit().setUploadedOn(new Date());
+        }
+        if (getSurveillanceAudit().getUploadedBy() == null) {
+            errorMessages("Audit Trail - Not Working");
+            return null;
+        }
+        surveillanceAuditService.save(surveillanceAudit);
         return null;
     }
 
@@ -111,20 +106,14 @@ public class DataValidationController extends MessageInfor implements Serializab
         }
 
         try {
-            submitted = Boolean.TRUE;
             surveillanceAudit.setApprovedBy(getCurrentUser());
             surveillanceAudit.setApprovedOn(new Date());
             surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
-        } catch (Exception ex) {
-            submitted = Boolean.FALSE;
+        } catch (Exception ex) {            
             errorMessages("Surveillance Data Not Processed Succefully");
         }
         return null;
-    }
-
-    public String editSurviellanceForm() {
-        return "data_entry?faces-redirect=true&programId=" + getSurveillance().getProgram().getUuid() + "&periodId=" + getSurveillance().getPeriod().getUuid();
     }
 
     private List<SurveillanceData> surveillanceDataList = new ArrayList<>();
@@ -145,8 +134,8 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
         getSurveillanceDataList().clear();
         getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
-        if (surveillanceAudit.getApproved()) {
-            submitted = Boolean.TRUE;
+        if (surveillanceAudit == null) {
+            surveillanceAudit = new SurveillanceAudit();
         }
     }
 

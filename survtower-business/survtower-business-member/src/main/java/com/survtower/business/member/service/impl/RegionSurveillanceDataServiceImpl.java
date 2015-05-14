@@ -1,5 +1,8 @@
 package com.survtower.business.member.service.impl;
 
+import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.member.dao.RegionSurveillanceDataDao;
@@ -51,6 +54,15 @@ public class RegionSurveillanceDataServiceImpl implements RegionSurveillanceData
     }
 
     @Override
+    public List<RegionSurveillanceData> findAll(Program program, Region region) {
+        return regionSurveillanceDataDao.findAll(program, region);
+    }
+
+    @Override
+    public List<RegionSurveillanceData> findAll(Period period, Program program, Region region){
+        return regionSurveillanceDataDao.findAll(period, program, region);
+    }
+    @Override
     public RegionSurveillanceData find(SurveillanceData surveillanceData, Region region) {
         return regionSurveillanceDataDao.find(surveillanceData, region);
     }
@@ -68,5 +80,10 @@ public class RegionSurveillanceDataServiceImpl implements RegionSurveillanceData
     @Override
     public List<RegionSurveillanceData> findAll(Surveillance surveillance, Region region) {
         return regionSurveillanceDataDao.findAll(surveillance, region);
+    }
+
+    @Override
+    public List<RegionSurveillanceData> findAll(Period period, Indicator indicator, Region region) {
+        return regionSurveillanceDataDao.findAll(period, indicator, region);
     }
 }

@@ -1,5 +1,8 @@
 package com.survtower.business.member.dao.impl;
 
+import com.survtower.business.common.domain.Indicator;
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.member.dao.RegionSurveillanceDataDao;
@@ -68,6 +71,21 @@ public class RegionSurveillanceDataDaoImpl implements RegionSurveillanceDataDao 
     @Override
     public List<RegionSurveillanceData> findAll(Surveillance surveillance, Region region) {
         return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.surveillanceData.surveillance=:surveillance and r.region=:region").setParameter("surveillance", surveillance).setParameter("region", region).getResultList();
+    }
+
+    @Override
+    public List<RegionSurveillanceData> findAll(Period period, Indicator indicator, Region region) {
+        return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.surveillanceData.indicator=:indicator and r.region=:region and r.surveillanceData.surveillance.period=:period").setParameter("indicator", indicator).setParameter("region", region).setParameter("period", period).getResultList();
+    }
+
+    @Override
+    public List<RegionSurveillanceData> findAll(Program program, Region region) {
+        return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.region=:region and r.surveillanceData.surveillance.program=:program").setParameter("region", region).setParameter("program", program).getResultList();
+    }
+    
+    @Override
+    public List<RegionSurveillanceData> findAll(Period period, Program program, Region region){
+        return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.region=:region and r.surveillanceData.surveillance.program=:program and r.surveillanceData.surveillance.period=:period").setParameter("program", program).setParameter("region", region).setParameter("program", program).getResultList();
     }
 
 }

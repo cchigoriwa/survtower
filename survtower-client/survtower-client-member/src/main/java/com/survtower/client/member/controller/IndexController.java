@@ -6,6 +6,7 @@ import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
+import com.survtower.business.member.domain.RegionSurveillanceData;
 import com.survtower.business.member.domain.report.AuditItem;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.SurveillanceAuditService;
@@ -24,7 +25,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class IndexController {
 
-    private List<AuditItem> aduitItems;
+    private List<AuditItem> aduitItems;    
 
     @ManagedProperty(value = "#{periodService}")
     PeriodService periodService;
@@ -65,10 +66,6 @@ public class IndexController {
         this.aduitItems = aduitItems;
     }
 
-    public PeriodService getPeriodService() {
-        return periodService;
-    }
-
     public void setPeriodService(PeriodService periodService) {
         this.periodService = periodService;
     }
@@ -77,18 +74,18 @@ public class IndexController {
     public void init() {
         aduitItems = new ArrayList<>();
         for (Program program : getPrograms()) {
-            for (Period period : periodService.fetchActive(program)) {
+            for (Period p : periodService.fetchActive(program)) {
                 AuditItem item = new AuditItem();
-                item.setPeriod(period);
+                item.setPeriod(p);
                 item.setProgram(program);
-                item.setSurveillanceAudit(surveillanceAuditService.findByProgramAndPeriod(program, period));
+                item.setSurveillanceAudit(surveillanceAuditService.findByProgramAndPeriod(program, p));
                 aduitItems.add(item);
             }
         }
     }
 
-    public String surveillanceId(Program program, Period period) {
-        Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
+    public String surveillanceId(Program program, Period p) {
+        Surveillance surveillance = surveillanceService.get(program, p, memberService.getCurrentMember());
         return surveillance == null ? null : surveillance.getUuid();
     }
 

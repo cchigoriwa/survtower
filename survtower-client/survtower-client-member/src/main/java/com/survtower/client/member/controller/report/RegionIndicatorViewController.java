@@ -1,12 +1,11 @@
 package com.survtower.client.member.controller.report;
 
 import com.survtower.business.common.domain.Indicator;
-import com.survtower.business.common.domain.Member;
 import com.survtower.business.common.domain.Period;
-import com.survtower.business.common.domain.SurveillanceData;
-import com.survtower.business.common.service.IndicatorService;
-import com.survtower.business.common.service.MemberService;
-import com.survtower.business.common.service.SurveillanceDataService;
+import com.survtower.business.member.domain.Region;
+import com.survtower.business.member.domain.RegionSurveillanceData;
+import com.survtower.business.member.service.RegionService;
+import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.inforMessages;
 import java.io.Serializable;
@@ -24,26 +23,35 @@ import org.primefaces.model.chart.ChartSeries;
  */
 @ManagedBean
 @ViewScoped
-public class IndicatorViewController extends MessageInfor implements Serializable {
+public class RegionIndicatorViewController extends MessageInfor implements Serializable {
 
-    @ManagedProperty(value = "#{surveillanceDataService}")
-    private SurveillanceDataService surveillanceDataService;
+    @ManagedProperty(value = "#{regionSurveillanceDataService}")
+    private RegionSurveillanceDataService regionSurveillanceDataService;
 
-    @ManagedProperty(value = "#{memberService}")
-    private MemberService memberService;
+    @ManagedProperty(value = "#{regionService}")
+    private RegionService regionService;
 
-    public void setSurveillanceDataService(SurveillanceDataService surveillanceDataService) {
-        this.surveillanceDataService = surveillanceDataService;
+    public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
+        this.regionSurveillanceDataService = regionSurveillanceDataService;
     }
 
-    public void setMemberService(MemberService memberService) {
-        this.memberService = memberService;
+    public void setRegionService(RegionService regionService) {
+        this.regionService = regionService;
     }
 
     private Indicator indicator;
     private CartesianChartModel linearModel = new CartesianChartModel();
     private CartesianChartModel dataElementsModel = new CartesianChartModel();
     private List<Period> periods = new ArrayList<>();
+    private Region region;
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
 
     public List<Period> getPeriods() {
         return periods;
@@ -88,15 +96,15 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         denominator.setLabel(getIndicator().getDenominator().getName());
         getSurveillanceDataList().clear();
         for (Period period : periods) {
-            getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(period, memberService.getCurrentMember(), getIndicator()));
+            getSurveillanceDataList().addAll(regionSurveillanceDataService.findAll(period, getIndicator(), region));
         }
 
-        for (SurveillanceData data : getSurveillanceDataList()) {
-            if (data.getIndicator().equals(getIndicator())) {
-                series.set(data.getSurveillance().getPeriod().getName(), data.getCalculatedValue());
+        for (RegionSurveillanceData data : getSurveillanceDataList()) {
+            if (data.getSurveillanceData().getIndicator().equals(getIndicator())) {
+                series.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getCalculatedValue());
             }
-            numerator.set(data.getSurveillance().getPeriod().getName(), data.getNumeratorValue());
-            denominator.set(data.getSurveillance().getPeriod().getName(), data.getDenominatorValue());
+            numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
+            denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
         }
 
         linearModel.addSeries(series);
@@ -105,13 +113,13 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
 
     }
 
-    private List<SurveillanceData> surveillanceDataList = new ArrayList<SurveillanceData>();
+    private List<RegionSurveillanceData> surveillanceDataList = new ArrayList<>();
 
-    public List<SurveillanceData> getSurveillanceDataList() {
+    public List<RegionSurveillanceData> getSurveillanceDataList() {
         return surveillanceDataList;
     }
 
-    public void setSurveillanceDataList(List<SurveillanceData> surveillanceDataList) {
+    public void setSurveillanceDataList(List<RegionSurveillanceData> surveillanceDataList) {
         this.surveillanceDataList = surveillanceDataList;
     }
 
@@ -125,7 +133,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
             inforMessages("Select Periods to Continue.");
             return null;
         }
-        
+
         getSurveillanceDataList().clear();
         createMuptiplePeriodIndicatorChart();
         if (linearModel.getSeries().isEmpty()) {
@@ -138,7 +146,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     }
 
     public String reset() {
-        return "multiple_period_indicator_view?faces-redirect=true";
+        return "region_indicator_view?faces-redirect=true";
     }
 
 }

@@ -55,29 +55,16 @@ public class RegionDataValidationController extends MessageInfor implements Seri
     @ManagedProperty(value = "#{regionSurveillanceAuditService}")
     private RegionSurveillanceAuditService surveillanceAuditService;
 
-    @ManagedProperty(value = "#{programService}")
-    private ProgramService programService;
-
-    @ManagedProperty(value = "#{periodService}")
-    private PeriodService periodService;
-
     @ManagedProperty(value = "#{surveillanceService}")
     private SurveillanceService surveillanceService;
-
-    @ManagedProperty(value = "#{memberService}")
-    private MemberService memberService;
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
 
-    public MemberUserService getMemberUserService() {
-        return memberUserService;
-    }
-
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
     }
-    
+
     public Boolean getSubmitted() {
         return submitted;
     }
@@ -102,16 +89,8 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         this.surveillance = surveillance;
     }
 
-    public SurveillanceService getSurveillanceService() {
-        return surveillanceService;
-    }
-
     public void setSurveillanceService(SurveillanceService surveillanceService) {
         this.surveillanceService = surveillanceService;
-    }
-
-    public RegionSurveillanceAuditService getSurveillanceAuditService() {
-        return surveillanceAuditService;
     }
 
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
@@ -126,44 +105,12 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         this.surveillanceDataList = surveillanceDataList;
     }
 
-    public RegionService getRegionService() {
-        return regionService;
-    }
-
     public void setRegionService(RegionService regionService) {
         this.regionService = regionService;
     }
 
-    public RegionSurveillanceDataService getRegionSurveillanceDataService() {
-        return regionSurveillanceDataService;
-    }
-
     public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
         this.regionSurveillanceDataService = regionSurveillanceDataService;
-    }
-
-    public ProgramService getProgramService() {
-        return programService;
-    }
-
-    public void setProgramService(ProgramService programService) {
-        this.programService = programService;
-    }
-
-    public PeriodService getPeriodService() {
-        return periodService;
-    }
-
-    public void setPeriodService(PeriodService periodService) {
-        this.periodService = periodService;
-    }
-
-    public MemberService getMemberService() {
-        return memberService;
-    }
-
-    public void setMemberService(MemberService memberService) {
-        this.memberService = memberService;
     }
 
     public Region getRegion() {
@@ -178,8 +125,8 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         submitted = Boolean.TRUE;
         return null;
     }
-    
-      public String editSurviellanceForm() {
+
+    public String editSurviellanceForm() {
         return "data_entry?faces-redirect=true&programId=" + getSurveillance().getProgram().getUuid() + "&periodId=" + getSurveillance().getPeriod().getUuid() + "&regionId=" + getRegion().getUuid();
     }
 
@@ -217,7 +164,7 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         region = regionService.findByUuid(regionId);
         System.out.println("Rush-------------------------------" + regionSurveillanceDataService.findAll(surveillance, region));
         surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
-        surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod(), region);        
+        surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod(), region);
         if (surveillanceAudit.getApproved()) {
             submitted = Boolean.TRUE;
         }

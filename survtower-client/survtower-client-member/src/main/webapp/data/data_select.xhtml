@@ -9,12 +9,12 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Online Upload of Surveillance Data
+        Data Validation and Approval Selection
     </ui:define>
 
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
-        <p:panel header="Data Entry Selection">
+        <p:panel header="Data Validation and Approval Selection">
             <h:form>
                 <p>Select Program and Period to report</p>
                 <p>Selected Country is <b>#{generalController.member.name}</b></p>
@@ -35,7 +35,6 @@
                     <h:outputText value=""/>
                     <h:panelGrid columns="2">                    
 
-                        <p:commandButton value="Data Entry" action="#{dataSelectController.dataEntrySelection()}" ajax="false"/>                        
                         <p:commandButton value="Data Validation and Approval" action="#{dataSelectController.dataValidationSelection()}" ajax="false"/>                        
 
                     </h:panelGrid>

@@ -15,50 +15,81 @@
         <ui:define name="content">
 
             <f:event listener="#{checkLoggedOn.userNotLoggedOn()}" type="preRenderView" />
+            <p:growl id="msgs" showDetail="true" />
 
-            <h:form>
-                <p:growl id="msgs" showDetail="true" />
+            <p:tabView>
 
-                <p:panel id="basic" header="Dash Board - #{generalController.member.name}" style="margin-bottom:20px">
+                <p:tab title="Indicators">
+                    <p:panel header="Surveillance Data" style="margin-bottom:10px;">
 
-                    <p:panel id="notificationOne" header="Open Periods" style="margin-bottom:20px">
+                        <h:form>
+                            <p:fragment autoUpdate="true">
 
-                        <p:dataTable value="#{indexController.aduitItems}" var="item">
-                            <p:column headerText="Program">
-                                #{item.program.name} 
-                            </p:column>
-                            <p:column headerText="Period">
-                                #{item.period.name} 
-                            </p:column>
-                             <p:column headerText="Due Date">
-                                #{item.period.dueDate} 
-                            </p:column>
-                            <p:column headerText="Due In">
-                                
-                                <h:outputText value="#{item.period.dueDateStatus}" rendered="#{item.period.dueDatePassed}" style="color: red;" title="Error"/> 
-                                <h:outputText value="#{item.period.dueDateStatus}" rendered="#{!item.period.dueDatePassed}" /> 
-                                
-                            </p:column>
-                            <p:column headerText="Submitted">  
-                                <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.uploaded}"/> 
-                                <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.uploaded}"/> 
-                            </p:column>  
-                            <p:column headerText="Approved">  
-                                <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.approved}"/> 
-                                <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.approved}"/> 
-                            </p:column>  
+                                <p:selectOneMenu id="period" value="#{periodIndicatorController.period}" style="width:150px">
+                                    <p:ajax listener="#{periodIndicatorController.onProgramChange}" update="list" />
+                                    <f:selectItem itemLabel="Select Program" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{loggedOnPeriodListController.periods}" />
+                                </p:selectOneMenu>
+                                <br/>
+                                <p:carousel id="list" value="#{periodIndicatorController.surveillanceDataList}" headerText="Basic" var="item" pageLinks="3">
 
-                            <p:column>  
-                                <h:link rendered="#{item.dataEntryDone}" value="View" outcome="data_view">                        
-                                    <f:param name="surveillanceId" value="#{indexController.surveillanceId(item.program, item.period)}" />
-                                </h:link>
-                            </p:column> 
+                                    <h:outputLabel value="#{item.surveillanceData.indicator}"/>
 
-                        </p:dataTable>
+                                    <p:barChart value="#{periodIndicatorController.itemChangeModel(item)}" min="0" style="height:300px" />  
+
+                                </p:carousel>
+                            </p:fragment>
+                        </h:form>
+
                     </p:panel>
+                </p:tab>
 
-                </p:panel>
-            </h:form>
+                <p:tab title="Open Reporting Periods">
+                    <h:form>
+                        <p:panel id="basic" header="Dash Board - #{generalController.member.name}" style="margin-bottom:20px">
+
+                            <p:panel id="notificationOne" header="Open Periods" style="margin-bottom:20px">
+
+                                <p:dataTable value="#{indexController.aduitItems}" var="item">
+                                    <p:column headerText="Program">
+                                        #{item.program.name} 
+                                    </p:column>
+                                    <p:column headerText="Period">
+                                        #{item.period.name} 
+                                    </p:column>
+                                    <p:column headerText="Due Date">
+                                        #{item.period.dueDate} 
+                                    </p:column>
+                                    <p:column headerText="Due In">
+
+                                        <h:outputText value="#{item.period.dueDateStatus}" rendered="#{item.period.dueDatePassed}" style="color: red;" title="Error"/> 
+                                        <h:outputText value="#{item.period.dueDateStatus}" rendered="#{!item.period.dueDatePassed}" /> 
+
+                                    </p:column>
+                                    <p:column headerText="Submitted">  
+                                        <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.uploaded}"/> 
+                                        <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.uploaded}"/> 
+                                    </p:column>  
+                                    <p:column headerText="Approved">  
+                                        <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.approved}"/> 
+                                        <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.approved}"/> 
+                                    </p:column>  
+
+                                    <p:column>  
+                                        <h:link rendered="#{item.dataEntryDone}" value="View" outcome="data_view">                        
+                                            <f:param name="surveillanceId" value="#{indexController.surveillanceId(item.program, item.period)}" />
+                                        </h:link>
+                                    </p:column> 
+
+                                </p:dataTable>
+                            </p:panel>
+
+                        </p:panel>
+                    </h:form>
+                </p:tab>
+
+            </p:tabView>
+
         </ui:define>
     </ui:composition>
 

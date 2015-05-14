@@ -57,40 +57,20 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
     @ManagedProperty(value = "#{regionSurveillanceAuditService}")
     private RegionSurveillanceAuditService surveillanceAuditService;
 
-    public RegionSurveillanceAuditService getSurveillanceAuditService() {
-        return surveillanceAuditService;
-    }
-
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
         this.surveillanceAuditService = surveillanceAuditService;
-    }
-
-    public ProgramService getProgramService() {
-        return programService;
     }
 
     public void setProgramService(ProgramService programService) {
         this.programService = programService;
     }
 
-    public PeriodService getPeriodService() {
-        return periodService;
-    }
-
     public void setPeriodService(PeriodService periodService) {
         this.periodService = periodService;
     }
 
-    public SurveillanceService getSurveillanceService() {
-        return surveillanceService;
-    }
-
     public void setSurveillanceService(SurveillanceService surveillanceService) {
         this.surveillanceService = surveillanceService;
-    }
-
-    public MemberService getMemberService() {
-        return memberService;
     }
 
     public void setMemberService(MemberService memberService) {
@@ -115,10 +95,6 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
 
     public void setPeriod(Period period) {
         this.period = period;
-    }
-
-    public RegionService getRegionService() {
-        return regionService;
     }
 
     public void setRegionService(RegionService regionService) {

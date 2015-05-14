@@ -124,15 +124,15 @@ public class MemberUser extends BaseEntity {
     }
 
     public List<String> getRoles() {
-        Set<String> memberRoles = new HashSet<String>();
+        Set<String> memberRoles = new HashSet<>();
         for (MemberUserRole userRole : getMemberUserRoles()) {
             memberRoles.add(userRole.getMemberRole());
         }
-        return new ArrayList<String>(memberRoles);
+        return new ArrayList<>(memberRoles);
     }
 
     public List<Program> getProgramList() {
-        return new ArrayList<Program>(getPrograms());
+        return new ArrayList<>(getPrograms());
     }
 
     public Set<MemberUserRole> getMemberUserRoles() {

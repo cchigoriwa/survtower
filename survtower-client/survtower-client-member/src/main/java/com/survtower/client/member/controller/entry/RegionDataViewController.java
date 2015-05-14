@@ -26,12 +26,11 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class RegionDataViewController extends MessageInfor implements Serializable {
-    
-    
+
     private RegionSurveillanceAudit surveillanceAudit;
     private Surveillance surveillance;
     private Region region;
-    
+
     @ManagedProperty(value = "#{surveillanceService}")
     private SurveillanceService surveillanceService;
 
@@ -52,10 +51,6 @@ public class RegionDataViewController extends MessageInfor implements Serializab
         this.surveillance = surveillance;
     }
 
-    public RegionSurveillanceAuditService getSurveillanceAuditService() {
-        return surveillanceAuditService;
-    }
-
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
         this.surveillanceAuditService = surveillanceAuditService;
     }
@@ -68,10 +63,6 @@ public class RegionDataViewController extends MessageInfor implements Serializab
         this.surveillanceAudit = surveillanceAudit;
     }
 
-    public RegionService getRegionService() {
-        return regionService;
-    }
-
     public void setRegionService(RegionService regionService) {
         this.regionService = regionService;
     }
@@ -82,10 +73,6 @@ public class RegionDataViewController extends MessageInfor implements Serializab
 
     public void setRegion(Region region) {
         this.region = region;
-    }
-
-    public SurveillanceService getSurveillanceService() {
-        return surveillanceService;
     }
 
     public void setSurveillanceService(SurveillanceService surveillanceService) {

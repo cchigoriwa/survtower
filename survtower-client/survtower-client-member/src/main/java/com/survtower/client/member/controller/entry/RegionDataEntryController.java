@@ -72,18 +72,11 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
 
-    @ManagedProperty(value = "#{indicatorService}")
-    private IndicatorService indicatorService;
-
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
 
     @ManagedProperty(value = "#{regionSurveillanceAuditService}")
     private RegionSurveillanceAuditService surveillanceAuditService;
-
-    public RegionSurveillanceAuditService getSurveillanceAuditService() {
-        return surveillanceAuditService;
-    }
 
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
         this.surveillanceAuditService = surveillanceAuditService;
@@ -91,10 +84,6 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
-    }
-
-    public RegionSurveillanceDataService getRegionSurveillanceDataService() {
-        return regionSurveillanceDataService;
     }
 
     public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
@@ -125,44 +114,20 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         this.region = region;
     }
 
-    public ProgramService getProgramService() {
-        return programService;
-    }
-
     public void setProgramService(ProgramService programService) {
         this.programService = programService;
-    }
-
-    public PeriodService getPeriodService() {
-        return periodService;
     }
 
     public void setPeriodService(PeriodService periodService) {
         this.periodService = periodService;
     }
 
-    public SurveillanceService getSurveillanceService() {
-        return surveillanceService;
-    }
-
     public void setSurveillanceService(SurveillanceService surveillanceService) {
         this.surveillanceService = surveillanceService;
     }
 
-    public MemberService getMemberService() {
-        return memberService;
-    }
-
     public void setMemberService(MemberService memberService) {
         this.memberService = memberService;
-    }
-
-    public IndicatorService getIndicatorService() {
-        return indicatorService;
-    }
-
-    public void setIndicatorService(IndicatorService indicatorService) {
-        this.indicatorService = indicatorService;
     }
 
     public Program getProgram() {
@@ -213,9 +178,11 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                 }
             }
 
-            if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
-                errorMessages("Data Upload Has Already bee Approved,Changes Permitted");
-                return null;
+            if (!getCurrentUser().getRoles().contains(MemberUser.ROLE_COUNTRY_DISEASE_MANAGER)) {
+                if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
+                    errorMessages("Data Upload Has Already been Approved,Changes Permitted");
+                    return null;
+                }
             }
 
             submitted = Boolean.TRUE;
@@ -298,7 +265,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         surveillanceAudit = surveillanceAuditService.get(program, period, region);
 
         if (surveillanceAudit == null) {
-            surveillanceAudit = new RegionSurveillanceAudit();            
+            surveillanceAudit = new RegionSurveillanceAudit();
             for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
                 RegionSurveillanceData data = null;
                 data = regionSurveillanceDataService.find(surveillanceData, region);
@@ -310,7 +277,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                 }
                 surveillanceDataList.add(data);
             }
-        } else {            
+        } else {
             surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         }
 

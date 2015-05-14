@@ -24,8 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"}),
-    @UniqueConstraint(columnNames = {"program_id", "period_id", "region_id"})})
+    @UniqueConstraint(columnNames = {"uuid"})})
 public class RegionSurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
