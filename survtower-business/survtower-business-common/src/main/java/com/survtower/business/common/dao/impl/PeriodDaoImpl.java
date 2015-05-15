@@ -73,6 +73,11 @@ public class PeriodDaoImpl implements PeriodDao {
     public List<Period> fetchActive() {
         return periodRepository.fetchActive();
     }
+    
+    @Override
+    public List<Period> fetchInActive(){
+        return periodRepository.fetchInActive();
+    }
 
     @Override
     public List<Period> fetchActive(Program program) {

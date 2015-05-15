@@ -9,37 +9,56 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-       SADC Harmonized Surveillance System-Secretariat
+        SADC Harmonized Surveillance System-Secretariat
     </ui:define>
 
     <ui:define name="content">
-        <h:form>                       
-            <p:panel id="basic" header="Settings" footer="Status" style="margin-bottom:20px">
+        <h:form>     
 
-                <h:panelGrid columns="2">
-
-                    <h:link  value="Member List" outcome="memberList" />
-                    
-                    <h:link  value="Program" outcome="programList" />
-                    
-                    <h:link  value="Indicator Group" outcome="indicatorGroupList" />
-
-                    <h:link  value="Data Source Category" outcome="dataSourceCategoryList" />
-
-                    <h:link  value="Data Source" outcome="dataSourceList" />
-                    
-                    <h:link  value="Frequency" outcome="frequencyList" />
-                    
-                    <h:link  value="Data Elements" outcome="dataElementList" />
-
-                    <h:link  value="Indicator Type" outcome="indicatorTypeList" />
-
-                    <h:link  value="Indicator" outcome="indicatorList" />                    
-
-                    <h:link value="Period" outcome="periodList" />
-
-                </h:panelGrid>
-
+            <p:panel header="Settings">
+                <center>
+                    <table>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <p:menu>
+                                    <p:submenu label="Security">
+                                        <p:menuitem value="Member List" outcome="memberList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>
+                                </p:menu>
+                            </td>
+                            <td style="vertical-align: top;">
+                                <p:menu>
+                                    <p:submenu label="Reporting">
+                                        <p:menuitem value="Period" outcome="periodList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>
+                                </p:menu>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <p:menu>
+                                    <p:submenu label="Data Element and Indicators">
+                                        <p:menuitem value="Indicator Type" outcome="indicatorTypeList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem value="Data Elements" outcome="dataElementList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem value="Indicator" outcome="indicatorList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>
+                                </p:menu>
+                            </td>
+                            <td style="vertical-align: top;">
+                                <p:menu>
+                                    <p:submenu label="Program Details and Data Sources">
+                                        <p:menuitem value="Program" outcome="programList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem value="Indicator Group" outcome="indicatorGroupList"  />
+                                        <p:menuitem value="Data Source Category" outcome="dataSourceCategoryList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem value="Data Source" outcome="dataSourceList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem value="Frequency" outcome="frequencyList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>           
+                                </p:menu>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
             </p:panel>
         </h:form>
     </ui:define>

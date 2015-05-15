@@ -32,6 +32,9 @@ public interface PeriodRepository extends GenericRepository<Period, Long> {
     @Query("select i from Period i where i.active = true and i.deleted = false order by i.name asc")
     public List<Period> fetchActive();
 
+    @Query("select i from Period i where i.active = false and i.deleted = false order by i.name asc")
+    public List<Period> fetchInActive();
+
     @Query("select i from Period i where i.deleted = false order by i.name asc")
     public List<Period> fetchAllAscending();
 

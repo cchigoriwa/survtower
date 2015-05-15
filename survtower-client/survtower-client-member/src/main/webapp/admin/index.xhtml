@@ -16,53 +16,106 @@
 
         <h:form>
             <p:growl id="msgs" showDetail="true" />
-            <p:panel id="basic" header="Administrator Settings - #{generalController.member.name}">
 
-                <h:panelGrid columns="2">
-
-                    <h:link  value="Member Security" outcome="centralSecurityEdit" />
-
-                    <h:link  value="Program" outcome="programList" />
-
-                    <h:link  value="Indicator Group" outcome="indicatorGroupList" />
-
-                    <h:link  value="Data Source Category" outcome="dataSourceCategoryList" />
-
-                    <h:link  value="Data Source" outcome="dataSourceList" />
-
-                    <h:link  value="Data Elements" outcome="dataElementList" />
-
-                    <h:link  value="Indicator Type" outcome="indicatorTypeList" />
-
-                    <h:link  value="Frequency" outcome="frequencyList" />
-
-                    <h:link  value="Indicator" outcome="indicatorList" />
-
-                    <h:link value="Period" outcome="periodList" />
-
-                    <h:link value="Region" outcome="regionList" />
-
-                </h:panelGrid>
-
-            </p:panel>
-
-            <p:panel id="basic" header="Pull Options - #{generalController.member.name}">
-                <h:form>
-                    <h:panelGrid columns="2">
-                        <h:commandButton value="Pull Programs" action="#{integratorController.pullPrograms()}" />
-                        <h:commandButton value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}" />
-                        <h:commandButton value="Pull Indicator Type" action="#{integratorController.pullIndicatorTypes()}" />
-                        <h:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" />
-                        <h:commandButton value="Pull Periods" action="#{integratorController.pullPeriods()}" />
-                        <h:commandButton value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" />
-                        <h:commandButton value="Pull Data Sources" action="#{integratorController.pullDataSources()}" />
-                        <h:commandButton value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
-                        <h:commandButton value="Pull Indicators" action="#{integratorController.pullIndicators()}" />
-                    </h:panelGrid>
-                </h:form>
-            </p:panel>
-            
+            <table>
+                <tr>
+                    <td style="vertical-align: top;">
+                        <p:panel header="Administrator Settings - #{generalController.member.name}">
+                            <center>
+                                <table>
+                                    <tr>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Security">
+                                                    <p:menuitem value="Member Security" outcome="centralSecurityEdit" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Region" outcome="regionList" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>
+                                            </p:menu>
+                                        </td>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Reporting">
+                                                    <p:menuitem value="Period" outcome="periodList" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>
+                                            </p:menu>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Data Element and Indicators">
+                                                    <p:menuitem value="Indicator Type" outcome="indicatorTypeList" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Data Elements" outcome="dataElementList" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Indicator" outcome="indicatorList" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>
+                                            </p:menu>
+                                        </td>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Program Details and Data Sources">
+                                                    <p:menuitem value="Program" outcome="programList" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Indicator Group" outcome="indicatorGroupList"  />
+                                                    <p:menuitem value="Data Source Category" outcome="dataSourceCategoryList" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Data Source" outcome="dataSourceList" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Frequency" outcome="frequencyList" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>           
+                                            </p:menu>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </p:panel>
+                    </td>
+                    <td style="vertical-align: top;">
+                        <p:panel header="Pull Options - #{generalController.member.name}">
+                            <center>
+                                <table>
+                                    <tr>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Security">
+                                                    <p:menuitem value="Member Security" outcome="centralSecurityEdit" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Region" outcome="regionList" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>
+                                            </p:menu>
+                                        </td>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Reporting">
+                                                    <p:menuitem value="Pull Periods" action="#{integratorController.pullPeriods()}" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>
+                                            </p:menu>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Data Element and Indicators">
+                                                    <p:menuitem value="Pull Indicator Type" action="#{integratorController.pullIndicatorTypes()}" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Pull Data Elements" action="#{integratorController.pullDataElements()}"  ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Pull Indicators" action="#{integratorController.pullIndicators()}" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>
+                                            </p:menu>
+                                        </td>
+                                        <td style="vertical-align: top;">
+                                            <p:menu>
+                                                <p:submenu label="Program Details and Data Sources">
+                                                    <p:menuitem value="Pull Programs" action="#{integratorController.pullPrograms()}" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}"  />
+                                                    <p:menuitem value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Pull Data Sources" action="#{integratorController.pullDataSources()}" ajax="false" icon="ui-icon-disk" />
+                                                    <p:menuitem value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" ajax="false" icon="ui-icon-disk" />
+                                                </p:submenu>           
+                                            </p:menu>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </p:panel>
+                    </td>
+                </tr>
+            </table>
         </h:form>
-        
+
     </ui:define>
 </ui:composition>

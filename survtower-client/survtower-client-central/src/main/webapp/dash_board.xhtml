@@ -14,31 +14,78 @@
 
         <ui:define name="content">
             <f:event listener="#{checkLoggedOn.userNotLoggedOn()}" type="preRenderView" />
-            <h:form>
-                <p:growl id="msgs" showDetail="true" />
 
-                <p:panel id="basic" header="Dash Board" footer="Status" style="margin-bottom:20px">
+            <p:growl id="msgs" showDetail="true" />
 
-                    <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
-                        <p:dataTable value="#{indexController.surveillances}" var="item">
-                            <p:column headerText="Program">
-                                #{item.program.name} 
-                            </p:column>
-                            <p:column headerText="Period">
-                                #{item.period.name} 
-                            </p:column>
-                            <p:column headerText="Member">
-                                #{item.member.name} 
-                            </p:column>
-                            <p:column>  
-                                <h:link value="View" outcome="data_view">                        
-                                    <f:param name="surveillanceId" value="#{item.uuid}" />
-                                </h:link>
-                            </p:column>  
-                        </p:dataTable>
+            <p:tabView>
+
+                <p:tab title="Reporting">
+                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;">
+
+                        <p:carousel id="list" value="#{periodIndicatorController.surveillanceDataList}" headerText="Basic" var="item" pageLinks="3">
+
+                            <h:outputLabel value="#{item.indicator}"/>
+
+                            <p:barChart value="#{periodIndicatorController.itemChangeModel(item)}" min="0" style="height:300px" />  
+
+                        </p:carousel>
+
                     </p:panel>
-                </p:panel>
-            </h:form>
+                </p:tab>
+
+                <p:tab title="Open Reporting Periods">
+
+                    <h:form>
+
+                        <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
+                            <p:dataTable value="#{indexController.surveillances}" var="item">
+                                <p:column headerText="Program">
+                                    #{item.program.name} 
+                                </p:column>
+                                <p:column headerText="Period">
+                                    #{item.period.name} 
+                                </p:column>
+                                <p:column headerText="Member">
+                                    #{item.member.name} 
+                                </p:column>
+                                <p:column>  
+                                    <h:link value="View" outcome="data_view">                        
+                                        <f:param name="surveillanceId" value="#{item.uuid}" />
+                                    </h:link>
+                                </p:column>  
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </p:tab>
+
+                <p:tab title="Out Standing Member Uploads">
+
+                    <h:form>
+
+                        <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
+                            <p:dataTable value="#{memberAuditController.auditItems}" var="item">
+                                <p:column headerText="Member">
+                                    #{item.member} 
+                                </p:column>
+                                <p:column headerText="Program">
+                                    #{item.program} 
+                                </p:column>
+                                <p:column headerText="Period">
+                                    #{item.period} 
+                                </p:column>
+                                <p:column headerText="Due">
+                                    #{item.period.dueDateStatus} Days
+                                </p:column>
+                                <p:column headerText="Submitted">  
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.submitted}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.submitted}"/> 
+                                </p:column> 
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </p:tab>
+
+            </p:tabView>
         </ui:define>
     </ui:composition>
 

@@ -24,6 +24,8 @@ public interface PeriodService extends GenericService<Period>{
     
      public List<Period> fetchActive();
      
+     public List<Period> fetchInActive();
+     
      public List<Period> fetchActive(Program program);
 
     public List<Period> fetchAllAscending();

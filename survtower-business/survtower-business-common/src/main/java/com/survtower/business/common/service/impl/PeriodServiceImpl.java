@@ -72,6 +72,10 @@ public class PeriodServiceImpl implements PeriodService {
     public List<Period> fetchActive() {
         return periodDao.fetchActive();
     }
+    
+    public List<Period> fetchInActive(){
+        return periodDao.fetchInActive();
+    }
 
     @Override
     public List<Period> fetchActive(Program program) {

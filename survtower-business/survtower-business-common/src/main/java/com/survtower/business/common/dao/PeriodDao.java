@@ -24,6 +24,8 @@ public interface PeriodDao extends GenericDao<Period> {
     public List<Period> findPeriodsUpdatedBefore(Date maxDate);
 
     public List<Period> fetchActive();
+    
+    public List<Period> fetchInActive();
 
     public List<Period> fetchActive(Program program);
 

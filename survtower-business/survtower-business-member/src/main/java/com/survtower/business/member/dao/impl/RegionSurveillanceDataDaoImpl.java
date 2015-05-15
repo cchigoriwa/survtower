@@ -85,7 +85,7 @@ public class RegionSurveillanceDataDaoImpl implements RegionSurveillanceDataDao 
     
     @Override
     public List<RegionSurveillanceData> findAll(Period period, Program program, Region region){
-        return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.region=:region and r.surveillanceData.surveillance.program=:program and r.surveillanceData.surveillance.period=:period").setParameter("program", program).setParameter("region", region).setParameter("program", program).getResultList();
+        return entityManager.createQuery("select DISTINCT r from RegionSurveillanceData r where r.region=:region and r.surveillanceData.surveillance.program=:program and r.surveillanceData.surveillance.period=:period").setParameter("program", program).setParameter("region", region).setParameter("period", period).getResultList();
     }
 
 }

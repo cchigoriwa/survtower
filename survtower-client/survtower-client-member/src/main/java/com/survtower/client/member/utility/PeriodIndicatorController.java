@@ -5,7 +5,6 @@
  */
 package com.survtower.client.member.utility;
 
-import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceData;
@@ -17,7 +16,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
@@ -26,10 +25,9 @@ import org.primefaces.model.chart.ChartSeries;
  * @author tdhlakama
  */
 @ManagedBean
-@ViewScoped
-public class PeriodIndicatorController implements Serializable{
+@RequestScoped
+public class PeriodIndicatorController implements Serializable {
 
-    private Period period;
     private List<RegionSurveillanceData> surveillanceDataList;
     private List<ProgramRegion> programRegions;
 
@@ -47,14 +45,6 @@ public class PeriodIndicatorController implements Serializable{
         this.surveillanceDataService = surveillanceDataService;
     }
 
-    public Period getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
-
     public List<RegionSurveillanceData> getSurveillanceDataList() {
         return surveillanceDataList;
     }
@@ -63,29 +53,9 @@ public class PeriodIndicatorController implements Serializable{
         this.surveillanceDataList = surveillanceDataList;
     }
 
-    public void onProgramChange() {
-
-        surveillanceDataList = new ArrayList<>();
-        programRegions = new ArrayList<>();
-
-        for (ProgramRegion pr : programRegions) {
-            surveillanceDataList.addAll(surveillanceDataService.findAll(period, pr.getProgram(), pr.getRegion()));
-        }
-
-        ChartSeries numerator = new ChartSeries();
-        ChartSeries denominator = new ChartSeries();
-
-        for (RegionSurveillanceData data : getSurveillanceDataList()) {
-            numerator.setLabel(data.getSurveillanceData().getIndicator().getNumerator().getName());
-            denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominator().getName());
-            numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
-            denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
-        }
-
-    }
-
     @PostConstruct
     public void init() {
+
         surveillanceDataList = new ArrayList<>();
         programRegions = new ArrayList<>();
         for (Program program : memberUserService.getCurrentUserPrograms()) {
@@ -96,16 +66,6 @@ public class PeriodIndicatorController implements Serializable{
 
         for (ProgramRegion pr : programRegions) {
             surveillanceDataList.addAll(surveillanceDataService.findAll(pr.getProgram(), pr.getRegion()));
-        }
-
-        ChartSeries numerator = new ChartSeries();
-        ChartSeries denominator = new ChartSeries();
-
-        for (RegionSurveillanceData data : getSurveillanceDataList()) {
-            numerator.setLabel(data.getSurveillanceData().getIndicator().getNumerator().getName());
-            denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominator().getName());
-            numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
-            denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
         }
 
     }

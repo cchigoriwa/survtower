@@ -35,9 +35,6 @@ public class RegionAuditListController implements Serializable {
     @ManagedProperty(value = "#{regionSurveillanceAuditService}")
     private RegionSurveillanceAuditService surveillanceAuditService;
 
-    @ManagedProperty(value = "#{periodService}")
-    private PeriodService periodService;
-
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
 
@@ -58,10 +55,6 @@ public class RegionAuditListController implements Serializable {
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
-    }
-
-    public void setPeriodService(PeriodService periodService) {
-        this.periodService = periodService;
     }
 
     public List<RegionSurveillanceAudit> getAudits() {

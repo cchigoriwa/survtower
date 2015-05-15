@@ -22,24 +22,13 @@
                 <p:tab title="Region">
                     <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
 
-                        <h:form>
-                            <p:fragment autoUpdate="true">
+                        <p:carousel id="list" value="#{periodIndicatorController.surveillanceDataList}" headerText="Basic" var="item">
 
-                                <p:selectOneMenu id="period" value="#{periodIndicatorController.period}" style="width:150px">
-                                    <p:ajax listener="#{periodIndicatorController.onProgramChange}" update="list" />
-                                    <f:selectItem itemLabel="Select Program" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems value="#{loggedOnPeriodListController.periods}" />
-                                </p:selectOneMenu>
-                                <br/>
-                                <p:carousel id="list" value="#{periodIndicatorController.surveillanceDataList}" headerText="Basic" var="item" pageLinks="3">
+                                <h:outputLabel value="#{item.surveillanceData.indicator}"/>
 
-                                    <h:outputLabel value="#{item.surveillanceData.indicator}"/>
+                                <p:barChart value="#{periodIndicatorController.itemChangeModel(item)}" min="0" style="height:300px" />  
 
-                                    <p:barChart value="#{periodIndicatorController.itemChangeModel(item)}" min="0" style="height:300px" />  
-
-                                </p:carousel>
-                            </p:fragment>
-                        </h:form>
+                            </p:carousel>
 
                     </p:panel>
                 </p:tab>
