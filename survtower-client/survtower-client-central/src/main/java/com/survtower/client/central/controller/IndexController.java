@@ -5,7 +5,6 @@ import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
-import static com.survtower.client.central.utility.MessageInfor.errorMessages;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -35,7 +34,7 @@ public class IndexController {
         this.periodService = periodService;
     }
 
-    private List<Surveillance> surveillances = new ArrayList<Surveillance>();
+    private List<Surveillance> surveillances = new ArrayList<>();
 
     public List<Surveillance> getSurveillances() {
         return surveillances;

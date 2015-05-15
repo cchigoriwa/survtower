@@ -17,7 +17,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
 /**
@@ -70,16 +72,28 @@ public class PeriodIndicatorController implements Serializable {
 
     }
 
-    public CartesianChartModel itemChangeModel(RegionSurveillanceData data) {
-        CartesianChartModel model = new CartesianChartModel();
+    public BarChartModel itemChangeModel(RegionSurveillanceData data) {
+
+        BarChartModel model = new BarChartModel();
         ChartSeries numerator = new ChartSeries();
         ChartSeries denominator = new ChartSeries();
-        numerator.setLabel(data.getSurveillanceData().getIndicator().getNumerator().getName());
+
+        numerator.setLabel(data.getSurveillanceData().getIndicator().getName());
         denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominator().getName());
         numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
         denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
         model.addSeries(numerator);
         model.addSeries(denominator);
+
+        model.setTitle(data.getSurveillanceData().getIndicator().getName());
+        model.setLegendPosition("ne");
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel(data.getRegion().getName());
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
         return model;
     }
 

@@ -74,17 +74,12 @@
 
             </p:dataTable>
 
-            <p:lineChart value="#{regionIndicatorViewController.linearModel}" legendPosition="e" 
-                         title="Indicator Linear Chart" minY="0" maxY="100" style="height:300px"/>  
+            
+            <p:chart type="bar" model="#{regionIndicatorViewController.barChartModel}" style="height:300px" />  
 
-            <p:barChart  value="#{regionIndicatorViewController.linearModel}" legendPosition="ne"  
-                         title="Indicator Bar Chart" min="0" max="100" style="height:300px"  orientation="horizontal" />  
-
-            <p:lineChart value="#{regionIndicatorViewController.dataElementsModel}" legendPosition="e" 
-                         title="Data Elements for Period" minY="0" style="height:300px"/>  
-
-            <p:barChart  value="#{regionIndicatorViewController.dataElementsModel}" legendPosition="ne"  
-                         title="Data Elements for Period" min="0" style="height:300px"  orientation="horizontal" />  
+            <p:chart type="line" model="#{regionIndicatorViewController.lineChartModel}" style="height:300px" />  
+            
+            <p:chart type="bar" model="#{regionIndicatorViewController.horizontalBarChartModel}" style="height:300px" />  
 
         </p:panel>
 

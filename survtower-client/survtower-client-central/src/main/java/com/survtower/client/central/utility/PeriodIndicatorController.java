@@ -20,7 +20,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
 /**
@@ -90,24 +92,33 @@ public class PeriodIndicatorController implements Serializable {
         }
 
         for (MemberProgram pr : memberPrograms) {
-            for (Period period : periodService.fetchInActive()) {
+            for (Period period : periodService.fetchActive()) {
                 surveillanceDataList.addAll(surveillanceDataService.findSurveillanceDataItems(pr.getProrgam(), period, pr.getMember()));
             }
         }
 
     }
 
-    public CartesianChartModel itemChangeModel(SurveillanceData data) {
-        CartesianChartModel model = new CartesianChartModel();
-        ChartSeries numerator = new ChartSeries();
-        ChartSeries denominator = new ChartSeries();
-        numerator.setLabel(data.getIndicator().getNumerator().getName());
-        denominator.setLabel(data.getIndicator().getDenominator().getName());
-        numerator.set(data.getSurveillance().getPeriod().getName(), data.getNumeratorValue());
-        denominator.set(data.getSurveillance().getPeriod().getName(), data.getDenominatorValue());
-        model.addSeries(numerator);
-        model.addSeries(denominator);
+    public BarChartModel itemChangeModel(SurveillanceData data) {
+        
+        BarChartModel model = new BarChartModel();
+        ChartSeries indicator = new ChartSeries();
+        indicator.setLabel(data.getIndicator().getName());
+        indicator.set(data.getSurveillance().getPeriod().getName(), data.getCalculatedValue());
+        model.addSeries(indicator);        
+        model.setTitle(data.getIndicator().getName());
+        model.setLegendPosition("ne");
+        
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel(data.getSurveillance().getMember().getName());
+        
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Percentage");
+        yAxis.setMin(0);
+        yAxis.setMax(100);
+        
         return model;
+        
     }
-
+   
 }

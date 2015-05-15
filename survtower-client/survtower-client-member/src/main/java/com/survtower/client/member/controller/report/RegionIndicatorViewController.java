@@ -4,7 +4,6 @@ import com.survtower.business.common.domain.Indicator;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceData;
-import com.survtower.business.member.service.RegionService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.inforMessages;
@@ -14,8 +13,13 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.HorizontalBarChartModel;
+import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
 /**
  *
@@ -28,20 +32,15 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
     private RegionSurveillanceDataService regionSurveillanceDataService;
 
-    @ManagedProperty(value = "#{regionService}")
-    private RegionService regionService;
-
     public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
         this.regionSurveillanceDataService = regionSurveillanceDataService;
     }
 
-    public void setRegionService(RegionService regionService) {
-        this.regionService = regionService;
-    }
-
     private Indicator indicator;
-    private CartesianChartModel linearModel = new CartesianChartModel();
-    private CartesianChartModel dataElementsModel = new CartesianChartModel();
+    private LineChartModel lineChartModel = new LineChartModel();
+    private BarChartModel barChartModel = new BarChartModel();
+    private HorizontalBarChartModel horizontalBarChartModel = new HorizontalBarChartModel();
+
     private List<Period> periods = new ArrayList<>();
     private Region region;
 
@@ -61,20 +60,28 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
         this.periods = periods;
     }
 
-    public CartesianChartModel getLinearModel() {
-        return linearModel;
+    public LineChartModel getLineChartModel() {
+        return lineChartModel;
     }
 
-    public void setLinearModel(CartesianChartModel linearModel) {
-        this.linearModel = linearModel;
+    public void setLineChartModel(LineChartModel lineChartModel) {
+        this.lineChartModel = lineChartModel;
     }
 
-    public CartesianChartModel getDataElementsModel() {
-        return dataElementsModel;
+    public BarChartModel getBarChartModel() {
+        return barChartModel;
     }
 
-    public void setDataElementsModel(CartesianChartModel dataElementsModel) {
-        this.dataElementsModel = dataElementsModel;
+    public void setBarChartModel(BarChartModel barChartModel) {
+        this.barChartModel = barChartModel;
+    }
+
+    public HorizontalBarChartModel getHorizontalBarChartModel() {
+        return horizontalBarChartModel;
+    }
+
+    public void setHorizontalBarChartModel(HorizontalBarChartModel horizontalBarChartModel) {
+        this.horizontalBarChartModel = horizontalBarChartModel;
     }
 
     public Indicator getIndicator() {
@@ -86,12 +93,19 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
     }
 
     public void createMuptiplePeriodIndicatorChart() {
-        linearModel = new CartesianChartModel();
+
+        lineChartModel = createModel(new LineChartModel());
+        barChartModel = createModel(new BarChartModel());
+        horizontalBarChartModel = createModel(new HorizontalBarChartModel());
+
         ChartSeries series = new ChartSeries();
+        LineChartSeries lineChartSeries = new LineChartSeries();
         ChartSeries numerator = new ChartSeries();
         ChartSeries denominator = new ChartSeries();
-        dataElementsModel = new CartesianChartModel();
+
         series.setLabel(getIndicator().getName());
+        lineChartSeries.setLabel(getIndicator().getName());
+
         numerator.setLabel(getIndicator().getNumerator().getName());
         denominator.setLabel(getIndicator().getDenominator().getName());
         getSurveillanceDataList().clear();
@@ -102,14 +116,15 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
         for (RegionSurveillanceData data : getSurveillanceDataList()) {
             if (data.getSurveillanceData().getIndicator().equals(getIndicator())) {
                 series.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getCalculatedValue());
+                lineChartSeries.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getCalculatedValue());
             }
             numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
             denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
         }
-
-        linearModel.addSeries(series);
-        dataElementsModel.addSeries(numerator);
-        dataElementsModel.addSeries(denominator);
+        barChartModel.addSeries(series);
+        lineChartModel.addSeries(lineChartSeries);
+        horizontalBarChartModel.addSeries(numerator);
+        horizontalBarChartModel.addSeries(denominator);
 
     }
 
@@ -136,12 +151,11 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
 
         getSurveillanceDataList().clear();
         createMuptiplePeriodIndicatorChart();
-        if (linearModel.getSeries().isEmpty()) {
+        if (lineChartModel.getSeries().isEmpty()) {
             inforMessages("No data has been loaded for the selected criteria.");
             return null;
         } else {
             return null;
-
         }
     }
 
@@ -149,4 +163,48 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
         return "region_indicator_view?faces-redirect=true";
     }
 
+    public BarChartModel createModel(BarChartModel model) {
+
+        model.setTitle(indicator.getName());
+        model.setLegendPosition("ne");
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel(region.getName());
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
+        yAxis.setMax(100);
+        return model;
+    }
+
+    public LineChartModel createModel(LineChartModel model) {
+
+        model.setTitle(indicator.getName());
+        model.setLegendPosition("e");
+        model.setShowPointLabels(true);
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel(region.getName());
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
+        yAxis.setMax(100);
+        return model;
+    }
+
+    public HorizontalBarChartModel createModel(HorizontalBarChartModel model) {
+
+        model.setTitle(indicator.getName());
+        model.setLegendPosition("ne");
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel(region.getName());
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
+        return model;
+    }
 }

@@ -116,7 +116,6 @@ public class PivotTableController extends MessageInfor implements Serializable {
 
     public String reset() {
         return "pivot?faces-redirect=true";
-
     }
 
     public void exportToExcel() throws IOException {

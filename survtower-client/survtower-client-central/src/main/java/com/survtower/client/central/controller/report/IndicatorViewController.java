@@ -15,8 +15,12 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.HorizontalBarChartModel;
+import org.primefaces.model.chart.LineChartModel;
 
 /**
  *
@@ -34,6 +38,35 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
+
+    private Indicator indicator;
+    private LineChartModel lineChartModel = new LineChartModel();
+    private BarChartModel barChartModel = new BarChartModel();
+    private HorizontalBarChartModel horizontalBarChartModel = new HorizontalBarChartModel();
+
+    public LineChartModel getLineChartModel() {
+        return lineChartModel;
+    }
+
+    public void setLineChartModel(LineChartModel lineChartModel) {
+        this.lineChartModel = lineChartModel;
+    }
+
+    public BarChartModel getBarChartModel() {
+        return barChartModel;
+    }
+
+    public void setBarChartModel(BarChartModel barChartModel) {
+        this.barChartModel = barChartModel;
+    }
+
+    public HorizontalBarChartModel getHorizontalBarChartModel() {
+        return horizontalBarChartModel;
+    }
+
+    public void setHorizontalBarChartModel(HorizontalBarChartModel horizontalBarChartModel) {
+        this.horizontalBarChartModel = horizontalBarChartModel;
+    }
 
     public SurveillanceDataService getSurveillanceDataService() {
         return surveillanceDataService;
@@ -59,11 +92,8 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         this.memberService = memberService;
     }
 
-    private Indicator indicator;
-    private CartesianChartModel linearModel = new CartesianChartModel();
-    private CartesianChartModel dataElementsModel = new CartesianChartModel();
-    private List<Member> members = new ArrayList<Member>();
-    private List<Period> periods = new ArrayList<Period>();
+    private List<Member> members = new ArrayList<>();
+    private List<Period> periods = new ArrayList<>();
 
     public List<Member> getMembers() {
         return members;
@@ -81,22 +111,6 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         this.periods = periods;
     }
 
-    public CartesianChartModel getLinearModel() {
-        return linearModel;
-    }
-
-    public void setLinearModel(CartesianChartModel linearModel) {
-        this.linearModel = linearModel;
-    }
-
-    public CartesianChartModel getDataElementsModel() {
-        return dataElementsModel;
-    }
-
-    public void setDataElementsModel(CartesianChartModel dataElementsModel) {
-        this.dataElementsModel = dataElementsModel;
-    }
-
     public Indicator getIndicator() {
         return indicator;
     }
@@ -106,11 +120,14 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     }
 
     public void createMuptiplePeriodIndicatorChart() {
-        linearModel = new CartesianChartModel();
+        lineChartModel = new LineChartModel();
+        barChartModel = new BarChartModel();
+        horizontalBarChartModel = new HorizontalBarChartModel();
+
         ChartSeries series = new ChartSeries();
         ChartSeries numerator = new ChartSeries();
         ChartSeries denominator = new ChartSeries();
-        dataElementsModel = new CartesianChartModel();
+
         series.setLabel(getIndicator().getName());
         numerator.setLabel(getIndicator().getNumerator().getName());
         denominator.setLabel(getIndicator().getDenominator().getName());
@@ -128,9 +145,11 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
             denominator.set(data.getSurveillance().getPeriod().getName(), data.getDenominatorValue());
         }
 
-        linearModel.addSeries(series);
-        dataElementsModel.addSeries(numerator);
-        dataElementsModel.addSeries(denominator);
+        lineChartModel.addSeries(series);
+        barChartModel.addSeries(series);
+
+        horizontalBarChartModel.addSeries(numerator);
+        horizontalBarChartModel.addSeries(denominator);
 
     }
 
@@ -147,7 +166,7 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     public String loadMuptiplePeriodIndicator() {
         getSurveillanceDataList().clear();
         createMuptiplePeriodIndicatorChart();
-        if (linearModel.getSeries().isEmpty()) {
+        if (lineChartModel.getSeries().isEmpty()) {
             inforMessages("No data has been loaded for the selected criteria.");
             return null;
         } else {
@@ -157,11 +176,51 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
     }
 
     public String reset() {
-        indicator = null;
-        getSurveillanceDataList().clear();
-        getPeriods().clear();
-        getMembers().clear();
-        return null;
+        return "indicator_view?faces-redirect=true";
+    }
+
+    public BarChartModel createModel(BarChartModel model) {
+
+        model.setTitle(indicator.getName());
+        model.setLegendPosition("ne");
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel("Members");
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
+        yAxis.setMax(100);
+        return model;
+    }
+
+    public LineChartModel createModel(LineChartModel model) {
+
+        model.setTitle(indicator.getName());
+        model.setLegendPosition("e");
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel("Members");
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
+        yAxis.setMax(100);
+        return model;
+    }
+
+    public HorizontalBarChartModel createModel(HorizontalBarChartModel model) {
+
+        model.setTitle(indicator.getName());
+        model.setLegendPosition("ne");
+
+        Axis xAxis = model.getAxis(AxisType.X);
+        xAxis.setLabel("Members");
+
+        Axis yAxis = model.getAxis(AxisType.Y);
+        yAxis.setLabel("Value");
+        yAxis.setMin(0);
+        return model;
     }
 
 }

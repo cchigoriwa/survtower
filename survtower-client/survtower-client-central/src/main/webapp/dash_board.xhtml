@@ -22,13 +22,12 @@
                 <p:tab title="Reporting">
                     <p:panel header="Indicator Reporting" style="margin-bottom:10px;">
 
-                        <p:carousel id="list" value="#{periodIndicatorController.surveillanceDataList}" headerText="Basic" var="item" pageLinks="3">
+                        <p:dataGrid var="item" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
+                                    rows="1" paginator="true" id="list">
 
-                            <h:outputLabel value="#{item.indicator}"/>
+                            <p:chart type="bar" model="#{periodIndicatorController.itemChangeModel(item)}" style="height:300px" />  
 
-                            <p:barChart value="#{periodIndicatorController.itemChangeModel(item)}" min="0" style="height:300px" />  
-
-                        </p:carousel>
+                        </p:dataGrid>
 
                     </p:panel>
                 </p:tab>
@@ -74,7 +73,7 @@
                                     #{item.period} 
                                 </p:column>
                                 <p:column headerText="Due">
-                                    #{item.period.dueDateStatus} Days
+                                    #{item.period.dueDateStatus}
                                 </p:column>
                                 <p:column headerText="Submitted">  
                                     <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.submitted}"/> 
