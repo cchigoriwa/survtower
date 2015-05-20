@@ -76,7 +76,7 @@
         <navigation-case>
             <from-outcome>region_data_validation</from-outcome>
             <to-view-id>/data/region_data_validation.xhtml</to-view-id>
-        </navigation-case>       
+        </navigation-case>
         
         <navigation-case>
             <from-outcome>data_validation</from-outcome>
