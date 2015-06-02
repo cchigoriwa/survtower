@@ -500,9 +500,11 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                 }
             }
         }
+        
         inforMessages(itemsSaved + " Entries Uploaded. " + errors + " Entries Failed to Upload.");
-        surveillanceDataList.clear();
+        surveillanceDataList.clear();        
         surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
+        //TODO :refresh page to show updated values
         return null;
 
     }
