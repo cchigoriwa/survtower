@@ -357,18 +357,18 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         sheet.getRow(rowIndex).createCell(2).setCellValue(getProgram().getUuid());
         sheet.getRow(rowIndex).createCell(3).setCellValue(getPeriod().getUuid());
         rowIndex++;
-        
+
         sheet.createRow(rowIndex);
         sheet.getRow(rowIndex).createCell(1).setCellValue("Regional Surveillance Data Entry Form");
         sheet.getRow(rowIndex).createCell(2).setCellValue("");
         sheet.getRow(rowIndex).getCell(1).setCellStyle(style);
-        sheet.getRow(rowIndex).setHeight((short) 400);        
+        sheet.getRow(rowIndex).setHeight((short) 400);
         sheet.addMergedRegion(new CellRangeAddress(
-            rowIndex, //first row (0-based)
-            rowIndex, //last row  (0-based)
-            1, //first column (0-based)
-            2  //last column  (0-based)
-    ));
+                rowIndex, //first row (0-based)
+                rowIndex, //last row  (0-based)
+                1, //first column (0-based)
+                2 //last column  (0-based)
+        ));
 
         rowIndex++;
 
@@ -401,8 +401,18 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             sheet.getRow(rowIndex).createCell(1).setCellValue(data.getSurveillanceData().getIndicator().getName());
             font.setFontHeightInPoints((short) 12);
             sheet.getRow(rowIndex).getCell(1).setCellStyle(style);
-            sheet.getRow(rowIndex).createCell(2).setCellType(Cell.CELL_TYPE_NUMERIC);
-            sheet.getRow(rowIndex).createCell(3).setCellType(Cell.CELL_TYPE_NUMERIC);
+
+            if (data.getNumeratorValue() != null) {
+                sheet.getRow(rowIndex).createCell(2).setCellValue(data.getNumeratorValue());
+            } else {
+                sheet.getRow(rowIndex).createCell(2).setCellType(Cell.CELL_TYPE_NUMERIC);
+            }
+            if (data.getDenominatorValue() != null) {
+                sheet.getRow(rowIndex).createCell(3).setCellValue(data.getDenominatorValue());
+            } else {
+                sheet.getRow(rowIndex).createCell(3).setCellType(Cell.CELL_TYPE_NUMERIC);
+            }
+
             sheet.getRow(rowIndex).setHeight((short) 400);
             rowIndex++;
         }
@@ -418,21 +428,30 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     public String handleFileUpload(FileUploadEvent event) {
 
         Workbook workbook = null;
+
         try {
+
+            if (event.getFile() == null) {
+                errorMessages("File Cannot found");
+            }
+
             workbook = new HSSFWorkbook(event.getFile().getInputstream());
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             ex.printStackTrace();
-            errorMessages("Could Not Locate Key Identifiers for Excel Upload, File Cannot be used");
+            errorMessages("Error reading file");
             return null;
         }
 
         Sheet sheet = workbook.getSheetAt(0);
-        String regionId, programId, periodId;
+        String regionId, programId, periodId = null;
         try {
-            regionId = sheet.getRow(0).getCell(0).getStringCellValue();
-            programId = sheet.getRow(0).getCell(1).getStringCellValue();
-            periodId = sheet.getRow(0).getCell(2).getStringCellValue();
-        } catch (Exception e) {
+            regionId = sheet.getRow(0).getCell(1).getStringCellValue();
+            programId = sheet.getRow(0).getCell(2).getStringCellValue();
+            periodId = sheet.getRow(0).getCell(3).getStringCellValue();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
             errorMessages("Could Not Locate Key Identifiers for Excel Upload, File Cannot be used");
             return null;
         }
@@ -465,7 +484,8 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
 
         int errors = 0;
         int itemsSaved = 0;
-        for (int rowIndex = 3; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
+        int lastrow = sheet.getLastRowNum() + 1;
+        for (int rowIndex = 4; rowIndex < lastrow; rowIndex++) {
             RegionSurveillanceData data = regionSurveillanceDataService.findByUuid(sheet.getRow(rowIndex).getCell(0).getStringCellValue());
             if (data != null && data.getRegion().getId().equals(region.getId())) {
                 try {
@@ -474,13 +494,14 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                     regionSurveillanceDataService.save(data);
                     itemsSaved++;
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                     errors++;
                 }
             }
-            rowIndex++;
         }
-
-        inforMessages(itemsSaved + "Entries Uploaded. " + errors + " Entries Failed to Upload.");
+        inforMessages(itemsSaved + " Entries Uploaded. " + errors + " Entries Failed to Upload.");
+        surveillanceDataList.clear();
         surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         return null;
 
