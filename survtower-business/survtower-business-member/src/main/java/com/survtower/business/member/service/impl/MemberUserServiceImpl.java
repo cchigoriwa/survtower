@@ -1,7 +1,6 @@
 package com.survtower.business.member.service.impl;
 
 import com.survtower.business.common.domain.Program;
-import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
@@ -14,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +32,7 @@ public class MemberUserServiceImpl implements MemberUserService {
     private MemberUserDao memberUserDao;
 
     @Autowired
-    private PasswordEncoderImpl passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override

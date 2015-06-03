@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Charles Chigoriwa
  */
-@Component("doNothingPasswordEncoder")
+
 public class DoNothingPasswordEncoderImpl implements PasswordEncoder{
 
     @Override

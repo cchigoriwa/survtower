@@ -17,7 +17,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface SurveillanceDataRepository extends GenericRepository<SurveillanceData, Long> {
 
-    @Query("select distinct s from SurveillanceData s where s.surveillance=:surveillanceData")
+    @Query("select distinct s from SurveillanceData s where s.surveillance=:surveillance")
     public List<SurveillanceData> findSurveillanceDataItems(@Param("surveillance") Surveillance surveillance);
 
     @Query("select distinct s from SurveillanceData s where s.surveillance.program=:program and s.surveillance.period=:period and s.surveillance.member=:member and s.indicator=:indicator")

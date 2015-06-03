@@ -2,6 +2,7 @@ package com.survtower.client.member.controller.entry;
 
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
+import com.survtower.business.common.service.SurveillanceDataService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.SurveillanceAudit;
@@ -41,6 +42,13 @@ public class DataValidationController extends MessageInfor implements Serializab
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
+    
+    @ManagedProperty(value = "#{surveillanceDataService}")
+    private SurveillanceDataService surveillanceDataService;
+
+    public void setSurveillanceDataService(SurveillanceDataService surveillanceDataService) {
+        this.surveillanceDataService = surveillanceDataService;
+    }
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
@@ -138,7 +146,7 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillance = surveillanceService.findByUuid(surveillanceId);
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
         getSurveillanceDataList().clear();
-        getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+        getSurveillanceDataList().addAll(surveillanceDataService.findSurveillanceDataItems(surveillance));
         if (surveillanceAudit == null) {
             surveillanceAudit = new SurveillanceAudit();
         }

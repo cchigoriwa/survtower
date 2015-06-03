@@ -3,7 +3,6 @@ package com.survtower.client.central.controller;
 import com.survtower.business.central.domain.CentralUser;
 import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
-import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.client.central.utility.MessageInfor;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 /**
  *
@@ -30,7 +30,7 @@ public class CentralUserEditController {
     private String uuid;
 
     @ManagedProperty(value = "#{passwordEncoder}")
-    private PasswordEncoderImpl passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     private CentralUser centralUser;
 
@@ -73,11 +73,11 @@ public class CentralUserEditController {
         return "centralUserList?faces-redirect=true&src=edit";
     }
 
-    public PasswordEncoderImpl getPasswordEncoder() {
+    public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
     }
 
-    public void setPasswordEncoder(PasswordEncoderImpl passwordEncoder) {
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 

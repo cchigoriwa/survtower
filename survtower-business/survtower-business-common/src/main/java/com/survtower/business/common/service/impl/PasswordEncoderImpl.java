@@ -7,13 +7,11 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Charles Chigoriwa
  */
-@Component("passwordEncoder")
 public class PasswordEncoderImpl implements PasswordEncoder {
 
     @Override
