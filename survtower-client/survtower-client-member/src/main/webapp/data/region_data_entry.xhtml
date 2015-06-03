@@ -30,7 +30,7 @@
                 <p>Selected Country - <b>#{generalController.member.name}</b></p>
                 <p>Selected Region - <b>#{regionDataEntryController.region.name}</b></p>
 
-                <p:dataTable value="#{regionDataEntryController.surveillanceDataList}" var="item" rendered="#{!regionDataEntryController.submitted}">  
+                <p:dataTable value="#{regionDataEntryController.surveillanceDataList}" var="item" rendered="#{!regionDataEntryController.submitted}" id="region_data_table">  
 
                     <p:column headerText="Indicator Name">  
                         <h:outputText value="#{item.surveillanceData.indicator}" />
