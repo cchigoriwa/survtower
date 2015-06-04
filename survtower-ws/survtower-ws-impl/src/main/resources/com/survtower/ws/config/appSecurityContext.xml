@@ -12,7 +12,7 @@
  
      <authentication-manager >
         <authentication-provider user-service-ref="memberAppDetailService">
-            <password-encoder ref="doNothingPasswordEncoder">
+            <password-encoder ref="passwordEncoder">
                 <salt-source user-property="uuid" />
             </password-encoder>  
         </authentication-provider>           
