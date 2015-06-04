@@ -6,6 +6,7 @@ import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.SurveillanceAudit;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
@@ -41,6 +42,9 @@ public class DataValidationController extends MessageInfor implements Serializab
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
+
+    @ManagedProperty(value = "#{regionSurveillanceDataService}")
+    private RegionSurveillanceDataService regionSurveillanceDataService;
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
@@ -99,18 +103,19 @@ public class DataValidationController extends MessageInfor implements Serializab
     }
 
     public String finalSaveSurviellanceForm() {
-        
+
         if (surveillanceAudit == null) {
             errorMessages("Surveillance Audit Error - Data Entry Not Done");
             return null;
         }
-        
+
         if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
         }
 
         try {
+            surveillanceService.save(surveillance);
             surveillanceAudit.setApprovedBy(getCurrentUser());
             surveillanceAudit.setApprovedOn(new Date());
             surveillanceAuditService.save(surveillanceAudit);
@@ -137,6 +142,10 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillanceId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveillanceId");
         surveillance = surveillanceService.findByUuid(surveillanceId);
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
+        for (SurveillanceData data : surveillance.getSurveillanceDataSet()) {
+            data.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(data));
+            data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
+        }
         getSurveillanceDataList().clear();
         getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
         if (surveillanceAudit == null) {
