@@ -4,15 +4,10 @@ import com.survtower.business.central.dao.MemberSecurityDao;
 import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.central.service.MemberSecurityService;
 import com.survtower.business.common.domain.Member;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

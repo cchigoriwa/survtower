@@ -25,7 +25,7 @@ public class SurveillanceData extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne    
+    @ManyToOne
     @XmlTransient
     private Surveillance surveillance;
     @ManyToOne
@@ -109,6 +109,9 @@ public class SurveillanceData extends BaseEntity {
     }
 
     public Boolean getValid() {
+        if (getNumeratorValue() == null || getDenominatorValue() == null) {
+            return Boolean.FALSE;
+        }
         if (getNumeratorValue() == 0.0) {
             return Boolean.FALSE;
         }
