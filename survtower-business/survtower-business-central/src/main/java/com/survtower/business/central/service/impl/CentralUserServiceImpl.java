@@ -1,11 +1,9 @@
 package com.survtower.business.central.service.impl;
 
-import com.survtower.business.common.domain.Program;
 import com.survtower.business.central.dao.CentralUserDao;
 import com.survtower.business.central.domain.CentralUser;
 import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
-import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +30,7 @@ public class CentralUserServiceImpl implements CentralUserService {
     private CentralUserDao centralUserDao;
 
     @Autowired
-    private PasswordEncoderImpl passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override

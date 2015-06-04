@@ -46,6 +46,10 @@ public class DataValidationController extends MessageInfor implements Serializab
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
     private RegionSurveillanceDataService regionSurveillanceDataService;
 
+    public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
+        this.regionSurveillanceDataService = regionSurveillanceDataService;
+    }
+
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
     }
@@ -147,7 +151,7 @@ public class DataValidationController extends MessageInfor implements Serializab
             data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
         }
         getSurveillanceDataList().clear();
-        getSurveillanceDataList().addAll(getSurveillance().getSurveillanceDataSet());
+        getSurveillanceDataList().addAll(surveillance.getSurveillanceDataSet());
         if (surveillanceAudit == null) {
             surveillanceAudit = new SurveillanceAudit();
         }

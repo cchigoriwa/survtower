@@ -21,7 +21,7 @@
     <!-- Location of Java @Configuration classes that configure the components that makeup this application -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>com.survtower.business.central.config,com.survtower.client.central.config</param-value>      
+        <param-value>com.survtower.business.common.config,com.survtower.business.central.config,com.survtower.client.central.config</param-value>      
     </context-param>
     
     

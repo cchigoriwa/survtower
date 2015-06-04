@@ -1,7 +1,6 @@
 package com.survtower.client.member.controller;
 
 import com.survtower.business.common.domain.Program;
-import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
 import com.survtower.business.member.domain.Region;
@@ -16,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 /**
  *
@@ -32,7 +32,7 @@ public class MemberUserEditController {
     private String uuid;
 
     @ManagedProperty(value = "#{passwordEncoder}")
-    private PasswordEncoderImpl passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     private String confirmPassword;
 
@@ -143,11 +143,11 @@ public class MemberUserEditController {
         return uuid;
     }
 
-    public PasswordEncoderImpl getPasswordEncoder() {
+    public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
     }
 
-    public void setPasswordEncoder(PasswordEncoderImpl passwordEncoder) {
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
