@@ -14,7 +14,7 @@
 
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
-        <p:panel header="Data Validation and Aprroval">
+        <p:panel header="Data Validation and Approval">
             <h:form>
                 <p>Selected Program - #{dataValidationController.surveillance.program.name} </p>
                 <p>Selected Period - #{dataValidationController.surveillance.period.name}</p>
@@ -50,7 +50,7 @@
                 <br/>
                 <p:commandButton value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.surveillanceAudit.submissionDone}"/>
 
-                <p:panel header="Surviellance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
+                <p:panel header="Surveillance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
                     <p>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
                     <p>Date Approved On - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
                     <p>Data Verification By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>

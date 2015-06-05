@@ -47,7 +47,8 @@ import org.primefaces.event.FileUploadEvent;
 
 /**
  *
- * @author tdhlakama
+ * @author Takunda Dhlakama
+ * @author Charles Chigoriwa
  */
 @ManagedBean
 @ViewScoped
@@ -61,22 +62,22 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     private Program program;
     private Region region;
     private Surveillance surveillance;
-    private RegionSurveillanceAudit surveillanceAudit;
+    private RegionSurveillanceAudit regionSurveillanceAudit;
 
     @ManagedProperty(value = "#{regionService}")
-    RegionService regionService;
+    private RegionService regionService;
 
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
-    RegionSurveillanceDataService regionSurveillanceDataService;
+    private RegionSurveillanceDataService regionSurveillanceDataService;
 
     @ManagedProperty(value = "#{programService}")
-    ProgramService programService;
+    private ProgramService programService;
 
     @ManagedProperty(value = "#{periodService}")
-    PeriodService periodService;
+    private PeriodService periodService;
 
     @ManagedProperty(value = "#{surveillanceService}")
-    SurveillanceService surveillanceService;
+    private SurveillanceService surveillanceService;
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
@@ -85,10 +86,10 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     private MemberUserService memberUserService;
 
     @ManagedProperty(value = "#{regionSurveillanceAuditService}")
-    private RegionSurveillanceAuditService surveillanceAuditService;
+    private RegionSurveillanceAuditService regionSurveillanceAuditService;
 
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
-        this.surveillanceAuditService = surveillanceAuditService;
+        this.regionSurveillanceAuditService = surveillanceAuditService;
     }
 
     public void setMemberUserService(MemberUserService memberUserService) {
@@ -100,11 +101,11 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     }
 
     public RegionSurveillanceAudit getSurveillanceAudit() {
-        return surveillanceAudit;
+        return regionSurveillanceAudit;
     }
 
     public void setSurveillanceAudit(RegionSurveillanceAudit surveillanceAudit) {
-        this.surveillanceAudit = surveillanceAudit;
+        this.regionSurveillanceAudit = surveillanceAudit;
     }
 
     public Boolean getSubmitted() {
@@ -160,7 +161,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
     }
 
     public void saveInitalDataValues() {
-        for (RegionSurveillanceData data : getSurveillanceDataList()) {
+        for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
             regionSurveillanceDataService.save(data);
         }
         if (getSurveillanceAudit().getId() == null) {
@@ -168,7 +169,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             getSurveillanceAudit().setProgram(program);
             getSurveillanceAudit().setRegion(region);
             getSurveillanceAudit().setUploadedBy(getCurrentUser());
-            surveillanceAuditService.save(surveillanceAudit);
+            regionSurveillanceAuditService.save(regionSurveillanceAudit);
         }
     }
 
@@ -188,7 +189,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             return null;
         }
         try {
-            for (RegionSurveillanceData data : getSurveillanceDataList()) {
+            for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
                 if (!data.getValid()) {
                     errorMessages("Data Incomplete");
                     submitted = Boolean.TRUE;
@@ -204,7 +205,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             }
 
             submitted = Boolean.TRUE;
-            for (RegionSurveillanceData data : getSurveillanceDataList()) {
+            for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
                 if (data.getValid()) {
                     regionSurveillanceDataService.save(data);
                 }
@@ -212,9 +213,9 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
 
             getSurveillanceAudit().setUploadedBy(getCurrentUser());
             getSurveillanceAudit().setUploadedOn(new Date());
-            surveillanceAuditService.save(surveillanceAudit);
+            regionSurveillanceAuditService.save(regionSurveillanceAudit);
 
-            inforMessages("Surviellance Data Saved Successfully");
+            inforMessages("Surveillance Data Saved Successfully");
         } catch (Exception ex) {
             ex.printStackTrace();
             errorMessages("Surveillance Data Not Processed Succefully");
@@ -234,7 +235,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         region = null;
         return null;
     }
-    private List<RegionSurveillanceData> surveillanceDataList = new ArrayList<RegionSurveillanceData>();
+    private List<RegionSurveillanceData> regionSurveillanceDataList = new ArrayList<>();
 
     public RegionService getRegionService() {
         return regionService;
@@ -244,12 +245,12 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         this.regionService = regionService;
     }
 
-    public List<RegionSurveillanceData> getSurveillanceDataList() {
-        return surveillanceDataList;
+    public List<RegionSurveillanceData> getRegionSurveillanceDataList() {
+        return regionSurveillanceDataList;
     }
 
-    public void setSurveillanceDataList(List<RegionSurveillanceData> surveillanceDataList) {
-        this.surveillanceDataList = surveillanceDataList;
+    public void setSurveillanceDataList(List<RegionSurveillanceData> regionSurveillanceDataList) {
+        this.regionSurveillanceDataList = regionSurveillanceDataList;
     }
 
     @PostConstruct
@@ -270,23 +271,23 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             surveillance = surveillanceService.createSurveillanceData(program, period, memberService.getCurrentMember());
         }
 
-        surveillanceAudit = surveillanceAuditService.get(program, period, region);
+        regionSurveillanceAudit = regionSurveillanceAuditService.get(program, period, region);
 
-        if (surveillanceAudit == null) {
-            surveillanceAudit = new RegionSurveillanceAudit();
+        if (regionSurveillanceAudit == null) {
+            regionSurveillanceAudit = new RegionSurveillanceAudit();
             for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
-                RegionSurveillanceData data = null;
-                data = regionSurveillanceDataService.find(surveillanceData, region);
-                if (data == null) {
-                    data = new RegionSurveillanceData();
-                    data.setSurveillanceData(surveillanceData);
-                    data.setCreateDate(new Date());
-                    data.setRegion(region);
+                RegionSurveillanceData regionSurveillanceData = null;
+                regionSurveillanceData = regionSurveillanceDataService.find(surveillanceData, region);
+                if (regionSurveillanceData == null) {
+                    regionSurveillanceData = new RegionSurveillanceData();
+                    regionSurveillanceData.setSurveillanceData(surveillanceData);
+                    regionSurveillanceData.setCreateDate(new Date());
+                    regionSurveillanceData.setRegion(region);
                 }
-                surveillanceDataList.add(data);
+                regionSurveillanceDataList.add(regionSurveillanceData);
             }
         } else {
-            surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
+            regionSurveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         }
 
     }
@@ -395,7 +396,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         }
         rowIndex++;
 
-        for (RegionSurveillanceData data : surveillanceDataList) {
+        for (RegionSurveillanceData data : regionSurveillanceDataList) {
             sheet.createRow(rowIndex);
             sheet.getRow(rowIndex).createCell(0).setCellValue(data.getUuid());
             sheet.getRow(rowIndex).createCell(1).setCellValue(data.getSurveillanceData().getIndicator().getName());
@@ -502,8 +503,8 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         }
         
         inforMessages(itemsSaved + " Entries Uploaded. " + errors + " Entries Failed to Upload.");
-        surveillanceDataList.clear();        
-        surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
+        regionSurveillanceDataList.clear();        
+        regionSurveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         //TODO :refresh page to show updated values
         return null;
 

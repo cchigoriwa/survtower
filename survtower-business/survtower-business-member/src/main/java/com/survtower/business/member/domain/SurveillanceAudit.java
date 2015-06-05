@@ -37,9 +37,9 @@ public class SurveillanceAudit extends BaseEntity {
     private MemberUser uploadedBy;
     @ManyToOne
     private MemberUser approvedBy;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date uploadedOn;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date approvedOn;
 
     public Period getPeriod() {

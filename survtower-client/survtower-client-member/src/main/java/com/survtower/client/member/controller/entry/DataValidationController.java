@@ -122,6 +122,10 @@ public class DataValidationController extends MessageInfor implements Serializab
             surveillanceService.save(surveillance);
             surveillanceAudit.setApprovedBy(getCurrentUser());
             surveillanceAudit.setApprovedOn(new Date());
+            //Added by Charles
+            surveillanceAudit.setUploadedOn(new Date());
+            surveillanceAudit.setUploadedBy(getCurrentUser());
+            
             surveillanceAuditService.save(surveillanceAudit);
             inforMessages("Surviellance Data Saved Successfully");
         } catch (Exception ex) {
@@ -146,14 +150,21 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillanceId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveillanceId");
         surveillance = surveillanceService.findByUuid(surveillanceId);
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
+        
         for (SurveillanceData data : surveillance.getSurveillanceDataSet()) {
             data.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(data));
             data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
         }
+        
         getSurveillanceDataList().clear();
         getSurveillanceDataList().addAll(surveillance.getSurveillanceDataSet());
+        
         if (surveillanceAudit == null) {
             surveillanceAudit = new SurveillanceAudit();
+            //Added by Charles
+            surveillanceAudit.setProgram(surveillance.getProgram());
+            surveillanceAudit.setPeriod(surveillance.getPeriod());
+            
         }
     }
 

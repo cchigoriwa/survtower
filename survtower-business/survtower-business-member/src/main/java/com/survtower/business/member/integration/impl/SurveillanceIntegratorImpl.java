@@ -82,6 +82,7 @@ public class SurveillanceIntegratorImpl implements SurveillanceIntegrator {
                     if (surveillanceAuditDynamicMeta == null) {
                         surveillanceAuditDynamicMeta = new DynamicMeta(Dynamic.SURVEILLANCE);
                     }
+                    
                     surveillanceAuditDynamicMeta.setLastLocalTimestamp(endDate);
                     dynamicMetaService.save(surveillanceAuditDynamicMeta);
                 }
