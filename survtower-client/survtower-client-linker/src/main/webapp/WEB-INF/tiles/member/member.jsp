@@ -20,7 +20,25 @@
             <th>Code</th>
             <td>${memberSecurity.member.code}</td>
         </tr>
-       
+
+    </table>
+
+    <h4>Surveillances received from the member state : <b>${memberSecurity.member.name}</b></h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Program</th>
+                <th>Period</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="surveillance" items="${surveillances}" varStatus="loopCount" >
+                <tr>
+                    <td>${surveillance.program.name}</td>
+                    <td>${surveillance.period.name}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
     </table>
 
 </div>

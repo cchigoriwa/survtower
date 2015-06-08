@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.client.member.controller.entry;
 
 import com.survtower.business.common.domain.Surveillance;
-import com.survtower.business.common.service.MemberService;
-import com.survtower.business.common.service.PeriodService;
-import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.Region;
@@ -40,8 +32,8 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class RegionDataValidationController extends MessageInfor implements Serializable {
 
-    private List<RegionSurveillanceData> surveillanceDataList = new ArrayList<>();
-    private RegionSurveillanceAudit surveillanceAudit;
+    private List<RegionSurveillanceData> regionSurveillanceDataList = new ArrayList<>();
+    private RegionSurveillanceAudit regionSurveillanceAudit;
     private Boolean submitted = Boolean.FALSE;
     private Surveillance surveillance;
     private Region region;
@@ -53,7 +45,7 @@ public class RegionDataValidationController extends MessageInfor implements Seri
     private RegionSurveillanceDataService regionSurveillanceDataService;
 
     @ManagedProperty(value = "#{regionSurveillanceAuditService}")
-    private RegionSurveillanceAuditService surveillanceAuditService;
+    private RegionSurveillanceAuditService regionSurveillanceAuditService;
 
     @ManagedProperty(value = "#{surveillanceService}")
     private SurveillanceService surveillanceService;
@@ -73,12 +65,12 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         this.submitted = submitted;
     }
 
-    public RegionSurveillanceAudit getSurveillanceAudit() {
-        return surveillanceAudit;
+    public RegionSurveillanceAudit getRegionSurveillanceAudit() {
+        return regionSurveillanceAudit;
     }
 
-    public void setSurveillanceAudit(RegionSurveillanceAudit surveillanceAudit) {
-        this.surveillanceAudit = surveillanceAudit;
+    public void setRegionSurveillanceAudit(RegionSurveillanceAudit surveillanceAudit) {
+        this.regionSurveillanceAudit = surveillanceAudit;
     }
 
     public Surveillance getSurveillance() {
@@ -94,15 +86,15 @@ public class RegionDataValidationController extends MessageInfor implements Seri
     }
 
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
-        this.surveillanceAuditService = surveillanceAuditService;
+        this.regionSurveillanceAuditService = surveillanceAuditService;
     }
 
-    public List<RegionSurveillanceData> getSurveillanceDataList() {
-        return surveillanceDataList;
+    public List<RegionSurveillanceData> getRegionSurveillanceDataList() {
+        return regionSurveillanceDataList;
     }
 
-    public void setSurveillanceDataList(List<RegionSurveillanceData> surveillanceDataList) {
-        this.surveillanceDataList = surveillanceDataList;
+    public void setRegionSurveillanceDataList(List<RegionSurveillanceData> surveillanceDataList) {
+        this.regionSurveillanceDataList = surveillanceDataList;
     }
 
     public void setRegionService(RegionService regionService) {
@@ -126,12 +118,12 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         return null;
     }
 
-    public String editSurviellanceForm() {
+    public String editSurveillanceForm() {
         return "region_data_entry?faces-redirect=true&programId=" + getSurveillance().getProgram().getUuid() + "&periodId=" + getSurveillance().getPeriod().getUuid() + "&regionId=" + getRegion().getUuid();
     }
 
-    public String finalSaveSurviellanceForm() {
-        if (surveillanceAudit == null) {
+    public String finalSaveSurveillanceForm() {
+        if (regionSurveillanceAudit == null) {
             errorMessages("Surveillance Audit Error - Data Entry Not Done");
             return null;
         }
@@ -142,10 +134,10 @@ public class RegionDataValidationController extends MessageInfor implements Seri
 
         try {
             submitted = Boolean.TRUE;
-            surveillanceAudit.setApprovedBy(getCurrentUser());
-            surveillanceAudit.setApprovedOn(new Date());
-            surveillanceAuditService.save(surveillanceAudit);
-            inforMessages(region + " Regional Surviellance Data Saved Successfully");
+            regionSurveillanceAudit.setApprovedBy(getCurrentUser());
+            regionSurveillanceAudit.setApprovedOn(new Date());
+            regionSurveillanceAuditService.save(regionSurveillanceAudit);
+            inforMessages(region + " Regional Surveillance Data Saved Successfully");
         } catch (Exception ex) {
             submitted = Boolean.FALSE;
             errorMessages("Surveillance Data Not Processed Succefully");
@@ -160,12 +152,11 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         surveillance = surveillanceService.findByUuid(surveillanceId);
         //get regional parameter form External Context
         String regionId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("regionId");
-        getSurveillanceDataList().clear();
+        getRegionSurveillanceDataList().clear();
         region = regionService.findByUuid(regionId);
-        System.out.println("Rush-------------------------------" + regionSurveillanceDataService.findAll(surveillance, region));
-        surveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
-        surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod(), region);
-        if (surveillanceAudit.getApproved()) {
+        regionSurveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
+        regionSurveillanceAudit = regionSurveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod(), region);
+        if (regionSurveillanceAudit.getApproved()) {
             submitted = Boolean.TRUE;
         }
     }

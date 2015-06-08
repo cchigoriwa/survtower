@@ -16,12 +16,16 @@
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Data Validation and Aprroval">
             <h:form>
-                <p>Selected Program - #{regionDataValidationController.surveillance.program.name} </p>
-                <p>Selected Period - #{regionDataValidationController.surveillance.period.name}</p>
-                <p>Selected Country - <b>#{regionDataValidationController.surveillance.member.name}</b></p>
-                <p>Selected Region - <b>#{regionDataEntryController.region.name}</b></p>
+                <p:panel header="Region Surveillance Metadata">
+                    <span>Program: <b>#{regionDataValidationController.surveillance.program.name}</b> </span> 
+                    <span>Period: <b>#{regionDataValidationController.surveillance.period.name}</b></span> <br />
+                    <span>Member State: <b>#{regionDataValidationController.surveillance.member.name}</b></span> 
+                    <span>Region: <b>#{regionDataEntryController.region.name}</b></span> <br />
+                </p:panel>
 
-                <p:dataTable value="#{regionDataValidationController.surveillanceDataList}" var="item">  
+                <br />
+
+                <p:dataTable value="#{regionDataValidationController.regionSurveillanceDataList}" var="item">  
 
                     <p:column headerText="Indicator Name">  
                         <h:outputText value="#{item.surveillanceData.indicator.name}"/>
@@ -50,15 +54,15 @@
                 </p:dataTable>
 
                 <br/><br/>
-                <p:commandButton value="Approve" action="#{regionDataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.surveillanceAudit.approved}"/>
-                <p:commandButton value="Edit" action="#{regionDataValidationController.editSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.surveillanceAudit.approved}"/>
-                <p:commandButton value="Final Submit" action="#{regionDataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{regionDataValidationController.submitted and !regionDataValidationController.surveillanceAudit.approved}"/>
+                <p:commandButton value="Approve" onclick="return confirm('Are sure?');" action="#{regionDataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
+                <p:commandButton value="Edit" action="#{regionDataValidationController.editSurveillanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
+                <p:commandButton value="Final Submit" onclick="return confirm('Are sure?');" action="#{regionDataValidationController.finalSaveSurveillanceForm()}" ajax="false" rendered="#{regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
 
-                <p:panel header="Region Surviellance Summary " rendered="#{regionDataValidationController.surveillanceAudit.submissionDone}">
-                    <p>Data Approved By - <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.approvedBy}"/> </b></p>
-                    <p>Date Approved On - <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.approvedOn}"/> </b></p>
-                    <p>Data Entry Done By - <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.uploadedBy}"/> </b></p>
-                    <p>Data Entry Done On <b><h:outputText value="#{regionDataValidationController.surveillanceAudit.uploadedOn}"/> </b></p>
+                <p:panel header="Region Surveillance Summary " rendered="#{regionDataValidationController.regionSurveillanceAudit.submissionDone}">
+                    <span>Data Approved By - <b><h:outputText value="#{regionDataValidationController.regionSurveillanceAudit.approvedBy}"/> </b></span> <br />
+                    <span>Date Approved On - <b><h:outputText value="#{regionDataValidationController.regionSurveillanceAudit.approvedOn}"/> </b></span> <br />
+                    <span>Data Entry Done By - <b><h:outputText value="#{regionDataValidationController.regionSurveillanceAudit.uploadedBy}"/> </b></span> <br />
+                    <span>Data Entry Done On <b><h:outputText value="#{regionDataValidationController.regionSurveillanceAudit.uploadedOn}"/> </b></span> <br />
                 </p:panel>
             </h:form>
         </p:panel>

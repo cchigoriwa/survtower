@@ -22,4 +22,7 @@ public interface SurveillanceDao extends GenericDao<Surveillance> {
     
     //Can be used by both but is suited on the central side
     public Surveillance findByProgramAndPeriodAndMember(Program program,Period period,Member member);
+  
+    public List<Surveillance> findByMember(Member member);
+
 }

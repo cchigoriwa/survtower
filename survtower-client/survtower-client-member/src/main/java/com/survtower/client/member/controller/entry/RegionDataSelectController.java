@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.client.member.controller.entry;
 
 import com.survtower.business.common.domain.Period;
@@ -40,16 +35,16 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
     }
 
     @ManagedProperty(value = "#{regionService}")
-    RegionService regionService;
+    private RegionService regionService;
 
     @ManagedProperty(value = "#{programService}")
-    ProgramService programService;
+    private ProgramService programService;
 
     @ManagedProperty(value = "#{periodService}")
-    PeriodService periodService;
+    private PeriodService periodService;
 
     @ManagedProperty(value = "#{surveillanceService}")
-    SurveillanceService surveillanceService;
+    private SurveillanceService surveillanceService;
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
@@ -115,8 +110,8 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
 
     public String dataValidationSelection() {
         Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        RegionSurveillanceAudit audit = surveillanceAuditService.get(program, period, region);
-        if (surveillance != null && audit != null) {
+        RegionSurveillanceAudit regionSurveillanceAudit = surveillanceAuditService.get(program, period, region);
+        if (surveillance != null && regionSurveillanceAudit != null) {
             return "region_data_validation?faces-redirect=true&surveillanceId=" + surveillance.getUuid() + "&regionId=" + region.getUuid();
         } else {
             errorMessages("Region Surveillance Data Not Uploaded - Redirect to Regional Data Entry");

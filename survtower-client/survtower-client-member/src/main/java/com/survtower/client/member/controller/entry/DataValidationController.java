@@ -124,10 +124,9 @@ public class DataValidationController extends MessageInfor implements Serializab
             surveillanceAudit.setApprovedOn(new Date());
             //Added by Charles
             surveillanceAudit.setUploadedOn(new Date());
-            surveillanceAudit.setUploadedBy(getCurrentUser());
-            
+            surveillanceAudit.setUploadedBy(getCurrentUser());            
             surveillanceAuditService.save(surveillanceAudit);
-            inforMessages("Surviellance Data Saved Successfully");
+            inforMessages("Surveillance Data Saved Successfully");
         } catch (Exception ex) {
             errorMessages("Surveillance Data Not Processed Succefully");
         }
@@ -151,9 +150,9 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillance = surveillanceService.findByUuid(surveillanceId);
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
         
-        for (SurveillanceData data : surveillance.getSurveillanceDataSet()) {
-            data.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(data));
-            data.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(data));
+        for (SurveillanceData surveillanceData : surveillance.getSurveillanceDataSet()) {
+            surveillanceData.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(surveillanceData));
+            surveillanceData.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(surveillanceData));
         }
         
         getSurveillanceDataList().clear();

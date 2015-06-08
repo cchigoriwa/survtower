@@ -24,4 +24,7 @@ public interface SurveillanceService extends GenericService<Surveillance> {
     public Surveillance findByProgramAndPeriodAndMember(Program program,Period period,Member member);
     
     public Surveillance createSurveillanceData(Program program,Period period, Member member);
+
+    public List<Surveillance> findByMember(Member member);
+
 }

@@ -46,7 +46,7 @@ public class IndexController {
 
     @PostConstruct
     public void LoadData() {
-        surveillances = new ArrayList<Surveillance>();
+        surveillances = new ArrayList<>();
         for (Period period : periodService.fetchActive()) {
             for (Program program : period.getPrograms()) {
                 surveillances.addAll(surveillanceService.getSurviellances(program, period));

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.business.member.domain;
 
 import com.survtower.business.common.BaseEntity;
@@ -113,6 +108,10 @@ public class RegionSurveillanceAudit extends BaseEntity {
 
     public String getForApproval() {
         return getRegion() + "-" + getProgram();
+    }
+    
+    public boolean isSubmitted(){
+        return id!=null;
     }
 
 }

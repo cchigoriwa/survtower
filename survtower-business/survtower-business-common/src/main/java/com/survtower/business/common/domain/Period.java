@@ -137,7 +137,11 @@ public class Period extends NamedBaseEntity {
     }
 
     public String getDueDateStatus() {
-        return getDueDatePassed() ? "-" + getNumberOfDaysLeftToDueDate() +" Days" : "+" + getNumberOfDaysLeftToDueDate() + " Days";
+        //return getDueDatePassed() ? "-" + getNumberOfDaysLeftToDueDate() +" Days" : "+" + getNumberOfDaysLeftToDueDate() + " Days";
+        //Changed by Charles
+        return getDueDatePassed() ? getNumberOfDaysLeftToDueDate() +" Days Late" : "+" + getNumberOfDaysLeftToDueDate() + " Days Left";
+        
+    
     }
 
 }

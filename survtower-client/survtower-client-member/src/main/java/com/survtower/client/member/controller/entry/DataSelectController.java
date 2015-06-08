@@ -7,7 +7,6 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
-import com.survtower.business.member.domain.SurveillanceAudit;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
 import java.io.Serializable;

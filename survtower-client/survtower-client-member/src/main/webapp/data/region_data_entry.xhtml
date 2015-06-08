@@ -19,16 +19,21 @@
 
             <h:form enctype="multipart/form-data"> 
 
-                <p:fileUpload fileUploadListener="#{regionDataEntryController.handleFileUpload}" rendered="#{regionDataEntryController.surveillanceAudit!=null}"
+                <p:fileUpload fileUploadListener="#{regionDataEntryController.handleFileUpload}" rendered="#{!regionDataEntryController.surveillanceAudit.approved}"
                               mode="advanced" update="messages" auto="false"  
                               allowTypes="/(\.|\/)(xls|xlsx)$/"/>  
             </h:form> 
 
             <h:form>
-                <p>Selected Program - #{regionDataEntryController.program.name} </p>
-                <p>Selected Period - #{regionDataEntryController.period.name}</p>
-                <p>Selected Country - <b>#{generalController.member.name}</b></p>
-                <p>Selected Region - <b>#{regionDataEntryController.region.name}</b></p>
+
+                <p:panel header="Region Surveillance Metadata">
+                    <span>Program: <b>#{regionDataEntryController.program.name}</b> </span> 
+                    <span>Period: <b>#{regionDataEntryController.period.name}</b></span> <br />
+                    <span>Member State: <b>#{generalController.member.name}</b></span> 
+                    <span>Region: <b>#{regionDataEntryController.region.name}</b></span> <br />
+                </p:panel>
+
+                <br />
 
                 <p:dataTable value="#{regionDataEntryController.regionSurveillanceDataList}" var="item" rendered="#{!regionDataEntryController.submitted}" id="region_data_table">  
 
@@ -37,16 +42,16 @@
                     </p:column>  
 
                     <p:column headerText="Numerator">  
-                        <h:inputText value="#{item.numeratorValue}" title="#{item.surveillanceData.indicator.numerator.name}" />
+                        <h:inputText readonly="#{regionDataEntryController.surveillanceAudit.approved}" value="#{item.numeratorValue}" title="#{item.surveillanceData.indicator.numerator.name}" />
                     </p:column>  
 
                     <p:column headerText="Denominator">  
-                        <h:inputText value="#{item.denominatorValue}" title="#{item.surveillanceData.indicator.denominator.name}"/>
+                        <h:inputText readonly="#{regionDataEntryController.surveillanceAudit.approved}" value="#{item.denominatorValue}" title="#{item.surveillanceData.indicator.denominator.name}"/>
                     </p:column>  
 
                 </p:dataTable>
 
-                <p:dataTable value="#{regionDataEntryContrregionSurveillanceDataListtaList}" var="item" rendered="#{regionDataEntryController.submitted}">  
+                <p:dataTable value="#{regionDataEntryController.regionSurveillanceDataList}" var="item" rendered="#{regionDataEntryController.submitted}">  
 
                     <p:column headerText="Indicator Name">  
                         <h:outputText value="#{item.surveillanceData.indicator.name}"/>
@@ -74,15 +79,17 @@
 
                 </p:dataTable>
                 <br/>
-                <p:commandButton value="Process" action="#{regionDataEntryController.submitSurviellanceForm()}" ajax="false" rendered="#{!regionDataEntryController.submitted}"/>
-                <p:commandButton value="Download Entry Form" action="#{regionDataEntryController.downloadSurviellanceForm()}" ajax="false" rendered="#{!regionDataEntryController.submitted}"/>
-                <p:commandButton value="Edit" action="#{regionDataEntryController.editSurviellanceForm()}" ajax="false" rendered="#{regionDataEntryController.submitted}"/>
-                <p:commandButton value="Save" action="#{regionDataEntryController.saveSurviellanceForm()}" ajax="false" rendered="#{regionDataEntryController.submitted}"/>
-                <br/><br/>
 
-                <p:panel header="Region Surviellance Summary " rendered="#{regionDataEntryController.surveillanceAudit.uploaded}">
-                    <p>Data Uploaded By - <b><h:outputText value="#{regionDataEntryController.surveillanceAudit.uploadedBy}"/> </b></p>
-                    <p>Date Upload On - <b><h:outputText value="#{regionDataEntryController.surveillanceAudit.uploadedOn}"/> </b></p>
+                <p:commandButton value="Save" action="#{regionDataEntryController.submitSurveillanceForm()}" ajax="false" rendered="#{!regionDataEntryController.surveillanceAudit.approved}"/>
+                <p:commandButton value="Download Entry Form" action="#{regionDataEntryController.downloadSurviellanceForm()}" ajax="false" rendered="#{!regionDataEntryController.surveillanceAudit.approved}"/>
+                <p:commandButton onclick="return confirm('Are sure?');" value="Approve" action="#{regionDataEntryController.saveSurveillanceForm()}" ajax="false" rendered="#{regionDataEntryController.surveillanceAudit.submitted and  !regionDataEntryController.surveillanceAudit.approved}"/>
+
+                <br/>
+                <br/>
+
+                <p:panel header="Region Surveillance Summary " rendered="#{regionDataEntryController.surveillanceAudit.uploaded}">
+                    <span>Data Uploaded By - <b><h:outputText value="#{regionDataEntryController.surveillanceAudit.uploadedBy}"/> </b></span> <br />
+                    <span>Date Upload On - <b><h:outputText value="#{regionDataEntryController.surveillanceAudit.uploadedOn}"/> </b></span>
                 </p:panel>
 
             </h:form>

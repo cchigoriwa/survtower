@@ -88,4 +88,11 @@ public class SurveillanceServiceImpl implements SurveillanceService {
         return surveillanceDao.save(surveillance);
 
     }
+
+    @Override
+    public List<Surveillance> findByMember(Member member) {
+        return surveillanceDao.findByMember(member);
+    }
+    
+    
 }

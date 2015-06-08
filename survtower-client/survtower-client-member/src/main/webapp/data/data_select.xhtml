@@ -15,9 +15,9 @@
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Data Validation and Approval Selection">
-            <h:form>
+            <h:form>                
+                <p>Member State: <b>#{generalController.member.name}</b></p>
                 <p>Select Program and Period to report</p>
-                <p>Selected Country is <b>#{generalController.member.name}</b></p>
                 <h:panelGrid columns="2"> 
 
                     <h:outputText value="Select Period"/>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.client.member.controller.entry;
 
 import com.survtower.business.common.domain.Period;
@@ -160,6 +155,10 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         return surveillance;
     }
 
+    public void setRegionSurveillanceAuditService(RegionSurveillanceAuditService regionSurveillanceAuditService) {
+        this.regionSurveillanceAuditService = regionSurveillanceAuditService;
+    }
+
     public void saveInitalDataValues() {
         for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
             regionSurveillanceDataService.save(data);
@@ -177,13 +176,13 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         this.surveillance = surveillance;
     }
 
-    public String submitSurviellanceForm() {
+    public String submitSurveillanceForm() {
         saveInitalDataValues();
         submitted = Boolean.TRUE;
         return null;
     }
 
-    public String saveSurviellanceForm() {
+    public String saveSurveillanceForm() {
         if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
@@ -213,6 +212,8 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
 
             getSurveillanceAudit().setUploadedBy(getCurrentUser());
             getSurveillanceAudit().setUploadedOn(new Date());
+            getSurveillanceAudit().setApprovedBy(getCurrentUser());
+            getSurveillanceAudit().setApprovedOn(new Date());
             regionSurveillanceAuditService.save(regionSurveillanceAudit);
 
             inforMessages("Surveillance Data Saved Successfully");
@@ -220,11 +221,6 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
             ex.printStackTrace();
             errorMessages("Surveillance Data Not Processed Succefully");
         }
-        return null;
-    }
-
-    public String editSurviellanceForm() {
-        submitted = Boolean.FALSE;
         return null;
     }
 
@@ -276,7 +272,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         if (regionSurveillanceAudit == null) {
             regionSurveillanceAudit = new RegionSurveillanceAudit();
             for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
-                RegionSurveillanceData regionSurveillanceData = null;
+                RegionSurveillanceData regionSurveillanceData;
                 regionSurveillanceData = regionSurveillanceDataService.find(surveillanceData, region);
                 if (regionSurveillanceData == null) {
                     regionSurveillanceData = new RegionSurveillanceData();
@@ -479,7 +475,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
 
         if (surveillance == null) {
-            errorMessages("Surviellance Reporting not Found, File Cannot be used");
+            errorMessages("Surveillance Reporting not Found, File Cannot be used");
             return null;
         }
 
@@ -487,12 +483,12 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
         int itemsSaved = 0;
         int lastrow = sheet.getLastRowNum() + 1;
         for (int rowIndex = 4; rowIndex < lastrow; rowIndex++) {
-            RegionSurveillanceData data = regionSurveillanceDataService.findByUuid(sheet.getRow(rowIndex).getCell(0).getStringCellValue());
-            if (data != null && data.getRegion().getId().equals(region.getId())) {
+            RegionSurveillanceData regionSurveillanceData = regionSurveillanceDataService.findByUuid(sheet.getRow(rowIndex).getCell(0).getStringCellValue());
+            if (regionSurveillanceData != null && regionSurveillanceData.getRegion().getId().equals(region.getId())) {
                 try {
-                    data.setNumeratorValue(sheet.getRow(rowIndex).getCell(2).getNumericCellValue());
-                    data.setNumeratorValue(sheet.getRow(rowIndex).getCell(3).getNumericCellValue());
-                    regionSurveillanceDataService.save(data);
+                    regionSurveillanceData.setNumeratorValue(sheet.getRow(rowIndex).getCell(2).getNumericCellValue());
+                    regionSurveillanceData.setDenominatorValue(sheet.getRow(rowIndex).getCell(3).getNumericCellValue());
+                    regionSurveillanceDataService.save(regionSurveillanceData);
                     itemsSaved++;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -501,12 +497,12 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                 }
             }
         }
-        
+
         inforMessages(itemsSaved + " Entries Uploaded. " + errors + " Entries Failed to Upload.");
-        regionSurveillanceDataList.clear();        
+        regionSurveillanceDataList.clear();
         regionSurveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         //TODO :refresh page to show updated values
-        return null;
+        return "region_data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
 
     }
 

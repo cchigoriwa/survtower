@@ -20,22 +20,21 @@
                 <p>Selected Period - #{dataViewController.surveillance.period.name}</p>
                 <p>Selected Country - <b>#{dataViewController.surveillance.member.name}</b></p>
 
-                <p:dataTable id="tbl" value="#{dataViewController.surveillanceDataList}" var="item">  
+                <h:commandLink value="xls">  
+                    <p:dataExporter type="xls" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}.xls" />
+                </h:commandLink>
+                <p:spacer width="3"/>
+                <h:commandLink value="pdf"> 
+                    <p:dataExporter type="pdf" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}.pdf" />
+                </h:commandLink>
+                <p:spacer width="3"/>
+                <h:commandLink value="csv"> 
+                    <p:dataExporter type="csv" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}.csv" />
+                </h:commandLink>
+                <p:spacer width="3"/>
+                <br />
 
-                    <p:column width="10%">  
-                        <h:commandLink value="xls">  
-                            <p:dataExporter type="xls" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
-                        </h:commandLink>
-                        <p:spacer width="3"/>
-                        <h:commandLink value="pdf"> 
-                            <p:dataExporter type="pdf" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
-                        </h:commandLink>
-                        <p:spacer width="3"/>
-                        <h:commandLink value="csv"> 
-                            <p:dataExporter type="csv" target="tbl" fileName="#{dataViewController.surveillance.program.name} - #{dataViewController.surveillance.period.name} - #{dataViewController.surveillance.member.name}" />
-                        </h:commandLink>
-                        <p:spacer width="3"/>
-                    </p:column>
+                <p:dataTable id="tbl" value="#{dataViewController.surveillanceDataList}" var="item">  
 
                     <p:column headerText="Indicator Name">  
                         <h:outputText value="#{item.indicator.name}"/>
