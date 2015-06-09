@@ -1,5 +1,6 @@
 package com.survtower.client.member.controller;
 
+import com.survtower.business.common.domain.AppUserRole;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
@@ -80,6 +81,10 @@ public class MemberUserEditController {
         list.add(MemberUser.ROLE_HEALTH_INFORMATION_OFFICER);
         list.add(MemberUser.ROLE_COUNTRY_DISEASE_MANAGER);
         return list;
+    }
+    
+    public List<AppUserRole> getAppUserRoles() {
+       return MemberUser.getAppUserRoles();
     }
 
     public MemberUser getMemberUser() {

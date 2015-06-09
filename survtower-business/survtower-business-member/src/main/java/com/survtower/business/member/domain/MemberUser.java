@@ -2,6 +2,7 @@ package com.survtower.business.member.domain;
 
 import com.survtower.business.common.AppUserDetails;
 import com.survtower.business.common.BaseEntity;
+import com.survtower.business.common.domain.AppUserRole;
 import com.survtower.business.common.domain.Program;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -159,6 +160,17 @@ public class MemberUser extends BaseEntity {
         }
         userDetails.setAuthorities(list);
         return userDetails;
+    }
+    
+    public static List<AppUserRole> getAppUserRoles(){
+        return new ArrayList<AppUserRole>(){
+            {
+              add(new AppUserRole(ROLE_COUNTRY_ADMINISTRATOR, "Member State Administrator"));
+              add(new AppUserRole(ROLE_HEALTH_INFORMATION_OFFICER, "Health Information Officer"));
+              add(new AppUserRole(ROLE_COUNTRY_DISEASE_MANAGER, "Health Information Officer"));
+              
+            }
+        };
     }
 
 }

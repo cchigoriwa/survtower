@@ -60,21 +60,5 @@ public class MemberConfiguration {
         return transactionManager;
     }
 
-    @Configuration
-    @Profile("development")
-    @PropertySource("classpath:com/survtower/business/member/config/jdbc_dev.properties")
-    static class Development {
-    }
-
-    @Configuration
-    @Profile("test")
-    @PropertySource("classpath:com/survtower/business/member/config/jdbc_test.properties")
-    static class Test {
-    }
-
-    @Configuration
-    @Profile("production")
-    @PropertySource("classpath:com/survtower/business/member/config/jdbc_prod.properties")
-    static class Production {
-    }
+    
 }

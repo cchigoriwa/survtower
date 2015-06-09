@@ -13,6 +13,7 @@ public class CentralSecurity extends BaseEntity {
     
     private static final long serialVersionUID = 1L;
     
+    private String centralServerUrl;
     private String memberID;
     private String memberKey;
 
@@ -32,7 +33,15 @@ public class CentralSecurity extends BaseEntity {
         this.memberKey = memberKey;
     }
 
-   
+    public String getCentralServerUrl() {
+        return centralServerUrl;
+    }
+
+    public void setCentralServerUrl(String centralServerUrl) {
+        this.centralServerUrl = centralServerUrl;
+    }
+
+    
     
     
   

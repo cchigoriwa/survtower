@@ -18,8 +18,8 @@
             default-target-url="/faces/dash_board.xhtml"
             authentication-failure-url="/faces/login.xhtml"/>
         <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/dash_board.xhtml" delete-cookies="JSESSIONID"/>
-        <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_GLOBAL_ADMINISTRATOR')" />        
-    </http>
+        <intercept-url pattern="/faces/data/**" access="hasRole('ROLE_GLOBAL_ADMINISTRATOR')" />  
+       </http>
 
     <authentication-manager >
         <authentication-provider user-service-ref="centralUserDetailService">

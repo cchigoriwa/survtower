@@ -60,22 +60,6 @@ public class CentralConfiguration {
         return transactionManager;
     }
 
-    @Configuration
-    @Profile("development")
-    @PropertySource("classpath:com/survtower/business/central/config/jdbc_dev.properties")
-    static class Development {
-    }
-
-    @Configuration
-    @Profile("test")
-    @PropertySource("classpath:com/survtower/business/central/config/jdbc_test.properties")
-    static class Test {
-    }
-
-    @Configuration
-    @Profile("production")
-    @PropertySource("classpath:com/survtower/business/central/config/jdbc_prod.properties")
-    static class Production {
-    }
+   
 
 }

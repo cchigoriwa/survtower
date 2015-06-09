@@ -20,5 +20,7 @@ public interface MemberUserRepository extends GenericRepository<MemberUser, Long
     @Transactional
     @Query("update MemberUser i set i.password = ?1 where i.username = ?2")
     public int updatePassword(String password, String username);
+    
+    public MemberUser findByEmail(String email);
 
 }

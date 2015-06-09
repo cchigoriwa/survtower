@@ -33,7 +33,7 @@ public class CommonConfiguration {
     static class Test {
         @Bean(name = "passwordEncoder")
         public PasswordEncoder getPasswordEncoder() {
-            return new PasswordEncoderImpl();
+            return new DoNothingPasswordEncoderImpl();
         }
     }
 
