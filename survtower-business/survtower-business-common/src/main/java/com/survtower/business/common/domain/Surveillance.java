@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"uuid"}),
-    @UniqueConstraint(columnNames = {"program_id","period_id","member_id"})})
+    @UniqueConstraint(columnNames = {"program_id", "period_id", "member_id"})})
 public class Surveillance extends BaseEntity {
 
     @ManyToOne
@@ -32,6 +33,8 @@ public class Surveillance extends BaseEntity {
     private Member member;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<SurveillanceData> surveillanceDataSet = new HashSet<SurveillanceData>();
+    @Transient
+    private Boolean errorMarked;
 
     public Program getProgram() {
         return program;
@@ -63,6 +66,15 @@ public class Surveillance extends BaseEntity {
 
     public void setSurveillanceDataSet(Set<SurveillanceData> surveillanceDataSet) {
         this.surveillanceDataSet = surveillanceDataSet;
+    }
+
+    public Boolean getErrorMarked() {
+        for (SurveillanceData data : getSurveillanceDataSet()) {
+            if (data.getErrorMarked()) {
+                return Boolean.TRUE;
+            }
+        }
+        return errorMarked;
     }
 
 }

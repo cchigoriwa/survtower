@@ -38,6 +38,8 @@ public class SurveillanceData extends BaseEntity {
     private Double calculatedValue;
     @Transient
     private Boolean valid;
+    private Boolean errorMarked = Boolean.FALSE;
+    private String comment;
 
     @XmlTransient
     public Surveillance getSurveillance() {
@@ -86,6 +88,25 @@ public class SurveillanceData extends BaseEntity {
 
     public void setManual(Boolean manual) {
         this.manual = manual;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Boolean getErrorMarked() {
+        if (errorMarked == null) {
+            return Boolean.FALSE;
+        }
+        return errorMarked;
+    }
+
+    public void setErrorMarked(Boolean errorMarked) {
+        this.errorMarked = errorMarked;
     }
 
     public Double getCalculatedValue() {
