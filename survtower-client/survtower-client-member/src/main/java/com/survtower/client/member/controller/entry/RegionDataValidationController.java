@@ -85,6 +85,14 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         this.surveillanceService = surveillanceService;
     }
 
+    public RegionSurveillanceAuditService getRegionSurveillanceAuditService() {
+        return regionSurveillanceAuditService;
+    }
+
+    public void setRegionSurveillanceAuditService(RegionSurveillanceAuditService regionSurveillanceAuditService) {
+        this.regionSurveillanceAuditService = regionSurveillanceAuditService;
+    }
+
     public void setSurveillanceAuditService(RegionSurveillanceAuditService surveillanceAuditService) {
         this.regionSurveillanceAuditService = surveillanceAuditService;
     }

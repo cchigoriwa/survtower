@@ -4,6 +4,7 @@ import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.client.central.utility.MessageInfor;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class DataViewController extends MessageInfor implements Serializable {
+public class DataCheckController extends MessageInfor implements Serializable {
 
     @ManagedProperty(value = "#{surveillanceService}")
     private SurveillanceService surveillanceService;
@@ -60,10 +61,6 @@ public class DataViewController extends MessageInfor implements Serializable {
 
     public void setSurveillanceDataList(List<SurveillanceData> surveillanceDataList) {
         this.surveillanceDataList = surveillanceDataList;
-    }
-
-    public String dataValidationSelection() {
-        return "data_check?faces-redirect=true&surveillanceId=" + surveillance.getUuid();
     }
 
     @PostConstruct

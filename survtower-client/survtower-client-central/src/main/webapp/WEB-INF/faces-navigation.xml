@@ -127,6 +127,11 @@
             <from-outcome>admin_home</from-outcome>
             <to-view-id>/admin/index.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>data_check</from-outcome>
+            <to-view-id>/data/data_check.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
 </faces-config>
