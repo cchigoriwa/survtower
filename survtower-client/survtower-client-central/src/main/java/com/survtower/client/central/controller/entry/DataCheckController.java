@@ -4,7 +4,6 @@ import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.domain.SurveillanceData;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.client.central.utility.MessageInfor;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +60,14 @@ public class DataCheckController extends MessageInfor implements Serializable {
 
     public void setSurveillanceDataList(List<SurveillanceData> surveillanceDataList) {
         this.surveillanceDataList = surveillanceDataList;
+    }
+
+    public String save() {
+        surveillance.getSurveillanceDataSet().clear();
+        surveillance.getSurveillanceDataSet().addAll(surveillanceDataList);
+        surveillanceService.save(surveillance);
+        inforMessages("Information saved");
+        return "data_view?faces-redirect=true&surveillanceId=" + surveillance.getUuid();
     }
 
     @PostConstruct

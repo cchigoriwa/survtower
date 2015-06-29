@@ -49,9 +49,13 @@
 
                     <p:column headerText="Comment">  
                         <h:inputTextarea style="width: 170px" value="#{item.comment}"/>
-                    </p:column>
+                    </p:column>                   
+                    
 
                 </p:dataTable>
+                
+                <p:commandButton value="Save " action="#{dataCheckController.save()}" ajax="false"/>                        
+               
 
             </h:form>
         </p:panel>
