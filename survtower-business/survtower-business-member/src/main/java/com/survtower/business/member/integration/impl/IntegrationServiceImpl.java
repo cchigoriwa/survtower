@@ -46,28 +46,33 @@ public class IntegrationServiceImpl implements IntegrationService {
     public LookupDataWebservice getLookupDataWebservice() {
         return getWebserviceTarget().proxy(LookupDataWebservice.class);
     }
-    
+
     @Override
     public MemberWebservice getMemberWebservice() {
         return getWebserviceTarget().proxy(MemberWebservice.class);
     }
-    
-    
 
     protected ResteasyWebTarget getWebserviceTarget() {
         ResteasyClient client = new ResteasyClientBuilder().build();
-        CentralSecurity centralSecurity=centralSecurityService.find();
-        if(centralSecurity!=null){
+        CentralSecurity centralSecurity = centralSecurityService.find();
+        String centralServerUrl = null;
+        if (centralSecurity != null) {
             //Will consider encryption and decryption of member key
-           client.register(new BasicAuthentication(centralSecurity.getMemberID(), centralSecurity.getMemberKey()));
+            client.register(new BasicAuthentication(centralSecurity.getMemberID(), centralSecurity.getMemberKey()));
+            centralServerUrl = centralSecurity.getCentralServerUrl();
         }
-        ResteasyWebTarget target = client.target(environment.getRequiredProperty("central.webservice.url"));
+
+        if (centralServerUrl == null) {
+            centralServerUrl = environment.getRequiredProperty("central.webservice.url");
+        }
+
+        ResteasyWebTarget target = client.target(centralServerUrl);
         return target;
     }
 
     @Override
     public DataSourceCategoryWebservice getDataSourceCategoryWebservice() {
-         return getWebserviceTarget().proxy(DataSourceCategoryWebservice.class);
+        return getWebserviceTarget().proxy(DataSourceCategoryWebservice.class);
     }
 
     @Override
@@ -97,7 +102,7 @@ public class IntegrationServiceImpl implements IntegrationService {
 
     @Override
     public DataSourceWebservice getDataSourceWebservice() {
-       return getWebserviceTarget().proxy(DataSourceWebservice.class);
+        return getWebserviceTarget().proxy(DataSourceWebservice.class);
     }
 
     @Override
