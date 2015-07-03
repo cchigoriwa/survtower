@@ -1,5 +1,6 @@
 package com.survtower.business.member.service.impl;
 
+import com.survtower.business.common.service.EmailConfiguration;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.ResetPasswordRequest;
 import com.survtower.business.member.repository.MemberUserRepository;
@@ -14,7 +15,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +30,12 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
     @Autowired
     private ResetPasswordRequestRepository resetPasswordRequestRepository;
     @Autowired
-    private JavaMailSender mailSender;
+    private EmailConfiguration emailConfiguration;
     
     @Resource
     protected Environment environment;
 
+    @Override
     public ResetPasswordRequest createNewPasswordRequest(String emailAddress) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 24);
@@ -68,7 +69,7 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
         
         
 
-        this.mailSender.send(preparator);
+        this.emailConfiguration.getJavaMailSender().send(preparator);
 
     }
 

@@ -1,6 +1,7 @@
 package com.survtower.business.member.service.impl;
 
 import com.survtower.business.common.domain.Program;
+import com.survtower.business.common.service.EmailConfiguration;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
@@ -12,7 +13,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author Takunda Dhlakama
+ * @author Daniel Nkhoma
+ * @author Charles Chigoriwa
  */
 @Service("memberUserService")
 @Transactional(readOnly = true)
@@ -33,12 +42,22 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private EmailConfiguration emailConfiguration;
+   
 
     @Transactional
     @Override
     public MemberUser save(MemberUser memberUser) {
-        memberUser.setUpdateDate(new Date());
-        return memberUserDao.save(memberUser);
+        if (memberUser.getId() == null) {
+            String rawPassword = RandomStringUtils.randomAlphanumeric(10);
+            memberUser = createNewUser(memberUser, rawPassword);
+            sendEmail(memberUser, rawPassword);
+        } else {
+            memberUser = memberUserDao.save(memberUser);
+        }
+        return memberUser;
     }
 
     @Override
@@ -154,10 +173,9 @@ public class MemberUserServiceImpl implements MemberUserService {
     @PostConstruct
     public void init() {
         if (memberUserDao.findAll().isEmpty()) {
-            Set<MemberUserRole> memberUserRoles = new HashSet<MemberUserRole>();
+            Set<MemberUserRole> memberUserRoles = new HashSet<>();
             MemberUser memberUser = new MemberUser();
             memberUser.setUsername("admin");
-            memberUser.setPassword("memberuser");
             memberUser.setDeactivated(Boolean.FALSE);
             for (String role : getMemberRoles()) {
                 MemberUserRole memberUserRole = new MemberUserRole();
@@ -165,9 +183,54 @@ public class MemberUserServiceImpl implements MemberUserService {
                 memberUserRole.setDeactivated(Boolean.FALSE);
                 memberUserRoles.add(memberUserRole);
             }
-            memberUser.setPassword(passwordEncoder.encodePassword(memberUser.getPassword(), memberUser.getUuid()));
             memberUser.setMemberUserRoles(memberUserRoles);
-            memberUserDao.save(memberUser);
+            save(memberUser);
         }
+    }
+
+    @Transactional
+    public void resetPassword(MemberUser memberUser) {
+        String rawPassword = RandomStringUtils.randomAlphanumeric(10);
+        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getEmail());
+        memberUserDao.updatePassword(encriptedPassword, memberUser.getUsername());
+        sendEmail(memberUser, rawPassword);
+    }
+
+    private MemberUser createNewUser(MemberUser memberUser, String rawPassword) {
+        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getEmail());
+        memberUser.setPassword(encriptedPassword);
+        memberUser = memberUserDao.save(memberUser);
+        return memberUser;
+    }
+
+    private void sendEmail(final MemberUser memberUser, final String rawPassword) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            @Override
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+
+                mimeMessage.setRecipient(Message.RecipientType.TO,
+                        new InternetAddress(memberUser.getEmail()));
+                mimeMessage.setFrom(new InternetAddress("xyz@xyz.co.zw"));
+                mimeMessage.setSubject("New Member State Account");
+                mimeMessage.setText(createTextMessage(memberUser.getEmail(), rawPassword));
+            }
+        };
+        try {
+            this.emailConfiguration.getJavaMailSender().send(preparator);
+        } catch (MailException ex) {
+            // simply log it and go on...
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private String createTextMessage(String username, String password) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your Member state account was successfully created");
+        sb.append("Your login details: Username: ");
+        sb.append(username);
+        sb.append(" Password: ");
+        sb.append(password);
+        sb.append(" You are encouraged to change this password upon first login.");
+        return sb.toString();
     }
 }

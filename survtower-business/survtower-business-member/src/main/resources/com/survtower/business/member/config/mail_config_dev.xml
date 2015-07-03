@@ -7,10 +7,10 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="smtp.gmail.com" />
+        <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
-        <property name="username" value="mtmatiashe@gmail.com" />
-        <property name="password" value="evernice" />
+        <property name="username" value="mttrial1234567@gmail.com" />
+        <property name="password" value="xxxxxx" />
  
         <property name="javaMailProperties">
             <props>
