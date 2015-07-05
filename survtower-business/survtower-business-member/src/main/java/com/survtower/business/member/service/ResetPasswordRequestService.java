@@ -10,4 +10,5 @@ import java.io.Serializable;
 public interface ResetPasswordRequestService extends Serializable {
 
     public ResetPasswordRequest createNewPasswordRequest(String emailAddress);
+   
 }

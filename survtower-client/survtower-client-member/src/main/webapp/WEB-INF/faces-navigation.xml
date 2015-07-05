@@ -25,6 +25,16 @@
         </navigation-case>  
         
         <navigation-case>
+            <from-outcome>forgotPassword</from-outcome>
+            <to-view-id>/forgotPassword.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
+            <from-outcome>emailSetupEdit</from-outcome>
+            <to-view-id>/admin/emailSetupEdit.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
             <from-outcome>access_denied</from-outcome>
             <to-view-id>/access_denied.xhtml</to-view-id>
         </navigation-case> 

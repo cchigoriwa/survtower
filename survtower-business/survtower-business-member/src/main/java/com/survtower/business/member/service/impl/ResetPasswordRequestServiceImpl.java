@@ -8,6 +8,7 @@ import com.survtower.business.member.repository.ResetPasswordRequestRepository;
 import com.survtower.business.member.service.ResetPasswordRequestService;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.Resource;
 import javax.mail.Message;
@@ -15,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Charles Chigoriwa
  */
-@Service
+@Service("resetPasswordRequestService")
 public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestService {
 
     @Autowired
@@ -31,7 +33,7 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
     private ResetPasswordRequestRepository resetPasswordRequestRepository;
     @Autowired
     private EmailConfiguration emailConfiguration;
-    
+
     @Resource
     protected Environment environment;
 
@@ -46,15 +48,15 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
         resetPasswordRequest.setMemberUser(memberUser);
         resetPasswordRequest.setTimeRequested(new Date());
         resetPasswordRequest.setTimeOfExpiry(calendar.getTime());
-        
-        this.resetPasswordRequestRepository.save(resetPasswordRequest);        
+
+        this.resetPasswordRequestRepository.save(resetPasswordRequest);
         sendEmail(resetPasswordRequest);
 
         return resetPasswordRequest;
 
     }
 
-    private void sendEmail( final ResetPasswordRequest resetPasswordRequest) {
+    private void sendEmail(final ResetPasswordRequest resetPasswordRequest) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -66,8 +68,6 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
                 mimeMessage.setText(createTextMessage(resetPasswordRequest));
             }
         };
-        
-        
 
         this.emailConfiguration.getJavaMailSender().send(preparator);
 
@@ -76,9 +76,9 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
     private String createTextMessage(ResetPasswordRequest resetPasswordRequest) {
         StringBuilder sb = new StringBuilder();
         sb.append("Changing your password is simple. Please use the link below");
-        sb.append(" within 24 hours.  ");        
+        sb.append(" within 24 hours.  ");
         //String webUrl=environment.getRequiredProperty("transunion.client.website.url");
-        String webUrl="http://changeme.com";
+        String webUrl = "http://changeme.com";
         sb.append(webUrl);
         sb.append("/reset-password/");
         sb.append(resetPasswordRequest.getFirstTag());
@@ -86,4 +86,5 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
         sb.append(resetPasswordRequest.getSecondTag());
         return sb.toString();
     }
+
 }

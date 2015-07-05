@@ -14,6 +14,7 @@
 
             <p:submenu label="Settings" icon="ui-icon-wrench" rendered="#{checkLoggedOn.loggedOn}">
                 <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person" />
+                <p:menuitem value="Email Set up" outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
                 <p:menuitem value="Look up Data" outcome="admin_home" icon="ui-icon-bookmark" />
             </p:submenu>
 
@@ -27,9 +28,9 @@
             <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-circle-zoomin" rendered="#{checkLoggedOn.loggedOn}"/>
 
             <p:menuitem value="login" outcome="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
-            
+
             <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
-            
+
         </p:menubar>
     </h:form>
 

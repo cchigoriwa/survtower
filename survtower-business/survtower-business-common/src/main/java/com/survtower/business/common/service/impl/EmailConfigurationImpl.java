@@ -46,7 +46,21 @@ public class EmailConfigurationImpl implements  EmailConfiguration{
         }
         
         //TODO: Daniel to add other properties
+        if (!isEmpty(emailSetup.getMailSmtpUser())) {
+            javaMailProperties.setProperty("mail.smtp.user", emailSetup.getMailSmtpUser());
+        }
         
+        if (!isEmpty(emailSetup.getMailSmtpFrom())) {
+            javaMailProperties.setProperty("mail.smtp.from", emailSetup.getMailSmtpFrom());
+        }
+        
+        if (!isEmpty(emailSetup.getMailSmtpLocalHost())) {
+            javaMailProperties.setProperty("mail.smtp.localhost", emailSetup.getMailSmtpLocalHost());
+        }
+        
+        if (!isEmpty(emailSetup.getMailSmtpHost())) {
+            javaMailProperties.setProperty("mmail.smtp.host", emailSetup.getMailSmtpHost());
+        }
         
         mailSender.setJavaMailProperties(javaMailProperties);
 

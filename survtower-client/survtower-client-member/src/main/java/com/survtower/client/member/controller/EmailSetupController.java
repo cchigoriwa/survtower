@@ -38,7 +38,7 @@ public class EmailSetupController {
     
     public String save(){
         emailSetupService.save(emailSetup);
-        return "admin_home";
+        return "index";
     }
     
     @PostConstruct

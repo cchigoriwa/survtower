@@ -32,6 +32,11 @@
         <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case> 
+        
+         <navigation-case>
+            <from-outcome>forgotPassword</from-outcome>
+            <to-view-id>/forgotPassword.xhtml</to-view-id>
         </navigation-case>  
         
         <navigation-case>
@@ -43,6 +48,11 @@
             <from-outcome>data_view</from-outcome>
             <to-view-id>/data/data_view.xhtml</to-view-id>
         </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>emailSetupEdit</from-outcome>
+            <to-view-id>/admin/emailSetupEdit.xhtml</to-view-id>
+        </navigation-case> 
         
         <navigation-case>
             <from-outcome>indicator_view</from-outcome>
