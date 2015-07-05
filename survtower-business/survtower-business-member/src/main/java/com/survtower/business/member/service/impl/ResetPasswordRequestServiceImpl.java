@@ -8,7 +8,6 @@ import com.survtower.business.member.repository.ResetPasswordRequestRepository;
 import com.survtower.business.member.service.ResetPasswordRequestService;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import javax.annotation.Resource;
 import javax.mail.Message;
@@ -16,7 +15,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +47,7 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
         resetPasswordRequest.setTimeRequested(new Date());
         resetPasswordRequest.setTimeOfExpiry(calendar.getTime());
 
-        this.resetPasswordRequestRepository.save(resetPasswordRequest);
+        this.resetPasswordRequestRepository.save(resetPasswordRequest);        
         sendEmail(resetPasswordRequest);
 
         return resetPasswordRequest;
@@ -78,13 +76,23 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
         sb.append("Changing your password is simple. Please use the link below");
         sb.append(" within 24 hours.  ");
         //String webUrl=environment.getRequiredProperty("transunion.client.website.url");
-        String webUrl = "http://changeme.com";
+        String webUrl = "http://localhost:8080/";
         sb.append(webUrl);
-        sb.append("/reset-password/");
+        sb.append("survtower-client-member/faces/resetPassword.xhtml?reset=");
         sb.append(resetPasswordRequest.getFirstTag());
-        sb.append("?tok=");
+        sb.append("&tok=");
         sb.append(resetPasswordRequest.getSecondTag());
         return sb.toString();
+    }
+
+    @Override
+    public ResetPasswordRequest findByFirstTag(String firstTag) {
+        return resetPasswordRequestRepository.findByFirstTag(firstTag);
+    }
+
+    @Override
+    public ResetPasswordRequest findBySecondTag(String secondTag) {
+        return resetPasswordRequestRepository.findBySecondTag(secondTag);
     }
 
 }

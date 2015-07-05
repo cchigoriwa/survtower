@@ -40,10 +40,12 @@ public interface MemberUserService extends GenericService<MemberUser> {
      * @return a list of programs of the current logged in user
      */
     List<Program> getCurrentUserPrograms();
-    
-     /**
+
+    /**
      * @return a list of regions of the current logged in user
      */
     List<Region> getCurrentUserRegions();
+
+    public MemberUser findByEmail(String email);
 
 }

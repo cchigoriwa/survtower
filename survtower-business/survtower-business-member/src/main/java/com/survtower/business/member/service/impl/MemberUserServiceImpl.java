@@ -2,6 +2,7 @@ package com.survtower.business.member.service.impl;
 
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.EmailConfiguration;
+import com.survtower.business.common.service.PasswordGeneratorService;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
@@ -42,18 +43,25 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private EmailConfiguration emailConfiguration;
-   
+    
+    @Autowired
+    private  PasswordGeneratorService passwordGeneratorService;
 
     @Transactional
     @Override
     public MemberUser save(MemberUser memberUser) {
         if (memberUser.getId() == null) {
-            String rawPassword = RandomStringUtils.randomAlphanumeric(10);
+            String rawPassword = passwordGeneratorService.generatePassword();
             memberUser = createNewUser(memberUser, rawPassword);
-            sendEmail(memberUser, rawPassword);
+            try {
+                sendEmail(memberUser, rawPassword);
+            } catch (Exception ex) {
+                //log exception
+                //ignore and proceed ; dont rollback
+            }
         } else {
             memberUser = memberUserDao.save(memberUser);
         }
@@ -232,5 +240,10 @@ public class MemberUserServiceImpl implements MemberUserService {
         sb.append(password);
         sb.append(" You are encouraged to change this password upon first login.");
         return sb.toString();
+    }
+
+    @Override
+    public MemberUser findByEmail(String email) {
+        return memberUserDao.findByEmail(email);
     }
 }

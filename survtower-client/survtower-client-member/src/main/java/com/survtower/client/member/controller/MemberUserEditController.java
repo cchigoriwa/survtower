@@ -15,7 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 /**
@@ -35,21 +34,13 @@ public class MemberUserEditController {
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
 
-    private String confirmPassword;
+    
 
     private MemberUser memberUser;
 
     private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
     private List<Region> regions = new ArrayList<>();
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 
     public List<String> getRoles() {
         return roles;
@@ -82,9 +73,9 @@ public class MemberUserEditController {
         list.add(MemberUser.ROLE_COUNTRY_DISEASE_MANAGER);
         return list;
     }
-    
+
     public List<AppUserRole> getAppUserRoles() {
-       return MemberUser.getAppUserRoles();
+        return MemberUser.getAppUserRoles();
     }
 
     public MemberUser getMemberUser() {
@@ -92,19 +83,7 @@ public class MemberUserEditController {
     }
 
     public String save() {
-        if (StringUtils.isEmpty(memberUser.getPassword())) {
-            MessageInfor.errorMessages("Enter Password to Continue");
-            return null;
-        }
-        if (StringUtils.isEmpty(getConfirmPassword())) {
-            MessageInfor.errorMessages("Confirm Password to Continue");
-            return null;
-        }
-
-        if (!confirmPassword.equals(memberUser.getPassword())) {
-            MessageInfor.errorMessages("Password do not match");
-            return null;
-        }
+      
 
         if (getPrograms().isEmpty()) {
             MessageInfor.errorMessages("Select User Programs");
@@ -130,7 +109,7 @@ public class MemberUserEditController {
             memberUserRole.setDeactivated(Boolean.TRUE);
             memberUserRoles.add(memberUserRole);
         }
-        memberUser.setPassword(passwordEncoder.encodePassword(memberUser.getPassword(), memberUser.getUuid()));
+
         memberUser.setMemberUserRoles(memberUserRoles);
         memberUserService.save(memberUser);
         return "memberUserList?faces-redirect=true&src=edit";

@@ -30,6 +30,16 @@
         </navigation-case> 
         
         <navigation-case>
+            <from-outcome>resetPassword</from-outcome>
+            <to-view-id>/resetPassword.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>resetPasswordResult</from-outcome>
+            <to-view-id>/resetPasswordResult.xhtml</to-view-id>
+        </navigation-case> 
+        
+        <navigation-case>
             <from-outcome>emailSetupEdit</from-outcome>
             <to-view-id>/admin/emailSetupEdit.xhtml</to-view-id>
         </navigation-case>

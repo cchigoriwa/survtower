@@ -47,4 +47,9 @@ public class MemberUserDaoImpl implements MemberUserDao {
         return memberUserRepository.updatePassword(password, username);
     }
 
+    @Override
+    public MemberUser findByEmail(String email) {
+        return memberUserRepository.findByEmail(email);
+    }
+
 }

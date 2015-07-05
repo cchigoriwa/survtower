@@ -13,4 +13,6 @@ public interface MemberUserDao extends GenericDao<MemberUser> {
 
     public int updatePassword(String password, String username);
 
+    public MemberUser findByEmail(String email);
+
 }

@@ -10,5 +10,9 @@ import java.io.Serializable;
 public interface ResetPasswordRequestService extends Serializable {
 
     public ResetPasswordRequest createNewPasswordRequest(String emailAddress);
+    
+    public ResetPasswordRequest findByFirstTag(String firstTag);
+    
+    public ResetPasswordRequest findBySecondTag(String secondTag);
    
 }

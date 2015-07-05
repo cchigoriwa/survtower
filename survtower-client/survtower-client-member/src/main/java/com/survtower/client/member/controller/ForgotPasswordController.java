@@ -53,7 +53,7 @@ public class ForgotPasswordController {
     }
     
     private boolean getMemberUser(ForgotPassword forgotPassword) {
-        MemberUser subscriber = memberUserService.findByUserName(forgotPassword.getUsername());;
+        MemberUser subscriber = memberUserService.findByEmail(forgotPassword.getEmail());
         if (subscriber == null) {
             return false;
         }
@@ -72,8 +72,8 @@ public class ForgotPasswordController {
     
     @PostConstruct
     public void postConstruct() {
-        forgotPassword.setEmail(email);
         forgotPassword = forgotPassword == null ? new ForgotPassword() : forgotPassword;
+        forgotPassword.setEmail(email);
     }
     
     public String getEmail() {

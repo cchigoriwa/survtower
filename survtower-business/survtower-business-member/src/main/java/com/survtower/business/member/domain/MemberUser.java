@@ -91,6 +91,8 @@ public class MemberUser extends BaseEntity {
         this.password = password;
     }
 
+    
+
     public Set<Program> getPrograms() {
         return programs;
     }
