@@ -16,39 +16,42 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class ForgotPasswordController {
-
+    
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
-
+    
     @ManagedProperty(value = "#{resetPasswordRequestService}")
     private ResetPasswordRequestService resetPasswordRequestService;
-
+    
+    @ManagedProperty(value = "#{param.email}")
+    private String email;
+    
     private ForgotPassword forgotPassword;
-
+    
     public MemberUserService getMemberUserService() {
         return memberUserService;
     }
-
+    
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
     }
-
+    
     public ResetPasswordRequestService getResetPasswordRequestService() {
         return resetPasswordRequestService;
     }
-
+    
     public void setResetPasswordRequestService(ResetPasswordRequestService resetPasswordRequestService) {
         this.resetPasswordRequestService = resetPasswordRequestService;
     }
-
+    
     public ForgotPassword getForgotPassword() {
         return forgotPassword;
     }
-
+    
     public void setForgotPassword(ForgotPassword forgotPassword) {
         this.forgotPassword = forgotPassword;
     }
-
+    
     private boolean getMemberUser(ForgotPassword forgotPassword) {
         MemberUser subscriber = memberUserService.findByUserName(forgotPassword.getUsername());;
         if (subscriber == null) {
@@ -56,7 +59,7 @@ public class ForgotPasswordController {
         }
         return true;
     }
-
+    
     public String submit() {
         if (getMemberUser(forgotPassword)) {
             resetPasswordRequestService.createNewPasswordRequest(forgotPassword.getEmail());
@@ -64,13 +67,21 @@ public class ForgotPasswordController {
         } else {
             return "login";
         }
-
+        
     }
     
     @PostConstruct
-    public void postConstruct(){
-        
-        forgotPassword=forgotPassword==null?new ForgotPassword():forgotPassword;
+    public void postConstruct() {
+        forgotPassword.setEmail(email);
+        forgotPassword = forgotPassword == null ? new ForgotPassword() : forgotPassword;
     }
-
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
 }
