@@ -5,6 +5,7 @@ import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.ResetPasswordRequest;
 import com.survtower.business.member.repository.MemberUserRepository;
 import com.survtower.business.member.repository.ResetPasswordRequestRepository;
+import com.survtower.business.member.service.EmailHelper;
 import com.survtower.business.member.service.ResetPasswordRequestService;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +32,8 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
     private ResetPasswordRequestRepository resetPasswordRequestRepository;
     @Autowired
     private EmailConfiguration emailConfiguration;
-
+    @Autowired(required = false)
+    private EmailHelper emailHelper;
     @Resource
     protected Environment environment;
 
@@ -72,17 +74,7 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
     }
 
     private String createTextMessage(ResetPasswordRequest resetPasswordRequest) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Changing your password is simple. Please use the link below");
-        sb.append(" within 24 hours.  ");
-        //String webUrl=environment.getRequiredProperty("transunion.client.website.url");
-        String webUrl = "http://localhost:8080/";
-        sb.append(webUrl);
-        sb.append("survtower-client-member/faces/resetPassword.xhtml?reset=");
-        sb.append(resetPasswordRequest.getFirstTag());
-        sb.append("&tok=");
-        sb.append(resetPasswordRequest.getSecondTag());
-        return sb.toString();
+     return emailHelper.createTextMessage(resetPasswordRequest);
     }
 
     @Override
@@ -94,5 +86,6 @@ public class ResetPasswordRequestServiceImpl implements ResetPasswordRequestServ
     public ResetPasswordRequest findBySecondTag(String secondTag) {
         return resetPasswordRequestRepository.findBySecondTag(secondTag);
     }
+    
 
 }

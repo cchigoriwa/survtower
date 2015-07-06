@@ -7,6 +7,7 @@ import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.MemberUserRole;
 import com.survtower.business.member.domain.Region;
+import com.survtower.business.member.service.EmailHelper;
 import com.survtower.business.member.service.MemberUserService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +50,9 @@ public class MemberUserServiceImpl implements MemberUserService {
     
     @Autowired
     private  PasswordGeneratorService passwordGeneratorService;
+    
+    @Autowired(required = false)
+    private EmailHelper emailHelper;
 
     @Transactional
     @Override
@@ -232,14 +236,7 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     private String createTextMessage(String username, String password) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Your Member state account was successfully created");
-        sb.append("Your login details: Username: ");
-        sb.append(username);
-        sb.append(" Password: ");
-        sb.append(password);
-        sb.append(" You are encouraged to change this password upon first login.");
-        return sb.toString();
+       return emailHelper.createTextMessage(username, password);
     }
 
     @Override
