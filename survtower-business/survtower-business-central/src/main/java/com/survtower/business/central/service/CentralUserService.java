@@ -33,5 +33,7 @@ public interface CentralUserService extends GenericService<CentralUser> {
      * @return a list of role of the current logged in
      */
     List<String> getCurrentUserRoles();
+    
+    public CentralUser findByEmail(String email);
 
 }

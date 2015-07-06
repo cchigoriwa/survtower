@@ -199,7 +199,7 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Transactional
     public void resetPassword(MemberUser memberUser) {
         String rawPassword = RandomStringUtils.randomAlphanumeric(10);
-        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getEmail());
+        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getUuid());
         memberUserDao.updatePassword(encriptedPassword, memberUser.getUsername());
         sendEmail(memberUser, rawPassword);
     }

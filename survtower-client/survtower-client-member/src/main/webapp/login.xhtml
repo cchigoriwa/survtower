@@ -35,12 +35,11 @@
                                 </tr>
                                 <tr>
                                     <td style="padding-top: 10px;">
-                                        <h:panelGrid columns="2">
+                                        <h:panelGrid columns="3">
                                             <p:commandButton type="submit" id="login" action="#{loginController.doLogin()}" value="Login" ajax="false"/>
                                             <h:graphicImage width="60" height="30" library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" style="padding-top: 10px; text-align: right;" />
+                                            <h:link value="Forgot Password" outcome="forgotPassword"> </h:link>
                                         </h:panelGrid>
-                                        <h:link value="Forgot Password" outcome="forgotPassword"> 
-                                        </h:link>
                                     </td>                                     
                                 </tr>
                             </tbody>

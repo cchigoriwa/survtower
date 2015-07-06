@@ -27,17 +27,11 @@ public class MemberUserEditController {
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
-
     @ManagedProperty(value = "#{param.uuid}")
     private String uuid;
-
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
-
-    
-
     private MemberUser memberUser;
-
     private List<String> roles = new ArrayList<>();
     private List<Program> programs = new ArrayList<>();
     private List<Region> regions = new ArrayList<>();
@@ -82,8 +76,7 @@ public class MemberUserEditController {
         return memberUser;
     }
 
-    public String save() {
-      
+    public String save() {      
 
         if (getPrograms().isEmpty()) {
             MessageInfor.errorMessages("Select User Programs");

@@ -1,9 +1,9 @@
-package com.survtower.client.member.controller;
+package com.survtower.client.central.controller;
 
+import com.survtower.business.central.domain.CentralUser;
+import com.survtower.business.central.service.CentralUserService;
+import com.survtower.business.central.service.ResetPasswordRequestService;
 import com.survtower.business.common.ForgotPassword;
-import com.survtower.business.member.domain.MemberUser;
-import com.survtower.business.member.service.MemberUserService;
-import com.survtower.business.member.service.ResetPasswordRequestService;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -17,8 +17,8 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class ForgotPasswordController {
     
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
+    @ManagedProperty(value = "#{centralUserService}")
+    private CentralUserService centralUserService;
     
     @ManagedProperty(value = "#{resetPasswordRequestService}")
     private ResetPasswordRequestService resetPasswordRequestService;
@@ -27,13 +27,13 @@ public class ForgotPasswordController {
     private String email;
     
     private ForgotPassword forgotPassword;
-    
-    public MemberUserService getMemberUserService() {
-        return memberUserService;
+
+    public CentralUserService getCentralUserService() {
+        return centralUserService;
     }
-    
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
+
+    public void setCentralUserService(CentralUserService centralUserService) {
+        this.centralUserService = centralUserService;
     }
     
     public ResetPasswordRequestService getResetPasswordRequestService() {
@@ -52,16 +52,16 @@ public class ForgotPasswordController {
         this.forgotPassword = forgotPassword;
     }
     
-    private boolean getMemberUser(ForgotPassword forgotPassword) {
-        MemberUser memberUser = memberUserService.findByEmail(forgotPassword.getEmail());
-        if (memberUser == null) {
+    private boolean getCentralUser(ForgotPassword forgotPassword) {
+        CentralUser centralUser = centralUserService.findByEmail(forgotPassword.getEmail());
+        if (centralUser == null) {
             return false;
         }
         return true;
     }
     
     public String submit() {
-        if (getMemberUser(forgotPassword)) {
+        if (getCentralUser(forgotPassword)) {
             resetPasswordRequestService.createNewPasswordRequest(forgotPassword.getEmail());
             return "login";
         } else {

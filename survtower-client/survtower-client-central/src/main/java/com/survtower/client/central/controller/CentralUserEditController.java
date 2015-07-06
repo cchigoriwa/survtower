@@ -56,10 +56,7 @@ public class CentralUserEditController {
     }
 
     public String save() {
-        if (StringUtils.isEmpty(centralUser.getPassword())) {
-            MessageInfor.errorMessages("Enter Password to Continue");
-            return null;
-        }
+        
         Set<CentralUserRole> centralUserRoles = new HashSet<>();
         for (String role : getRoles()) {
             CentralUserRole centralUserRole = new CentralUserRole();
@@ -67,7 +64,6 @@ public class CentralUserEditController {
             centralUserRole.setDeactivated(Boolean.TRUE);
             centralUserRoles.add(centralUserRole);
         }
-        centralUser.setPassword(passwordEncoder.encodePassword(centralUser.getPassword(), centralUser.getUuid()));
         centralUser.setCentralUserRoles(centralUserRoles);
         centralUserService.save(centralUser);
         return "centralUserList?faces-redirect=true&src=edit";

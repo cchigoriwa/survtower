@@ -20,8 +20,14 @@
                     <td><h:inputText value="#{centralUserEditController.centralUser.username}" /></td>
                 </tr>
                 <tr>
-                    <th>Password</th>
-                    <td><p:password value="#{centralUserEditController.centralUser.password}" /></td>
+                    <th>Email</th>
+                    <td><h:inputText value="#{centralUserEditController.centralUser.email}"
+                                     required="true" label="email" size="60"
+                                     requiredMessage="Please enter your email address."
+                                     validatorMessage="Invalid email format">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                        </h:inputText>
+                    </td>
                 </tr>
                 <tr>
                     <h:outputLabel value="Select Roles"/>

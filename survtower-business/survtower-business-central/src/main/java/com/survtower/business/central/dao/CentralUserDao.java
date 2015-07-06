@@ -12,5 +12,7 @@ public interface CentralUserDao extends GenericDao<CentralUser> {
     public CentralUser findByUserName(String username);
 
     public int updatePassword(String password, String username);
+    
+    public CentralUser findByEmail(String email);
 
 }

@@ -47,4 +47,9 @@ public class CentralUserDaoImpl implements CentralUserDao {
         return centralUserRepository.updatePassword(password, username);
     }
 
+    @Override
+    public CentralUser findByEmail(String email) {
+        return centralUserRepository.findByEmail(email);
+    }
+
 }

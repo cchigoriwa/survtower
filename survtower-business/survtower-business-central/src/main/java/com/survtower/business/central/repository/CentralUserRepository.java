@@ -20,5 +20,7 @@ public interface CentralUserRepository extends GenericRepository<CentralUser, Lo
     @Transactional
     @Query("update CentralUser i set i.password = ?1 where i.username = ?2")
     public int updatePassword(String password, String username);
+    
+    public CentralUser findByEmail(String email);
 
 }

@@ -36,6 +36,7 @@ public class CentralUser extends BaseEntity {
     public static final String ROLE_SADC_DATA_MANAGER = "ROLE_SADC_DATA_MANAGER";
     private String username;
     private String password;
+    private String email;
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
     @JoinTable(name = "CentralUser_Role", joinColumns = {
@@ -60,6 +61,14 @@ public class CentralUser extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

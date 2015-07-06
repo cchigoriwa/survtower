@@ -35,9 +35,14 @@
         </navigation-case> 
         
          <navigation-case>
+            <from-outcome>resetPassword</from-outcome>
+            <to-view-id>/resetPassword.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
             <from-outcome>forgotPassword</from-outcome>
             <to-view-id>/forgotPassword.xhtml</to-view-id>
-        </navigation-case>  
+        </navigation-case> 
         
         <navigation-case>
             <from-outcome>data_select</from-outcome>

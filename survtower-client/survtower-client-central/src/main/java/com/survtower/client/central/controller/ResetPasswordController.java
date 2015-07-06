@@ -1,10 +1,10 @@
-package com.survtower.client.member.controller;
+package com.survtower.client.central.controller;
 
-import com.survtower.business.member.domain.MemberUser;
-import com.survtower.business.member.domain.ResetPasswordRequest;
-import com.survtower.business.member.service.MemberUserService;
-import com.survtower.business.member.service.ResetPasswordRequestService;
-import com.survtower.client.member.utility.MessageInfor;
+import com.survtower.business.central.domain.CentralUser;
+import com.survtower.business.central.domain.ResetPasswordRequest;
+import com.survtower.business.central.service.CentralUserService;
+import com.survtower.business.central.service.ResetPasswordRequestService;
+import com.survtower.client.central.utility.MessageInfor;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,8 +20,8 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 @RequestScoped
 public class ResetPasswordController {
 
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
+    @ManagedProperty(value = "#{centralUserService}")
+    private CentralUserService centralUserService;
 
     @ManagedProperty(value = "#{resetPasswordRequestService}")
     private ResetPasswordRequestService resetPasswordRequestService;
@@ -29,7 +29,7 @@ public class ResetPasswordController {
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
 
-    private MemberUser memberUser;
+    private CentralUser centralUser;
 
     private ResetPasswordRequest resetPasswordRequest;
 
@@ -39,8 +39,8 @@ public class ResetPasswordController {
     @ManagedProperty(value = "#{param.tok}")
     private String tok;
 
-    public MemberUser getMemberUser() {
-        return memberUser;
+    public CentralUser getCentralUser() {
+        return centralUser;
     }
 
     private String confirmPassword;
@@ -71,26 +71,26 @@ public class ResetPasswordController {
 
     public String save() {
 
-        if (StringUtils.isEmpty(memberUser.getPassword())) {
+        if (StringUtils.isEmpty(centralUser.getPassword())) {
             MessageInfor.errorMessages("Enter password to Continue");
             return null;
         }
 
-        if (!confirmPassword.equals(memberUser.getPassword())) {
+        if (!confirmPassword.equals(centralUser.getPassword())) {
             MessageInfor.errorMessages("Password do not match");
             return null;
         }
-        memberUserService.updatePassword(memberUser.getPassword(), memberUser.getUsername());
+        centralUserService.updatePassword(centralUser.getPassword(), centralUser.getUsername());
         MessageInfor.inforMessages("Password Changed Successfully");
         return "resetPasswordResult?faces-redirect=true";
     }
 
-    public MemberUserService getMemberUserService() {
-        return memberUserService;
+    public CentralUserService getCentralUserService() {
+        return centralUserService;
     }
 
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
+    public void setCentralUserService(CentralUserService centralUserService) {
+        this.centralUserService = centralUserService;
     }
 
     public PasswordEncoder getPasswordEncoder() {
@@ -117,11 +117,12 @@ public class ResetPasswordController {
         this.tok = tok;
     }
 
+
     @PostConstruct
     public void postConstruct() {
         resetPasswordRequest = resetPasswordRequestService.findByFirstTag(reset);
-        memberUser = resetPasswordRequest.getMemberUser();
-        memberUser.setPassword("");
+        centralUser = resetPasswordRequest.getCentralUser();
+        centralUser.setPassword("");
         confirmPassword = "";
     }
 
