@@ -1,5 +1,6 @@
 package com.survtower.business.member.service.impl;
 
+import com.survtower.business.common.EmailExistException;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.EmailConfiguration;
 import com.survtower.business.common.service.PasswordGeneratorService;
@@ -47,16 +48,21 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Autowired
     private EmailConfiguration emailConfiguration;
-    
+
     @Autowired
-    private  PasswordGeneratorService passwordGeneratorService;
-    
+    private PasswordGeneratorService passwordGeneratorService;
+
     @Autowired(required = false)
     private EmailHelper emailHelper;
 
     @Transactional
     @Override
-    public MemberUser save(MemberUser memberUser) {
+    public synchronized MemberUser save(MemberUser memberUser) {
+
+        if (emailExists(memberUser)) {
+            throw new EmailExistException();
+        }
+
         if (memberUser.getId() == null) {
             String rawPassword = passwordGeneratorService.generatePassword();
             memberUser = createNewUser(memberUser, rawPassword);
@@ -177,7 +183,7 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     public List<String> getMemberRoles() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
         return list;
     }
@@ -227,6 +233,7 @@ public class MemberUserServiceImpl implements MemberUserService {
                 mimeMessage.setText(createTextMessage(memberUser.getEmail(), rawPassword));
             }
         };
+
         try {
             this.emailConfiguration.getJavaMailSender().send(preparator);
         } catch (MailException ex) {
@@ -236,7 +243,16 @@ public class MemberUserServiceImpl implements MemberUserService {
     }
 
     private String createTextMessage(String username, String password) {
-       return emailHelper.createTextMessage(username, password);
+        return emailHelper.createTextMessage(username, password);
+    }
+
+    private synchronized boolean emailExists(MemberUser memberUser) {
+        MemberUser existingMemberUser = findByEmail(memberUser.getEmail());
+        if (existingMemberUser == null) {
+            return false;
+        } else {
+            return !existingMemberUser.equals(memberUser);
+        }
     }
 
     @Override

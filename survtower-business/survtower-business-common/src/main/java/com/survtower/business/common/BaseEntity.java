@@ -1,4 +1,3 @@
-
 package com.survtower.business.common;
 
 import java.io.Serializable;
@@ -24,21 +23,20 @@ public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)  
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
-    
-    @Column(nullable = false, updatable = false)
+
+    @Column(nullable = false, updatable = false, unique = true)
     protected String uuid = UUID.randomUUID().toString();
-    
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-    private Date createDate=new Date();
-    
+    private Date createDate = new Date();
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date updateDate=new Date();
-    
-    
+    private Date updateDate = new Date();
+
     @XmlTransient
     public Long getId() {
         return id;
@@ -71,12 +69,12 @@ public abstract class BaseEntity implements Serializable {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
-    
-    public boolean isNew(){
-        return uuid==null;
+
+    public boolean isNew() {
+        return uuid == null;
     }
-    
-    public boolean identityEquals(BaseEntity entity){
+
+    public boolean identityEquals(BaseEntity entity) {
         return Objects.equals(entity.id, this.id) && (entity.uuid == null ? this.uuid == null : entity.uuid.equals(this.uuid));
     }
 
@@ -101,6 +99,5 @@ public abstract class BaseEntity implements Serializable {
         }
         return true;
     }
-    
-    
+
 }
