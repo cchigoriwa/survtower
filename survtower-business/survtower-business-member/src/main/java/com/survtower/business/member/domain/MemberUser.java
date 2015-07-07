@@ -167,7 +167,7 @@ public class MemberUser extends BaseEntity {
             {
               add(new AppUserRole(ROLE_COUNTRY_ADMINISTRATOR, "Member State Administrator"));
               add(new AppUserRole(ROLE_HEALTH_INFORMATION_OFFICER, "Health Information Officer"));
-              add(new AppUserRole(ROLE_COUNTRY_DISEASE_MANAGER, "Health Information Officer"));
+              add(new AppUserRole(ROLE_COUNTRY_DISEASE_MANAGER, "Country Disease Manager"));
               
             }
         };
