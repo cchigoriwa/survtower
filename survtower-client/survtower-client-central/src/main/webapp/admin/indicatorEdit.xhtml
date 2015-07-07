@@ -5,60 +5,62 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Edit Indicator
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <td><h:inputText value="#{indicatorEditController.indicator.name}" required="true" requiredMessage="Enter Name" /></td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td><h:inputText value="#{indicatorEditController.indicator.description}" /></td>
-                </tr>
-                <tr>
-                    <th>Indicator Group</th>
-                    <td>
-                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorGroup}" converter="#{indicatorGroupConverter}" required="true" requiredMessage="Select Indicator Group">
-                            <f:selectItems value="#{indicatorEditController.indicatorGroups}" var="item" itemLabel="#{item.name}"  />
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Indicator Type</th>
-                    <td>
-                        <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorType}" converter="#{indicatorTypeConverter}" required="true" requiredMessage="Select Indicator Type">
-                            <f:selectItems value="#{indicatorEditController.indicatorTypes}" var="item" itemLabel="#{item.name}"  />
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Numerator</th>
-                    <td>
-                        <p:autoComplete widgetVar="numerator" id="numerator" size="50" value="#{indicatorEditController.indicator.numerator}" completeMethod="#{autoCompleteController.dataElementAutoComplete}"  
-                                        var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
-                                        maxlength="3"/>                                                
-                    </td>
-                </tr>
-                <tr>
-                    <th>Denominator</th>
-                    <td>
-                        <p:autoComplete widgetVar="denominator" id="denominator" size="50" value="#{indicatorEditController.indicator.denominator}" completeMethod="#{autoCompleteController.dataElementAutoComplete}"  
-                                        var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
-                                        maxlength="3"/>                                                
-                    </td>
-                </tr>
-            </table>
-            <h:commandButton value="Save" action="#{indicatorEditController.save()}">
-                <f:param name="uuid" value="#{indicatorEditController.indicator.uuid}" />
-            </h:commandButton>
-        </h:form>
+        <p:panel header="Indicator">
+            <h:form>
+                <table>
+                    <tr>
+                        <th align="left">Name</th>
+                        <td><h:inputText value="#{indicatorEditController.indicator.name}" required="true" requiredMessage="Enter Name" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Description</th>
+                        <td><h:inputText value="#{indicatorEditController.indicator.description}" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Indicator Group</th>
+                        <td>
+                            <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorGroup}" converter="#{indicatorGroupConverter}" required="true" requiredMessage="Select Indicator Group">
+                                <f:selectItems value="#{indicatorEditController.indicatorGroups}" var="item" itemLabel="#{item.name}"  />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left">Indicator Type</th>
+                        <td>
+                            <h:selectOneMenu value="#{indicatorEditController.indicator.indicatorType}" converter="#{indicatorTypeConverter}" required="true" requiredMessage="Select Indicator Type">
+                                <f:selectItems value="#{indicatorEditController.indicatorTypes}" var="item" itemLabel="#{item.name}"  />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left">Numerator</th>
+                        <td>
+                            <p:autoComplete widgetVar="numerator" id="numerator" size="50" value="#{indicatorEditController.indicator.numerator}" completeMethod="#{autoCompleteController.dataElementAutoComplete}"  
+                                            var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
+                                            maxlength="3"/>                                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left">Denominator</th>
+                        <td>
+                            <p:autoComplete widgetVar="denominator" id="denominator" size="50" value="#{indicatorEditController.indicator.denominator}" completeMethod="#{autoCompleteController.dataElementAutoComplete}"  
+                                            var="item" itemLabel="#{item.name}" converter="#{dataElementConverter}" itemValue="#{item}"
+                                            maxlength="3"/>                                                
+                        </td>
+                    </tr>
+                </table>
+                <h:commandButton value="Save" action="#{indicatorEditController.save()}">
+                    <f:param name="uuid" value="#{indicatorEditController.indicator.uuid}" />
+                </h:commandButton>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

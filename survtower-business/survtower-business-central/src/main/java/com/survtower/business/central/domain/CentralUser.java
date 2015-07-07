@@ -2,19 +2,17 @@ package com.survtower.business.central.domain;
 
 import com.survtower.business.common.AppUserDetails;
 import com.survtower.business.common.BaseEntity;
-import com.survtower.business.common.domain.Program;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,8 +24,6 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
 public class CentralUser extends BaseEntity {
 
     @Transient
@@ -36,6 +32,7 @@ public class CentralUser extends BaseEntity {
     public static final String ROLE_SADC_DATA_MANAGER = "ROLE_SADC_DATA_MANAGER";
     private String username;
     private String password;
+    @Column(unique = true)
     private String email;
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;

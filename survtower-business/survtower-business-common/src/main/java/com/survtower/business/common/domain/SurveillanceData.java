@@ -5,9 +5,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.text.NumberFormat;
 import java.util.Objects;
@@ -19,8 +17,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
 public class SurveillanceData extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

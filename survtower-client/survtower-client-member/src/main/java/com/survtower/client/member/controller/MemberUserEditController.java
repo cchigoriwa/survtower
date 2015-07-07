@@ -1,5 +1,6 @@
 package com.survtower.client.member.controller;
 
+import com.survtower.business.common.EmailExistException;
 import com.survtower.business.common.domain.AppUserRole;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.domain.MemberUser;
@@ -76,36 +77,40 @@ public class MemberUserEditController {
         return memberUser;
     }
 
-    public String save() {      
+    public String save() {
+        try {
+            if (getPrograms().isEmpty()) {
+                MessageInfor.errorMessages("Select User Programs");
+                return null;
+            }
 
-        if (getPrograms().isEmpty()) {
-            MessageInfor.errorMessages("Select User Programs");
-            return null;
+            if (getRoles().isEmpty()) {
+                MessageInfor.errorMessages("Select User Roles");
+                return null;
+            }
+
+            if (getRegions().isEmpty()) {
+                MessageInfor.errorMessages("Select User Regions");
+                return null;
+            }
+
+            memberUser.setPrograms(new HashSet<>(programs));
+            memberUser.setRegions(new HashSet<>(regions));
+            Set<MemberUserRole> memberUserRoles = new HashSet<>();
+            for (String role : getRoles()) {
+                MemberUserRole memberUserRole = new MemberUserRole();
+                memberUserRole.setMemberRole(role);
+                memberUserRole.setDeactivated(Boolean.TRUE);
+                memberUserRoles.add(memberUserRole);
+            }
+
+            memberUser.setMemberUserRoles(memberUserRoles);
+            memberUserService.save(memberUser);
+            return "memberUserList?faces-redirect=true&src=edit";
+        } catch (EmailExistException ex) {
+            MessageInfor.errorMessages("Email is already registered with another user");
         }
-
-        if (getRoles().isEmpty()) {
-            MessageInfor.errorMessages("Select User Roles");
-            return null;
-        }
-
-        if (getRegions().isEmpty()) {
-            MessageInfor.errorMessages("Select User Regions");
-            return null;
-        }
-
-        memberUser.setPrograms(new HashSet<>(programs));
-        memberUser.setRegions(new HashSet<>(regions));
-        Set<MemberUserRole> memberUserRoles = new HashSet<>();
-        for (String role : getRoles()) {
-            MemberUserRole memberUserRole = new MemberUserRole();
-            memberUserRole.setMemberRole(role);
-            memberUserRole.setDeactivated(Boolean.TRUE);
-            memberUserRoles.add(memberUserRole);
-        }
-
-        memberUser.setMemberUserRoles(memberUserRoles);
-        memberUserService.save(memberUser);
-        return "memberUserList?faces-redirect=true&src=edit";
+        return null;
     }
 
     public MemberUserService getMemberUserService() {

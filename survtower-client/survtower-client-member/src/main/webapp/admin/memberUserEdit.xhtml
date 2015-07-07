@@ -12,60 +12,62 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:growl id="msgs" showDetail="true" />
-        <h:form>
-            <table>
-                <tr>
-                    <th>User Name</th>
-                    <td><h:inputText value="#{memberUserEditController.memberUser.username}"
-                                     required="true" label="email" size="60"
-                                     requiredMessage="Enter Username."/></td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td><h:inputText value="#{memberUserEditController.memberUser.email}"
-                                     required="true" label="email" size="60"
-                                     requiredMessage="Please enter your email address."
-                                     validatorMessage="Invalid email format">
-                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                        </h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <th> Select Programs</th>
-                    <td>
-                        <h:selectManyCheckbox value="#{memberUserEditController.programs}" converter="#{programConverter}">
-                            <f:selectItems value="#{programListController.programs}"/>
-                        </h:selectManyCheckbox>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Select Roles</th>
-                    <td>
-                        <h:selectManyCheckbox value="#{memberUserEditController.roles}">
-                            <f:selectItems value="#{memberUserEditController.memberRoles}"/>
-                        </h:selectManyCheckbox>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Select Regions</th>
-                    <td>
-                        <h:selectManyCheckbox value="#{memberUserEditController.regions}" converter="#{regionConverter}">
-                            <f:selectItems value="#{regionListController.regions}"/>
-                        </h:selectManyCheckbox>
-                    </td>
-                </tr>
-                <tr>
-                    <th>De-activated</th>
-                    <td>
-                        <h:selectBooleanCheckbox value="#{memberUserEditController.memberUser.deactivated}"/>
-                    </td>
-                </tr>
-            </table>
-            <h:commandButton value="Save" action="#{memberUserEditController.save()}">
-                <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
-            </h:commandButton>
-        </h:form>
+        <p:panel header="User Details">
+            <p:growl id="msgs" showDetail="true" />
+            <h:form>
+                <table>
+                    <tr>
+                        <th align="left">User Name</th>
+                        <td><h:inputText value="#{memberUserEditController.memberUser.username}"
+                                         required="true" label="email" size="60"
+                                         requiredMessage="Enter Username."/></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Email</th>
+                        <td><h:inputText value="#{memberUserEditController.memberUser.email}"
+                                         required="true" label="email" size="60"
+                                         requiredMessage="Please enter your email address."
+                                         validatorMessage="Invalid email format">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left"> Select Programs</th>
+                        <td>
+                            <h:selectManyCheckbox value="#{memberUserEditController.programs}" converter="#{programConverter}">
+                                <f:selectItems value="#{programListController.programs}"/>
+                            </h:selectManyCheckbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left">Select Roles</th>
+                        <td>
+                            <h:selectManyCheckbox value="#{memberUserEditController.roles}">
+                                <f:selectItems value="#{memberUserEditController.memberRoles}"/>
+                            </h:selectManyCheckbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left">Select Regions</th>
+                        <td>
+                            <h:selectManyCheckbox value="#{memberUserEditController.regions}" converter="#{regionConverter}">
+                                <f:selectItems value="#{regionListController.regions}"/>
+                            </h:selectManyCheckbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th align="left">De-activated</th>
+                        <td>
+                            <h:selectBooleanCheckbox value="#{memberUserEditController.memberUser.deactivated}"/>
+                        </td>
+                    </tr>
+                </table>
+                <h:commandButton value="Save" action="#{memberUserEditController.save()}">
+                    <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
+                </h:commandButton>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

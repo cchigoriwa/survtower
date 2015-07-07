@@ -12,47 +12,49 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <td><h:inputText value="#{periodEditController.period.name}" required="true" requiredMessage="Enter Name" /></td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td><h:inputText value="#{periodEditController.period.description}" /></td>
-                </tr>
-                <tr>
-                    <th>valid From</th>
-                    <td><p:calendar value="#{periodEditController.period.validFrom}" navigator="true" pattern="dd/MM/yyyy"/></td>
-                </tr>
-                <tr>
-                    <th>Valid To</th>
-                    <td><p:calendar value="#{periodEditController.period.validTo}" navigator="true" pattern="dd/MM/yyyy"/></td>
-                </tr>
-                <tr>
-                    <th>Due Date</th>
-                    <td><p:calendar value="#{periodEditController.period.dueDate}" navigator="true" pattern="dd/MM/yyyy"/></td>
-                </tr>       
-                <tr>
-                    <th>Active</th>
-                    <td><h:selectBooleanCheckbox value="#{periodEditController.period.active}"/></td>
-                </tr> 
-                <tr>
-                    <h:outputLabel value="Select Programs"/>
-                    <h:selectManyCheckbox value="#{periodEditController.programs}" converter="#{programConverter}">
-                        <f:selectItems value="#{programListController.programs}"/>
-                    </h:selectManyCheckbox>
-                </tr>
-                <tr>
-                    <th>Deleted</th>
-                    <td><h:selectBooleanCheckbox value="#{periodEditController.period.deleted}"/></td>
-                </tr>  
-            </table>
-            <h:commandButton value="Save" action="#{periodEditController.save()}">
-                <f:param name="uuid" value="#{periodEditController.period.uuid}" />
-            </h:commandButton>
-        </h:form>
+        <p:panel header="Period">
+            <h:form>
+                <table>
+                    <tr>
+                        <th align="left">Name</th>
+                        <td><h:inputText value="#{periodEditController.period.name}" required="true" requiredMessage="Enter Name" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Description</th>
+                        <td><h:inputText value="#{periodEditController.period.description}" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Valid From</th>
+                        <td><p:calendar value="#{periodEditController.period.validFrom}" navigator="true" pattern="dd/MM/yyyy"/></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Valid To</th>
+                        <td><p:calendar value="#{periodEditController.period.validTo}" navigator="true" pattern="dd/MM/yyyy"/></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Due Date</th>
+                        <td><p:calendar value="#{periodEditController.period.dueDate}" navigator="true" pattern="dd/MM/yyyy"/></td>
+                    </tr>       
+                    <tr>
+                        <th align="left">Active</th>
+                        <td><h:selectBooleanCheckbox value="#{periodEditController.period.active}"/></td>
+                    </tr> 
+                    <tr>
+                        <th align="left">Select Programs</th>
+                        <h:selectManyCheckbox value="#{periodEditController.programs}" converter="#{programConverter}">
+                            <f:selectItems value="#{programListController.programs}"/>
+                        </h:selectManyCheckbox>
+                    </tr>
+                    <tr>
+                        <th align="left">Deleted</th>
+                        <td><h:selectBooleanCheckbox value="#{periodEditController.period.deleted}"/></td>
+                    </tr>  
+                </table>
+                <h:commandButton value="Save" action="#{periodEditController.save()}">
+                    <f:param name="uuid" value="#{periodEditController.period.uuid}" />
+                </h:commandButton>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

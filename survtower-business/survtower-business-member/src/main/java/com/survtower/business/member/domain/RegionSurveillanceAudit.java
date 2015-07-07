@@ -6,9 +6,7 @@ import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -18,8 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
 public class RegionSurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

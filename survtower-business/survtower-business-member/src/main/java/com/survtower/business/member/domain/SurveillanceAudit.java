@@ -24,7 +24,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"}),
     @UniqueConstraint(columnNames = {"program_id", "period_id"})})
 public class SurveillanceAudit extends BaseEntity {
 

@@ -5,32 +5,34 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Edit Frequency
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
+        <p:panel header="Frequency">
+            <h:form>
                 <table>
                     <tr>
-                        <th>Name</th>
+                        <th align="left">Name</th>
                         <td><h:inputText value="#{frequencyEditController.frequency.name}" required="true" requiredMessage="Enter Name" /></td>
                     </tr>
                     <tr>
-                        <th>Description</th>
+                        <th align="left">Description</th>
                         <td><h:inputText value="#{frequencyEditController.frequency.description}" /></td>
                     </tr>
                     <tr>
-                        <th>Factor</th>
+                        <th align="left">Factor</th>
                         <td><h:inputText value="#{frequencyEditController.frequency.factor}" /></td>
                     </tr>
                 </table>
                 <h:commandButton value="Save" action="#{frequencyEditController.save()}">
                     <f:param name="uuid" value="#{frequencyEditController.frequency.uuid}" />
                 </h:commandButton>
-        </h:form>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

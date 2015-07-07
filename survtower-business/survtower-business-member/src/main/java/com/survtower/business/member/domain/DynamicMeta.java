@@ -3,26 +3,23 @@ package com.survtower.business.member.domain;
 import com.survtower.business.common.BaseEntity;
 import com.survtower.business.common.domain.Dynamic;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Entity
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"dynamic"}),
-    @UniqueConstraint(columnNames = {"uuid"})})
 public class DynamicMeta extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private Dynamic dynamic;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date lastLocalTimestamp;

@@ -15,20 +15,22 @@
                 padding-right: 50px;
                 padding-left: 50px;
             }
-           </style>
+        </style>
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/template/menu.xhtml" />
-        <h:panelGrid columns="3">
+        <div align="center">
+            <h:panelGrid columns="3">
 
-            <h:graphicImage library="webjars/sadc/1.0.0/img"
-                            name="logo.png" />
+                <h:graphicImage library="webjars/sadc/1.0.0/img"
+                                name="logo.png" />
 
-            <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" />
+                <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" />
 
-            <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
+                <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
 
-        </h:panelGrid>
+            </h:panelGrid>
+        </div>
         <ui:insert name="content">SADC Surveillance System</ui:insert>
     </h:body>
 </html>

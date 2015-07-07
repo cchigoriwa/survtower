@@ -8,42 +8,44 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Edit Data Element
+        Edit Central User
     </ui:define>
 
     <ui:define name="content">
-        <p:growl id="msgs" showDetail="true" />
-        <h:form>
-            <table>
-                <tr>
-                    <th>User Name</th>
-                    <td><h:inputText value="#{centralUserEditController.centralUser.username}" /></td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td><h:inputText value="#{centralUserEditController.centralUser.email}"
-                                     required="true" label="email" size="60"
-                                     requiredMessage="Please enter your email address."
-                                     validatorMessage="Invalid email format">
-                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                        </h:inputText>
-                    </td>
-                </tr>
-                <tr>
-                    <h:outputLabel value="Select Roles"/>
-                    <h:selectManyCheckbox value="#{centralUserEditController.roles}">
-                        <f:selectItems value="#{centralUserEditController.memberRoles}"/>
-                    </h:selectManyCheckbox>
-                </tr>
-                <tr>
-                    <h:outputLabel value="Active"/>
-                    <h:selectBooleanCheckbox value="#{centralUserEditController.centralUser.deactivated}"/>
-                </tr>
-            </table>
-            <h:commandButton value="Save" action="#{centralUserEditController.save()}">
-                <f:param name="uuid" value="#{centralUserEditController.centralUser.uuid}" />
-            </h:commandButton>
-        </h:form>
+        <p:panel header="Central User">
+            <p:growl id="msgs" showDetail="true" />
+            <h:form>
+                <table>
+                    <tr>
+                        <th align="left">User Name</th>
+                        <td><h:inputText value="#{centralUserEditController.centralUser.username}" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Email</th>
+                        <td><h:inputText value="#{centralUserEditController.centralUser.email}"
+                                         required="true" label="email" size="60"
+                                         requiredMessage="Please enter your email address."
+                                         validatorMessage="Invalid email format">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <h:outputLabel value="Select Roles"/>
+                        <h:selectManyCheckbox value="#{centralUserEditController.roles}">
+                            <f:selectItems value="#{centralUserEditController.memberRoles}"/>
+                        </h:selectManyCheckbox>
+                    </tr>
+                    <tr>
+                        <h:outputLabel value="Active"/>
+                        <h:selectBooleanCheckbox value="#{centralUserEditController.centralUser.deactivated}"/>
+                    </tr>
+                </table>
+                <h:commandButton value="Save" action="#{centralUserEditController.save()}">
+                    <f:param name="uuid" value="#{centralUserEditController.centralUser.uuid}" />
+                </h:commandButton>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

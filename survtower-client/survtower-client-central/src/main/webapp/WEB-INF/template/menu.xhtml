@@ -14,7 +14,8 @@
 
             <p:submenu label="Settings" icon="ui-icon-wrench" rendered="#{checkLoggedOn.loggedOn}">
                 <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person" />
-                <p:menuitem value="Email Set up" outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+                <p:menuitem value="Email Set up" icon="ui-icon-mail-reply"  outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+                <p:menuitem value="Change Password" icon="ui-icon-pencil" outcome="changePassword" rendered="#{request.isUserInRole('ROLE_GLOBAL_ADMINISTRATOR') || request.isUserInRole('ROLE_SADC_DATA_MANAGER')}"/>
                 <p:menuitem value="Look up Data" outcome="admin_home" icon="ui-icon-bookmark" />
             </p:submenu>
 

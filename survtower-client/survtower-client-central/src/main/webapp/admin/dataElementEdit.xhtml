@@ -5,36 +5,38 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Edit Data Element
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <td><h:inputText value="#{dataElementEditController.dataElement.name}" required="true" requiredMessage="Enter Name" /></td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td><h:inputText value="#{dataElementEditController.dataElement.description}" /></td>
-                </tr>
-                <tr>
-                    <th>Data Source</th>
-                    <td>
-                        <h:selectOneMenu value="#{dataElementEditController.dataElement.dataSource}" converter="#{dataSourceConverter}" >
-                            <f:selectItems value="#{dataElementEditController.dataSources}" var="item" itemLabel="#{item.name}"  />
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-            </table>
-            <h:commandButton value="Save" action="#{dataElementEditController.save()}">
-                <f:param name="uuid" value="#{dataElementEditController.dataElement.uuid}" />
-            </h:commandButton>
-        </h:form>
+        <p:panel header="Data Element">
+            <h:form>
+                <table>
+                    <tr>
+                        <th align="left">Name</th>
+                        <td><h:inputText value="#{dataElementEditController.dataElement.name}" required="true" requiredMessage="Enter Name" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Description</th>
+                        <td><h:inputText value="#{dataElementEditController.dataElement.description}" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Data Source</th>
+                        <td>
+                            <h:selectOneMenu value="#{dataElementEditController.dataElement.dataSource}" converter="#{dataSourceConverter}" >
+                                <f:selectItems value="#{dataElementEditController.dataSources}" var="item" itemLabel="#{item.name}"  />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                </table>
+                <h:commandButton value="Save" action="#{dataElementEditController.save()}">
+                    <f:param name="uuid" value="#{dataElementEditController.dataElement.uuid}" />
+                </h:commandButton>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

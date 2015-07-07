@@ -5,37 +5,39 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Edit Indicator Group
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <td><h:inputText value="#{indicatorGroupEditController.indicatorGroup.name}" required="true" requiredMessage="Enter Name" /></td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td><h:inputText value="#{indicatorGroupEditController.indicatorGroup.description}" /></td>
-                </tr>
-                <tr>
-                    <th>Program</th>
-                    <td>
-                        <h:selectOneMenu value="#{indicatorGroupEditController.indicatorGroup.program}" converter="#{programConverter}" >
-                            <f:selectItems value="#{indicatorGroupEditController.programs}" var="program" itemLabel="#{program.name}"  />
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                
-            </table>
-            <h:commandButton value="Save" action="#{indicatorGroupEditController.save()}">
-                <f:param name="uuid" value="#{indicatorGroupEditController.indicatorGroup.uuid}" />
-            </h:commandButton>
-        </h:form>
+        <p:panel header="Indicator Group">
+            <h:form>
+                <table>
+                    <tr>
+                        <th align="left">Name</th>
+                        <td><h:inputText value="#{indicatorGroupEditController.indicatorGroup.name}" required="true" requiredMessage="Enter Name" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Description</th>
+                        <td><h:inputText value="#{indicatorGroupEditController.indicatorGroup.description}" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">Program</th>
+                        <td>
+                            <h:selectOneMenu value="#{indicatorGroupEditController.indicatorGroup.program}" converter="#{programConverter}" >
+                                <f:selectItems value="#{indicatorGroupEditController.programs}" var="program" itemLabel="#{program.name}"  />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+
+                </table>
+                <h:commandButton value="Save" action="#{indicatorGroupEditController.save()}">
+                    <f:param name="uuid" value="#{indicatorGroupEditController.indicatorGroup.uuid}" />
+                </h:commandButton>
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

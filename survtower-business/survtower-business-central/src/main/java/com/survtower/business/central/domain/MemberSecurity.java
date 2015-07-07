@@ -19,19 +19,15 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Charles Chigoriwa
  */
 @Entity
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"}),
-    @UniqueConstraint(columnNames = {"emailAddress"}),
-    @UniqueConstraint(columnNames = {"memberID"})})
 public class MemberSecurity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     private String emailAddress;
     private String password;
-    @Column(updatable = false)
+    @Column(updatable = false,unique = true)
     private String memberID;
-    @Column(updatable = false)
+    @Column(updatable = false,unique = true)
     private String memberKey;
     private Boolean deactivated = Boolean.FALSE;
 

@@ -8,9 +8,7 @@ import java.text.NumberFormat;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -20,8 +18,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
 public class RegionSurveillanceData extends BaseEntity {
 
     @ManyToOne

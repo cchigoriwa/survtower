@@ -3,6 +3,7 @@ package com.survtower.client.central.controller;
 import com.survtower.business.central.domain.CentralUser;
 import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
+import com.survtower.business.common.EmailExistException;
 import com.survtower.client.central.utility.MessageInfor;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,7 +57,7 @@ public class CentralUserEditController {
     }
 
     public String save() {
-        
+       try { 
         Set<CentralUserRole> centralUserRoles = new HashSet<>();
         for (String role : getRoles()) {
             CentralUserRole centralUserRole = new CentralUserRole();
@@ -67,6 +68,10 @@ public class CentralUserEditController {
         centralUser.setCentralUserRoles(centralUserRoles);
         centralUserService.save(centralUser);
         return "centralUserList?faces-redirect=true&src=edit";
+        } catch (EmailExistException ex) {
+            MessageInfor.errorMessages("Email is already registered with another user");
+        }
+        return null;
     }
 
     public PasswordEncoder getPasswordEncoder() {

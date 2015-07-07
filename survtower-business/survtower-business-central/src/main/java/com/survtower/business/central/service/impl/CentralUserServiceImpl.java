@@ -4,6 +4,8 @@ import com.survtower.business.central.dao.CentralUserDao;
 import com.survtower.business.central.domain.CentralUser;
 import com.survtower.business.central.domain.CentralUserRole;
 import com.survtower.business.central.service.CentralUserService;
+import com.survtower.business.central.service.EmailHelper;
+import com.survtower.business.common.EmailExistException;
 import com.survtower.business.common.service.EmailConfiguration;
 import com.survtower.business.common.service.PasswordGeneratorService;
 import java.util.ArrayList;
@@ -45,10 +47,17 @@ public class CentralUserServiceImpl implements CentralUserService {
 
     @Autowired
     private PasswordGeneratorService passwordGeneratorService;
+    
+    @Autowired(required = false)
+    private EmailHelper emailHelper;
 
     @Transactional
     @Override
     public CentralUser save(CentralUser centralUser) {
+        
+        if (emailExists(centralUser)) {
+            throw new EmailExistException();
+        }
 
         if (centralUser.getId() == null) {
             String rawPassword = passwordGeneratorService.generatePassword();
@@ -193,14 +202,7 @@ public class CentralUserServiceImpl implements CentralUserService {
     }
     
     private String createTextMessage(String username, String password) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Your Central/SADC Secretariat account was successfully created");
-        sb.append("Your login details: Username: ");
-        sb.append(username);
-        sb.append(" Password: ");
-        sb.append(password);
-        sb.append(" You are encouraged to change this password upon first login.");
-        return sb.toString();
+        return emailHelper.createTextMessage(username, password);
     }
 
     @PostConstruct
@@ -221,6 +223,17 @@ public class CentralUserServiceImpl implements CentralUserService {
         }
 
     }
+    
+    private synchronized boolean emailExists(CentralUser centralUser) {
+        CentralUser existingCentralUser = findByEmail(centralUser.getEmail());
+        if (existingCentralUser == null) {
+            return false;
+        } else {
+            return !existingCentralUser.equals(centralUser);
+        }
+    }
+    
+    
 
     @Override
     public CentralUser findByEmail(String email) {

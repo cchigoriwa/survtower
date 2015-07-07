@@ -11,7 +11,6 @@ import javax.persistence.Table;
  * @author Charles Chigoriwa
  */
 @Entity
-@Table
 public class ResetPasswordRequest extends AbstractResetPasswordRequest{
     
     @ManyToOne(optional = false)

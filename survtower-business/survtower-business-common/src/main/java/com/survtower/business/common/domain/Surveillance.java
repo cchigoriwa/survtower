@@ -1,7 +1,6 @@
 package com.survtower.business.common.domain;
 
 import com.survtower.business.common.BaseEntity;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -21,7 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"}),
     @UniqueConstraint(columnNames = {"program_id", "period_id", "member_id"})})
 public class Surveillance extends BaseEntity {
 

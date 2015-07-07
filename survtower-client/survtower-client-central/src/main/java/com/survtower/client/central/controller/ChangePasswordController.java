@@ -1,9 +1,9 @@
-package com.survtower.client.member.controller;
+package com.survtower.client.central.controller;
 
-import com.survtower.business.common.service.impl.PasswordEncoderImpl;
-import com.survtower.business.member.domain.MemberUser;
-import com.survtower.business.member.service.MemberUserService;
-import com.survtower.client.member.utility.MessageInfor;
+
+import com.survtower.business.central.domain.CentralUser;
+import com.survtower.business.central.service.CentralUserService;
+import com.survtower.client.central.utility.MessageInfor;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -19,16 +19,16 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 @RequestScoped
 public class ChangePasswordController {
 
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
+    @ManagedProperty(value = "#{centralUserService}")
+    private CentralUserService centralUserService;
 
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
 
-    private MemberUser memberUser;
+    private CentralUser centralUser;
 
-    public MemberUser getMemberUser() {
-        return memberUser;
+    public CentralUser getCentralUser() {
+        return centralUser;
     }
 
     private String confirmPassword;
@@ -42,26 +42,26 @@ public class ChangePasswordController {
     }
 
     public String save() {
-        if (StringUtils.isEmpty(memberUser.getPassword())) {
+        if (StringUtils.isEmpty(centralUser.getPassword())) {
             MessageInfor.errorMessages("Enter password to Continue");
             return null;
         }
 
-        if (!confirmPassword.equals(memberUser.getPassword())) {
+        if (!confirmPassword.equals(centralUser.getPassword())) {
             MessageInfor.errorMessages("Password do not match");
             return null;
         }
-        memberUserService.updatePassword(memberUser.getPassword(), memberUser.getUsername());
+        centralUserService.updatePassword(centralUser.getPassword(), centralUser.getUsername());
         MessageInfor.inforMessages("Password Changed Successfully");
         return null;
     }
 
-    public MemberUserService getMemberUserService() {
-        return memberUserService;
+    public CentralUserService getCentralUserService() {
+        return centralUserService;
     }
 
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
+    public void setCentralUserService(CentralUserService centralUserService) {
+        this.centralUserService = centralUserService;
     }
 
     public PasswordEncoder getPasswordEncoder() {
@@ -75,8 +75,8 @@ public class ChangePasswordController {
 
     @PostConstruct
     public void postConstruct() {
-        memberUser = memberUserService.getCurrentUser();
-        memberUser.setPassword("");
+        centralUser = centralUserService.getCurrentUser();
+        centralUser.setPassword("");
         confirmPassword = "";
     }
 
