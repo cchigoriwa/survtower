@@ -29,5 +29,9 @@ public class DataSourceCategoryListController {
     public void setDataSourceCategoryService(DataSourceCategoryService dataSourceCategoryService) {
         this.dataSourceCategoryService = dataSourceCategoryService;
     }
+    
+    public String createNewDataSourceCategory() {
+        return "dataSourceCategoryEdit?faces-redirect=true";
+    }
 
 }

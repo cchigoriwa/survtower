@@ -14,20 +14,24 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class DataElementListController {
-    
+
     @ManagedProperty(value = "#{dataElementService}")
     private DataElementService dataElementService;
-    
-    public List<DataElement> getDataElements(){
+
+    public List<DataElement> getDataElements() {
         return dataElementService.findAll();
     }
 
     public DataElementService getDataElementService() {
         return dataElementService;
     }
-    
+
     public void setDataElementService(DataElementService dataElementService) {
         this.dataElementService = dataElementService;
     }
-    
+
+    public String createNewDataElement() {
+        return "dataElementEdit?faces-redirect=true";
+    }
+
 }

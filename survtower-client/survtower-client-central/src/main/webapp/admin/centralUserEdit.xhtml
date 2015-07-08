@@ -32,9 +32,9 @@
                     </tr>
                     <tr>
                         <h:outputLabel value="Select Roles"/>
-                        <h:selectManyCheckbox value="#{centralUserEditController.roles}">
+                        <p:selectManyCheckbox id="grid" value="#{centralUserEditController.roles}" layout="grid" columns="2" >
                             <f:selectItems value="#{centralUserEditController.memberRoles}"/>
-                        </h:selectManyCheckbox>
+                        </p:selectManyCheckbox>
                     </tr>
                     <tr>
                         <h:outputLabel value="Active"/>

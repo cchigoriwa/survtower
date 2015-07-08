@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 /**
@@ -57,17 +56,17 @@ public class CentralUserEditController {
     }
 
     public String save() {
-       try { 
-        Set<CentralUserRole> centralUserRoles = new HashSet<>();
-        for (String role : getRoles()) {
-            CentralUserRole centralUserRole = new CentralUserRole();
-            centralUserRole.setMemberRole(role);
-            centralUserRole.setDeactivated(Boolean.TRUE);
-            centralUserRoles.add(centralUserRole);
-        }
-        centralUser.setCentralUserRoles(centralUserRoles);
-        centralUserService.save(centralUser);
-        return "centralUserList?faces-redirect=true&src=edit";
+        try {
+            Set<CentralUserRole> centralUserRoles = new HashSet<>();
+            for (String role : getRoles()) {
+                CentralUserRole centralUserRole = new CentralUserRole();
+                centralUserRole.setMemberRole(role);
+                centralUserRole.setDeactivated(Boolean.TRUE);
+                centralUserRoles.add(centralUserRole);
+            }
+            centralUser.setCentralUserRoles(centralUserRoles);
+            centralUserService.save(centralUser);
+            return "centralUserList?faces-redirect=true&src=edit";
         } catch (EmailExistException ex) {
             MessageInfor.errorMessages("Email is already registered with another user");
         }
@@ -97,6 +96,8 @@ public class CentralUserEditController {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    
 
     @PostConstruct
     public void postConstruct() {

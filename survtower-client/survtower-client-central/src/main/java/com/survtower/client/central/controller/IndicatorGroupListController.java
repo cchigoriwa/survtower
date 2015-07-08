@@ -30,4 +30,8 @@ public class IndicatorGroupListController {
         this.indicatorGroupService = indicatorGroupService;
     }
     
+    public String createNewIndicatorGroup() {
+        return "indicatorGroupEdit?faces-redirect=true";
+    }
+    
 }

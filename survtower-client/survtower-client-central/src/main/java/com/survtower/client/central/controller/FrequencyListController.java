@@ -29,5 +29,9 @@ public class FrequencyListController {
     public void setFrequencyService(FrequencyService frequencyService) {
         this.frequencyService = frequencyService;
     }
+    
+    public String createNewFrequency() {
+        return "frequencyEdit?faces-redirect=true";
+    }
 
 }

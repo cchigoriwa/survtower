@@ -5,36 +5,45 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Data Sources
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable value="#{dataSourceListController.dataSources}" var="data">
+        <p:panel header=" Data Sources">
+            <p:dataTable paginator="true" rows="5" value="#{dataSourceListController.dataSources}" var="data">
 
-            <p:column headerText="Name">
-                #{data.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{data.name}
+                </p:column>
 
-            <p:column headerText="Description">
-                #{data.description}
-            </p:column>
+                <p:column headerText="Description">
+                    #{data.description}
+                </p:column>
+                
+                <p:column headerText="Data Source Category">
+                    #{data.dataSourceCategory}
+                </p:column>
+                
+                <p:column headerText="Frequency">
+                    #{data.frequency}
+                </p:column>
 
-            <p:column>
-                <h:form>
-                    <h:link value="Edit" outcome="dataSourceEdit">                        
-                        <f:param name="uuid" value="#{data.uuid}" />
-                    </h:link>
-                </h:form>
-            </p:column>
+                <p:column>
+                    <h:form>
+                        <h:link value="Edit" outcome="dataSourceEdit">                        
+                            <f:param name="uuid" value="#{data.uuid}" />
+                        </h:link>
+                    </h:form>
+                </p:column>
 
-        </p:dataTable>
-        <h:form>
-            <h:link value="New Data Source" outcome="dataSourceEdit" />
-        </h:form>
-
+            </p:dataTable>
+            <hr/>
+            <p:commandButton icon="ui-icon-plus" value="New Data Source" action="#{dataSourceListController.createNewDataSource()}" >
+            </p:commandButton>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

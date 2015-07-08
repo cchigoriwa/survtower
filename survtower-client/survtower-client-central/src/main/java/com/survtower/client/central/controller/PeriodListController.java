@@ -30,4 +30,8 @@ public class PeriodListController {
         this.periodService = periodService;
     }
     
+    public String createNewPeriod() {
+        return "periodEdit?faces-redirect=true";
+    }
+    
 }

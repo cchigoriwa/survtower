@@ -29,5 +29,9 @@ public class DataSourceListController {
     public void setDataSourceService(DataSourceService dataSourceService) {
         this.dataSourceService = dataSourceService;
     }
+    
+    public String createNewDataSource() {
+        return "dataSourceEdit?faces-redirect=true";
+    }
 
 }

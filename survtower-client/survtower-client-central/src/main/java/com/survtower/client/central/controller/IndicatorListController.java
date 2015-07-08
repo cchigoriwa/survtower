@@ -30,4 +30,7 @@ public class IndicatorListController {
         this.indicatorService = indicatorService;
     }
     
+    public String createNewIndicator() {
+        return "indicatorEdit?faces-redirect=true";
+    }
 }

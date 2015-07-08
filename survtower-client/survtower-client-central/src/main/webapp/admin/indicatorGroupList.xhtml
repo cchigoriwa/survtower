@@ -5,41 +5,41 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-        template="../WEB-INF/template/DefaultTemplate.xhtml">
+    template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
         Indicator Groups
     </ui:define>
 
     <ui:define name="content">
-        <p:dataTable value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
+        <p:panel header="Indicator Groups">
+            <p:dataTable paginator="true" rows="5" value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
 
-            <p:column headerText="Name">
-                #{indicatorGroup.name}
-            </p:column>
+                <p:column headerText="Name">
+                    #{indicatorGroup.name}
+                </p:column>
 
-            <p:column headerText="Description">
-                #{indicatorGroup.description}
-            </p:column>
+                <p:column headerText="Description">
+                    #{indicatorGroup.description}
+                </p:column>
 
-            <p:column headerText="Program">
-                #{indicatorGroup.program}
-            </p:column>
-            
-            <p:column>
-                <h:form>
-                    <h:link value="Edit" outcome="indicatorGroupEdit">                        
-                        <f:param name="uuid" value="#{indicatorGroup.uuid}" />
-                    </h:link>
-                </h:form>
-            </p:column>
+                <p:column headerText="Program">
+                    #{indicatorGroup.program}
+                </p:column>
 
-        </p:dataTable>
+                <p:column>
+                    <h:form>
+                        <h:link value="Edit" outcome="indicatorGroupEdit">                        
+                            <f:param name="uuid" value="#{indicatorGroup.uuid}" />
+                        </h:link>
+                    </h:form>
+                </p:column>
 
-        <h:form>
-            <h:link value="New Indicator Group" outcome="indicatorGroupEdit" />
-        </h:form>
-
+            </p:dataTable>
+            <hr/>
+            <p:commandButton icon="ui-icon-plus" value="New Indicator Group" action="#{indicatorGroupListController.createNewIndicatorGroup()}" >
+            </p:commandButton>
+        </p:panel>
     </ui:define>
 
 </ui:composition>
