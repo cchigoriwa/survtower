@@ -21,7 +21,7 @@
         <h:body>
             <ui:include src="/WEB-INF/template/menu.xhtml" />
             <div align="center">
-                <h:panelGrid columns="3">
+                <h:panelGrid columns="4">
 
                     <h:graphicImage library="webjars/sadc/1.0.0/img"
                                     name="logo.png" />
@@ -30,6 +30,9 @@
 
                     <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
 
+                    <h:outputText value="Roles : #{checkLoggedOn.currentUser.roles}" rendered="#{checkLoggedOn.loggedOn}"/>
+
+                    
                 </h:panelGrid>
             </div>
             <ui:insert name="content">SADC Surveillance System</ui:insert>

@@ -16,7 +16,8 @@
             <h:form>
                 <h:link value="Add New Region" outcome="regionEdit" />
             </h:form>
-            <p:dataTable value="#{regionListController.regions}" var="region">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{regionListController.regions}" var="region">
 
                 <p:column headerText="Name">
                     #{region.name}

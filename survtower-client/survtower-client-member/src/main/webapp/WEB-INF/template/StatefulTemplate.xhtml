@@ -29,6 +29,8 @@
 
                 <h:outputText value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
 
+                <h:outputText value="Roles : #{checkLoggedOn.currentUser.roles}" rendered="#{checkLoggedOn.loggedOn}"/>
+
             </h:panelGrid>
         </div>
         <ui:insert name="content">SADC Surveillance System</ui:insert>

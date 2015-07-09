@@ -16,13 +16,18 @@
             <h:form>
                 <h:link value="New Member User" outcome="memberUserEdit" />
             </h:form>
-            <p:dataTable value="#{memberUserListController.memberUsers}" var="memberUser">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{memberUserListController.memberUsers}" var="memberUser">
 
                 <p:column headerText="Name">
                     #{memberUser.username}
                 </p:column>
 
-                <p:column headerText="">
+                <p:column headerText="Email Address">
+                    #{memberUser.email}
+                </p:column>
+
+                <p:column headerText="Date Created">
                     #{memberUser.createDate}
                 </p:column>
 

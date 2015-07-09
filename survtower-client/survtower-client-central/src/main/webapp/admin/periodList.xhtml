@@ -22,24 +22,24 @@
                 <p:column headerText="Description">
                     #{period.description}
                 </p:column>
-                
+
                 <p:column headerText="Valid From">
                     #{period.validFrom}
                 </p:column>
-                
+
                 <p:column headerText="Valid To">
                     #{period.validTo}
                 </p:column>
-                
+
                 <p:column headerText="Due Date">
                     #{period.dueDate}
                 </p:column>
 
                 <p:column>
                     <h:form>
-                        <h:link value="Edit" outcome="periodEdit">                        
+                        <p:button value="Edit" outcome="periodEdit">                        
                             <f:param name="uuid" value="#{period.uuid}" />
-                        </h:link>
+                        </p:button>
                     </h:form>
                 </p:column>
 

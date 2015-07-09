@@ -29,5 +29,9 @@ public class IndicatorTypeListController {
     public void setIndicatorTypeService(IndicatorTypeService indicatorTypeService) {
         this.indicatorTypeService = indicatorTypeService;
     }
+    
+    public String createNewIndicatorType() {
+        return "indicatorTypeEdit?faces-redirect=true";
+    }
 
 }

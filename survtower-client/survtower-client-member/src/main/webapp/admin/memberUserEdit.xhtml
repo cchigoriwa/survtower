@@ -35,7 +35,7 @@
                     <tr>
                         <th align="left"> Select Programs</th>
                         <td>
-                            <p:selectManyCheckbox id="grid" value="#{memberUserEditController.programs}" converter="#{programConverter}" layout="grid" columns="2" >
+                            <p:selectManyCheckbox value="#{memberUserEditController.programs}" converter="#{programConverter}" layout="grid" columns="2" >
                                 <f:selectItems value="#{programListController.programs}"/>
                             </p:selectManyCheckbox>
                         </td>
@@ -43,15 +43,15 @@
                     <tr>
                         <th align="left">Select Roles</th>
                         <td>
-                            <p:selectManyCheckbox id="grid" value="#{memberUserEditController.roles}" layout="grid" columns="2">
-                                <f:selectItems value="#{memberUserEditController.memberRoles}" />
+                            <p:selectManyCheckbox value="#{memberUserEditController.roles}" layout="grid" columns="2">
+                                <f:selectItems value="#{memberUserEditController.appUserRoles}" />
                             </p:selectManyCheckbox>
                         </td>
                     </tr>
                     <tr>
                         <th align="left">Select Regions</th>
                         <td>
-                            <p:selectManyCheckbox id="grid" value="#{memberUserEditController.regions}" converter="#{regionConverter}" layout="grid" columns="2" >
+                            <p:selectManyCheckbox value="#{memberUserEditController.regions}" converter="#{regionConverter}" layout="grid" columns="2" >
                                 <f:selectItems value="#{regionListController.regions}"/>
                             </p:selectManyCheckbox>
                         </td>

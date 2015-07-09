@@ -26,6 +26,7 @@
 
             <div style="float: right;">
                 <h:outputText  style="text-align: right;" value="Logged On as  : #{checkLoggedOn.currentUser}" rendered="#{checkLoggedOn.loggedOn}"/>
+                <h:outputText  style="text-align: right;" value="Role : #{checkLoggedOn.currentUser.roles}" rendered="#{checkLoggedOn.loggedOn}"/>
             </div>
 
             <div style="clear: both;"></div>

@@ -17,10 +17,15 @@
             <h:form>
                 <h:commandButton value="Pull Indicator Type" action="#{integratorController.pullIndicatorTypes()}" />
             </h:form>
-            <p:dataTable value="#{indicatorTypeListController.indicatorTypes}" var="indicatorType">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{indicatorTypeListController.indicatorTypes}" var="indicatorType">
 
                 <p:column headerText="Name">
                     #{indicatorType.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{indicatorType.description}
                 </p:column>
 
             </p:dataTable>

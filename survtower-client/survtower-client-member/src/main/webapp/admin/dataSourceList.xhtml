@@ -17,10 +17,23 @@
             <h:form>
                 <h:commandButton value="Pull Data Sources" action="#{integratorController.pullDataSources()}" />
             </h:form>
-            <p:dataTable value="#{dataSourceListController.dataSources}" var="data">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{dataSourceListController.dataSources}" var="data">
 
                 <p:column headerText="Name">
                     #{data.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{data.description}
+                </p:column>
+                
+                <p:column headerText="Data Source Category">
+                    #{data.dataSourceCategory}
+                </p:column>
+                
+                <p:column headerText="Frequency">
+                    #{data.frequency}
                 </p:column>
 
             </p:dataTable>

@@ -17,10 +17,19 @@
             <h:form>
                 <h:commandButton value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
             </h:form>
-            <p:dataTable value="#{frequencyListController.frequencys}" var="frequency">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{frequencyListController.frequencys}" var="frequency">
 
                 <p:column headerText="Name">
                     #{frequency.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{frequency.description}
+                </p:column>
+                
+                <p:column headerText="Factor">
+                    #{frequency.factor}
                 </p:column>
 
             </p:dataTable>

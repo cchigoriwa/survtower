@@ -17,10 +17,15 @@
             <h:form>
                 <h:commandButton value="Pull Programs" action="#{integratorController.pullPrograms()}" />
             </h:form>
-            <p:dataTable value="#{programListController.programs}" var="program">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{programListController.programs}" var="program">
 
-                <p:column headerText="Name">
+               <p:column headerText="Name">
                     #{program.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{program.description}
                 </p:column>
 
             </p:dataTable>

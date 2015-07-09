@@ -184,7 +184,7 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     public List<String> getMemberRoles() {
         List<String> list = new ArrayList<>();
-        list.add(MemberUser.ROLE_COUNTRY_ADMINISTRATOR);
+        list.add(MemberUser.getAppUserRoles().get(0).getDescription());
         return list;
     }
 

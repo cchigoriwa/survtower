@@ -21,7 +21,7 @@
 
                 <p:tab title="Region">
 
-                  <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
+                  <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
                   
                     <p:dataGrid var="item" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
                                 rows="1" paginator="true" id="list">
@@ -33,12 +33,12 @@
                     </p:panel>
                 </p:tab>
 
-                <p:tab title="Awaiting Approval" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
+                <p:tab title="Awaiting Approval" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
                     <h:form>
 
                         <p:panel id="notificationOne" header="Uploads Awaiting Approval" style="margin-bottom:20px">
 
-                            <p:dataTable value="#{regionAuditListController.waitingApprovalAudits}" var="region">
+                            <p:dataTable paginator="true" rows="10" value="#{regionAuditListController.waitingApprovalAudits}" var="region">
                                 <p:column headerText="Region">
                                     #{region.region} 
                                 </p:column>
@@ -68,12 +68,12 @@
                     </h:form>
                 </p:tab>
 
-                <p:tab title="Approved Uploads" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
+                <p:tab title="Approved Uploads" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
                     <h:form>
 
                         <p:panel id="notificationOne" header="Approved Uploads" style="margin-bottom:20px">
 
-                            <p:dataTable value="#{regionAuditListController.audits}" var="region">
+                            <p:dataTable paginator="true" rows="10" value="#{regionAuditListController.audits}" var="region">
                                 <p:column headerText="Region">
                                     #{region.region} 
                                 </p:column>
@@ -110,7 +110,7 @@
 
                         <p:panel id="notificationOne" header="Open Periods" style="margin-bottom:20px">
 
-                            <p:dataTable value="#{indexController.aduitItems}" var="item">
+                            <p:dataTable paginator="true" rows="10" value="#{indexController.aduitItems}" var="item">
                                 <p:column headerText="Program">
                                     #{item.program.name} 
                                 </p:column>

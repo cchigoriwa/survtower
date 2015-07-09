@@ -17,10 +17,27 @@
             <h:form>
                 <h:commandButton value="Pull Periods" action="#{integratorController.pullPeriods()}" />
             </h:form>
-            <p:dataTable value="#{periodListController.periods}" var="period">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{periodListController.periods}" var="period">
 
                 <p:column headerText="Name">
                     #{period.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{period.description}
+                </p:column>
+                
+                <p:column headerText="Valid From">
+                    #{period.validFrom}
+                </p:column>
+                
+                <p:column headerText="Valid To">
+                    #{period.validTo}
+                </p:column>
+                
+                <p:column headerText="Due Date">
+                    #{period.dueDate}
                 </p:column>
 
             </p:dataTable>

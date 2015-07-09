@@ -196,7 +196,7 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                 }
             }
 
-            if (!getCurrentUser().getRoles().contains(MemberUser.ROLE_COUNTRY_DISEASE_MANAGER)) {
+            if (!getCurrentUser().getRoles().contains(MemberUser.getAppUserRoles().get(2).getDescription())) {
                 if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
                     errorMessages("Data Upload Has Already been Approved,Changes Permitted");
                     return null;

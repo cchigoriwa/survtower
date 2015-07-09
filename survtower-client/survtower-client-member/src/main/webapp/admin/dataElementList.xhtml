@@ -17,10 +17,19 @@
             <h:form>
                 <h:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" />
             </h:form>
-            <p:dataTable value="#{dataElementListController.dataElements}" var="dataElement">
+            <hr/>
+            <p:dataTable paginator="true" rows="10" value="#{dataElementListController.dataElements}" var="dataElement">
 
                 <p:column headerText="Name">
                     #{dataElement.name}
+                </p:column>
+
+                <p:column headerText="Description">
+                    #{dataElement.description}
+                </p:column>
+                
+                <p:column headerText="Data Source">
+                    #{dataElement.dataSource}
                 </p:column>
 
             </p:dataTable>

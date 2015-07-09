@@ -18,9 +18,9 @@
             default-target-url="/faces/dash_board.xhtml"
             authentication-failure-url="/faces/login.xhtml"/>
         <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/dash_board.xhtml" delete-cookies="JSESSIONID"/>
-        <intercept-url pattern="/faces/admin/**" access="hasAnyRole('ROLE_COUNTRY_ADMINISTRATOR','ROLE_COUNTRY_DISEASE_MANAGER', 'ROLE_HEALTH_INFORMATION_OFFICER')" />   
-        <intercept-url pattern="/faces/data/**" access="hasAnyRole('ROLE_COUNTRY_ADMINISTRATOR','ROLE_COUNTRY_DISEASE_MANAGER','ROLE_HEALTH_INFORMATION_OFFICER')" />   
-        <intercept-url pattern="/faces/report/**" access="hasAnyRole('ROLE_COUNTRY_ADMINISTRATOR','ROLE_COUNTRY_DISEASE_MANAGER','ROLE_HEALTH_INFORMATION_OFFICER')" />   
+        <intercept-url pattern="/faces/admin/**" access="hasAnyRole('Member State Administrator','Country Disease Manager', 'Health Information Officer')" />   
+        <intercept-url pattern="/faces/data/**" access="hasAnyRole('Member State Administrator','Country Disease Manager','Health Information Officer')" />   
+        <intercept-url pattern="/faces/report/**" access="hasAnyRole('Member State Administrator','Country Disease Manager','Health Information Officer')" />   
     </http>
 
     <authentication-manager>
