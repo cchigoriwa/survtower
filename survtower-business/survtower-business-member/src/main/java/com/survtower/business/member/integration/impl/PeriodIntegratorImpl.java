@@ -9,9 +9,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.PeriodIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.PeriodWebservice;
-import com.survtower.ws.api.domain.PeriodCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.PeriodWebService;
+import com.survtower.ws.api.domain.PeriodPayload;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -40,19 +39,17 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
 
         LookupMeta periodLookupMeta=lookupMetaService.findByLookup(Lookup.PERIOD);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (periodLookupMeta != null) {
-            startDate = periodLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = periodLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        PeriodWebservice periodWebservice = integrationService.getPeriodWebservice();
+        PeriodWebService periodWebService = integrationService.getPeriodWebService();
 
-        PeriodCollectionPayload periodCollectionPayload = periodWebservice.getPeriods(requestMetaData);
+        PeriodPayload periodPayload = periodWebService.getData(lastUpdateNo);
 
-        List<Period> periods = periodCollectionPayload.getPeriods();
+        List<Period> periods = periodPayload.getPeriodBody().getPeriods();
         if (periods != null && !periods.isEmpty()) {
             for (Period period : periods) {
                 Period existing = periodService.findByUuid(period.getUuid());
@@ -84,8 +81,8 @@ public class PeriodIntegratorImpl implements PeriodIntegrator {
             periodLookupMeta = new LookupMeta(Lookup.PERIOD);
         }
 
-        if (periodCollectionPayload.getPayloadMetaData() != null && periodCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            periodLookupMeta.setLastServerTimestamp(periodCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (periodPayload.getResponseHead() != null && periodPayload.getResponseHead().getLastUpdateNo()!= null) {
+            periodLookupMeta.setLastServerUpdateNo(periodPayload.getResponseHead().getLastUpdateNo());
         }
 
         periodLookupMeta.setUpdateDate(new Date());

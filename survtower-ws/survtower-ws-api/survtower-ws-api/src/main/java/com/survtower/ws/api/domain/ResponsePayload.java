@@ -1,25 +1,20 @@
 package com.survtower.ws.api.domain;
 
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
- * @author Charles Chigoriwa
+ * @author charlesc
+ * @param <T>
  */
-@XmlRootElement
-public abstract class ResponsePayload implements Serializable{
-    
-    protected ResponseMetaData payloadMetaData;
+public abstract class ResponsePayload {
 
-    public ResponseMetaData getPayloadMetaData() {
-        return payloadMetaData;
+    private ResponseHead responseHead;
+
+    public ResponseHead getResponseHead() {
+        return responseHead;
     }
 
-    public void setPayloadMetaData(ResponseMetaData payloadMetaData) {
-        this.payloadMetaData = payloadMetaData;
+    public void setResponseHead(ResponseHead responseHead) {
+        this.responseHead = responseHead;
     }
-    
-    
-    
+
 }

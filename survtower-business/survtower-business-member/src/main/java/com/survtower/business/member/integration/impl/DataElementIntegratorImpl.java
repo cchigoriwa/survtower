@@ -10,9 +10,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.DataElementIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.DataElementWebservice;
-import com.survtower.ws.api.domain.DataElementCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.DataElementWebService;
+import com.survtower.ws.api.domain.DataElementPayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +39,19 @@ public class DataElementIntegratorImpl implements DataElementIntegrator {
 
         LookupMeta dateElementLookupMeta=lookupMetaService.findByLookup(Lookup.DATA_ELEMENT);
 
-        Date startDate = null;
+        Long startUpdateNo = null;
 
         if (dateElementLookupMeta != null) {
-            startDate = dateElementLookupMeta.getLastServerTimestamp();
+            startUpdateNo = dateElementLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        DataElementWebservice dateElementWebservice = integrationService.getDataElementWebservice();
+        
+     
+        DataElementWebService dateElementWebservice = integrationService.getDataElementWebService();
 
-        DataElementCollectionPayload dateElementCollectionPayload = dateElementWebservice.getDataElements(requestMetaData);
+        DataElementPayload dateElementPayload = dateElementWebservice.getData(startUpdateNo);
 
-        List<DataElement> dateElements = dateElementCollectionPayload.getDataElements();
+        List<DataElement> dateElements = dateElementPayload.getDataElementBody().getDataElements();
         if (dateElements != null && !dateElements.isEmpty()) {
             for (DataElement dataElement : dateElements) {
                 DataElement existing = dataElementService.findByUuid(dataElement.getUuid());
@@ -82,8 +81,8 @@ public class DataElementIntegratorImpl implements DataElementIntegrator {
             dateElementLookupMeta = new LookupMeta(Lookup.DATA_ELEMENT);
         }
 
-        if (dateElementCollectionPayload.getPayloadMetaData() != null && dateElementCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            dateElementLookupMeta.setLastServerTimestamp(dateElementCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (dateElementPayload.getResponseHead() != null && dateElementPayload.getResponseHead().getLastUpdateNo() != null) {
+            dateElementLookupMeta.setLastServerUpdateNo(dateElementPayload.getResponseHead().getLastUpdateNo());
         }
         
         dateElementLookupMeta.setUpdateDate(new Date());

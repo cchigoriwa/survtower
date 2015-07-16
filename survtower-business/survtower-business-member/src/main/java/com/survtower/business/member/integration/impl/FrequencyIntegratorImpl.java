@@ -7,9 +7,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.FrequencyIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.FrequencyWebservice;
-import com.survtower.ws.api.domain.FrequencyCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.FrequencyWebService;
+import com.survtower.ws.api.domain.FrequencyPayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,28 +31,26 @@ public class FrequencyIntegratorImpl implements FrequencyIntegrator {
     @Override
     public synchronized LookupMeta pull() {
 
-        LookupMeta frequencyLookupMeta=lookupMetaService.findByLookup(Lookup.FREQUENCY);
+        LookupMeta frequencyLookupMeta = lookupMetaService.findByLookup(Lookup.FREQUENCY);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (frequencyLookupMeta != null) {
-            startDate = frequencyLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = frequencyLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        FrequencyWebservice frequencyWebservice = integrationService.getFrequencyWebservice();
+        FrequencyWebService frequencyWebService = integrationService.getFrequencyWebService();
 
-        FrequencyCollectionPayload frequencyCollectionPayload = frequencyWebservice.getFrequencys(requestMetaData);
+        FrequencyPayload frequencyPayload = frequencyWebService.getData(lastUpdateNo);
 
-        List<Frequency> frequencys = frequencyCollectionPayload.getFrequencys();
+        List<Frequency> frequencys = frequencyPayload.getFrequencyBody().getFrequencies();
         if (frequencys != null && !frequencys.isEmpty()) {
             for (Frequency frequency : frequencys) {
                 Frequency existing = frequencyService.findByUuid(frequency.getUuid());
                 if (existing != null) {
                     //ID is not send
                     frequency.setId(existing.getId());
-                }else{
+                } else {
                     //it must be a new object
                     frequency.setId(null);
                 }
@@ -65,10 +62,10 @@ public class FrequencyIntegratorImpl implements FrequencyIntegrator {
             frequencyLookupMeta = new LookupMeta(Lookup.FREQUENCY);
         }
 
-        if (frequencyCollectionPayload.getPayloadMetaData() != null && frequencyCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            frequencyLookupMeta.setLastServerTimestamp(frequencyCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (frequencyPayload.getResponseHead() != null && frequencyPayload.getResponseHead().getLastUpdateNo() != null) {
+            frequencyLookupMeta.setLastServerUpdateNo(frequencyPayload.getResponseHead().getLastUpdateNo());
         }
-        
+
         frequencyLookupMeta.setUpdateDate(new Date());
         lookupMetaService.save(frequencyLookupMeta);
 

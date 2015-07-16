@@ -1,6 +1,5 @@
 package com.survtower.business.member.integration.impl;
 
-import com.survtower.business.common.dao.SurveillanceDao;
 import com.survtower.business.common.domain.Dynamic;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.SurveillanceService;
@@ -10,7 +9,7 @@ import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.integration.SurveillanceIntegrator;
 import com.survtower.business.member.service.DynamicMetaService;
 import com.survtower.business.member.service.SurveillanceAuditService;
-import com.survtower.ws.api.SurveillanceWebservice;
+import com.survtower.ws.api.SurveillanceWebService;
 import com.survtower.ws.api.domain.SurveillancePayload;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,14 +74,14 @@ public class SurveillanceIntegratorImpl implements SurveillanceIntegrator {
                 }
 
                 if (!surveillances.isEmpty()) {
-                    SurveillanceWebservice surveillanceWebservice = integrationService.getSurveillanceWebservice();
+                    SurveillanceWebService surveillanceWebservice = integrationService.getSurveillanceWebService();
                     surveillanceWebservice.processData(new SurveillancePayload(surveillances));
 
                     //now Update or create local meta for surveillance
                     if (surveillanceAuditDynamicMeta == null) {
                         surveillanceAuditDynamicMeta = new DynamicMeta(Dynamic.SURVEILLANCE);
                     }
-                    
+
                     surveillanceAuditDynamicMeta.setLastLocalTimestamp(endDate);
                     dynamicMetaService.save(surveillanceAuditDynamicMeta);
                 }

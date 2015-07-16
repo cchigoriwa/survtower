@@ -12,9 +12,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.DataSourceIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.DataSourceWebservice;
-import com.survtower.ws.api.domain.DataSourceCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.DataSourceWebService;
+import com.survtower.ws.api.domain.DataSourcePayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +42,17 @@ public class DataSourceIntegratorImpl implements DataSourceIntegrator {
 
         LookupMeta dataSourceLookupMeta = lookupMetaService.findByLookup(Lookup.DATA_SOURCE);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (dataSourceLookupMeta != null) {
-            startDate = dataSourceLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = dataSourceLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        DataSourceWebservice dataSourceWebservice = integrationService.getDataSourceWebservice();
+        DataSourceWebService dataSourceWebService = integrationService.getDataSourceWebService();
 
-        DataSourceCollectionPayload dataSourceCollectionPayload = dataSourceWebservice.getDataSources(requestMetaData);
+        DataSourcePayload dataSourcePayload = dataSourceWebService.getData(lastUpdateNo);
 
-        List<DataSource> dataSources = dataSourceCollectionPayload.getDataSources();
+        List<DataSource> dataSources = dataSourcePayload.getDataSourceBody().getDataSources();
         if (dataSources != null && !dataSources.isEmpty()) {
             for (DataSource dataSource : dataSources) {
                 DataSource existing = dataSourceService.findByUuid(dataSource.getUuid());
@@ -95,8 +92,8 @@ public class DataSourceIntegratorImpl implements DataSourceIntegrator {
             dataSourceLookupMeta = new LookupMeta(Lookup.DATA_SOURCE);
         }
 
-        if (dataSourceCollectionPayload.getPayloadMetaData() != null && dataSourceCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            dataSourceLookupMeta.setLastServerTimestamp(dataSourceCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (dataSourcePayload.getResponseHead() != null && dataSourcePayload.getResponseHead().getLastUpdateNo() != null) {
+            dataSourceLookupMeta.setLastServerUpdateNo(dataSourcePayload.getResponseHead().getLastUpdateNo());
         }
 
         dataSourceLookupMeta.setUpdateDate(new Date());

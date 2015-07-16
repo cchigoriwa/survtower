@@ -10,9 +10,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.IndicatorGroupIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.IndicatorGroupWebservice;
-import com.survtower.ws.api.domain.IndicatorGroupCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.IndicatorGroupWebService;
+import com.survtower.ws.api.domain.IndicatorGroupPayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +38,18 @@ public class IndicatorGroupIntegratorImpl implements IndicatorGroupIntegrator {
 
         LookupMeta indicatorGroupLookupMeta=lookupMetaService.findByLookup(Lookup.INDICATOR_GROUP);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (indicatorGroupLookupMeta != null) {
-            startDate = indicatorGroupLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = indicatorGroupLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        IndicatorGroupWebservice indicatorGroupWebservice = integrationService.getIndicatorGroupWebservice();
+      
+        IndicatorGroupWebService indicatorGroupWebService = integrationService.getIndicatorGroupWebService();
 
-        IndicatorGroupCollectionPayload indicatorGroupCollectionPayload = indicatorGroupWebservice.getIndicatorGroups(requestMetaData);
+        IndicatorGroupPayload indicatorGroupPayload = indicatorGroupWebService.getData(lastUpdateNo);
 
-        List<IndicatorGroup> indicatorGroups = indicatorGroupCollectionPayload.getIndicatorGroups();
+        List<IndicatorGroup> indicatorGroups = indicatorGroupPayload.getIndicatorGroupBody().getIndicatorGroups();
         if (indicatorGroups != null && !indicatorGroups.isEmpty()) {
             for (IndicatorGroup indicatorGroup : indicatorGroups) {
                 IndicatorGroup existing = indicatorGroupService.findByUuid(indicatorGroup.getUuid());
@@ -82,8 +80,8 @@ public class IndicatorGroupIntegratorImpl implements IndicatorGroupIntegrator {
             indicatorGroupLookupMeta = new LookupMeta(Lookup.INDICATOR_GROUP);
         }
 
-        if (indicatorGroupCollectionPayload.getPayloadMetaData() != null && indicatorGroupCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            indicatorGroupLookupMeta.setLastServerTimestamp(indicatorGroupCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (indicatorGroupPayload.getResponseHead() != null && indicatorGroupPayload.getResponseHead().getLastUpdateNo() != null) {
+            indicatorGroupLookupMeta.setLastServerUpdateNo(indicatorGroupPayload.getResponseHead().getLastUpdateNo());
         }
         
         indicatorGroupLookupMeta.setUpdateDate(new Date());

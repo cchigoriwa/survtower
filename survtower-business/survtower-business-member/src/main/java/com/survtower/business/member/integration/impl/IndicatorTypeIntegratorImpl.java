@@ -7,9 +7,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.IndicatorTypeIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.IndicatorTypeWebservice;
-import com.survtower.ws.api.domain.IndicatorTypeCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.IndicatorTypeWebService;
+import com.survtower.ws.api.domain.IndicatorTypePayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +33,18 @@ public class IndicatorTypeIntegratorImpl implements IndicatorTypeIntegrator {
 
         LookupMeta indicatorTypeLookupMeta=lookupMetaService.findByLookup(Lookup.INDICATOR_TYPE);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (indicatorTypeLookupMeta != null) {
-            startDate = indicatorTypeLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = indicatorTypeLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        IndicatorTypeWebservice indicatorTypeWebservice = integrationService.getIndicatorTypeWebservice();
+       
+        IndicatorTypeWebService indicatorTypeWebService = integrationService.getIndicatorTypeWebService();
 
-        IndicatorTypeCollectionPayload indicatorTypeCollectionPayload = indicatorTypeWebservice.getIndicatorTypes(requestMetaData);
+        IndicatorTypePayload indicatorTypePayload = indicatorTypeWebService.getData(lastUpdateNo);
 
-        List<IndicatorType> indicatorTypes = indicatorTypeCollectionPayload.getIndicatorTypes();
+        List<IndicatorType> indicatorTypes = indicatorTypePayload.getIndicatorTypeBody().getIndicatorTypes();
         if (indicatorTypes != null && !indicatorTypes.isEmpty()) {
             for (IndicatorType indicatorType : indicatorTypes) {
                 IndicatorType existing = indicatorTypeService.findByUuid(indicatorType.getUuid());
@@ -65,8 +63,8 @@ public class IndicatorTypeIntegratorImpl implements IndicatorTypeIntegrator {
             indicatorTypeLookupMeta = new LookupMeta(Lookup.INDICATOR_TYPE);
         }
 
-        if (indicatorTypeCollectionPayload.getPayloadMetaData() != null && indicatorTypeCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            indicatorTypeLookupMeta.setLastServerTimestamp(indicatorTypeCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (indicatorTypePayload.getResponseHead() != null && indicatorTypePayload.getResponseHead().getLastUpdateNo() != null) {
+            indicatorTypeLookupMeta.setLastServerUpdateNo(indicatorTypePayload.getResponseHead().getLastUpdateNo());
         }
         
         indicatorTypeLookupMeta.setUpdateDate(new Date());

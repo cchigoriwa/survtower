@@ -7,9 +7,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.integration.MemberIntegrator;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.MemberWebservice;
-import com.survtower.ws.api.domain.MemberCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.MemberWebService;
+import com.survtower.ws.api.domain.MemberPayload;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,8 +18,8 @@ import org.springframework.stereotype.Component;
  * @author Charles Chigoriwa
  */
 @Component("memberIntegrator")
-public class MemberIntegratorImpl implements MemberIntegrator{
-    
+public class MemberIntegratorImpl implements MemberIntegrator {
+
     @Autowired
     private LookupMetaService lookupMetaService;
     @Autowired
@@ -30,47 +29,44 @@ public class MemberIntegratorImpl implements MemberIntegrator{
 
     @Override
     public LookupMeta pull() {
-        LookupMeta memberLookupMeta=lookupMetaService.findByLookup(Lookup.MEMBER);
+        LookupMeta memberLookupMeta = lookupMetaService.findByLookup(Lookup.MEMBER);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (memberLookupMeta != null) {
-            startDate = memberLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = memberLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        MemberWebservice memberWebservice = integrationService.getMemberWebservice();
+        MemberWebService memberWebservice = integrationService.getMemberWebService();
 
-        MemberCollectionPayload memberCollectionPayload = memberWebservice.getMembers(requestMetaData);
+        MemberPayload memberPayload = memberWebservice.getData(lastUpdateNo);
 
-        Member member = memberCollectionPayload.getMember();
+        Member member = memberPayload.getMemberBody().getMember();
         if (member != null) {
-                Member existing = memberService.findByUuid(member.getUuid());
-                if (existing != null) {
-                    //ID is not send
-                    member.setId(existing.getId());
-                }else{
-                    //it must be a new object
-                    member.setId(null);
-                }
-                memberService.save(member);
-            
+            Member existing = memberService.findByUuid(member.getUuid());
+            if (existing != null) {
+                //ID is not send
+                member.setId(existing.getId());
+            } else {
+                //it must be a new object
+                member.setId(null);
+            }
+            memberService.save(member);
+
         }
 
         if (memberLookupMeta == null) {
             memberLookupMeta = new LookupMeta(Lookup.MEMBER);
         }
 
-        if (memberCollectionPayload.getPayloadMetaData() != null && memberCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            memberLookupMeta.setLastServerTimestamp(memberCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (memberPayload.getResponseHead() != null && memberPayload.getResponseHead().getLastUpdateNo() != null) {
+            memberLookupMeta.setLastServerUpdateNo(memberPayload.getResponseHead().getLastUpdateNo());
         }
-        
+
         memberLookupMeta.setUpdateDate(new Date());
-        memberLookupMeta=lookupMetaService.save(memberLookupMeta);
+        memberLookupMeta = lookupMetaService.save(memberLookupMeta);
 
         return memberLookupMeta;
     }
-    
-     
+
 }

@@ -12,8 +12,8 @@ import com.survtower.business.common.service.MemberService;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
-import com.survtower.ws.api.SurveillanceWebservice;
 import com.survtower.ws.api.domain.SurveillancePayload;
+import com.survtower.ws.api.SurveillanceWebService;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  * @author Charles Chigoriwa
  */
 @Component
-public class SurveillanceWebserviceImpl implements SurveillanceWebservice {
+public class SurveillanceWebserviceImpl implements SurveillanceWebService {
 
     @Autowired
     private SurveillanceService surveillanceService;

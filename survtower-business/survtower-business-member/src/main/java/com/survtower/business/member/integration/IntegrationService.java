@@ -1,17 +1,18 @@
 package com.survtower.business.member.integration;
 
-import com.survtower.ws.api.DataElementWebservice;
-import com.survtower.ws.api.DataSourceCategoryWebservice;
-import com.survtower.ws.api.DataSourceWebservice;
-import com.survtower.ws.api.FrequencyWebservice;
-import com.survtower.ws.api.IndicatorGroupWebservice;
-import com.survtower.ws.api.IndicatorTypeWebservice;
-import com.survtower.ws.api.IndicatorWebservice;
-import com.survtower.ws.api.LookupDataWebservice;
-import com.survtower.ws.api.MemberWebservice;
-import com.survtower.ws.api.PeriodWebservice;
-import com.survtower.ws.api.ProgramWebservice;
-import com.survtower.ws.api.SurveillanceWebservice;
+
+import com.survtower.ws.api.DataElementWebService;
+import com.survtower.ws.api.DataSourceCategoryWebService;
+import com.survtower.ws.api.DataSourceWebService;
+import com.survtower.ws.api.FrequencyWebService;
+import com.survtower.ws.api.IndicatorGroupWebService;
+import com.survtower.ws.api.IndicatorTypeWebService;
+import com.survtower.ws.api.IndicatorWebService;
+import com.survtower.ws.api.LookupDataWebService;
+import com.survtower.ws.api.MemberWebService;
+import com.survtower.ws.api.PeriodWebService;
+import com.survtower.ws.api.ProgramWebService;
+import com.survtower.ws.api.SurveillanceWebService;
 import java.io.Serializable;
 
 /**
@@ -20,28 +21,28 @@ import java.io.Serializable;
  */
 public interface IntegrationService extends Serializable{
     
-    public IndicatorWebservice getIndicatorWebservice();
+    public IndicatorWebService getIndicatorWebService();
     
-    public MemberWebservice getMemberWebservice();
+    public MemberWebService getMemberWebService();
     
-    public LookupDataWebservice getLookupDataWebservice();
+    public LookupDataWebService getLookupDataWebService();
     
-    public DataSourceCategoryWebservice getDataSourceCategoryWebservice();
+    public DataSourceCategoryWebService getDataSourceCategoryWebService();
     
-    public PeriodWebservice getPeriodWebservice();
+    public PeriodWebService getPeriodWebService();
     
-    public FrequencyWebservice getFrequencyWebservice();
+    public FrequencyWebService getFrequencyWebService();
     
-    public IndicatorTypeWebservice getIndicatorTypeWebservice();
+    public IndicatorTypeWebService getIndicatorTypeWebService();
     
-    public ProgramWebservice getProgramWebservice();
+    public ProgramWebService getProgramWebService();
     
-    public IndicatorGroupWebservice getIndicatorGroupWebservice();
+    public IndicatorGroupWebService getIndicatorGroupWebService();
     
-    public DataSourceWebservice getDataSourceWebservice();
+    public DataSourceWebService getDataSourceWebService();
     
-    public DataElementWebservice getDataElementWebservice();
+    public DataElementWebService getDataElementWebService();
     
-    public SurveillanceWebservice getSurveillanceWebservice();
+    public SurveillanceWebService getSurveillanceWebService();
     
 }

@@ -14,9 +14,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.IndicatorIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.IndicatorWebservice;
-import com.survtower.ws.api.domain.IndicatorCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.IndicatorWebService;
+import com.survtower.ws.api.domain.IndicatorPayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,19 +46,18 @@ public class IndicatorIntegratorImpl implements IndicatorIntegrator {
 
         LookupMeta indicatorLookupMeta=lookupMetaService.findByLookup(Lookup.INDICATOR);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (indicatorLookupMeta != null) {
-            startDate = indicatorLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = indicatorLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        IndicatorWebservice indicatorWebservice = integrationService.getIndicatorWebservice();
+        
+        IndicatorWebService indicatorWebService = integrationService.getIndicatorWebService();
 
-        IndicatorCollectionPayload indicatorCollectionPayload = indicatorWebservice.getIndicators(requestMetaData);
+        IndicatorPayload indicatorPayload = indicatorWebService.getData(lastUpdateNo);
 
-        List<Indicator> indicators = indicatorCollectionPayload.getIndicators();
+        List<Indicator> indicators = indicatorPayload.getIndicatorBody().getIndicators();
         if (indicators != null && !indicators.isEmpty()) {
             for (Indicator indicator : indicators) {
                 Indicator existing = indicatorService.findByUuid(indicator.getUuid());
@@ -119,8 +117,8 @@ public class IndicatorIntegratorImpl implements IndicatorIntegrator {
             indicatorLookupMeta = new LookupMeta(Lookup.INDICATOR);
         }
 
-        if (indicatorCollectionPayload.getPayloadMetaData() != null && indicatorCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            indicatorLookupMeta.setLastServerTimestamp(indicatorCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (indicatorPayload.getResponseHead() != null && indicatorPayload.getResponseHead().getLastUpdateNo() != null) {
+            indicatorLookupMeta.setLastServerUpdateNo(indicatorPayload.getResponseHead().getLastUpdateNo());
         }
         
         indicatorLookupMeta.setUpdateDate(new Date());

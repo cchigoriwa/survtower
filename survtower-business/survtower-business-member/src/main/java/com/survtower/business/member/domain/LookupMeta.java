@@ -21,8 +21,6 @@ public class LookupMeta extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
     private Lookup lookup;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date lastServerTimestamp;
     private Long lastServerUpdateNo;
 
     public LookupMeta() {
@@ -32,18 +30,11 @@ public class LookupMeta extends BaseEntity {
         this.lookup = lookup;
     }
 
-    public LookupMeta(Lookup lookup, Date lastServerTimestamp) {
+    public LookupMeta(Lookup lookup, Long lastServerUpdateNo) {
         this.lookup = lookup;
-        this.lastServerTimestamp = lastServerTimestamp;
+        this.lastServerUpdateNo = lastServerUpdateNo;
     }
 
-    public Date getLastServerTimestamp() {
-        return lastServerTimestamp;
-    }
-
-    public void setLastServerTimestamp(Date lastServerTimestamp) {
-        this.lastServerTimestamp = lastServerTimestamp;
-    }
 
     public Lookup getLookup() {
         return lookup;
@@ -63,25 +54,5 @@ public class LookupMeta extends BaseEntity {
     
     
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof LookupMeta)) {
-            return false;
-        }
-        LookupMeta other = (LookupMeta) object;
-        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
-    }
-
-    @Override
-    public String toString() {
-        return "com.survtower.business.member.domain.LookupMeta[ id=" + id + " ]";
-    }
 
 }

@@ -7,9 +7,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.DataSourceCategoryIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.DataSourceCategoryWebservice;
-import com.survtower.ws.api.domain.DataSourceCategoryCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.DataSourceCategoryWebService;
+import com.survtower.ws.api.domain.DataSourceCategoryPayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,21 +33,19 @@ public class DataSourceCategoryIntegratorImpl implements DataSourceCategoryInteg
 
         LookupMeta dataSourceCategoryLookupMeta=lookupMetaService.findByLookup(Lookup.DATA_SOURCE_CATEGORY);
 
-        Date startDate = null;
+        Long startUpdateNo = null;
 
         if (dataSourceCategoryLookupMeta != null) {
-            startDate = dataSourceCategoryLookupMeta.getLastServerTimestamp();
+            startUpdateNo = dataSourceCategoryLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        DataSourceCategoryWebservice dataSourceCategoryWebservice = integrationService.getDataSourceCategoryWebservice();
+        DataSourceCategoryWebService dataSourceCategoryWebservice = integrationService.getDataSourceCategoryWebService();
 
-        DataSourceCategoryCollectionPayload dataSourceCategoryCollectionPayload = dataSourceCategoryWebservice.getDataSourceCategorys(requestMetaData);
+        DataSourceCategoryPayload dataSourceCategoryPayload = dataSourceCategoryWebservice.getData(startUpdateNo);
 
-        List<DataSourceCategory> dataSourceCategorys = dataSourceCategoryCollectionPayload.getDataSourceCategorys();
-        if (dataSourceCategorys != null && !dataSourceCategorys.isEmpty()) {
-            for (DataSourceCategory dataSourceCategory : dataSourceCategorys) {
+        List<DataSourceCategory> dataSourceCategories = dataSourceCategoryPayload.getDataSourceCategoryBody().getDataSourceCategories();
+        if (dataSourceCategories != null && !dataSourceCategories.isEmpty()) {
+            for (DataSourceCategory dataSourceCategory : dataSourceCategories) {
                 DataSourceCategory existing = dataSourceCategoryService.findByUuid(dataSourceCategory.getUuid());
                 if (existing != null) {
                     //ID is not send
@@ -65,8 +62,8 @@ public class DataSourceCategoryIntegratorImpl implements DataSourceCategoryInteg
             dataSourceCategoryLookupMeta = new LookupMeta(Lookup.DATA_SOURCE_CATEGORY);
         }
 
-        if (dataSourceCategoryCollectionPayload.getPayloadMetaData() != null && dataSourceCategoryCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            dataSourceCategoryLookupMeta.setLastServerTimestamp(dataSourceCategoryCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (dataSourceCategoryPayload.getResponseHead() != null && dataSourceCategoryPayload.getResponseHead().getLastUpdateNo() != null) {
+            dataSourceCategoryLookupMeta.setLastServerUpdateNo(dataSourceCategoryPayload.getResponseHead().getLastUpdateNo());
         }
         
         dataSourceCategoryLookupMeta.setUpdateDate(new Date());

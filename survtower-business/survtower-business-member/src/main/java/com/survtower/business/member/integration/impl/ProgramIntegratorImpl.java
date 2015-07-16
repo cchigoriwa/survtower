@@ -7,9 +7,8 @@ import com.survtower.business.member.domain.LookupMeta;
 import com.survtower.business.member.integration.ProgramIntegrator;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.LookupMetaService;
-import com.survtower.ws.api.ProgramWebservice;
-import com.survtower.ws.api.domain.ProgramCollectionPayload;
-import com.survtower.ws.api.domain.RequestMetaData;
+import com.survtower.ws.api.ProgramWebService;
+import com.survtower.ws.api.domain.ProgramPayload;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,28 +31,26 @@ public class ProgramIntegratorImpl implements ProgramIntegrator {
     @Override
     public synchronized LookupMeta pull() {
 
-        LookupMeta programLookupMeta=lookupMetaService.findByLookup(Lookup.PROGRAM);
+        LookupMeta programLookupMeta = lookupMetaService.findByLookup(Lookup.PROGRAM);
 
-        Date startDate = null;
+        Long lastUpdateNo = null;
 
         if (programLookupMeta != null) {
-            startDate = programLookupMeta.getLastServerTimestamp();
+            lastUpdateNo = programLookupMeta.getLastServerUpdateNo();
         }
 
-        RequestMetaData requestMetaData = new RequestMetaData();
-        requestMetaData.setMinimumDate(startDate);
-        ProgramWebservice programWebservice = integrationService.getProgramWebservice();
+        ProgramWebService programWebService = integrationService.getProgramWebService();
 
-        ProgramCollectionPayload programCollectionPayload = programWebservice.getPrograms(requestMetaData);
+        ProgramPayload programPayload = programWebService.getData(lastUpdateNo);
 
-        List<Program> programs = programCollectionPayload.getPrograms();
+        List<Program> programs = programPayload.getProgramBody().getPrograms();
         if (programs != null && !programs.isEmpty()) {
             for (Program program : programs) {
                 Program existing = programService.findByUuid(program.getUuid());
                 if (existing != null) {
                     //ID is not send
                     program.setId(existing.getId());
-                }else{
+                } else {
                     //it must be a new object
                     program.setId(null);
                 }
@@ -65,10 +62,10 @@ public class ProgramIntegratorImpl implements ProgramIntegrator {
             programLookupMeta = new LookupMeta(Lookup.PROGRAM);
         }
 
-        if (programCollectionPayload.getPayloadMetaData() != null && programCollectionPayload.getPayloadMetaData().getMaximumDate() != null) {
-            programLookupMeta.setLastServerTimestamp(programCollectionPayload.getPayloadMetaData().getMaximumDate());
+        if (programPayload.getResponseHead() != null && programPayload.getResponseHead().getLastUpdateNo() != null) {
+            programLookupMeta.setLastServerUpdateNo(programPayload.getResponseHead().getLastUpdateNo());
         }
-        
+
         programLookupMeta.setUpdateDate(new Date());
         lookupMetaService.save(programLookupMeta);
 

@@ -3,18 +3,18 @@ package com.survtower.business.member.integration.impl;
 import com.survtower.business.member.domain.CentralSecurity;
 import com.survtower.business.member.integration.IntegrationService;
 import com.survtower.business.member.service.CentralSecurityService;
-import com.survtower.ws.api.DataElementWebservice;
-import com.survtower.ws.api.DataSourceCategoryWebservice;
-import com.survtower.ws.api.DataSourceWebservice;
-import com.survtower.ws.api.FrequencyWebservice;
-import com.survtower.ws.api.IndicatorGroupWebservice;
-import com.survtower.ws.api.IndicatorTypeWebservice;
-import com.survtower.ws.api.IndicatorWebservice;
-import com.survtower.ws.api.LookupDataWebservice;
-import com.survtower.ws.api.MemberWebservice;
-import com.survtower.ws.api.PeriodWebservice;
-import com.survtower.ws.api.ProgramWebservice;
-import com.survtower.ws.api.SurveillanceWebservice;
+import com.survtower.ws.api.DataElementWebService;
+import com.survtower.ws.api.DataSourceCategoryWebService;
+import com.survtower.ws.api.DataSourceWebService;
+import com.survtower.ws.api.FrequencyWebService;
+import com.survtower.ws.api.IndicatorGroupWebService;
+import com.survtower.ws.api.IndicatorTypeWebService;
+import com.survtower.ws.api.IndicatorWebService;
+import com.survtower.ws.api.LookupDataWebService;
+import com.survtower.ws.api.MemberWebService;
+import com.survtower.ws.api.PeriodWebService;
+import com.survtower.ws.api.ProgramWebService;
+import com.survtower.ws.api.SurveillanceWebService;
 import javax.annotation.Resource;
 import org.jboss.resteasy.client.jaxrs.BasicAuthentication;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -38,21 +38,21 @@ public class IntegrationServiceImpl implements IntegrationService {
     protected CentralSecurityService centralSecurityService;
 
     @Override
-    public IndicatorWebservice getIndicatorWebservice() {
-        return getWebserviceTarget().proxy(IndicatorWebservice.class);
+    public IndicatorWebService getIndicatorWebService() {
+        return getWebServiceTarget().proxy(IndicatorWebService.class);
     }
 
     @Override
-    public LookupDataWebservice getLookupDataWebservice() {
-        return getWebserviceTarget().proxy(LookupDataWebservice.class);
+    public LookupDataWebService getLookupDataWebService() {
+        return getWebServiceTarget().proxy(LookupDataWebService.class);
     }
 
     @Override
-    public MemberWebservice getMemberWebservice() {
-        return getWebserviceTarget().proxy(MemberWebservice.class);
+    public MemberWebService getMemberWebService() {
+        return getWebServiceTarget().proxy(MemberWebService.class);
     }
 
-    protected ResteasyWebTarget getWebserviceTarget() {
+    protected ResteasyWebTarget getWebServiceTarget() {
         ResteasyClient client = new ResteasyClientBuilder().build();
         CentralSecurity centralSecurity = centralSecurityService.find();
         String centralServerUrl = null;
@@ -71,48 +71,48 @@ public class IntegrationServiceImpl implements IntegrationService {
     }
 
     @Override
-    public DataSourceCategoryWebservice getDataSourceCategoryWebservice() {
-        return getWebserviceTarget().proxy(DataSourceCategoryWebservice.class);
+    public DataSourceCategoryWebService getDataSourceCategoryWebService() {
+        return getWebServiceTarget().proxy(DataSourceCategoryWebService.class);
     }
 
     @Override
-    public PeriodWebservice getPeriodWebservice() {
-        return getWebserviceTarget().proxy(PeriodWebservice.class);
+    public PeriodWebService getPeriodWebService() {
+        return getWebServiceTarget().proxy(PeriodWebService.class);
     }
 
     @Override
-    public FrequencyWebservice getFrequencyWebservice() {
-        return getWebserviceTarget().proxy(FrequencyWebservice.class);
+    public FrequencyWebService getFrequencyWebService() {
+        return getWebServiceTarget().proxy(FrequencyWebService.class);
     }
 
     @Override
-    public IndicatorTypeWebservice getIndicatorTypeWebservice() {
-        return getWebserviceTarget().proxy(IndicatorTypeWebservice.class);
+    public IndicatorTypeWebService getIndicatorTypeWebService() {
+        return getWebServiceTarget().proxy(IndicatorTypeWebService.class);
     }
 
     @Override
-    public ProgramWebservice getProgramWebservice() {
-        return getWebserviceTarget().proxy(ProgramWebservice.class);
+    public ProgramWebService getProgramWebService() {
+        return getWebServiceTarget().proxy(ProgramWebService.class);
     }
 
     @Override
-    public IndicatorGroupWebservice getIndicatorGroupWebservice() {
-        return getWebserviceTarget().proxy(IndicatorGroupWebservice.class);
+    public IndicatorGroupWebService getIndicatorGroupWebService() {
+        return getWebServiceTarget().proxy(IndicatorGroupWebService.class);
     }
 
     @Override
-    public DataSourceWebservice getDataSourceWebservice() {
-        return getWebserviceTarget().proxy(DataSourceWebservice.class);
+    public DataSourceWebService getDataSourceWebService() {
+        return getWebServiceTarget().proxy(DataSourceWebService.class);
     }
 
     @Override
-    public DataElementWebservice getDataElementWebservice() {
-        return getWebserviceTarget().proxy(DataElementWebservice.class);
+    public DataElementWebService getDataElementWebService() {
+        return getWebServiceTarget().proxy(DataElementWebService.class);
     }
 
     @Override
-    public SurveillanceWebservice getSurveillanceWebservice() {
-        return getWebserviceTarget().proxy(SurveillanceWebservice.class);
+    public SurveillanceWebService getSurveillanceWebService() {
+        return getWebServiceTarget().proxy(SurveillanceWebService.class);
     }
 
 }

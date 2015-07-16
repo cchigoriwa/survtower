@@ -58,14 +58,14 @@ public class AllLookupIntegratorImpl implements AllLookupIntegrator {
         System.out.println("GLOBAL LOOKUP POOLING");
 
         try {
-            LookupMetaDataCollectionPayload payload = integrationService.getLookupDataWebservice().getLookupMetaDataList();
+            LookupMetaDataCollectionPayload payload = integrationService.getLookupDataWebService().getLookupMetaDataList();
             if (payload != null) {
                 List<ServerLookupMetaData> lookupMetaDataList = payload.getLookupMetaDataList();
                 if (lookupMetaDataList != null && !lookupMetaDataList.isEmpty()) {
                     for (ServerLookupMetaData serverLookupMetaData : lookupMetaDataList) {
-                        if (serverLookupMetaData.getLastUpdateTimestamp() != null) {
+                        if (serverLookupMetaData.getLastUpdateNo() != null) {
                             LookupMeta localLookupMeta = lookupMetaService.findByLookup(serverLookupMetaData.getLookup());
-                            if (localLookupMeta == null || serverLookupMetaData.getLastUpdateTimestamp().after(localLookupMeta.getLastServerTimestamp())) {
+                            if (localLookupMeta == null || serverLookupMetaData.getLastUpdateNo()>localLookupMeta.getLastServerUpdateNo()) {
                                 if (Lookup.INDICATOR.equals(serverLookupMetaData.getLookup())) {
                                     indicatorIntegrator.pull();
                                 } else if (Lookup.MEMBER.equals(serverLookupMetaData.getLookup())) {

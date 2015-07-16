@@ -1,5 +1,6 @@
 package com.survtower.ws.api.domain;
 
+import com.survtower.ws.api.domain.*;
 import com.survtower.business.common.domain.Surveillance;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
