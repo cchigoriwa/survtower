@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Charles Chigoriwa
  */
-public interface ProgramService extends GenericService<Program>{
+public interface ProgramService extends GenericService<Program>,ILookupService<Program>{
     
     public List<Program> findProgramsUpdatedAfter(Date afterDate);
 

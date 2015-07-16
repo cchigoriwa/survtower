@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Takunda Dhlakama
  */
-public interface DataElementService extends GenericService<DataElement>{
+public interface DataElementService extends GenericService<DataElement>,ILookupService<DataElement>{
     
     public List<DataElement> findDataElementsUpdatedAfter(Date afterDate);
 

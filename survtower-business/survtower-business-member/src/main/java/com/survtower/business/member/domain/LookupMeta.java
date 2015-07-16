@@ -23,6 +23,7 @@ public class LookupMeta extends BaseEntity {
     private Lookup lookup;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date lastServerTimestamp;
+    private Long lastServerUpdateNo;
 
     public LookupMeta() {
     }
@@ -51,6 +52,16 @@ public class LookupMeta extends BaseEntity {
     public void setLookup(Lookup lookup) {
         this.lookup = lookup;
     }
+
+    public Long getLastServerUpdateNo() {
+        return lastServerUpdateNo;
+    }
+
+    public void setLastServerUpdateNo(Long lastServerUpdateNo) {
+        this.lastServerUpdateNo = lastServerUpdateNo;
+    }
+    
+    
 
     @Override
     public int hashCode() {

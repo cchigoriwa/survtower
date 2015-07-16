@@ -33,6 +33,12 @@ public class LookupMetaDataCollectionPayload implements Serializable {
             this.add(new ServerLookupMetaData(lookup, lastUpdateTimestamp));
         }
     }
+    
+     public void add(Lookup lookup, Long lastUpdateNo) {
+        if (lookup != null && lastUpdateNo != null) {
+            this.add(new ServerLookupMetaData(lookup, lastUpdateNo));
+        }
+    }
 
     public void add(ServerLookupMetaData lookupMetaData) {
         if (lookupMetaDataList != null) {

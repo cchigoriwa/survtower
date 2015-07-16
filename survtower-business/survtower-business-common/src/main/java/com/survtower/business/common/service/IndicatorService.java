@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Charles Chigoriwa
  */
-public interface IndicatorService extends GenericService<Indicator> {
+public interface IndicatorService extends GenericService<Indicator> ,ILookupService<Indicator>{
 
     public List<Indicator> findIndicatorsUpdatedAfter(Date afterDate);
 

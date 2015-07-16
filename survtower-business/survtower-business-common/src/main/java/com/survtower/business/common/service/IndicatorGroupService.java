@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Charles Chigoriwa
  */
-public interface IndicatorGroupService extends GenericService<IndicatorGroup>{
+public interface IndicatorGroupService extends GenericService<IndicatorGroup>,ILookupService<IndicatorGroup>{
     
     public List<IndicatorGroup> findIndicatorGroupsUpdatedAfter(Date afterDate);
 

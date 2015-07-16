@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Charles Chigoriwa
  */
-public interface MemberService extends GenericService<Member>{
+public interface MemberService extends GenericService<Member>,ILookupService<Member>{
     
     public List<Member> findMembersUpdatedAfter(Date afterDate);
 

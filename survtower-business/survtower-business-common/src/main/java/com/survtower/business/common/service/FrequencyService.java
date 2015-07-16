@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Takunda Dhlakama
  */
-public interface FrequencyService extends GenericService<Frequency>{
+public interface FrequencyService extends GenericService<Frequency>,ILookupService<Frequency>{
     
     public List<Frequency> findFrequencysUpdatedAfter(Date afterDate);
 

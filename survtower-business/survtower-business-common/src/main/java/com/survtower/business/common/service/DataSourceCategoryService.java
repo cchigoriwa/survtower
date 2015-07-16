@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Takunda Dhlakama
  */
-public interface DataSourceCategoryService extends GenericService<DataSourceCategory>{
+public interface DataSourceCategoryService extends GenericService<DataSourceCategory>,ILookupService<DataSourceCategory>{
     
     public List<DataSourceCategory> findDataSourceCategorysUpdatedAfter(Date afterDate);
 

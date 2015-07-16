@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Charles Chigoriwa
  */
-public interface PeriodService extends GenericService<Period>{
+public interface PeriodService extends GenericService<Period>,ILookupService<Period>{
     
     public List<Period> findPeriodsUpdatedAfter(Date afterDate);
 

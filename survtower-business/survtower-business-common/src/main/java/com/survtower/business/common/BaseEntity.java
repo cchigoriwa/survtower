@@ -36,6 +36,8 @@ public abstract class BaseEntity implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date updateDate = new Date();
+    
+    private Long updateNo;
 
     @XmlTransient
     public Long getId() {
@@ -69,6 +71,15 @@ public abstract class BaseEntity implements Serializable {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+
+    public Long getUpdateNo() {
+        return updateNo;
+    }
+
+    public void setUpdateNo(Long updateNo) {
+        this.updateNo = updateNo;
+    }
+
 
     public boolean isNew() {
         return uuid == null;
