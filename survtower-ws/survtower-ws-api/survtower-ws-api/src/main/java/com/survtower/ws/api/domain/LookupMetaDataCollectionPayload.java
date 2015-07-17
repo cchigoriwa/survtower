@@ -1,10 +1,8 @@
 package com.survtower.ws.api.domain;
 
-import com.survtower.ws.api.domain.*;
 import com.survtower.business.common.domain.Lookup;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -29,8 +27,7 @@ public class LookupMetaDataCollectionPayload implements Serializable {
         this.lookupMetaDataList = lookupMetaDataList;
     }
 
-    
-     public void add(Lookup lookup, Long lastUpdateNo) {
+    public void add(Lookup lookup, Long lastUpdateNo) {
         if (lookup != null && lastUpdateNo != null) {
             this.add(new ServerLookupMetaData(lookup, lastUpdateNo));
         }

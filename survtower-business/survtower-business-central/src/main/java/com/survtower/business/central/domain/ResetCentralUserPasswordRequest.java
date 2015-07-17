@@ -4,19 +4,17 @@ import com.survtower.business.common.domain.AbstractResetPasswordRequest;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author Daniel Nkhoma
  */
 @Entity
-@Table
-public class ResetPasswordRequest extends AbstractResetPasswordRequest{
-    
+public class ResetCentralUserPasswordRequest extends AbstractResetPasswordRequest {
+
     @ManyToOne(optional = false)
     @JoinColumn(updatable = false)
-    private CentralUser centralUser; 
+    private CentralUser centralUser;
 
     public CentralUser getCentralUser() {
         return centralUser;

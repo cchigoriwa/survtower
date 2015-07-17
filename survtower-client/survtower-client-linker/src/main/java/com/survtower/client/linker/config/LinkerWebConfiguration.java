@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.tiles2.TilesView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.survtower.client.linker.handler"})
+@ComponentScan(basePackages = {"com.survtower.client.linker.handler", "com.survtower.client.linker.helper"})
 public class LinkerWebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
@@ -41,7 +41,8 @@ public class LinkerWebConfiguration extends WebMvcConfigurerAdapter {
 
     /**
      * Configures Tiles at application startup.
-     * @return 
+     *
+     * @return
      */
     @Bean
     public TilesConfigurer tilesConfigurer() {
@@ -53,8 +54,6 @@ public class LinkerWebConfiguration extends WebMvcConfigurerAdapter {
         return configurer;
     }
 
-   
-
     @Bean
     public MultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -63,7 +62,6 @@ public class LinkerWebConfiguration extends WebMvcConfigurerAdapter {
         return multipartResolver;
     }
 
-    
     private static final long MAX_FILE_UPLOAD_SIZE = 1024 * 1024 * 5; //5 Mb file limit
     private static final int FILE_SIZE_THRESHOLD = 1024 * 1024; // After 1Mb start writing files to disk
 }

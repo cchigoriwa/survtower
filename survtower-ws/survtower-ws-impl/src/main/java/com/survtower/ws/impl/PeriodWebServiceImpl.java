@@ -1,17 +1,19 @@
 package com.survtower.ws.impl;
 
+import com.survtower.ws.api.PeriodWebService;
 import com.survtower.ws.api.domain.PeriodBody;
 import com.survtower.ws.api.domain.PeriodPayload;
 import com.survtower.ws.api.domain.ResponseHead;
-import com.survtower.ws.api.PeriodWebService;
 import com.survtower.ws.helper.LookupResult;
 import com.survtower.ws.helper.LookupWebServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Daniel Nkhoma
  */
+@Service
 public class PeriodWebServiceImpl implements PeriodWebService {
 
     @Autowired

@@ -1,8 +1,9 @@
 package com.survtower.client.central.helper;
 
-import com.survtower.client.central.utility.WebUtilityImpl;
-import com.survtower.business.central.domain.ResetPasswordRequest;
+import com.survtower.business.central.domain.ResetCentralUserPasswordRequest;
+import com.survtower.business.central.domain.ResetMemberSecurityPasswordRequest;
 import com.survtower.business.central.service.EmailHelper;
+import com.survtower.client.central.utility.WebUtilityImpl;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class EmailHelperImpl implements EmailHelper {
 
     @Override
-    public String createTextMessage(ResetPasswordRequest resetPasswordRequest) {
+    public String createCentralUserResetPasswordTextMessage(ResetCentralUserPasswordRequest resetPasswordRequest) {
         StringBuilder sb = new StringBuilder();
         sb.append("Changing your password is simple. Please use the link below");
         sb.append(" within 24 hours.  ");
@@ -27,7 +28,7 @@ public class EmailHelperImpl implements EmailHelper {
     }
 
     @Override
-    public String createTextMessage(String username, String password) {
+    public String createCentralUserChangePasswordTextMessage(String username, String password) {
         StringBuilder sb = new StringBuilder();
         sb.append("Your Central/SADC Secretariat account was successfully created");
         sb.append("Your login details: Username: ");
@@ -40,5 +41,9 @@ public class EmailHelperImpl implements EmailHelper {
         sb.append(webUrl);
         return sb.toString();
     }
-    
+
+    @Override
+    public String createMemberSecurityTextMessage(ResetMemberSecurityPasswordRequest resetPasswordRequest) {
+        return null;
+    }
 }

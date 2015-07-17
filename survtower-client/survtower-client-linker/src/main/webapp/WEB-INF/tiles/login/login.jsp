@@ -1,8 +1,9 @@
 <%@ include file="/WEB-INF/utils/includes.jsp" %>
+<spring:url value="/request-password-reset" var="resetPasswordUrl"></spring:url>
 
-<div class="row">
+    <div class="row">
 
-    <div>
+        <div>
         <c:if test="${not empty param.login_error}">
             <span style="color:red">
                 Your login attempt was not successful, try again.<br/><br/>
@@ -31,7 +32,7 @@
                     </div>
                 </div>    
                 <div>
-                    &nbsp;<a href="#">Forgot Password?</a>
+                    &nbsp;<a href="${resetPasswordUrl}">Forgot Password?</a>
                 </div>
             </div>
 

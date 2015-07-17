@@ -1,9 +1,9 @@
 package com.survtower.client.central.controller;
 
 import com.survtower.business.central.domain.CentralUser;
-import com.survtower.business.central.domain.ResetPasswordRequest;
+import com.survtower.business.central.domain.ResetCentralUserPasswordRequest;
 import com.survtower.business.central.service.CentralUserService;
-import com.survtower.business.central.service.ResetPasswordRequestService;
+import com.survtower.business.central.service.ResetCentralUserPasswordRequestService;
 import com.survtower.client.central.utility.MessageInfor;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,14 +24,14 @@ public class ResetPasswordController {
     private CentralUserService centralUserService;
 
     @ManagedProperty(value = "#{resetPasswordRequestService}")
-    private ResetPasswordRequestService resetPasswordRequestService;
+    private ResetCentralUserPasswordRequestService resetPasswordRequestService;
 
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
 
     private CentralUser centralUser;
 
-    private ResetPasswordRequest resetPasswordRequest;
+    private ResetCentralUserPasswordRequest resetPasswordRequest;
 
     @ManagedProperty(value = "#{param.reset}")
     private String reset;
@@ -53,19 +53,19 @@ public class ResetPasswordController {
         this.confirmPassword = confirmPassword;
     }
 
-    public ResetPasswordRequestService getResetPasswordRequestService() {
+    public ResetCentralUserPasswordRequestService getResetPasswordRequestService() {
         return resetPasswordRequestService;
     }
 
-    public void setResetPasswordRequestService(ResetPasswordRequestService resetPasswordRequestService) {
+    public void setResetPasswordRequestService(ResetCentralUserPasswordRequestService resetPasswordRequestService) {
         this.resetPasswordRequestService = resetPasswordRequestService;
     }
 
-    public ResetPasswordRequest getResetPasswordRequest() {
+    public ResetCentralUserPasswordRequest getResetPasswordRequest() {
         return resetPasswordRequest;
     }
 
-    public void setResetPasswordRequest(ResetPasswordRequest resetPasswordRequest) {
+    public void setResetPasswordRequest(ResetCentralUserPasswordRequest resetPasswordRequest) {
         this.resetPasswordRequest = resetPasswordRequest;
     }
 

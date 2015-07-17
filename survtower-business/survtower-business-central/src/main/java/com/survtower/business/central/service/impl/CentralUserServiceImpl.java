@@ -47,14 +47,14 @@ public class CentralUserServiceImpl implements CentralUserService {
 
     @Autowired
     private PasswordGeneratorService passwordGeneratorService;
-    
+
     @Autowired(required = false)
     private EmailHelper emailHelper;
 
     @Transactional
     @Override
     public CentralUser save(CentralUser centralUser) {
-        
+
         if (emailExists(centralUser)) {
             throw new EmailExistException();
         }
@@ -172,7 +172,7 @@ public class CentralUserServiceImpl implements CentralUserService {
         centralUser = centralUserDao.save(centralUser);
         return centralUser;
     }
-    
+
     @Transactional
     public void resetPassword(CentralUser centralUser) {
         String rawPassword = RandomStringUtils.randomAlphanumeric(10);
@@ -180,7 +180,7 @@ public class CentralUserServiceImpl implements CentralUserService {
         centralUserDao.updatePassword(encriptedPassword, centralUser.getUsername());
         sendEmail(centralUser, rawPassword);
     }
-    
+
     private void sendEmail(final CentralUser centralUser, final String rawPassword) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             @Override
@@ -200,9 +200,9 @@ public class CentralUserServiceImpl implements CentralUserService {
             System.err.println(ex.getMessage());
         }
     }
-    
+
     private String createTextMessage(String username, String password) {
-        return emailHelper.createTextMessage(username, password);
+        return emailHelper.createCentralUserChangePasswordTextMessage(username, password);
     }
 
     @PostConstruct
@@ -223,7 +223,7 @@ public class CentralUserServiceImpl implements CentralUserService {
         }
 
     }
-    
+
     private synchronized boolean emailExists(CentralUser centralUser) {
         CentralUser existingCentralUser = findByEmail(centralUser.getEmail());
         if (existingCentralUser == null) {
@@ -232,8 +232,6 @@ public class CentralUserServiceImpl implements CentralUserService {
             return !existingCentralUser.equals(centralUser);
         }
     }
-    
-    
 
     @Override
     public CentralUser findByEmail(String email) {

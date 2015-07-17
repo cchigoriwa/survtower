@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.survtower.ws.api.domain;
 
 import com.survtower.business.common.domain.DataSource;
@@ -11,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author charlesc
+ * @author Charles Chigoriwa
  */
 @XmlRootElement
 public class DataSourceBody {

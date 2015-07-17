@@ -1,9 +1,12 @@
 package com.survtower.ws.api.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Daniel Nkhoma
  */
+@XmlRootElement
 public class DataSourceCategoryPayload extends ResponsePayload {
 
     private DataSourceCategoryBody dataSourceCategoryBody;

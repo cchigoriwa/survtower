@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+    
+    <definition name="enterEmail" extends="navigableTemplatePage">
+        <put-attribute name="content" value="/WEB-INF/tiles/resetPassword/enterEmail.jsp" />
+    </definition>
+    
+    <definition name="emailSentReport" extends="navigableTemplatePage">
+        <put-attribute name="content" value="/WEB-INF/tiles/resetPassword/emailSentReport.jsp" />
+    </definition>
+    
+    <definition name="resetPassword" extends="navigableTemplatePage">
+        <put-attribute name="content" value="/WEB-INF/tiles/resetPassword/resetPassword.jsp" />
+    </definition>
+        
+</tiles-definitions>
