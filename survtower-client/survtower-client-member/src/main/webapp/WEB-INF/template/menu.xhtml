@@ -21,10 +21,10 @@
             </p:submenu>
 
             <p:submenu label="Settings" icon="ui-icon-wrench" rendered="#{checkLoggedOn.loggedOn}">
-                <p:menuitem value="Users" icon="ui-icon-person" outcome="memberUserList" rendered="#{request.isUserInRole('Member State Administrator')}"/>
-                <p:menuitem value="Email Set up" icon="ui-icon-mail-reply" outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn and request.isUserInRole('Member State Administrator')}" />
-                <p:menuitem value="Change Password" icon="ui-icon-pencil" outcome="changePassword" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager') || request.isUserInRole('Member State Administrator')}"/>
-                <p:menuitem value="Look up Data" icon="ui-icon-bookmark" outcome="admin_home" rendered="#{request.isUserInRole('Member State Administrator') || request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}"/>
+                <p:menuitem value="Users" icon="ui-icon-person" outcome="memberUserList" rendered="#{request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}"/>
+                <p:menuitem value="Email Set up" icon="ui-icon-mail-reply" outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn and request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}" />
+                <p:menuitem value="Change Password" icon="ui-icon-pencil" outcome="changePassword" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER') || request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR')}"/>
+                <p:menuitem value="Look up Data" icon="ui-icon-bookmark" outcome="admin_home" rendered="#{request.isUserInRole('ROLE_COUNTRY_ADMINISTRATOR') || request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
             </p:submenu>
 
             <p:submenu label="View Reporting" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn}">

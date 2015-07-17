@@ -3,6 +3,7 @@ package com.survtower.client.member.controller;
 import com.survtower.business.common.service.impl.PasswordEncoderImpl;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import com.survtower.client.member.utility.MessageInfor;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,6 +25,9 @@ public class ChangePasswordController {
 
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
     private MemberUser memberUser;
 
@@ -72,10 +76,16 @@ public class ChangePasswordController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
+    }
+    
+    
+
 
     @PostConstruct
     public void postConstruct() {
-        memberUser = memberUserService.getCurrentUser();
+        memberUser = memberUserUtility.getCurrentUser();
         memberUser.setPassword("");
         confirmPassword = "";
     }

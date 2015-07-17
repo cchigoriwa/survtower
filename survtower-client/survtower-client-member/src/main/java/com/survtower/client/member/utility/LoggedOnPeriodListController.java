@@ -4,6 +4,7 @@ import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -18,23 +19,25 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class LoggedOnPeriodListController {
 
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
-
     @ManagedProperty(value = "#{periodService}")
     private PeriodService periodService;
-
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
-    }
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
     public void setPeriodService(PeriodService periodService) {
         this.periodService = periodService;
     }
 
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
+    }
+    
+    
+
     public List<Period> getPeriods() {
         List<Period> list = new ArrayList<>();
-        for (Program program : memberUserService.getCurrentUserPrograms()) {
+        for (Program program : memberUserUtility.getCurrentUser().getPrograms()) {
             list.addAll(periodService.fetchAll(program));
         }
         return list;

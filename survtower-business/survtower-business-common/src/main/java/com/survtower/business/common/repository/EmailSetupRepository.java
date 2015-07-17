@@ -5,7 +5,8 @@ import net.sadc.business.common.GenericRepository;
 
 /**
  *
- * @author Takunda Dhlakama
+ * @author Charles Chigoriwa
+ * @author Daniel Nkhoma
  */
 public interface EmailSetupRepository extends GenericRepository<EmailSetup, Long> {
    

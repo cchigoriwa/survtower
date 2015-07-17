@@ -9,6 +9,7 @@ import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.report.AuditItem;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.SurveillanceAuditService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -37,14 +38,11 @@ public class IndexController {
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
-
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
-    }
-
+   
     public void setSurveillanceAuditService(SurveillanceAuditService surveillanceAuditService) {
         this.surveillanceAuditService = surveillanceAuditService;
     }
@@ -73,7 +71,7 @@ public class IndexController {
     public void init() {
         aduitItems = new ArrayList<>();
         
-        for (Program program : memberUserService.getCurrentUserPrograms()) {
+        for (Program program : memberUserUtility.getCurrentUser().getPrograms()) {
             for (Period p : periodService.fetchActive(program)) {
                 AuditItem item = new AuditItem();
                 item.setPeriod(p);
@@ -85,6 +83,12 @@ public class IndexController {
         
         
     }
+
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
+    }
+    
+    
 
     public String surveillanceId(Program program, Period p) {
         Surveillance surveillance = surveillanceService.get(program, p, memberService.getCurrentMember());

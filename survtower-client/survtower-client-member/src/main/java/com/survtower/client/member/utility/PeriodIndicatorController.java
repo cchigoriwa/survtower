@@ -10,6 +10,7 @@ import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceData;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,9 @@ public class PeriodIndicatorController implements Serializable {
 
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
     private RegionSurveillanceDataService surveillanceDataService;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
@@ -60,8 +64,8 @@ public class PeriodIndicatorController implements Serializable {
 
         surveillanceDataList = new ArrayList<>();
         programRegions = new ArrayList<>();
-        for (Program program : memberUserService.getCurrentUserPrograms()) {
-            for (Region region : memberUserService.getCurrentUserRegions()) {
+        for (Program program : memberUserUtility.getCurrentUser().getPrograms()) {
+            for (Region region : memberUserUtility.getCurrentUser().getRegions()) {
                 programRegions.add(new ProgramRegion(region, program));
             }
         }

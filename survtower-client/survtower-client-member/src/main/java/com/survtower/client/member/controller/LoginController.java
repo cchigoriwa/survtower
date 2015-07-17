@@ -2,6 +2,7 @@ package com.survtower.client.member.controller;
 
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import com.survtower.client.member.utility.WebUtilityImpl;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
@@ -24,10 +25,19 @@ public class LoginController {
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
     }
+
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
+    }
+    
+    
 
     /**
      * @return @throws IOException
@@ -57,6 +67,6 @@ public class LoginController {
     }
 
     public MemberUser getCurrentUser() {
-        return memberUserService.getCurrentUser();
+        return memberUserUtility.getCurrentUser();
     }
 }

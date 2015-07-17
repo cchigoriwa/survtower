@@ -1,21 +1,14 @@
 package com.survtower.business.member.service.impl;
 
 import com.survtower.business.common.EmailExistException;
-import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.service.EmailConfiguration;
 import com.survtower.business.common.service.PasswordGeneratorService;
 import com.survtower.business.member.dao.MemberUserDao;
 import com.survtower.business.member.domain.MemberUser;
-import com.survtower.business.member.domain.MemberUserRole;
-import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.service.EmailHelper;
 import com.survtower.business.member.service.MemberUserService;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.annotation.PostConstruct;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -24,9 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +54,10 @@ public class MemberUserServiceImpl implements MemberUserService {
         }
 
         if (memberUser.getId() == null) {
-            String rawPassword = passwordGeneratorService.generatePassword();
+            String rawPassword = memberUser.getPassword();
+            if (rawPassword == null) {
+                rawPassword = passwordGeneratorService.generatePassword();
+            }
             memberUser = createNewUser(memberUser, rawPassword);
             try {
                 sendEmail(memberUser, rawPassword);
@@ -108,103 +101,6 @@ public class MemberUserServiceImpl implements MemberUserService {
         return null;
     }
 
-    // -------------------------------------------------------------------------
-    // Get Current user Implementation
-    // -------------------------------------------------------------------------
-    @Override
-    public MemberUser getCurrentUser() {
-        String username = getCurrentUsername();
-
-        if (username == null) {
-            return null;
-        }
-
-        MemberUser user = memberUserDao.findByUserName(username);
-
-        if (user == null) {
-            return null;
-        }
-        return user;
-    }
-
-    @Override
-    public String getCurrentUsername() {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() == null) {
-            return null;
-        }
-        /*
-         * If getPrincipal returns a string, it means that the user has been
-         * authenticated anonymous (String == anonymousUser).
-         */
-        if (authentication.getPrincipal() instanceof String) {
-            String principal = (String) authentication.getPrincipal();
-
-            if (principal.compareTo("anonymousUser") != 0) {
-                return null;
-            }
-
-            return principal;
-        }
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        return userDetails.getUsername();
-    }
-
-    @Override
-    public List<String> getCurrentUserRoles() {
-        if (getCurrentUser() != null) {
-            return getCurrentUser().getRoles();
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
-    public List<Program> getCurrentUserPrograms() {
-        if (getCurrentUser() != null) {
-            return getCurrentUser().getProgramList();
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
-    public List<Region> getCurrentUserRegions() {
-        if (getCurrentUser() != null) {
-            return getCurrentUser().getRegionList();
-        } else {
-            return new ArrayList<>();
-        }
-
-    }
-
-    public List<String> getMemberRoles() {
-        List<String> list = new ArrayList<>();
-        list.add(MemberUser.getAppUserRoles().get(0).getDescription());
-        return list;
-    }
-
-    @PostConstruct
-    public void init() {
-        if (memberUserDao.findAll().isEmpty()) {
-            Set<MemberUserRole> memberUserRoles = new HashSet<>();
-            MemberUser memberUser = new MemberUser();
-            memberUser.setUsername("admin");
-            memberUser.setDeactivated(Boolean.FALSE);
-            for (String role : getMemberRoles()) {
-                MemberUserRole memberUserRole = new MemberUserRole();
-                memberUserRole.setMemberRole(role);
-                memberUserRole.setDeactivated(Boolean.FALSE);
-                memberUserRoles.add(memberUserRole);
-            }
-            memberUser.setMemberUserRoles(memberUserRoles);
-            save(memberUser);
-        }
-    }
 
     @Transactional
     public void resetPassword(MemberUser memberUser) {
