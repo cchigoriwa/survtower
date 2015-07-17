@@ -196,12 +196,12 @@ public class RegionDataEntryController extends MessageInfor implements Serializa
                 }
             }
 
-            if (!getCurrentUser().getRoles().contains(MemberUser.getAppUserRoles().get(2).getDescription())) {
+            //if (!getCurrentUser().getRoles().contains(MemberUser.getAppUserRoles().get(2).getDescription())) {
                 if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
                     errorMessages("Data Upload Has Already been Approved,Changes Permitted");
                     return null;
                 }
-            }
+            //}
 
             submitted = Boolean.TRUE;
             for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {

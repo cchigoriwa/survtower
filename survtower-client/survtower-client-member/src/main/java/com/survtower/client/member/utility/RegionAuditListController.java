@@ -10,6 +10,7 @@ import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceAudit;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.RegionSurveillanceAuditService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,9 @@ public class RegionAuditListController implements Serializable {
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
     private List<RegionSurveillanceAudit> audits;
     private List<RegionSurveillanceAudit> waitingApprovalAudits;
@@ -73,8 +77,8 @@ public class RegionAuditListController implements Serializable {
 
         List<ProgramRegion> programRegions = new ArrayList<>();
 
-        for (Program program : memberUserService.getCurrentUserPrograms()) {
-            for (Region region : memberUserService.getCurrentUserRegions()) {
+        for (Program program : memberUserUtility.getCurrentUser().getPrograms()) {
+            for (Region region : memberUserUtility.getCurrentUser().getRegions()) {
                 programRegions.add(new ProgramRegion(region, program));
 
             }
@@ -102,5 +106,12 @@ public class RegionAuditListController implements Serializable {
         Surveillance surveillance = surveillanceService.get(program, p, memberService.getCurrentMember());
         return surveillance == null ? null : surveillance.getUuid();
     }
+
+
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
+    }
+    
+    
 
 }

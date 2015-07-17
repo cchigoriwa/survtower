@@ -3,6 +3,7 @@ package com.survtower.client.member.utility;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -21,13 +22,21 @@ public class LoggedOnRoleListController {
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
     }
 
-    public List<String> getRoles() {
+    /*public List<String> getRoles() {
         return memberUserService.getCurrentUserRoles();
+    }*/
+
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
     }
 
+    
 }

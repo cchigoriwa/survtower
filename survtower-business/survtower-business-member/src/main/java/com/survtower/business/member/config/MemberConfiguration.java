@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(value = {"com.survtower.business.common.repository","com.survtower.business.member.repository"})
-@ComponentScan(basePackages = {"com.survtower.business.common.dao.impl", "com.survtower.business.member.dao.impl", "com.survtower.business.common.service.impl", "com.survtower.business.member.service.impl","com.survtower.business.member.integration.impl"})
+@ComponentScan(basePackages = {"com.survtower.business.common.dao.impl", "com.survtower.business.member.dao.impl", "com.survtower.business.common.service.impl", "com.survtower.business.member.service.impl","com.survtower.business.member.integration.impl","com.survtower.business.member.setup"})
 public class MemberConfiguration {
 
     @Resource

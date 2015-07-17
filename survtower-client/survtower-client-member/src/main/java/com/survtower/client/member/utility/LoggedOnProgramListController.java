@@ -2,6 +2,7 @@ package com.survtower.client.member.utility;
 
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.client.member.bean.MemberUserUtility;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -15,15 +16,19 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class LoggedOnProgramListController {
 
-    @ManagedProperty(value = "#{memberUserService}")
-    private MemberUserService memberUserService;
+    
+    @ManagedProperty(value = "#{memberUserUtility}")
+    private MemberUserUtility memberUserUtility;
 
-    public void setMemberUserService(MemberUserService memberUserService) {
-        this.memberUserService = memberUserService;
-    }
-
+   
     public List<Program> getPrograms() {
-        return memberUserService.getCurrentUserPrograms();
+        return memberUserUtility.getCurrentUser().getPrograms();
     }
+
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
+    }
+    
+    
 
 }
