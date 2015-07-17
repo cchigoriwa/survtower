@@ -43,19 +43,9 @@ public class MemberUserEditController {
 
     public String save() {        
         try {
-            
-            if (memberUser.getPrograms().isEmpty()) {
-                MessageInfor.errorMessages("Select User Programs");
-                return null;
-            }
-
+           
             if (memberUser.getUserRoles().isEmpty()) {
                 MessageInfor.errorMessages("Select User Roles");
-                return null;
-            }
-
-            if (memberUser.getRegions().isEmpty()) {
-                MessageInfor.errorMessages("Select User Regions");
                 return null;
             }
 
