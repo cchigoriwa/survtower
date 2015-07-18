@@ -1,9 +1,8 @@
 package com.survtower.client.linker.util;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  *
@@ -11,24 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class WebUtilityImpl {
 
-    @Autowired
     private static HttpServletRequest request;
 
-    public static String getBasePath() throws MalformedURLException {
-
+    public static String getBasePath() {
+        request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         return getUrlBase(request);
     }
 
-    public static String getUrlBase(HttpServletRequest request)
-            throws MalformedURLException {
-        URL requestUrl = new URL(request.getRequestURL().toString());
-        String portString
-                = requestUrl.getPort() == -1 ? "" : ":" + requestUrl.getPort();
-        return requestUrl.getProtocol()
-                + "://" + requestUrl.getHost() + portString + "/";
-    }
+    public static String getUrlBase(HttpServletRequest request) {
 
-    public static void main(String[] args) throws MalformedURLException {
-        System.out.println(getBasePath());;
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        return url;
     }
 }
