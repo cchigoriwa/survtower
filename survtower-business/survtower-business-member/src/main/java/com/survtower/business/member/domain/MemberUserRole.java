@@ -3,6 +3,7 @@ package com.survtower.business.member.domain;
 import com.survtower.business.common.BaseEntity;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -11,10 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "member_user_role")
 public class MemberUserRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-   
+
     private String memberRole;
     private Boolean deactivated = Boolean.FALSE;
 
@@ -56,8 +58,4 @@ public class MemberUserRole extends BaseEntity {
         return true;
     }
 
- 
-
-    
-    
 }

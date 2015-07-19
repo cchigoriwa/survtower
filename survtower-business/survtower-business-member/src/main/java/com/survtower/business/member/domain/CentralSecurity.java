@@ -2,17 +2,19 @@ package com.survtower.business.member.domain;
 
 import com.survtower.business.common.BaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author Charles Chigoriwa
- * 
+ *
  */
 @Entity
+@Table(name = "central_security")
 public class CentralSecurity extends BaseEntity {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private String centralServerUrl;
     private String memberID;
     private String memberKey;
@@ -41,10 +43,6 @@ public class CentralSecurity extends BaseEntity {
         this.centralServerUrl = centralServerUrl;
     }
 
-    
-    
-    
-  
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,5 +63,5 @@ public class CentralSecurity extends BaseEntity {
     public String toString() {
         return "com.survtower.business.member.domain.CentralSecurity[ id=" + id + " ]";
     }
-    
+
 }

@@ -3,12 +3,13 @@ package com.survtower.business.common.domain;
 import com.survtower.business.common.BaseEntity;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.text.NumberFormat;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -17,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
+@Table(name = "surveillance_data")
 public class SurveillanceData extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

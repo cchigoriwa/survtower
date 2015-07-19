@@ -2,19 +2,21 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.BaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Entity
-public class EmailSetup extends BaseEntity{
-    
+@Table(name = "email_setup")
+public class EmailSetup extends BaseEntity {
+
     private String host;
     private String port;
     private String username;
     private String password;
-    
+
     private String mailSmtpUser;
     private String mailSmtpFrom;
     private String mailSmtpLocalHost;
@@ -101,9 +103,5 @@ public class EmailSetup extends BaseEntity{
     public void setMailSmtpStartTlsEnable(String mailSmtpStartTlsEnable) {
         this.mailSmtpStartTlsEnable = mailSmtpStartTlsEnable;
     }
-    
-    
-    
-    
-    
+
 }

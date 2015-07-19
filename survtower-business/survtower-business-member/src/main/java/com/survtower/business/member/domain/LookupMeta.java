@@ -2,18 +2,18 @@ package com.survtower.business.member.domain;
 
 import com.survtower.business.common.BaseEntity;
 import com.survtower.business.common.domain.Lookup;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Temporal;
+import javax.persistence.Table;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Entity
+@Table(name = "lookup_meta")
 public class LookupMeta extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +35,6 @@ public class LookupMeta extends BaseEntity {
         this.lastServerUpdateNo = lastServerUpdateNo;
     }
 
-
     public Lookup getLookup() {
         return lookup;
     }
@@ -51,8 +50,5 @@ public class LookupMeta extends BaseEntity {
     public void setLastServerUpdateNo(Long lastServerUpdateNo) {
         this.lastServerUpdateNo = lastServerUpdateNo;
     }
-    
-    
-
 
 }

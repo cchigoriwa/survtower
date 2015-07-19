@@ -2,6 +2,7 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -10,8 +11,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "indicator_type")
 public class IndicatorType extends NamedBaseEntity {
-    
+
     private static final long serialVersionUID = 1L;
     private Integer decimalPlaces = 0, factor = 1;
 
@@ -30,7 +32,7 @@ public class IndicatorType extends NamedBaseEntity {
     public void setFactor(Integer factor) {
         this.factor = factor;
     }
-    
+
     @Override
     public String toString() {
         return getName();

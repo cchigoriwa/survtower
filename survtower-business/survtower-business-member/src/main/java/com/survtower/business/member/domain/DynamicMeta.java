@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -14,6 +15,7 @@ import javax.persistence.Temporal;
  * @author Charles Chigoriwa
  */
 @Entity
+@Table(name = "dynamic_meta")
 public class DynamicMeta extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -35,8 +37,6 @@ public class DynamicMeta extends BaseEntity {
         this.dynamic = dynamic;
         this.lastLocalTimestamp = lastLocalTimestamp;
     }
-    
-    
 
     public Dynamic getDynamic() {
         return dynamic;
@@ -53,9 +53,6 @@ public class DynamicMeta extends BaseEntity {
     public void setLastLocalTimestamp(Date lastLocalTimestamp) {
         this.lastLocalTimestamp = lastLocalTimestamp;
     }
-
-    
-
 
     @Override
     public int hashCode() {

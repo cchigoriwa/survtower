@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -14,12 +15,13 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
+@Table(name = "program")
 public class Program extends NamedBaseEntity {
 
     private static final long serialVersionUID = 1L;
     @OneToMany
-    private Set<IndicatorGroup> indicatorGroups = new HashSet<IndicatorGroup>();
-    
+    private Set<IndicatorGroup> indicatorGroups = new HashSet<>();
+
     @XmlTransient
     public Set<IndicatorGroup> getIndicatorGroups() {
         return indicatorGroups;

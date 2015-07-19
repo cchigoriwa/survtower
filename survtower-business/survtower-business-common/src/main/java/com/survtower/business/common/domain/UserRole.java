@@ -3,17 +3,19 @@ package com.survtower.business.common.domain;
 import com.survtower.business.common.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author Charles Chigoriwa
  */
 @Entity
-public class UserRole extends BaseEntity{
-    
+@Table(name = "user_role")
+public class UserRole extends BaseEntity {
+
     private String name;
     private String description;
-    @Column(unique=true)
+    @Column(unique = true)
     private String role;
 
     public UserRole() {
@@ -22,10 +24,8 @@ public class UserRole extends BaseEntity{
     public UserRole(String name, String role) {
         this.name = name;
         this.role = role;
-        this.description=name;
+        this.description = name;
     }
-    
-    
 
     public String getName() {
         return name;
@@ -55,5 +55,5 @@ public class UserRole extends BaseEntity{
     public String toString() {
         return name;
     }
-    
+
 }

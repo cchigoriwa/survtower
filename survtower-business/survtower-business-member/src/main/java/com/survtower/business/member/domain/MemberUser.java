@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Entity
 @XmlRootElement
+@Table(name = "member_user")
 public class MemberUser extends BaseEntity {
 
     private String username;
@@ -34,7 +36,7 @@ public class MemberUser extends BaseEntity {
     @ManyToMany
     private List<Region> regions = new ArrayList<>();
     @ManyToMany
-    private List<UserRole> userRoles=new ArrayList<>();
+    private List<UserRole> userRoles = new ArrayList<>();
 
     public String getEmail() {
         return email;
@@ -108,7 +110,7 @@ public class MemberUser extends BaseEntity {
         userDetails.setAccountNonExpired(!this.deactivated);
 
         List<GrantedAuthority> list = new ArrayList<>();
-        for (UserRole userRole:userRoles) {
+        for (UserRole userRole : userRoles) {
             list.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
         userDetails.setAuthorities(list);

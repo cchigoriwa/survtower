@@ -4,7 +4,6 @@ import com.survtower.business.common.BaseEntity;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -13,12 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"uuid"})})
+@Table(name = "central_user_role")
 public class CentralUserRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-   
+
     private String memberRole;
     private Boolean deactivated = Boolean.FALSE;
 
@@ -60,8 +58,4 @@ public class CentralUserRole extends BaseEntity {
         return true;
     }
 
- 
-
-    
-    
 }

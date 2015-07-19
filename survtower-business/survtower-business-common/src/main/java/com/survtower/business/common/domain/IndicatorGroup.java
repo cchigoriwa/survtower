@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -15,6 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
+@Table(name = "indicator_group")
 public class IndicatorGroup extends NamedBaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -32,8 +34,8 @@ public class IndicatorGroup extends NamedBaseEntity {
     public void setProgram(Program program) {
         this.program = program;
     }
-    
-    @XmlTransient    
+
+    @XmlTransient
     public Set<Indicator> getIndicators() {
         return indicators;
     }

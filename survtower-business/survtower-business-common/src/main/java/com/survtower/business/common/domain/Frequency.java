@@ -2,6 +2,7 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -10,8 +11,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "frequency")
 public class Frequency extends NamedBaseEntity {
-    
+
     private static final long serialVersionUID = 1L;
     private Double factor = 0.0;
 
@@ -22,7 +24,7 @@ public class Frequency extends NamedBaseEntity {
     public void setFactor(Double factor) {
         this.factor = factor;
     }
-    
+
     @Override
     public String toString() {
         return getName();

@@ -11,11 +11,12 @@ import javax.persistence.Table;
  * @author Charles Chigoriwa
  */
 @Entity
-public class ResetPasswordRequest extends AbstractResetPasswordRequest{
-    
+@Table(name = "reset_password_request")
+public class ResetPasswordRequest extends AbstractResetPasswordRequest {
+
     @ManyToOne(optional = false)
     @JoinColumn(updatable = false)
-    private MemberUser memberUser; 
+    private MemberUser memberUser;
 
     public MemberUser getMemberUser() {
         return memberUser;
@@ -25,6 +26,4 @@ public class ResetPasswordRequest extends AbstractResetPasswordRequest{
         this.memberUser = memberUser;
     }
 
-  
-    
 }

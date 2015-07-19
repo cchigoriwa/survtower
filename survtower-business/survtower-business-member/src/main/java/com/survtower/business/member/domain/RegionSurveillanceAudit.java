@@ -6,6 +6,7 @@ import com.survtower.business.common.domain.Program;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "region_surveillance_audit")
 public class RegionSurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -105,9 +107,9 @@ public class RegionSurveillanceAudit extends BaseEntity {
     public String getForApproval() {
         return getRegion() + "-" + getProgram();
     }
-    
-    public boolean isSubmitted(){
-        return id!=null;
+
+    public boolean isSubmitted() {
+        return id != null;
     }
 
 }

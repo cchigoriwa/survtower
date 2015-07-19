@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"program_id", "period_id", "member_id"})})
+    @UniqueConstraint(columnNames = {"program_id", "period_id", "member_id"})}, name = "surveillance")
 public class Surveillance extends BaseEntity {
 
     @ManyToOne
@@ -30,7 +30,7 @@ public class Surveillance extends BaseEntity {
     @ManyToOne
     private Member member;
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<SurveillanceData> surveillanceDataSet = new HashSet<SurveillanceData>();
+    private Set<SurveillanceData> surveillanceDataSet = new HashSet<>();
     @Transient
     private Boolean errorMarked;
 

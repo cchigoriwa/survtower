@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,22 +18,21 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Charles Chigoriwa
  */
 @Entity
+@Table(name = "member_security")
 public class MemberSecurity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     private String emailAddress;
     private String password;
-    @Column(updatable = false,unique = true)
+    @Column(updatable = false, unique = true)
     private String memberID;
-    @Column(updatable = false,unique = true)
+    @Column(updatable = false, unique = true)
     private String memberKey;
     private Boolean deactivated = Boolean.FALSE;
 
     @OneToOne
     private Member member;
-    
-    public static final String ROLE_MEMBER="ROLE_MEMBER";
 
     public String getEmailAddress() {
         return emailAddress;
@@ -83,31 +81,31 @@ public class MemberSecurity extends BaseEntity {
     public void setDeactivated(Boolean deactivated) {
         this.deactivated = deactivated;
     }
-    
+
     public UserDetails toUserDetails() {
         AppUserDetails userDetails = new AppUserDetails();
         userDetails.setUsername(this.emailAddress);
-        userDetails.setPassword(this.password);        
+        userDetails.setPassword(this.password);
         userDetails.setUuid(this.uuid);
         userDetails.setEnabled(!this.deactivated);
         userDetails.setAccountNonLocked(!this.deactivated);
         userDetails.setCredentialsNonExpired(!this.deactivated);
-        userDetails.setAccountNonExpired(!this.deactivated);       
+        userDetails.setAccountNonExpired(!this.deactivated);
         List<GrantedAuthority> list = new ArrayList<>();
         list.add(new SimpleGrantedAuthority(ROLE_MEMBER));
         userDetails.setAuthorities(list);
         return userDetails;
     }
-    
+
     public UserDetails toAppUserDetailsForIntegration() {
         AppUserDetails userDetails = new AppUserDetails();
         userDetails.setUsername(this.memberID);
-        userDetails.setPassword(this.memberKey);        
+        userDetails.setPassword(this.memberKey);
         userDetails.setUuid(this.uuid);
         userDetails.setEnabled(!this.deactivated);
         userDetails.setAccountNonLocked(!this.deactivated);
         userDetails.setCredentialsNonExpired(!this.deactivated);
-        userDetails.setAccountNonExpired(!this.deactivated);       
+        userDetails.setAccountNonExpired(!this.deactivated);
 
         List<GrantedAuthority> list = new ArrayList<>();
         list.add(new SimpleGrantedAuthority(ROLE_MEMBER));
@@ -135,5 +133,7 @@ public class MemberSecurity extends BaseEntity {
     public String toString() {
         return getEmailAddress();
     }
+
+    public static final String ROLE_MEMBER = "ROLE_MEMBER";
 
 }

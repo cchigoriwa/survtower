@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "period")
 public class Period extends NamedBaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -134,9 +136,8 @@ public class Period extends NamedBaseEntity {
     public String getDueDateStatus() {
         //return getDueDatePassed() ? "-" + getNumberOfDaysLeftToDueDate() +" Days" : "+" + getNumberOfDaysLeftToDueDate() + " Days";
         //Changed by Charles
-        return getDueDatePassed() ? getNumberOfDaysLeftToDueDate() +" Days Late" : "+" + getNumberOfDaysLeftToDueDate() + " Days Left";
-        
-    
+        return getDueDatePassed() ? getNumberOfDaysLeftToDueDate() + " Days Late" : "+" + getNumberOfDaysLeftToDueDate() + " Days Left";
+
     }
 
 }

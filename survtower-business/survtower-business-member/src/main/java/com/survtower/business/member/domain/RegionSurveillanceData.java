@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -18,14 +19,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
+@Table(name = "region_surveillance_data")
 public class RegionSurveillanceData extends BaseEntity {
 
     @ManyToOne
     private Region region;
-    
+
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne    
+    @ManyToOne
     @XmlTransient
     private SurveillanceData surveillanceData;
     private Double denominatorValue = 0.0;
@@ -84,7 +86,7 @@ public class RegionSurveillanceData extends BaseEntity {
     public void setRegion(Region region) {
         this.region = region;
     }
-    
+
     public Double getCalculatedValue() {
         if (isManual()) {
             return getManualValue(); // if manual value ignore Denominator value - Consider Only Numerator value
