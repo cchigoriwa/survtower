@@ -16,7 +16,7 @@ import javax.faces.bean.RequestScoped;
  *
  * @author Takunda Dhlakama
  * @author Charles Chigoriwa
- * 
+ *
  */
 @ManagedBean
 @RequestScoped
@@ -37,13 +37,10 @@ public class MemberUserEditController {
     public MemberUser getMemberUser() {
         return memberUser;
     }
-  
 
-    
-
-    public String save() {        
+    public String save() {
         try {
-           
+
             if (memberUser.getUserRoles().isEmpty()) {
                 MessageInfor.errorMessages("Select User Roles");
                 return null;
@@ -69,7 +66,6 @@ public class MemberUserEditController {
         return uuid;
     }
 
-   
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
@@ -97,14 +93,13 @@ public class MemberUserEditController {
     public void setUserRoleService(UserRoleService userRoleService) {
         this.userRoleService = userRoleService;
     }
-    
 
     @PostConstruct
     public void postConstruct() {
         if (uuid == null) {
             memberUser = new MemberUser();
         } else {
-            memberUser = memberUserService.findByUuid(uuid); 
+            memberUser = memberUserService.findByUuid(uuid);
         }
     }
 

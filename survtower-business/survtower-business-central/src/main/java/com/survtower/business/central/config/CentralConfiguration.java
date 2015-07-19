@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(value = {"com.survtower.business.common.repository", "com.survtower.business.central.repository"})
-@ComponentScan(basePackages = {"com.survtower.business.common.dao.impl", "com.survtower.business.central.dao.impl", "com.survtower.business.common.service.impl", "com.survtower.business.central.service.impl"})
+@ComponentScan(basePackages = {"com.survtower.business.common.dao.impl", "com.survtower.business.central.dao.impl", "com.survtower.business.common.service.impl", "com.survtower.business.central.service.impl", "com.survtower.business.central.setup"})
 @EnableAspectJAutoProxy
 public class CentralConfiguration {
 
@@ -43,7 +43,7 @@ public class CentralConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setPackagesToScan(new String[]{"com.survtower.business.common.domain","com.survtower.business.central.domain"});
+        entityManagerFactory.setPackagesToScan(new String[]{"com.survtower.business.common.domain", "com.survtower.business.central.domain"});
         entityManagerFactory.setPersistenceProviderClass(HibernatePersistence.class);
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -59,7 +59,5 @@ public class CentralConfiguration {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
-
-   
 
 }

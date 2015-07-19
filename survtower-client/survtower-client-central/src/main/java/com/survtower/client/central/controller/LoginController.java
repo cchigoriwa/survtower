@@ -1,7 +1,7 @@
 package com.survtower.client.central.controller;
 
 import com.survtower.business.central.domain.CentralUser;
-import com.survtower.business.central.service.CentralUserService;
+import com.survtower.client.central.bean.CentralUserUtility;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,11 +21,15 @@ import javax.servlet.ServletResponse;
 @RequestScoped
 public class LoginController {
 
-    @ManagedProperty(value = "#{centralUserService}")
-    private CentralUserService centralUserService;
+    @ManagedProperty(value = "#{centralUserUtility}")
+    private CentralUserUtility centralUserUtility;
 
-    public void setCentralUserService(CentralUserService centralUserService) {
-        this.centralUserService = centralUserService;
+    public CentralUserUtility getCentralUserUtility() {
+        return centralUserUtility;
+    }
+
+    public void setCentralUserUtility(CentralUserUtility centralUserUtility) {
+        this.centralUserUtility = centralUserUtility;
     }
 
     /**
@@ -56,7 +60,6 @@ public class LoginController {
     }
 
     public CentralUser getCurrentUser() {
-        return centralUserService.getCurrentUser();
+        return centralUserUtility.getCurrentUser();
     }
 }
-

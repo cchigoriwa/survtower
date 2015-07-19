@@ -32,8 +32,9 @@
                     </tr>
                     <tr>
                         <h:outputLabel value="Select Roles"/>
-                        <p:selectManyCheckbox id="grid" value="#{centralUserEditController.roles}" layout="grid" columns="2" >
-                            <f:selectItems value="#{centralUserEditController.memberRoles}"/>
+                        <p:selectManyCheckbox value="#{centralUserEditController.centralUser.userRoles}" converter="#{userRoleConverter}" layout="grid" columns="2" >
+                            <f:selectItems value="#{centralUserEditController.userRoleService.findAll()}"/>
+                            <f:attribute name="collectionType" value="java.util.ArrayList" />
                         </p:selectManyCheckbox>
                     </tr>
                     <tr>

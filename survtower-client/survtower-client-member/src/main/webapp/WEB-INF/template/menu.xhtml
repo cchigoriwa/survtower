@@ -12,11 +12,11 @@
 
             <p:menuitem value="Dash Board" outcome="dash_board" rendered="#{checkLoggedOn.loggedOn}" icon="ui-icon-home"/>
 
-            <p:submenu label="Region" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn and request.isUserInRole('Health Information Officer')}">
+            <p:submenu label="Region" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn and request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')}">
                 <p:menuitem value="Data Entry" outcome="region_data_select" icon="ui-icon-pencil"/>
             </p:submenu>
 
-            <p:submenu label="Aggregate" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn and request.isUserInRole('Country Disease Manager')}">
+            <p:submenu label="Aggregate" icon="ui-icon-pencil" rendered="#{checkLoggedOn.loggedOn and request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
                 <p:menuitem value="Validation and Approval" outcome="data_select" icon="ui-icon-pencil"/>
             </p:submenu>
 

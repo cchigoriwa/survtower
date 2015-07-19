@@ -2,17 +2,13 @@ package com.survtower.business.central.domain;
 
 import com.survtower.business.common.AppUserDetails;
 import com.survtower.business.common.BaseEntity;
+import com.survtower.business.common.domain.UserRole;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,28 +17,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 /**
  *
  * @author Takunda Dhlakama
+ * @author Daniel Nkhoma
  */
 @Entity
 @XmlRootElement
+@Table(name = "central_user")
 public class CentralUser extends BaseEntity {
 
-    @Transient
-    public static final String ROLE_GLOBAL_ADMINISTRATOR = "ROLE_GLOBAL_ADMINISTRATOR";
-    @Transient
-    public static final String ROLE_SADC_DATA_MANAGER = "ROLE_SADC_DATA_MANAGER";
     private String username;
     private String password;
     @Column(unique = true)
     private String email;
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
-    @JoinTable(name = "CentralUser_Role", joinColumns = {
-        @JoinColumn(name = "central_user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "central_role")})
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<CentralUserRole> centralUserRoles = new HashSet<CentralUserRole>();
-    @Transient
-    private List<String> roles;
+    @ManyToMany
+    private List<UserRole> userRoles;
 
     public String getUsername() {
         return username;
@@ -81,20 +70,12 @@ public class CentralUser extends BaseEntity {
         this.deactivated = deactivated;
     }
 
-    public List<String> getRoles() {
-        Set<String> memberRoles = new HashSet<String>();
-        for (CentralUserRole userRole : getCentralUserRoles()) {
-            memberRoles.add(userRole.getMemberRole());
-        }        
-        return new ArrayList<String>(memberRoles);
+    public List<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public Set<CentralUserRole> getCentralUserRoles() {
-        return centralUserRoles;
-    }
-
-    public void setCentralUserRoles(Set<CentralUserRole> centralUserRoles) {
-        this.centralUserRoles = centralUserRoles;
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public UserDetails toUserDetails() {
@@ -108,11 +89,15 @@ public class CentralUser extends BaseEntity {
         userDetails.setAccountNonExpired(!this.deactivated);
 
         List<GrantedAuthority> list = new ArrayList<>();
-        for (String role : getRoles()) {
-            list.add(new SimpleGrantedAuthority(role));
+        for (UserRole role : userRoles) {
+            list.add(new SimpleGrantedAuthority(role.getRole()));
         }
         userDetails.setAuthorities(list);
         return userDetails;
     }
+
+    public static final String ROLE_GLOBAL_ADMINISTRATOR = "ROLE_GLOBAL_ADMINISTRATOR";
+
+    public static final String ROLE_SADC_DATA_MANAGER = "ROLE_SADC_DATA_MANAGER";
 
 }

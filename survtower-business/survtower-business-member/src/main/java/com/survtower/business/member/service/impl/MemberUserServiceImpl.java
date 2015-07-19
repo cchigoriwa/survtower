@@ -101,7 +101,6 @@ public class MemberUserServiceImpl implements MemberUserService {
         return null;
     }
 
-
     @Transactional
     public void resetPassword(MemberUser memberUser) {
         String rawPassword = RandomStringUtils.randomAlphanumeric(10);
@@ -113,6 +112,7 @@ public class MemberUserServiceImpl implements MemberUserService {
     private MemberUser createNewUser(MemberUser memberUser, String rawPassword) {
         String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getEmail());
         memberUser.setPassword(encriptedPassword);
+        memberUser.setUpdateDate(new Date());
         memberUser = memberUserDao.save(memberUser);
         return memberUser;
     }

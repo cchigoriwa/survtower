@@ -1,8 +1,8 @@
 package com.survtower.client.central.controller;
 
-
 import com.survtower.business.central.domain.CentralUser;
 import com.survtower.business.central.service.CentralUserService;
+import com.survtower.client.central.bean.CentralUserUtility;
 import com.survtower.client.central.utility.MessageInfor;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,6 +24,9 @@ public class ChangePasswordController {
 
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
+
+    @ManagedProperty(value = "#{centralUserUtility}")
+    private CentralUserUtility centralUserUtility;
 
     private CentralUser centralUser;
 
@@ -72,10 +75,17 @@ public class ChangePasswordController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public CentralUserUtility getCentralUserUtility() {
+        return centralUserUtility;
+    }
+
+    public void setCentralUserUtility(CentralUserUtility centralUserUtility) {
+        this.centralUserUtility = centralUserUtility;
+    }
 
     @PostConstruct
     public void postConstruct() {
-        centralUser = centralUserService.getCurrentUser();
+        centralUser = centralUserUtility.getCurrentUser();
         centralUser.setPassword("");
         confirmPassword = "";
     }

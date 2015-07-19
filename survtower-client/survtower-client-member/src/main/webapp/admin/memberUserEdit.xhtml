@@ -41,17 +41,17 @@
                             </p:selectManyCheckbox>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Select Roles</th>
                         <td>
-                            <p:selectManyCheckbox  value="#{memberUserEditController.memberUser.userRoles}"  converter="#{userRoleConverter}" layout="grid" columns="2">
-                                <f:selectItems value="#{memberUserEditController.userRoleService.findAll()}"   />
+                            <p:selectManyCheckbox  value="#{memberUserEditController.memberUser.userRoles}" converter="#{userRoleConverter}" layout="grid" columns="2">
+                                <f:selectItems value="#{memberUserEditController.userRoleService.findAll()}"/>
                                 <f:attribute name="collectionType" value="java.util.ArrayList" />
                             </p:selectManyCheckbox>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Select Regions</th>
                         <td>
@@ -61,7 +61,7 @@
                             </p:selectManyCheckbox>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">De-activated</th>
                         <td>
