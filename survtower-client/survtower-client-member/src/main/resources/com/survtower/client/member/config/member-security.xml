@@ -16,7 +16,7 @@
             login-processing-url="/j_spring_security_check"
             login-page="/faces/login.xhtml"
             default-target-url="/faces/dash_board.xhtml"
-            authentication-failure-url="/faces/login.xhtml"/>
+            authentication-failure-url="/faces/login_failure.xhtml"/>
         <logout logout-url="/j_spring_security_logout" logout-success-url="/faces/dash_board.xhtml" delete-cookies="JSESSIONID"/>
         <intercept-url pattern="/faces/admin/**" access="hasAnyRole('ROLE_COUNTRY_ADMINISTRATOR','ROLE_COUNTRY_DISEASE_MANAGER', 'ROLE_HEALTH_INFORMATION_OFFICER')" />   
         <intercept-url pattern="/faces/data/**" access="hasAnyRole('ROLE_COUNTRY_ADMINISTRATOR','ROLE_COUNTRY_DISEASE_MANAGER','ROLE_HEALTH_INFORMATION_OFFICER')" />   

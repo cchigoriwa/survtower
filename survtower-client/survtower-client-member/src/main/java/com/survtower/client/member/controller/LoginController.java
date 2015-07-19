@@ -3,7 +3,6 @@ package com.survtower.client.member.controller;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.client.member.bean.MemberUserUtility;
-import com.survtower.client.member.utility.WebUtilityImpl;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,7 +24,7 @@ public class LoginController {
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
-    
+
     @ManagedProperty(value = "#{memberUserUtility}")
     private MemberUserUtility memberUserUtility;
 
@@ -36,8 +35,6 @@ public class LoginController {
     public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
         this.memberUserUtility = memberUserUtility;
     }
-    
-    
 
     /**
      * @return @throws IOException
@@ -63,6 +60,10 @@ public class LoginController {
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index?faces-redirect=true";
+    }
+
+    public String back() {
         return "/index?faces-redirect=true";
     }
 

@@ -59,6 +59,10 @@ public class LoginController {
         return "/index?faces-redirect=true";
     }
 
+    public String back() {
+        return "/index?faces-redirect=true";
+    }
+
     public CentralUser getCurrentUser() {
         return centralUserUtility.getCurrentUser();
     }
