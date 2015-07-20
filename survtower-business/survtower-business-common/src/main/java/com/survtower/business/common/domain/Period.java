@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,10 +31,7 @@ public class Period extends NamedBaseEntity {
     private Date dueDate;
     private Boolean active = Boolean.FALSE;
     @ManyToMany
-    @JoinTable(name = "Period_Program", joinColumns = {
-        @JoinColumn(name = "period_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "program_id")})
-    private Set<Program> programs = new HashSet<Program>();
+    private Set<Program> programs = new HashSet<>();
     @Transient
     private Boolean dueDatePassed;
     @Transient
