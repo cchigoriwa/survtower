@@ -89,23 +89,23 @@ public class IndicatorIntegratorImpl implements IndicatorIntegrator {
                     }
                 }
                 
-                DataElement serverNumeratorDataElement=indicator.getNumerator();
+                DataElement serverNumeratorDataElement=indicator.getNumeratorDataElement();
                 if(serverNumeratorDataElement!=null){
                     DataElement localNumeratorDataElement=dataElementService.findByUuid(serverNumeratorDataElement.getUuid());
                     if(localNumeratorDataElement==null){
                         throw new SurvtowerRuntimeException(String.format("localDataElement with global uuid %s not found",serverNumeratorDataElement.getUuid()));
                     }else{
-                        indicator.setNumerator(localNumeratorDataElement);
+                        indicator.setNumeratorDataElement(localNumeratorDataElement);
                     }
                 }
                 
-                DataElement serverDenominatorDataElement=indicator.getDenominator();
+                DataElement serverDenominatorDataElement=indicator.getDenominatorDataElement();
                 if(serverDenominatorDataElement!=null){
                     DataElement localDenominatorDataElement=dataElementService.findByUuid(serverDenominatorDataElement.getUuid());
                     if(localDenominatorDataElement==null){
                         throw new SurvtowerRuntimeException(String.format("localDataElement with global uuid %s not found",serverDenominatorDataElement.getUuid()));
                     }else{
-                        indicator.setDenominator(localDenominatorDataElement);
+                        indicator.setDenominatorDataElement(localDenominatorDataElement);
                     }
                 }
                 

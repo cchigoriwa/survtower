@@ -5,7 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,18 +27,21 @@ public class Period extends NamedBaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "valid_from")
     private Date validFrom;
+    @Column(name = "valid_to")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date validTo;
+    @Column(name = "due_date")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dueDate;
+    @Column(name = "active")
     private Boolean active = Boolean.FALSE;
     @ManyToMany
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "period_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "program_id")})
     private Set<Program> programs = new HashSet<>();
-    @Transient
-    private Boolean dueDatePassed;
-    @Transient
-    private Integer numberOfDaysLeftToDueDate;
 
     public Date getValidFrom() {
         return validFrom;

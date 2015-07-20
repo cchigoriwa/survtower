@@ -129,8 +129,8 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         ChartSeries denominator = new ChartSeries();
 
         series.setLabel(getIndicator().getName());
-        numerator.setLabel(getIndicator().getNumerator().getName());
-        denominator.setLabel(getIndicator().getDenominator().getName());
+        numerator.setLabel(getIndicator().getNumeratorDataElement().getName());
+        denominator.setLabel(getIndicator().getDenominatorDataElement().getName());
         getSurveillanceDataList().clear();
         for (Member member : members) {
             for (Period period : periods) {

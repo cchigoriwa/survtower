@@ -106,8 +106,8 @@ public class RegionIndicatorViewController extends MessageInfor implements Seria
         series.setLabel(getIndicator().getName());
         lineChartSeries.setLabel(getIndicator().getName());
 
-        numerator.setLabel(getIndicator().getNumerator().getName());
-        denominator.setLabel(getIndicator().getDenominator().getName());
+        numerator.setLabel(getIndicator().getNumeratorDataElement().getName());
+        denominator.setLabel(getIndicator().getDenominatorDataElement().getName());
         getSurveillanceDataList().clear();
         for (Period period : periods) {
             getSurveillanceDataList().addAll(regionSurveillanceDataService.findAll(period, getIndicator(), region));

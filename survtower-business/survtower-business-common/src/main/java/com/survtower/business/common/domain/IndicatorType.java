@@ -1,6 +1,7 @@
 package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class IndicatorType extends NamedBaseEntity {
 
     private static final long serialVersionUID = 1L;
-    private Integer decimalPlaces = 0, factor = 1;
+    
+    @Column(name="decimal_places")
+    private Integer decimalPlaces = 0;
+    @Column(name="factor")
+    private Integer factor = 1;
 
     public Integer getDecimalPlaces() {
         return decimalPlaces;

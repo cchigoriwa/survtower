@@ -23,12 +23,15 @@ public class MemberSecurity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "email_address")
     private String emailAddress;
+    @Column(name = "password")
     private String password;
-    @Column(updatable = false, unique = true)
+    @Column(name = "member_id", updatable = false, unique = true)
     private String memberID;
-    @Column(updatable = false, unique = true)
+    @Column(name = "member_key", updatable = false, unique = true)
     private String memberKey;
+    @Column(name = "deactivated")
     private Boolean deactivated = Boolean.FALSE;
 
     @OneToOne

@@ -1,6 +1,7 @@
 package com.survtower.business.common.domain;
 
 import com.survtower.business.common.BaseEntity;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,16 +13,26 @@ import javax.persistence.Table;
 @Table(name = "email_setup")
 public class EmailSetup extends BaseEntity {
 
+    @Column(name = "smtp_host")
     private String host;
+    @Column(name = "smtp_port")
     private String port;
+    @Column(name = "smtp_username")
     private String username;
+    @Column(name = "smtp_password")
     private String password;
 
+    @Column(name = "mail_smtp_user")
     private String mailSmtpUser;
+    @Column(name = "mail_smtp_from")
     private String mailSmtpFrom;
+    @Column(name = "mail_smtp_local_host")
     private String mailSmtpLocalHost;
+    @Column(name = "mail_smtp_auth")
     private String mailSmtpAuth;
+    @Column(name = "mail_smtp_host")
     private String mailSmtpHost;
+    @Column(name = "mail_smtp_start_tls_enable")
     private String mailSmtpStartTlsEnable;
 
     public String getHost() {

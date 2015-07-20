@@ -49,15 +49,15 @@ public class IndicatorEditController {
             MessageInfor.errorMessages("Select Indicator Group");
             return null;
         }
-        if (indicator.getNumerator() == null) {
+        if (indicator.getNumeratorDataElement() == null) {
             MessageInfor.errorMessages("Select Numerator");
             return null;
         }
-        if (indicator.getDenominator() == null) {
+        if (indicator.getDenominatorDataElement() == null) {
             MessageInfor.errorMessages("Select Denominator");
             return null;
         }
-        if (indicator.getDenominator() == indicator.getNumerator()) {
+        if (indicator.getDenominatorDataElement() == indicator.getNumeratorDataElement()) {
             MessageInfor.errorMessages("Numerator and Denominator Cannot be the Same");
             return null;
         }

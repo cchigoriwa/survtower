@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,17 +27,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "member_user")
 public class MemberUser extends BaseEntity {
 
+    @Column(name="username")
     private String username;
+    @Column(name="password")
     private String password;
-    @Column(unique = true)
+    @Column(name="email",unique = true)
     private String email;
+    @Column(name="deactivated")
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
     @ManyToMany
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "program_id")})
     private List<Program> programs = new ArrayList<>();
     @ManyToMany
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "region_id")})
     private List<Region> regions = new ArrayList<>();
     @ManyToMany
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "member_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_role_id")})
     private List<UserRole> userRoles = new ArrayList<>();
 
     public String getEmail() {

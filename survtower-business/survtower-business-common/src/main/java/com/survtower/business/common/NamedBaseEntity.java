@@ -10,9 +10,11 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class NamedBaseEntity extends BaseEntity {
 
-    @Column(unique = true)
+    @Column(name="name",unique = true)
     protected String name;
+    @Column(name="description")
     protected String description;
+    @Column(name="deleted")
     protected Boolean deleted = Boolean.FALSE;
 
     public String getName() {

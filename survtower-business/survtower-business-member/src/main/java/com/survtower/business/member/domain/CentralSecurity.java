@@ -1,6 +1,7 @@
 package com.survtower.business.member.domain;
 
 import com.survtower.business.common.BaseEntity;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,8 +16,11 @@ public class CentralSecurity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name="central_server_url")
     private String centralServerUrl;
+    @Column(name="member_id")
     private String memberID;
+    @Column(name="member_key")
     private String memberKey;
 
     public String getMemberID() {

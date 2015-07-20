@@ -20,17 +20,17 @@ public abstract class AbstractResetPasswordRequest implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;  
-    @Column(updatable = false,nullable = false,unique = true)
+    @Column(name="first_tag",updatable = false,nullable = false,unique = true)
     protected String firstTag;
-    @Column(updatable = false,nullable = false,unique = true)
+    @Column(name="second_tag",updatable = false,nullable = false,unique = true)
     protected String secondTag;
-    @Column(updatable = false,nullable = false)    
+    @Column(name="time_requested",updatable = false,nullable = false)    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     protected Date timeRequested;
-    @Column(updatable = false,nullable = false)
+    @Column(name="time_of_expiry",updatable = false,nullable = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     protected Date timeOfExpiry;
-    @Column(nullable = true,updatable = true)
+    @Column(name="time_of_reset",nullable = true,updatable = true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     protected Date timeOfReset;
     

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,10 +25,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Surveillance extends BaseEntity {
 
     @ManyToOne
+    @JoinColumn(name="program_id")
     private Program program;
     @ManyToOne
+    @JoinColumn(name="period_id")
     private Period period;
     @ManyToOne
+    @JoinColumn(name="member_id")
     private Member member;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<SurveillanceData> surveillanceDataSet = new HashSet<>();

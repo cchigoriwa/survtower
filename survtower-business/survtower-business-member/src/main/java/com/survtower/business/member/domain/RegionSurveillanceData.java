@@ -6,7 +6,9 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,15 +31,16 @@ public class RegionSurveillanceData extends BaseEntity {
 
     @ManyToOne
     @XmlTransient
+    @JoinColumn(name="surveillance_data_id")
     private SurveillanceData surveillanceData;
+    @Column(name="denominator_value")
     private Double denominatorValue = 0.0;
+    @Column(name="numerator_value")
     private Double numeratorValue = 0.0;
+    @Column(name="manual_value")
     private Double manualValue;
+    @Column(name="manual")
     private Boolean manual = Boolean.FALSE;
-    @Transient
-    private Double calculatedValue;
-    @Transient
-    private Boolean valid;
 
     public SurveillanceData getSurveillanceData() {
         return surveillanceData;

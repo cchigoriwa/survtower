@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -21,8 +22,9 @@ public class DynamicMeta extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Enumerated(EnumType.STRING)
-    @Column(unique = true)
+    @JoinColumn(name="dynamic_id",unique = true)
     private Dynamic dynamic;
+    @Column(name="last_local_timestamp")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date lastLocalTimestamp;
 

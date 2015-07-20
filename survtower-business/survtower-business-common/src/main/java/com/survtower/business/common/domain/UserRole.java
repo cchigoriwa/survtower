@@ -12,10 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_role")
 public class UserRole extends BaseEntity {
-
+    @Column(name="name")
     private String name;
+    @Column(name="description")
     private String description;
-    @Column(unique = true)
+    @Column(name="role",unique = true)
     private String role;
 
     public UserRole() {

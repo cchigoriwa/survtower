@@ -4,7 +4,9 @@ import com.survtower.business.common.BaseEntity;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,18 +24,25 @@ public class RegionSurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
     @ManyToOne
+    @JoinColumn(name="program_id")
     private Program program;
     @ManyToOne
+    @JoinColumn(name="period_id")
     private Period period;
     @ManyToOne
+    @JoinColumn(name="region_id")
     private Region region;
     @ManyToOne
+    @JoinColumn(name="uploaded_by_id")
     private MemberUser uploadedBy;
     @ManyToOne
+    @JoinColumn(name="approved_by_id")
     private MemberUser approvedBy;
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name="uploaded_on")
     private Date uploadedOn;
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name="approved_on")
     private Date approvedOn;
 
     public Region getRegion() {

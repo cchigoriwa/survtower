@@ -83,7 +83,7 @@ public class PeriodIndicatorController implements Serializable {
         ChartSeries denominator = new ChartSeries();
 
         numerator.setLabel(data.getSurveillanceData().getIndicator().getName());
-        denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominator().getName());
+        denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominatorDataElement().getName());
         numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
         denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
         model.addSeries(numerator);

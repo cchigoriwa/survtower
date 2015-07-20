@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,6 +33,9 @@ public class CentralUser extends BaseEntity {
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
     @ManyToMany
+    @JoinTable(joinColumns = {
+        @JoinColumn(name = "central_user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_role_id")})
     private List<UserRole> userRoles;
 
     public String getUsername() {

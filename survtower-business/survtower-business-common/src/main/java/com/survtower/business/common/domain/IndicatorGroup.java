@@ -4,6 +4,7 @@ import com.survtower.business.common.NamedBaseEntity;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,6 +23,7 @@ public class IndicatorGroup extends NamedBaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
+    @JoinColumn(name="program_id")
     private Program program;
     @XmlTransient
     @OneToMany

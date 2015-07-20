@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -19,8 +20,9 @@ public class LookupMeta extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Enumerated(EnumType.STRING)
-    @Column(unique = true)
+    @JoinColumn(name="lookup_id",unique = true)
     private Lookup lookup;
+    @Column(name="last_server_update_no")
     private Long lastServerUpdateNo;
 
     public LookupMeta() {

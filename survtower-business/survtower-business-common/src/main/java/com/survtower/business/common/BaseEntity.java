@@ -24,19 +24,21 @@ public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     protected Long id;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(name="uuid",nullable = false, updatable = false, unique = true)
     protected String uuid = UUID.randomUUID().toString();
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false)
+    @Column(name = "create_date",nullable = false, updatable = false)
     private Date createDate = new Date();
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(name="update_date",nullable = false)
     private Date updateDate = new Date();
     
+    @Column(name="update_no")
     private Long updateNo;
 
     @XmlTransient

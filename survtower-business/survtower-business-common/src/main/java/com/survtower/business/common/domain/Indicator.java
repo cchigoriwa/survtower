@@ -2,6 +2,7 @@ package com.survtower.business.common.domain;
 
 import com.survtower.business.common.NamedBaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,12 +18,16 @@ public class Indicator extends NamedBaseEntity {
 
     private static final long serialVersionUID = 1L;
     @ManyToOne
+    @JoinColumn(name="indicator_group_id")
     private IndicatorGroup indicatorGroup;
     @ManyToOne
-    private DataElement numerator;
+    @JoinColumn(name="numerator_data_element_id")
+    private DataElement numeratorDataElement;
     @ManyToOne
-    private DataElement denominator;
+    @JoinColumn(name="denominator_data_element_id")
+    private DataElement denominatorDataElement;
     @ManyToOne
+    @JoinColumn(name="indicator_type_id")
     private IndicatorType indicatorType;
 
     public IndicatorGroup getIndicatorGroup() {
@@ -33,20 +38,20 @@ public class Indicator extends NamedBaseEntity {
         this.indicatorGroup = indicatorGroup;
     }
 
-    public DataElement getNumerator() {
-        return numerator;
+    public DataElement getNumeratorDataElement() {
+        return numeratorDataElement;
     }
 
-    public void setNumerator(DataElement numerator) {
-        this.numerator = numerator;
+    public void setNumeratorDataElement(DataElement numerator) {
+        this.numeratorDataElement = numerator;
     }
 
-    public DataElement getDenominator() {
-        return denominator;
+    public DataElement getDenominatorDataElement() {
+        return denominatorDataElement;
     }
 
-    public void setDenominator(DataElement denominator) {
-        this.denominator = denominator;
+    public void setDenominatorDataElement(DataElement denominator) {
+        this.denominatorDataElement = denominator;
     }
 
     public IndicatorType getIndicatorType() {

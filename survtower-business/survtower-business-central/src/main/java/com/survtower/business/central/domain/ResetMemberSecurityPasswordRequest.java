@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class ResetMemberSecurityPasswordRequest extends AbstractResetPasswordRequest {
 
     @ManyToOne(optional = false)
-    @JoinColumn(updatable = false)
+    @JoinColumn(name="member_security_id",updatable = false)
     private MemberSecurity memberSecurity;
 
     public MemberSecurity getMemberSecurity() {

@@ -134,9 +134,9 @@ public class PivotTableController extends MessageInfor implements Serializable {
             row.createCell(1).setCellValue(data.getSurveillance().getPeriod().getName());
             row.createCell(2).setCellValue(data.getSurveillance().getMember().getName());
             row.createCell(3).setCellValue(data.getIndicator().getName());
-            row.createCell(4).setCellValue(data.getIndicator().getNumerator().getName());
+            row.createCell(4).setCellValue(data.getIndicator().getNumeratorDataElement().getName());
             row.createCell(5).setCellValue(data.getNumeratorValue());
-            row.createCell(6).setCellValue(data.getIndicator().getDenominator().getName());
+            row.createCell(6).setCellValue(data.getIndicator().getDenominatorDataElement().getName());
             row.createCell(7).setCellValue(data.getDenominatorValue());
             row.createCell(8).setCellValue(data.getCalculatedValue() + "" + data.getIndicator().getIndicatorType());
             rowIndex++;
@@ -194,9 +194,9 @@ public class PivotTableController extends MessageInfor implements Serializable {
                     data.getSurveillance().getPeriod().getName(),
                     data.getSurveillance().getMember().getName(),
                     data.getIndicator().getName(),
-                    data.getIndicator().getNumerator().getName(),
+                    data.getIndicator().getNumeratorDataElement().getName(),
                     data.getNumeratorValue(),
-                    data.getIndicator().getDenominator().getName(),
+                    data.getIndicator().getDenominatorDataElement().getName(),
                     data.getDenominatorValue(),
                     data.getCalculatedValue() + "" + data.getIndicator().getIndicatorType());
         }
