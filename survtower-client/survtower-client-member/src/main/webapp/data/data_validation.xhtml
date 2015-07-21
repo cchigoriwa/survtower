@@ -22,21 +22,21 @@
                     <span>Period - <b>#{dataValidationController.surveillance.period.name}</b></span> <br />
                     <span>Member State -<b>#{dataValidationController.surveillance.member.name}</b></span>  
                 </p:panel>
-                
+
                 <br />
-                
+
                 <p:dataTable id="tbl" value="#{dataValidationController.surveillanceDataList}" var="surveillanceData">  
 
                     <p:column headerText="Indicator Name">
-                        <h:outputText value="#{surveillanceData.indicator.name}" title="#{surveillanceData.indicator.numerator.name}" /> 
+                        <h:outputText value="#{surveillanceData.indicator.name}" title="#{surveillanceData.indicator.numeratorDataElement.name}" /> 
                     </p:column>  
 
                     <p:column headerText="Numerator">  
-                        <h:outputText value="#{surveillanceData.numeratorValue}" title="#{surveillanceData.indicator.numerator.name}" /> 
+                        <h:outputText value="#{surveillanceData.numeratorValue}" title="#{surveillanceData.indicator.numeratorDataElement.name}" /> 
                     </p:column>  
 
                     <p:column headerText="Denominator">  
-                        <h:outputText value="#{surveillanceData.denominatorValue}" title="#{surveillanceData.indicator.denominator.name}" /> 
+                        <h:outputText value="#{surveillanceData.denominatorValue}" title="#{surveillanceData.indicator.denominatorDataElement.name}" /> 
                     </p:column>  
 
                     <p:column headerText="Indicator Value">  

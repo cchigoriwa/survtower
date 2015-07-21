@@ -76,24 +76,24 @@ public class PeriodIndicatorController implements Serializable {
 
     }
 
-    public BarChartModel itemChangeModel(RegionSurveillanceData data) {
+    public BarChartModel regionSurveillanceDataChangeModel(RegionSurveillanceData regionSurveillanceData) {
 
         BarChartModel model = new BarChartModel();
         ChartSeries numerator = new ChartSeries();
         ChartSeries denominator = new ChartSeries();
 
-        numerator.setLabel(data.getSurveillanceData().getIndicator().getName());
-        denominator.setLabel(data.getSurveillanceData().getIndicator().getDenominatorDataElement().getName());
-        numerator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getNumeratorValue());
-        denominator.set(data.getSurveillanceData().getSurveillance().getPeriod().getName(), data.getDenominatorValue());
+        numerator.setLabel(regionSurveillanceData.getSurveillanceData().getIndicator().getName());
+        denominator.setLabel(regionSurveillanceData.getSurveillanceData().getIndicator().getDenominatorDataElement().getName());
+        numerator.set(regionSurveillanceData.getSurveillanceData().getSurveillance().getPeriod().getName(), regionSurveillanceData.getNumeratorValue());
+        denominator.set(regionSurveillanceData.getSurveillanceData().getSurveillance().getPeriod().getName(), regionSurveillanceData.getDenominatorValue());
         model.addSeries(numerator);
         model.addSeries(denominator);
 
-        model.setTitle(data.getSurveillanceData().getIndicator().getName());
+        model.setTitle(regionSurveillanceData.getSurveillanceData().getIndicator().getName());
         model.setLegendPosition("ne");
 
         Axis xAxis = model.getAxis(AxisType.X);
-        xAxis.setLabel(data.getRegion().getName());
+        xAxis.setLabel(regionSurveillanceData.getRegion().getName());
 
         Axis yAxis = model.getAxis(AxisType.Y);
         yAxis.setLabel("Value");

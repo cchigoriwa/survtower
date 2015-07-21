@@ -24,25 +24,25 @@ public class RegionSurveillanceAudit extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
     @ManyToOne
-    @JoinColumn(name="program_id")
+    @JoinColumn(name = "program_id")
     private Program program;
     @ManyToOne
-    @JoinColumn(name="period_id")
+    @JoinColumn(name = "period_id")
     private Period period;
     @ManyToOne
-    @JoinColumn(name="region_id")
+    @JoinColumn(name = "region_id")
     private Region region;
     @ManyToOne
-    @JoinColumn(name="uploaded_by_id")
+    @JoinColumn(name = "uploaded_by_id")
     private MemberUser uploadedBy;
     @ManyToOne
-    @JoinColumn(name="approved_by_id")
+    @JoinColumn(name = "approved_by_id")
     private MemberUser approvedBy;
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name="uploaded_on")
+    @Column(name = "uploaded_on")
     private Date uploadedOn;
     @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name="approved_on")
+    @Column(name = "approved_on")
     private Date approvedOn;
 
     public Region getRegion() {
@@ -110,7 +110,7 @@ public class RegionSurveillanceAudit extends BaseEntity {
     }
 
     public Boolean getUploaded() {//upload of data
-        return uploadedBy != null;
+        return uploadedBy != null && uploadedOn != null;
     }
 
     public String getForApproval() {

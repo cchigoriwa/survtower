@@ -31,7 +31,7 @@
 
                     <h:outputText value="Indicator:"/>
                     <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{regionIndicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}" 
-                                    var="item" itemLabel="#{item.name}" converter="#{indicatorConverter}" itemValue="#{item}"
+                                    var="indicator" itemLabel="#{indicator.name}" converter="#{indicatorConverter}" itemValue="#{indicator}"
                                     maxlength="3"/>     
                     <h:outputText value=""/>
                     <h:panelGrid columns="2">                    
@@ -46,39 +46,39 @@
         </p:panel>
         <p:panel header="#{regionIndicatorViewController.indicator.name} Summary" rendered="#{regionIndicatorViewController.indicator!=null}">
 
-            <p:dataTable value="#{regionIndicatorViewController.surveillanceDataList}" var="item">  
+            <p:dataTable value="#{regionIndicatorViewController.surveillanceDataList}" var="regionSurveillanceData">  
 
                 <p:column headerText="Indicator Name">  
-                    <h:outputText value="#{item.surveillanceData.indicator.name}"/>
+                    <h:outputText value="#{regionSurveillanceData.surveillanceData.indicator.name}"/>
                 </p:column>  
 
                 <p:column headerText="Numerator">  
-                    <h:outputText value="#{item.numeratorValue}" title="#{item.surveillanceData.indicator.numerator.name}" /> 
+                    <h:outputText value="#{regionSurveillanceData.numeratorValue}" title="#{regionSurveillanceData.surveillanceData.indicator.numeratorDataElement.name}" /> 
                 </p:column>  
 
                 <p:column headerText="Denominator">  
-                    <h:outputText value="#{item.denominatorValue}" title="#{item.surveillanceData.indicator.denominator.name}" /> 
+                    <h:outputText value="#{regionSurveillanceData.denominatorValue}" title="#{regionSurveillanceData.surveillanceData.indicator.denominatorDataElement.name}" /> 
                 </p:column>  
 
                 <p:column headerText="Indicator Value">  
-                    <h:outputText value="#{item.calculatedValue}" rendered="#{item.valid}"/> 
-                    <h:outputText value="#{item.calculatedValue}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
-                    <h:outputText value="#{item.surveillanceData.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
-                    <h:outputText value="#{item.surveillanceData.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                    <h:outputText value="#{regionSurveillanceData.calculatedValue}" rendered="#{regionSurveillanceData.valid}"/> 
+                    <h:outputText value="#{regionSurveillanceData.calculatedValue}" rendered="#{!regionSurveillanceData.valid}" style="color: red;" title="Error"/> 
+                    <h:outputText value="#{regionSurveillanceData.surveillanceData.indicator.indicatorType.name}" rendered="#{regionSurveillanceData.valid}"/> 
+                    <h:outputText value="#{regionSurveillanceData.surveillanceData.indicator.indicatorType.name}" rendered="#{!regionSurveillanceData.valid}" style="color: red;" title="Error"/> 
                 </p:column>  
 
                 <p:column headerText="Valid">  
-                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.valid}"/> 
-                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.valid}"/> 
+                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{regionSurveillanceData.valid}"/> 
+                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!regionSurveillanceData.valid}"/> 
                 </p:column>  
 
             </p:dataTable>
 
-            
+
             <p:chart type="bar" model="#{regionIndicatorViewController.barChartModel}" style="height:300px" />  
 
             <p:chart type="line" model="#{regionIndicatorViewController.lineChartModel}" style="height:300px" />  
-            
+
             <p:chart type="bar" model="#{regionIndicatorViewController.horizontalBarChartModel}" style="height:300px" />  
 
         </p:panel>

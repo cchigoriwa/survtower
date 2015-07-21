@@ -21,14 +21,14 @@
 
                 <p:tab title="Region">
 
-                  <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
-                  
-                    <p:dataGrid var="item" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
-                                rows="1" paginator="true" id="list">
+                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
 
-                            <p:chart type="bar" model="#{periodIndicatorController.itemChangeModel(item)}" style="height:900px" />  
+                        <p:dataGrid var="regionSurveillanceData" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
+                                    rows="1" paginator="true" id="list">
 
-                    </p:dataGrid>
+                            <p:chart type="bar" model="#{periodIndicatorController.regionSurveillanceDataChangeModel(regionSurveillanceDataChangeModel)}" style="height:900px" />  
+
+                        </p:dataGrid>
 
                     </p:panel>
                 </p:tab>
@@ -38,27 +38,27 @@
 
                         <p:panel id="notificationOne" header="Uploads Awaiting Approval" style="margin-bottom:20px">
 
-                            <p:dataTable paginator="true" rows="10" value="#{regionAuditListController.waitingApprovalAudits}" var="region">
+                            <p:dataTable paginator="true" rows="10" value="#{regionAuditListController.waitingApprovalAudits}" var="regionSurveillanceAudit">
                                 <p:column headerText="Region">
-                                    #{region.region} 
+                                    #{regionSurveillanceAudit.region} 
                                 </p:column>
                                 <p:column headerText="Program">
-                                    #{region.program} 
+                                    #{regionSurveillanceAudit.program} 
                                 </p:column>
                                 <p:column headerText="Period">
-                                    #{region.period} 
+                                    #{regionSurveillanceAudit.period} 
                                 </p:column>
                                 <p:column headerText="Due Date">
-                                    #{region.period.dueDate} 
+                                    #{regionSurveillanceAudit.period.dueDate} 
                                 </p:column>
                                 <p:column headerText="Due In">
-                                    <h:outputText value="#{region.period.dueDateStatus}" rendered="#{region.period.dueDatePassed}" style="color: red;" title="Error"/> 
-                                    <h:outputText value="#{region.period.dueDateStatus}" rendered="#{!region.period.dueDatePassed}" /> 
+                                    <h:outputText value="#{regionSurveillanceAudit.period.dueDateStatus}" rendered="#{regionSurveillanceAudit.period.dueDatePassed}" style="color: red;" title="Error"/> 
+                                    <h:outputText value="#{regionSurveillanceAudit.period.dueDateStatus}" rendered="#{!regionSurveillanceAudit.period.dueDatePassed}" /> 
                                 </p:column>
                                 <p:column> 
                                     <h:link value="Approve" outcome="region_data_validation">                        
                                         <f:param name="surveillanceId" value="#{regionAuditListController.surveillanceId(region.program, region.period)}" />
-                                        <f:param name="regionId" value="#{region.region.uuid}" />
+                                        <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
                                     </h:link>
                                 </p:column> 
 
@@ -68,34 +68,34 @@
                     </h:form>
                 </p:tab>
 
-                <p:tab title="Approved Uploads" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
+                <p:tab title="Approved Uploads" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
                     <h:form>
 
                         <p:panel id="notificationOne" header="Approved Uploads" style="margin-bottom:20px">
 
-                            <p:dataTable paginator="true" rows="10" value="#{regionAuditListController.audits}" var="region">
+                            <p:dataTable paginator="true" rows="10" value="#{regionAuditListController.audits}" var="regionSurveillanceAudit">
                                 <p:column headerText="Region">
-                                    #{region.region} 
+                                    #{regionSurveillanceAudit.region} 
                                 </p:column>
                                 <p:column headerText="Program">
-                                    #{region.program} 
+                                    #{regionSurveillanceAudit.program} 
                                 </p:column>
                                 <p:column headerText="Period">
-                                    #{region.period} 
+                                    #{regionSurveillanceAudit.period} 
                                 </p:column>
 
                                 <p:column headerText="Approved By">
-                                    #{region.uploadedBy} 
+                                    #{regionSurveillanceAudit.uploadedBy} 
                                 </p:column>
 
                                 <p:column headerText="Approved On">
-                                    #{region.uploadedOn} 
+                                    #{regionSurveillanceAudit.uploadedOn} 
                                 </p:column>
 
                                 <p:column> 
                                     <h:link value="View" outcome="region_data_validation">                        
-                                        <f:param name="surveillanceId" value="#{regionAuditListController.surveillanceId(region.program, region.period)}" />
-                                        <f:param name="regionId" value="#{region.region.uuid}" />
+                                        <f:param name="surveillanceId" value="#{regionAuditListController.surveillanceId(regionSurveillanceAudit.program, regionSurveillanceAudit.period)}" />
+                                        <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
                                     </h:link>
                                 </p:column> 
 
@@ -110,34 +110,34 @@
 
                         <p:panel id="notificationOne" header="Open Periods" style="margin-bottom:20px">
 
-                            <p:dataTable paginator="true" rows="10" value="#{indexController.aduitItems}" var="item">
+                            <p:dataTable paginator="true" rows="10" value="#{indexController.aduitItems}" var="auditItem">
                                 <p:column headerText="Program">
-                                    #{item.program.name} 
+                                    #{auditItem.program.name} 
                                 </p:column>
                                 <p:column headerText="Period">
-                                    #{item.period.name} 
+                                    #{auditItem.period.name} 
                                 </p:column>
                                 <p:column headerText="Due Date">
-                                    #{item.period.dueDate} 
+                                    #{auditItem.period.dueDate} 
                                 </p:column>
                                 <p:column headerText="Due In">
 
-                                    <h:outputText value="#{item.period.dueDateStatus}" rendered="#{item.period.dueDatePassed}" style="color: red;" title="Error"/> 
-                                    <h:outputText value="#{item.period.dueDateStatus}" rendered="#{!item.period.dueDatePassed}" /> 
+                                    <h:outputText value="#{auditItem.period.dueDateStatus}" rendered="#{auditItem.period.dueDatePassed}" style="color: red;" title="Error"/> 
+                                    <h:outputText value="#{auditItem.period.dueDateStatus}" rendered="#{!auditItem.period.dueDatePassed}" /> 
 
                                 </p:column>
                                 <p:column headerText="Submitted">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.uploaded}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.uploaded}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{auditItem.surveillanceAudit.uploaded}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!auditItem.surveillanceAudit.uploaded}"/> 
                                 </p:column>  
                                 <p:column headerText="Approved">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.surveillanceAudit.approved}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.surveillanceAudit.approved}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{auditItem.surveillanceAudit.approved}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!auditItem.surveillanceAudit.approved}"/> 
                                 </p:column>  
 
                                 <p:column>  
-                                    <h:link rendered="#{item.dataEntryDone}" value="View" outcome="data_validation">                        
-                                        <f:param name="surveillanceId" value="#{indexController.surveillanceId(item.program, item.period)}" />
+                                    <h:link rendered="#{auditItem.dataEntryDone}" value="View" outcome="data_validation">                        
+                                        <f:param name="surveillanceId" value="#{indexController.surveillanceId(auditItem.program, auditItem.period)}" />
                                     </h:link>
                                 </p:column> 
 
