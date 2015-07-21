@@ -99,18 +99,18 @@ public class PeriodIndicatorController implements Serializable {
 
     }
 
-    public BarChartModel itemChangeModel(SurveillanceData data) {
+    public BarChartModel surveillanceDataChangeModel(SurveillanceData surveillanceData) {
         
         BarChartModel model = new BarChartModel();
         ChartSeries indicator = new ChartSeries();
-        indicator.setLabel(data.getIndicator().getName());
-        indicator.set(data.getSurveillance().getPeriod().getName(), data.getCalculatedValue());
+        indicator.setLabel(surveillanceData.getIndicator().getName());
+        indicator.set(surveillanceData.getSurveillance().getPeriod().getName(), surveillanceData.getCalculatedValue());
         model.addSeries(indicator);        
-        model.setTitle(data.getIndicator().getName());
+        model.setTitle(surveillanceData.getIndicator().getName());
         model.setLegendPosition("ne");
         
         Axis xAxis = model.getAxis(AxisType.X);
-        xAxis.setLabel(data.getSurveillance().getMember().getName());
+        xAxis.setLabel(surveillanceData.getSurveillance().getMember().getName());
         
         Axis yAxis = model.getAxis(AxisType.Y);
         yAxis.setLabel("Percentage");

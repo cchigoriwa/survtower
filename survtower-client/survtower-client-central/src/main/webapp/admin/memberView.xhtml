@@ -57,19 +57,19 @@
                 </p:tab>
                 <p:tab title="Surveillance">
                     <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
-                        <p:dataTable value="#{memberViewController.auditItems}" var="item">
+                        <p:dataTable value="#{memberViewController.auditItems}" var="centralAuditItem">
                             <p:column headerText="Program">
-                                #{item.program.name} 
+                                #{centralAuditItem.program.name} 
                             </p:column>
                             <p:column headerText="Period">
-                                #{item.period.name} 
+                                #{centralAuditItem.period.name} 
                             </p:column>
                             <p:column headerText="Due Date In">
-                                #{item.period.numberOfDaysLeftToDueDate} Days
+                                #{centralAuditItem.period.numberOfDaysLeftToDueDate} Days
                             </p:column>
                             <p:column headerText="Submitted">  
-                                <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.submitted}"/> 
-                                <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.submitted}"/> 
+                                <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{centralAuditItem.submitted}"/> 
+                                <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!centralAuditItem.submitted}"/> 
                             </p:column> 
 
                         </p:dataTable>

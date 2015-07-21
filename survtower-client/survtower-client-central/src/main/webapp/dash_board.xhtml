@@ -22,10 +22,10 @@
                 <p:tab title="Reporting">
                     <p:panel header="Indicator Reporting" style="margin-bottom:10px;">
 
-                        <p:dataGrid var="item" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
+                        <p:dataGrid var="surveillanceData" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
                                     rows="1" paginator="true" id="list">
 
-                            <p:chart type="bar" model="#{periodIndicatorController.itemChangeModel(item)}" style="height:900px" />  
+                            <p:chart type="bar" model="#{periodIndicatorController.surveillanceDataChangeModel(surveillanceData)}" style="height:900px" />  
 
                         </p:dataGrid>
 
@@ -37,19 +37,19 @@
                     <h:form>
 
                         <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
-                            <p:dataTable value="#{indexController.surveillances}" var="item">
+                            <p:dataTable value="#{indexController.surveillances}" var="surveillance">
                                 <p:column headerText="Program">
-                                    #{item.program.name} 
+                                    #{surveillance.program.name} 
                                 </p:column>
                                 <p:column headerText="Period">
-                                    #{item.period.name} 
+                                    #{surveillance.period.name} 
                                 </p:column>
                                 <p:column headerText="Member">
-                                    #{item.member.name} 
+                                    #{surveillance.member.name} 
                                 </p:column>
                                 <p:column>  
                                     <h:link value="View" outcome="data_view">                        
-                                        <f:param name="surveillanceId" value="#{item.uuid}" />
+                                        <f:param name="surveillanceId" value="#{surveillance.uuid}" />
                                     </h:link>
                                 </p:column>  
                             </p:dataTable>
@@ -62,22 +62,22 @@
                     <h:form>
 
                         <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
-                            <p:dataTable value="#{memberAuditController.auditItems}" var="item">
+                            <p:dataTable value="#{memberAuditController.auditItems}" var="centralAuditItem">
                                 <p:column headerText="Member">
-                                    #{item.member} 
+                                    #{centralAuditItem.member} 
                                 </p:column>
                                 <p:column headerText="Program">
-                                    #{item.program} 
+                                    #{centralAuditItem.program} 
                                 </p:column>
                                 <p:column headerText="Period">
-                                    #{item.period} 
+                                    #{centralAuditItem.period} 
                                 </p:column>
                                 <p:column headerText="Due">
-                                    #{item.period.dueDateStatus}
+                                    #{centralAuditItem.period.dueDateStatus}
                                 </p:column>
                                 <p:column headerText="Submitted">  
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.submitted}"/> 
-                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.submitted}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{centralAuditItem.submitted}"/> 
+                                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!centralAuditItem.submitted}"/> 
                                 </p:column> 
                             </p:dataTable>
                         </p:panel>
