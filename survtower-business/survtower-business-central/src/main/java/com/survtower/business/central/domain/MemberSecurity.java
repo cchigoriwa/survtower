@@ -27,7 +27,7 @@ public class MemberSecurity extends BaseEntity {
     private String emailAddress;
     @Column(name = "password")
     private String password;
-    @Column(name = "member_id", updatable = false, unique = true)
+    @Column(name = "member_id_security", updatable = false, unique = true)
     private String memberID;
     @Column(name = "member_key", updatable = false, unique = true)
     private String memberKey;
