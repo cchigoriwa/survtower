@@ -12,30 +12,37 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Indicator Group">
-            <h:form>
+        <p:panel header="Indicator Type">
+            <h:form prependId="false">
+                
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name"   value="#{indicatorTypeEditController.indicatorType.name}"  required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.description}" /></td>
+                        <td><p:inputText id="description" value="#{indicatorTypeEditController.indicatorType.description}" /></td>
+                        <td><p:message  for="description"   /></td>
                     </tr>
                     <tr>
                         <th align="left">Factor</th>
-                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.factor}" /></td>
+                        <td><p:inputText id="factor" value="#{indicatorTypeEditController.indicatorType.factor}" /></td>
+                        <td><p:message  for="factor"   /></td>
                     </tr>
                     <tr>
                         <th align="left">Decimal Places</th>
-                        <td><h:inputText value="#{indicatorTypeEditController.indicatorType.decimalPlaces}" /></td>
+                        <td><p:inputText id="decimalPlaces" value="#{indicatorTypeEditController.indicatorType.decimalPlaces}" /></td>
+                        <td><p:message  for="decimalPlaces"   /></td>
                     </tr>
 
                 </table>
-                <h:commandButton value="Save" action="#{indicatorTypeEditController.save()}">
+                <p:commandButton value="Save" action="#{indicatorTypeEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{indicatorTypeEditController.indicatorType.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+
+                <p:commandButton value="Cancel" action="indicatorTypeList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>
