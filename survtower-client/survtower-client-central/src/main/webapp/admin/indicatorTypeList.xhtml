@@ -18,6 +18,14 @@
                 <p:column headerText="Name">
                     #{indicatorType.name}
                 </p:column>
+                
+                <p:column headerText="Factor">
+                    #{indicatorType.factor}
+                </p:column>
+                
+                 <p:column headerText="Decimal Places">
+                    #{indicatorType.decimalPlaces}
+                </p:column>
 
                 <p:column headerText="Description">
                     #{indicatorType.description}
@@ -25,7 +33,7 @@
 
                 <p:column>
                     <h:form>
-                        <p:button  value="Edit" outcome="indicatorTypeEdit">                        
+                        <p:button  value="Edit" outcome="indicatorTypeEdit" icon="ui-icon-pencil">                        
                             <f:param name="uuid" value="#{indicatorType.uuid}" />
                         </p:button>
                     </h:form>

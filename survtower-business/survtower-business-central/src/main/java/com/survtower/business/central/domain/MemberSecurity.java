@@ -29,7 +29,7 @@ public class MemberSecurity extends BaseEntity {
     private String password;
     @Column(name = "member_id_security", updatable = false, unique = true)
     private String memberID;
-    @Column(name = "member_key", updatable = false, unique = true)
+    @Column(name = "member_key_security", updatable = false, unique = true)
     private String memberKey;
     @Column(name = "deactivated")
     private Boolean deactivated = Boolean.FALSE;
