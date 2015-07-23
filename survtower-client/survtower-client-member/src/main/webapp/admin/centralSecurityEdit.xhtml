@@ -14,27 +14,29 @@
 
     <ui:define name="content">
         <p:panel header="Member Security Keys">
-            <h:form>
-                <div>
-                    <h:messages />
-                </div>
+            <h:form prependId="false">
+
                 <table>
                     <tr>
                         <th align="left">Central Server URL</th>
-                        <td><h:inputText value="#{centralSecurityController.centralSecurity.centralServerUrl}" required="true" size="40" /></td>
+                        <td><p:inputText id="centralServerUrl" value="#{centralSecurityController.centralSecurity.centralServerUrl}" required="true" requiredMessage="Please enter Central Server Url" size="40" /></td>
+                        <td><p:message for="centralServerUrl" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Member ID</th>
-                        <td><h:inputText value="#{centralSecurityController.centralSecurity.memberID}" required="true" size="40" /></td>
+                        <td><p:inputText id="memberId" value="#{centralSecurityController.centralSecurity.memberID}" required="true" requiredMessage="Please enter Member ID" size="40" /></td>
+                        <td><p:message for="memberId" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Member Key</th>
-                        <td><h:inputText value="#{centralSecurityController.centralSecurity.memberKey}" required="true" size="40" /></td>
+                        <td><p:inputText id="memberKey" value="#{centralSecurityController.centralSecurity.memberKey}" required="true" requiredMessage="Please enter Member Key" size="40" /></td>
+                        <td><p:message for="memberKey" /></td>
                     </tr>
                 </table>
-                <h:commandButton value="Save" action="#{centralSecurityController.save()}" />
+                <p:commandButton value="Save" action="#{centralSecurityController.save()}" icon="ui-icon-disk" ajax="false" />
+                <p:commandButton value="Cancel" action="index?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>
