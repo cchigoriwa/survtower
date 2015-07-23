@@ -13,22 +13,24 @@
 
     <ui:define name="content">
         <p:panel header="Data Source Category">
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{dataSourceCategoryEditController.dataSourceCategory.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name" value="#{dataSourceCategoryEditController.dataSourceCategory.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{dataSourceCategoryEditController.dataSourceCategory.description}" /></td>
+                        <td><p:inputText id="description" value="#{dataSourceCategoryEditController.dataSourceCategory.description}" required="true" requiredMessage="Description is required"/></td>
+                        <td><p:message for="description" /></td>
                     </tr>               
                 </table>
                 <hr/>
-                <h:commandButton value="Save" action="#{dataSourceCategoryEditController.save()}">
+                <p:commandButton value="Save" action="#{dataSourceCategoryEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{dataSourceCategoryEditController.dataSourceCategory.uuid}" />
-                </h:commandButton>
-                <p:commandButton value="Cancel" action="dataElementList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="dataSourceCategoryList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

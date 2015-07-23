@@ -13,46 +13,53 @@
 
     <ui:define name="content">
         <p:panel header="Period">
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{periodEditController.period.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name" value="#{periodEditController.period.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name"/></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{periodEditController.period.description}" /></td>
+                        <td><p:inputText id="description" value="#{periodEditController.period.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:message for="description"/></td>
                     </tr>
                     <tr>
                         <th align="left">Valid From</th>
-                        <td><p:calendar value="#{periodEditController.period.validFrom}" navigator="true" pattern="dd/MM/yyyy"/></td>
+                        <td><p:calendar id="validFrom" value="#{periodEditController.period.validFrom}" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Date is required"/></td>
+                        <td><p:message for="validFrom"/></td>
                     </tr>
                     <tr>
                         <th align="left">Valid To</th>
-                        <td><p:calendar value="#{periodEditController.period.validTo}" navigator="true" pattern="dd/MM/yyyy"/></td>
+                        <td><p:calendar id="validTo" value="#{periodEditController.period.validTo}" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Date is required"/></td>
+                        <td><p:message for="validTo"/></td>
                     </tr>
                     <tr>
                         <th align="left">Due Date</th>
-                        <td><p:calendar value="#{periodEditController.period.dueDate}" navigator="true" pattern="dd/MM/yyyy"/></td>
+                        <td><p:calendar id="dueDate" value="#{periodEditController.period.dueDate}" navigator="true" pattern="dd/MM/yyyy" required="true" requiredMessage="Due Date is required"/></td>
+                        <td><p:message for="dueDate"/></td>
                     </tr>       
                     <tr>
                         <th align="left">Active</th>
-                        <td><h:selectBooleanCheckbox value="#{periodEditController.period.active}"/></td>
+                        <td><p:selectBooleanCheckbox value="#{periodEditController.period.active}"/></td>
                     </tr> 
                     <tr>
                         <th align="left">Select Programs</th>
-                        <h:selectManyCheckbox value="#{periodEditController.programs}" converter="#{programConverter}">
+                        <p:selectManyCheckbox id="program" value="#{periodEditController.programs}" converter="#{programConverter}" required="true" requiredMessage="Program is required">
                             <f:selectItems value="#{programListController.programs}"/>
-                        </h:selectManyCheckbox>
+                        </p:selectManyCheckbox>
+                        <td><p:message for="program" /></td>
                     </tr>
                     <tr>
                         <th align="left">Deleted</th>
                         <td><h:selectBooleanCheckbox value="#{periodEditController.period.deleted}"/></td>
                     </tr>  
                 </table>
-                <h:commandButton value="Save" action="#{periodEditController.save()}">
+                <p:commandButton value="Save" action="#{periodEditController.save()}" ajax="false">
                     <f:param name="uuid" value="#{periodEditController.period.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="periodList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>
