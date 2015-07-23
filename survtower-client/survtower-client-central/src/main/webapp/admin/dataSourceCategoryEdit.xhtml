@@ -24,9 +24,11 @@
                         <td><h:inputText value="#{dataSourceCategoryEditController.dataSourceCategory.description}" /></td>
                     </tr>               
                 </table>
+                <hr/>
                 <h:commandButton value="Save" action="#{dataSourceCategoryEditController.save()}">
                     <f:param name="uuid" value="#{dataSourceCategoryEditController.dataSourceCategory.uuid}" />
                 </h:commandButton>
+                <p:commandButton value="Cancel" action="dataElementList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

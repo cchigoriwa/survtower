@@ -13,28 +13,33 @@
 
     <ui:define name="content">
         <p:panel header="Data Element">
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{dataElementEditController.dataElement.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name" value="#{dataElementEditController.dataElement.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{dataElementEditController.dataElement.description}" /></td>
+                        <td><p:inputText id="description" value="#{dataElementEditController.dataElement.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:message for="description" /></td>
                     </tr>
                     <tr>
                         <th align="left">Data Source</th>
                         <td>
-                            <h:selectOneMenu value="#{dataElementEditController.dataElement.dataSource}" converter="#{dataSourceConverter}" >
+                            <p:selectOneMenu id="dataSource" value="#{dataElementEditController.dataElement.dataSource}" converter="#{dataSourceConverter}" required="true" requiredMessage="Data Source is required" >
                                 <f:selectItems value="#{dataElementEditController.dataSources}" var="item" itemLabel="#{item.name}"  />
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                         </td>
+                        <td><p:message for="dataSource" /></td>
                     </tr>
                 </table>
-                <h:commandButton value="Save" action="#{dataElementEditController.save()}">
+                <hr/>
+                <p:commandButton value="Save" action="#{dataElementEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{dataElementEditController.dataElement.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="dataElementList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>
