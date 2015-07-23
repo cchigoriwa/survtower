@@ -13,39 +13,44 @@
 
     <ui:define name="content">
         <p:panel header="Data Source">
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{dataSourceEditController.dataSource.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name" value="#{dataSourceEditController.dataSource.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{dataSourceEditController.dataSource.description}" /></td>
+                        <td><p:inputText id="description" value="#{dataSourceEditController.dataSource.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:message for="description" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Data Source Category</th>
                         <td>
-                            <h:selectOneMenu value="#{dataSourceEditController.dataSource.dataSourceCategory}" converter="#{dataSourceCategoryConverter}" >
+                            <p:selectOneMenu id="dataSourceCategory" value="#{dataSourceEditController.dataSource.dataSourceCategory}" converter="#{dataSourceCategoryConverter}" required="true" requiredMessage="Data Source Category is required" >
                                 <f:selectItems value="#{dataSourceEditController.dataSourceCategorys}" var="item" itemLabel="#{item.name}"  />
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                         </td>
+                        <td><p:message for="dataSourceCategory" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Frequency</th>
                         <td>
-                            <h:selectOneMenu value="#{dataSourceEditController.dataSource.frequency}" converter="#{frequencyConverter}" >
+                            <p:selectOneMenu id="frequency" value="#{dataSourceEditController.dataSource.frequency}" converter="#{frequencyConverter}" required="true" requiredMessage="Frequency is required" >
                                 <f:selectItems value="#{dataSourceEditController.frequencys}" var="item" itemLabel="#{item.name}"  />
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                         </td>
+                        <td><p:message for="frequency" /></td>
                     </tr>
 
                 </table>
-                <h:commandButton value="Save" action="#{dataSourceEditController.save()}">
+                <p:commandButton value="Save" action="#{dataSourceEditController.save()}" ajax="false" icon="ui-icon-disk">
                     <f:param name="uuid" value="#{dataSourceEditController.dataSource.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="dataSourceList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

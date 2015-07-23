@@ -13,32 +13,37 @@
 
     <ui:define name="content">
         <p:panel header="Member">
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{memberEditController.member.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name" value="#{memberEditController.member.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{memberEditController.member.description}" /></td>
+                        <td><p:inputText id="description" value="#{memberEditController.member.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:message for="description" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Code</th>
-                        <td><h:inputText value="#{memberEditController.member.code}" /></td>
+                        <td><p:inputText id="code" value="#{memberEditController.member.code}" required="true" requiredMessage="Code is required" /></td>
+                        <td><p:message for="code" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Logo</th>
-                        <td><h:inputText value="#{memberEditController.member.logo}" /></td>
+                        <td><p:inputText value="#{memberEditController.member.logo}" /></td>
+                        <td><p:message for="logo" /></td>
                     </tr>
 
 
                 </table>
-                <h:commandButton value="Save" action="#{memberEditController.save()}">
+                <p:commandButton value="Save" action="#{memberEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{memberEditController.member.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="memberList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

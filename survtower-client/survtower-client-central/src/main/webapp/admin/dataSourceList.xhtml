@@ -13,28 +13,28 @@
 
     <ui:define name="content">
         <p:panel header=" Data Sources">
-            <p:dataTable paginator="true" rows="5" value="#{dataSourceListController.dataSources}" var="dataSource">
+            <p:dataTable paginator="true" rows="5" value="#{dataSourceListController.dataSources}" var="dataSourceItem">
 
                 <p:column headerText="Name">
-                    #{dataSource.name}
+                    #{dataSourceItem.name}
                 </p:column>
 
                 <p:column headerText="Description">
-                    #{dataSource.description}
+                    #{dataSourceItem.description}
                 </p:column>
 
                 <p:column headerText="Data Source Category">
-                    #{dataSource.dataSourceCategory}
+                    #{dataSourceItem.dataSourceCategory}
                 </p:column>
 
                 <p:column headerText="Frequency">
-                    #{dataSource.frequency}
+                    #{dataSourceItem.frequency}
                 </p:column>
 
                 <p:column>
                     <h:form>
                         <p:button value="Edit" outcome="dataSourceEdit" icon="ui-icon-pencil">                        
-                            <f:param name="uuid" value="#{dataSource.uuid}" />
+                            <f:param name="uuid" value="#{dataSourceItem.uuid}" />
                         </p:button>
                     </h:form>
                 </p:column>
