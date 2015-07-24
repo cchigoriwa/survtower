@@ -14,52 +14,57 @@
     <ui:define name="content">
         <p:panel header="User Details">
             <p:growl id="msgs" showDetail="true" />
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">User Name</th>
-                        <td><h:inputText value="#{memberUserEditController.memberUser.username}"
+                        <td><p:inputText id="name" value="#{memberUserEditController.memberUser.username}"
                                          required="true" label="email" size="60"
                                          requiredMessage="Enter Username."/></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Email</th>
-                        <td><h:inputText value="#{memberUserEditController.memberUser.email}"
+                        <td><h:inputText id="email" value="#{memberUserEditController.memberUser.email}"
                                          required="true" label="email" size="60"
                                          requiredMessage="Please enter your email address."
                                          validatorMessage="Invalid email format">
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </h:inputText>
                         </td>
+                        <td><p:message for="email" /></td>
                     </tr>
                     <tr>
                         <th align="left"> Select Programs</th>
                         <td>
-                            <p:selectManyCheckbox value="#{memberUserEditController.memberUser.programs}" converter="#{programConverter}" layout="grid" columns="2" >
+                            <p:selectManyCheckbox id="program" value="#{memberUserEditController.memberUser.programs}" converter="#{programConverter}" layout="grid" columns="2" required="true" requiredMessage="Please select program/s." >
                                 <f:selectItems value="#{memberUserEditController.programService.findAll()}"/>
                                 <f:attribute name="collectionType" value="java.util.ArrayList" />
                             </p:selectManyCheckbox>
                         </td>
+                        <td><p:message for="program" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Select Roles</th>
                         <td>
-                            <p:selectManyCheckbox  value="#{memberUserEditController.memberUser.userRoles}" converter="#{userRoleConverter}" layout="grid" columns="2">
+                            <p:selectManyCheckbox id="roles" value="#{memberUserEditController.memberUser.userRoles}" converter="#{userRoleConverter}" layout="grid" columns="2" required="true" requiredMessage="Please select role/s.">
                                 <f:selectItems value="#{memberUserEditController.userRoleService.findAll()}"/>
                                 <f:attribute name="collectionType" value="java.util.ArrayList" />
                             </p:selectManyCheckbox>
                         </td>
+                        <td><p:message for="roles" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Select Regions</th>
                         <td>
-                            <p:selectManyCheckbox value="#{memberUserEditController.memberUser.regions}" converter="#{regionConverter}" layout="grid" columns="2" >
+                            <p:selectManyCheckbox id="regions" value="#{memberUserEditController.memberUser.regions}" converter="#{regionConverter}" layout="grid" columns="2" required="true" requiredMessage="Please select region/s." >
                                 <f:selectItems value="#{memberUserEditController.regionService.findAll()}"/>
                                 <f:attribute name="collectionType" value="java.util.ArrayList" />
                             </p:selectManyCheckbox>
                         </td>
+                        <td><p:message for="regions" /></td>
                     </tr>
 
                     <tr>
@@ -69,9 +74,10 @@
                         </td>
                     </tr>
                 </table>
-                <h:commandButton value="Save" action="#{memberUserEditController.save()}">
+                <p:commandButton value="Save" action="#{memberUserEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="memberUserList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

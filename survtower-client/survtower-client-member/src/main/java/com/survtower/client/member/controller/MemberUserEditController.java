@@ -16,6 +16,7 @@ import javax.faces.bean.RequestScoped;
  *
  * @author Takunda Dhlakama
  * @author Charles Chigoriwa
+ * @author Daniel Nkhoma
  *
  */
 @ManagedBean
@@ -100,6 +101,7 @@ public class MemberUserEditController {
             memberUser = new MemberUser();
         } else {
             memberUser = memberUserService.findByUuid(uuid);
+            memberUser = memberUser == null ? new MemberUser() : memberUser;
         }
     }
 

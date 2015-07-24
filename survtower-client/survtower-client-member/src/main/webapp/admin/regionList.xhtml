@@ -13,10 +13,7 @@
 
     <ui:define name="content">
         <p:panel header="Region List">
-            <h:form>
-                <h:link value="Add New Region" outcome="regionEdit" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{regionListController.regions}" var="region">
 
                 <p:column headerText="Name">
@@ -35,6 +32,10 @@
                     </h:form>
                 </p:column>
             </p:dataTable>
+            <hr/>
+            <h:form>
+                <h:link value="Add New Region" outcome="regionEdit" />
+            </h:form>
         </p:panel>
 
     </ui:define>

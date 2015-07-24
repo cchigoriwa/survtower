@@ -13,20 +13,23 @@
 
     <ui:define name="content">
         <p:panel header="Region">
-            <h:form>
+            <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><h:inputText value="#{regionEditController.region.name}" required="true" requiredMessage="Enter Name" /></td>
+                        <td><p:inputText id="name" value="#{regionEditController.region.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><h:inputText value="#{regionEditController.region.description}" /></td>
+                        <td><p:inputText id="description" value="#{regionEditController.region.description}" /></td>
+                        <td><p:message for="description" /></td>
                     </tr>                    
                 </table>
-                <h:commandButton value="Save" action="#{regionEditController.save()}">
+                <p:commandButton value="Save" action="#{regionEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{regionEditController.region.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="regionList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>
