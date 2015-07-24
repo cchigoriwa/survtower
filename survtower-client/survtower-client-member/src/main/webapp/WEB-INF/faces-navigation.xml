@@ -9,12 +9,15 @@
         
     <navigation-rule>
         
+        <from-view-id>*</from-view-id>
+        
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>  
         
         <navigation-case>
+           
             <from-outcome>dash_board</from-outcome>
             <to-view-id>/dash_board.xhtml</to-view-id>
         </navigation-case> 
