@@ -7,12 +7,12 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:form> 
-        <p:menubar>
+        <p:menubar style="border-color: goldenrod">
             <p:menuitem value="Dash Board" outcome="index" rendered="#{!checkLoggedOn.loggedOn}" icon="ui-icon-home" />
 
             <p:menuitem value="Dash Board" outcome="dash_board" rendered="#{checkLoggedOn.loggedOn}" icon="ui-icon-home"  />
 
-            <p:submenu label="Settings" icon="ui-icon-wrench" rendered="#{checkLoggedOn.loggedOn}">
+            <p:submenu label="Settings" icon="ui-icon-wrench"  rendered="#{checkLoggedOn.loggedOn}">
                 <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person" />
                 <p:menuitem value="Email Set up" icon="ui-icon-mail-reply"  outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
                 <p:menuitem value="Change Password" icon="ui-icon-pencil" outcome="changePassword" rendered="#{request.isUserInRole('ROLE_GLOBAL_ADMINISTRATOR') || request.isUserInRole('ROLE_SADC_DATA_MANAGER')}"/>
@@ -31,7 +31,7 @@
             <p:menuitem value="login" outcome="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
 
             <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
- 
+
         </p:menubar>
     </h:form>
 

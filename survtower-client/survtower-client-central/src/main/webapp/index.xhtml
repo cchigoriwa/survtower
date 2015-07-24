@@ -15,7 +15,7 @@
         <ui:define name="content">
             <h:form>
 
-                <p:panel id="basic" header="SADC Central Portal" footer="Copyright © 2014 SADC. All rights reserved." style="margin-bottom:20px">
+                <p:panel id="basic" header="SADC Central Portal" footer="Copyright © 2014 SADC. All rights reserved." style="margin-bottom:20px; border-color: goldenrod">
 
                     <p>Background HIV and AIDS, Malaria and Tuberculosis (TB) are
                         three diseases that impose the heaviest burden in the SADC region. Member States (MS)
@@ -25,11 +25,11 @@
                         The Surveillance Database system will be used to monitor the agreed indicators.
                     </p>
                     <p>
-                        <p:commandButton value="login" action="login" rendered="#{!checkLoggedOn.loggedOn}"/>
+                        <p:commandButton style="border-color: goldenrod" value="login" action="login" rendered="#{!checkLoggedOn.loggedOn}"/>
 
-                        <p:commandButton value="Dash Board" action="dash_board" rendered="#{checkLoggedOn.loggedOn}"/>
+                        <p:commandButton style="border-color: goldenrod" value="Dash Board" action="dash_board" rendered="#{checkLoggedOn.loggedOn}"/>
 
-                        <p:commandButton value="Logout" action="#{loginController.logout()}" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+                        <p:commandButton style="border-color: goldenrod" value="Logout" action="#{loginController.logout()}" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
                     </p>
 
                 </p:panel>
