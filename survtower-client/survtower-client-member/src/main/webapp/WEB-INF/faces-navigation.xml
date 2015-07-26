@@ -92,6 +92,16 @@
         </navigation-case> 
         
         <navigation-case>
+            <from-outcome>region_data_entry_edit</from-outcome>
+            <to-view-id>/data/region_data_entry_edit.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>region_data_entry_edit</from-outcome>
+            <to-view-id>/data/region_data_entry_view.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
             <from-outcome>region_data_select</from-outcome>
             <to-view-id>/data/region_data_select.xhtml</to-view-id>
         </navigation-case>   

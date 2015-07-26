@@ -105,7 +105,7 @@ public class RegionDataSelectController extends MessageInfor implements Serializ
     }
 
     public String dataEntrySelection() {
-        return "region_data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
+        return "region_data_entry_edit?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
     }
 
     public String dataValidationSelection() {

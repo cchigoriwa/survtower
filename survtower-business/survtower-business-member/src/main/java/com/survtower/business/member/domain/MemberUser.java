@@ -27,13 +27,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "member_user")
 public class MemberUser extends BaseEntity {
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
-    @Column(name="password")
+    @Column(name = "password", updatable = false)
     private String password;
-    @Column(name="email",unique = true)
+    @Column(name = "email", unique = true)
     private String email;
-    @Column(name="deactivated")
+    @Column(name = "deactivated")
     private Boolean deactivated = Boolean.FALSE;
     private static final long serialVersionUID = 1L;
     @ManyToMany
