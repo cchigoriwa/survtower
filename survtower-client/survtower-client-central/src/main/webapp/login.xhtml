@@ -8,13 +8,21 @@
     <f:view transient="true">
         <h:head>        
             <title>SADC Surveillance</title>
+            <style>
+                body {
+                    padding-right: 50px;
+                    padding-left: 50px;
+                    padding-top: 0.5em;
+                }
+            </style>
             <h:outputStylesheet name="login.css"/>
+            <h:outputStylesheet name="central.css"/>
         </h:head>
         <body>
 
             <div style="background-color: #D1B218" id="header">
                 <div class="wrapper">
-                    <h1>Harmonized Surveillance System -Secretariat</h1>
+                    <h1>Harmonized Surveillance System - Secretariat</h1>
                 </div>
             </div>
 
@@ -23,18 +31,20 @@
                 <h:graphicImage library="webjars/sadc/1.0.0/img" name="logo.png" style="text-align: center;"/>
                 <div id="content">             
                     <div align="center">
-                        <p:panel style="width: 400px;border-color: goldenrod;background-color: #FAE49B" header="Log in">
+                        <p:panel style="width: 400px;" class="panel">
                             <h:form  id="loginForm" prependId="false">
                                 <table class="login" style="margin-left: auto; margin-right: auto;">
                                     <tbody>
                                         <tr>
                                             <td><p class="mtop0 mbottom025"><strong><label for="email">Username</label></strong></p>
-                                                <h:inputText id="j_username" required="true" tabindex="1" class="inputtext"/>
+                                                <p:inputText id="j_username" size="40" required="true" requiredMessage="Username is required" tabindex="1" class="inputtext"/>
                                             </td>
+                                            <td><p:message for="j_username" /></td>
                                         </tr>
                                         <tr>
                                             <td><p class="mtop05 mbottom025"><strong><label for="password">Password</label></strong></p>
-                                                <h:inputSecret id="j_password" required="true" tabindex="2" class="inputtext"/></td>
+                                                <h:inputSecret id="j_password" size="40" required="true" requiredMessage="Password is required" tabindex="2" class="inputtext"/></td>
+                                            <td><p:message for="j_password" /></td>
                                         </tr>
                                         <tr>
                                             <td style="padding-top: 10px;">

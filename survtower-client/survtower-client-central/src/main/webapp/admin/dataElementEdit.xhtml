@@ -12,17 +12,17 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Data Element">
+        <p:panel class="panel" header="Data Element">
             <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name" value="#{dataElementEditController.dataElement.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="name" value="#{dataElementEditController.dataElement.name}" required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{dataElementEditController.dataElement.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="description" value="#{dataElementEditController.dataElement.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message for="description" /></td>
                     </tr>
                     <tr>
@@ -35,7 +35,7 @@
                         <td><p:message for="dataSource" /></td>
                     </tr>
                 </table>
-                <hr/>
+                <br/>
                 <p:commandButton value="Save" action="#{dataElementEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{dataElementEditController.dataElement.uuid}" />
                 </p:commandButton>

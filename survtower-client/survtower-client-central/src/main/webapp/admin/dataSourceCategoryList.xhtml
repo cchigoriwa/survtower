@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Data Source Categories">
+        <p:panel class="panel" header="Data Source Categories">
             <p:dataTable paginator="true" rows="5" value="#{dataSourceCategoryListController.dataSourceCategorys}" var="dataSourceCategory">
 
                 <p:column headerText="Name">
@@ -35,6 +35,7 @@
             <hr/>
             <p:commandButton icon="ui-icon-plus" value="New Data Source Category" action="#{dataSourceCategoryListController.createNewDataSourceCategory()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 

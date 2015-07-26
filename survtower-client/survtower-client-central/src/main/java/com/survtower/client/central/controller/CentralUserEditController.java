@@ -79,6 +79,7 @@ public class CentralUserEditController {
             centralUser = new CentralUser();
         } else {
             centralUser = centralUserService.findByUuid(uuid);
+            centralUser = centralUser == null ? new CentralUser() : centralUser;
         }
     }
 

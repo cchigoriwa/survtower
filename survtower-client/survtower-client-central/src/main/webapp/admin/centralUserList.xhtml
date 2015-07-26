@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Central Users">
+        <p:panel class="panel" header="Central Users">
             <p:dataTable paginator="true" rows="5" value="#{centralUserListController.centralUsers}" var="centralUser">
 
                 <p:column headerText="Name">
@@ -36,8 +36,9 @@
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New User" action="#{centralUserListController.createNewCentralUser()}" ></p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 

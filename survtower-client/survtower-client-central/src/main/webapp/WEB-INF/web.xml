@@ -24,8 +24,6 @@
         <param-value>com.survtower.business.common.config,com.survtower.business.central.config,com.survtower.client.central.config</param-value>      
     </context-param>
     
-    
-    
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

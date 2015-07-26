@@ -12,39 +12,49 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Central User">
+        <p:panel class="panel" header="Central User">
             <p:growl id="msgs" showDetail="true" />
-            <h:form>
-                <table>
+            <h:form prependId="false">
+                <table style="padding-left: 10px">
                     <tr>
                         <th align="left">User Name</th>
-                        <td><h:inputText value="#{centralUserEditController.centralUser.username}" /></td>
+                        <td><p:inputText id="userName" value="#{centralUserEditController.centralUser.username}" class="inputtextpanel" required="true"
+                                         requiredMessage="Please enter your email address." /></td>
+                        <td><p:message for="userName" /></td>
                     </tr>
                     <tr>
                         <th align="left">Email</th>
-                        <td><h:inputText value="#{centralUserEditController.centralUser.email}"
-                                         required="true" label="email" size="60"
+                        <td><p:inputText id="email" value="#{centralUserEditController.centralUser.email}"
+                                         required="true" label="email" class="inputtextpanel"
                                          requiredMessage="Please enter your email address."
                                          validatorMessage="Invalid email format">
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                            </h:inputText>
+                            </p:inputText>
+                        </td>
+                        <td><p:message for="email" /></td>
+                    </tr>
+                    <tr>
+                        <th><p:outputLabel value="Select Roles"/></th>
+                        <td>
+                            <p:selectManyCheckbox id="roles" value="#{centralUserEditController.centralUser.userRoles}" converter="#{userRoleConverter}" layout="grid" columns="2" required="true" requiredMessage="Please select a role.">
+                                <f:selectItems value="#{centralUserEditController.userRoleService.findAll()}"/>
+                                <f:attribute name="collectionType" value="java.util.ArrayList" />
+                            </p:selectManyCheckbox>
+                        </td>
+                        <td><p:message for="roles" /></td>
+                    </tr>
+                    <tr>
+                        <th><p:outputLabel value="Active"/></th>
+                        <td>
+                            <p:selectBooleanCheckbox value="#{centralUserEditController.centralUser.deactivated}"/>
                         </td>
                     </tr>
-                    <tr>
-                        <h:outputLabel value="Select Roles"/>
-                        <p:selectManyCheckbox value="#{centralUserEditController.centralUser.userRoles}" converter="#{userRoleConverter}" layout="grid" columns="2" >
-                            <f:selectItems value="#{centralUserEditController.userRoleService.findAll()}"/>
-                            <f:attribute name="collectionType" value="java.util.ArrayList" />
-                        </p:selectManyCheckbox>
-                    </tr>
-                    <tr>
-                        <h:outputLabel value="Active"/>
-                        <h:selectBooleanCheckbox value="#{centralUserEditController.centralUser.deactivated}"/>
-                    </tr>
                 </table>
-                <h:commandButton value="Save" action="#{centralUserEditController.save()}">
+                <br/>
+                <p:commandButton value="Save" action="#{centralUserEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{centralUserEditController.centralUser.uuid}" />
-                </h:commandButton>
+                </p:commandButton>
+                <p:commandButton value="Cancel" action="centralUserList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

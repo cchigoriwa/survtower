@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Data Elements">
+        <p:panel class="panel" header="Data Elements">
             <p:dataTable paginator="true" rows="5" value="#{dataElementListController.dataElements}" var="dataElement" >
 
                 <p:column headerText="Name">
@@ -22,7 +22,7 @@
                 <p:column headerText="Description">
                     #{dataElement.description}
                 </p:column>
-                
+
                 <p:column headerText="Data Source">
                     #{dataElement.dataSource}
                 </p:column>
@@ -36,9 +36,11 @@
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New Data Element" action="#{dataElementListController.createNewDataElement()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+
         </p:panel>
     </ui:define>
 
