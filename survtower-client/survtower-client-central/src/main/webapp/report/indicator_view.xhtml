@@ -14,7 +14,7 @@
 
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
-        <p:panel header="Indicator View">
+        <p:panel class="panel" header="Indicator View">
             <h:form>
                 <h:panelGrid columns="2"> 
                     <h:outputText value="Select Member"/>
@@ -43,7 +43,7 @@
 
             </h:form>
         </p:panel>
-        <p:panel header="#{indicatorViewController.indicator.name} Summary" rendered="#{indicatorViewController.indicator!=null}">
+        <p:panel class="panel" header="#{indicatorViewController.indicator.name} Summary" rendered="#{indicatorViewController.indicator!=null}">
 
             <p:dataTable value="#{indicatorViewController.surveillanceDataList}" var="surveillanceData">  
 

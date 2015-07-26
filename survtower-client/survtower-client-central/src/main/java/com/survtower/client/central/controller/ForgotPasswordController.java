@@ -21,8 +21,8 @@ public class ForgotPasswordController {
     @ManagedProperty(value = "#{centralUserService}")
     private CentralUserService centralUserService;
 
-    @ManagedProperty(value = "#{resetPasswordRequestService}")
-    private ResetCentralUserPasswordRequestService resetPasswordRequestService;
+    @ManagedProperty(value = "#{resetCentralUserPasswordRequestService}")
+    private ResetCentralUserPasswordRequestService resetCentralUserPasswordRequestService;
 
     @ManagedProperty(value = "#{resetPasswordProcess}")
     private ResetPasswordProcess resetPasswordProcess;
@@ -40,12 +40,20 @@ public class ForgotPasswordController {
         this.centralUserService = centralUserService;
     }
 
-    public ResetCentralUserPasswordRequestService getResetPasswordRequestService() {
-        return resetPasswordRequestService;
+    public ResetCentralUserPasswordRequestService getResetCentralUserPasswordRequestService() {
+        return resetCentralUserPasswordRequestService;
     }
 
-    public void setResetPasswordRequestService(ResetCentralUserPasswordRequestService resetPasswordRequestService) {
-        this.resetPasswordRequestService = resetPasswordRequestService;
+    public void setResetCentralUserPasswordRequestService(ResetCentralUserPasswordRequestService resetCentralUserPasswordRequestService) {
+        this.resetCentralUserPasswordRequestService = resetCentralUserPasswordRequestService;
+    }
+
+    public ResetPasswordProcess getResetPasswordProcess() {
+        return resetPasswordProcess;
+    }
+
+    public void setResetPasswordProcess(ResetPasswordProcess resetPasswordProcess) {
+        this.resetPasswordProcess = resetPasswordProcess;
     }
 
     public ForgotPassword getForgotPassword() {
@@ -67,9 +75,9 @@ public class ForgotPasswordController {
     public String submit() {
         if (getCentralUser(forgotPassword)) {
             resetPasswordProcess.createNewCentralUserPasswordRequest(forgotPassword.getEmail());
-            return "login";
+            return "forgotPasswordEmailSentSuccessful";
         } else {
-            return "login";
+            return "forgotPasswordEmailSentFailure";
         }
 
     }

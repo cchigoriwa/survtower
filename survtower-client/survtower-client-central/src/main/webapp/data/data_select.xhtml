@@ -14,35 +14,56 @@
 
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
-        <p:panel header="Data View Selection">
-            <h:form>
-                <p>Select Program, Period and Member</p>
-                <h:panelGrid columns="2"> 
-
-                    <h:outputText value="Select Period"/>
-                    <h:selectOneMenu value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
-                                     converter="#{periodConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{periodListController.periods}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value="Select Program:"/>
-                    <h:selectOneMenu value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
-                                     converter="#{programConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{programListController.programs}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value="Select Member"/>
-                    <h:selectOneMenu value="#{dataSelectController.member}" required="true" requiredMessage="Member field is required." 
-                                     converter="#{memberConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{memberListController.members}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value=""/>
-                    <h:panelGrid columns="2">
-                        <p:commandButton value="View " action="#{dataSelectController.dataViewSelection()}" ajax="false"/>                        
-                    </h:panelGrid>
-                </h:panelGrid>
-
+        <p:panel class="panel" header="Data View Selection">
+            <h:form  prependId="false">
+                <table>
+                    <tr>
+                        <th>
+                            <p>Select Program, Period and Member</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th align="left">
+                            <h:outputText value="Select Period"/> 
+                        </th>
+                        <td>
+                            <p:selectOneMenu id="period" value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
+                                             converter="#{periodConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{periodListController.periods}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td><p:message for="period" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">
+                            <h:outputText value="Select Program"/>
+                        </th>
+                        <td>
+                            <p:selectOneMenu id="program" value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
+                                             converter="#{programConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{programListController.programs}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td><p:message for="program" /></td>
+                    </tr>
+                    <tr>
+                        <th align="left">
+                            <h:outputText value="Select Member"/>
+                        </th>
+                        <td>
+                            <h:selectOneMenu id="member" value="#{dataSelectController.member}" required="true" requiredMessage="Member field is required." 
+                                             converter="#{memberConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{memberListController.members}"/>
+                            </h:selectOneMenu>
+                        </td>
+                        <td><p:message for="member" /></td>
+                    </tr>
+                </table>
+                <br/>
+                <p:commandButton value="View " action="#{dataSelectController.dataViewSelection()}" icon="ui-icon-book" ajax="false"/>                        
             </h:form>
         </p:panel>
     </ui:define>

@@ -14,7 +14,7 @@
 
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
-        <p:panel header="Pivot Table Generation">
+        <p:panel class="panel" header="Pivot Table Generation">
             <h:form>
                 <table cellspacing="10" cellpadding="10">
                     <tr>
@@ -51,7 +51,7 @@
             </h:form>
         </p:panel>
 
-        <p:panel header="Pivot Table Source Data">
+        <p:panel class="panel" header="Pivot Table Source Data">
             <p:dataTable id="tbl" value="#{pivotTableController.surveillanceDataList}" var="surveillanceData">  
 
                 <p:column headerText="Program">

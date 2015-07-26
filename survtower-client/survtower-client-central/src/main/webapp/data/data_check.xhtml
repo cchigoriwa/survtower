@@ -14,7 +14,7 @@
 
     <ui:define name="content">
 
-        <p:panel header="View Surveillance Data Upload">
+        <p:panel class="panel" header="View Surveillance Data Upload">
             <h:form>
                 <p>Selected Program - #{dataCheckController.surveillance.program.name} </p>
                 <p>Selected Period - #{dataCheckController.surveillance.period.name}</p>
@@ -54,7 +54,7 @@
 
                 </p:dataTable>
 
-                <p:commandButton value="Save " action="#{dataCheckController.save()}" ajax="false"/>                        
+                <p:commandButton value="Save " action="#{dataCheckController.save()}" icon="ui-icon-disk" ajax="false"/>                        
 
 
             </h:form>

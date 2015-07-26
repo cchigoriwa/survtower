@@ -8,15 +8,23 @@
     <f:view transient="true">
         <h:head>        
             <title>SADC Surveillance</title>
-            <h:outputStylesheet name="login.css"/>
+            <style>
+                body {
+                    padding-right: 50px;
+                    padding-left: 50px;
+                    padding-top: 0.5em;
+                }
+            </style>
+            <h:outputStylesheet name="central.css"/>
         </h:head>
         <body>
 
-            <div align="center" id="header">
+            <div style="background-color: #D1B218" id="header">
                 <div class="wrapper">
-                    <h1>Harmonized Surveillance System -Secretariat</h1>
+                    <h1>Harmonized Surveillance System - Secretariat</h1>
                 </div>
             </div>
+            <br/>
             <div style="float: center">
                 <h:graphicImage library="webjars/sadc/1.0.0/img" name="logo.png" style="text-align: center;"/>
             </div>
@@ -25,12 +33,14 @@
                 <div id="content">             
                     <div>
                         <h:form  prependId="false">
-                            <h:outputText value="Username or Password Not Correct" style="color: red;" title="Error"/> 
-                            <br/>
-                            <br/>
-                            <h:commandLink value="Back" action="#{loginController.back()}"> 
+                            <p:panel class="panel">
+                                <h:outputText value="Username or Password Not Correct" style="color: red; font-size: 16px;" title="Error"/> 
+                                <br/>
+                                <br/>
+                                <p:commandButton value="Back To Log in" icon="ui-icon-back" action="#{loginController.back()}"> 
 
-                            </h:commandLink>
+                                </p:commandButton>
+                            </p:panel>
                         </h:form>          
                     </div> <!-- wrapper -->
                 </div> <!-- content -->

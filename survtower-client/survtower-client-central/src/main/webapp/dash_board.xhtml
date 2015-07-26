@@ -20,10 +20,10 @@
             <p:tabView style="border-color: goldenrod ">
 
                 <p:tab title="Reporting">
-                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;">
+                    <p:panel class="panel" header="Indicator Reporting" style="margin-bottom:10px;">
 
                         <p:dataGrid var="surveillanceData" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
-                                    rows="1" paginator="true" id="list">
+                                    rows="10" paginator="true" id="list">
 
                             <p:chart type="bar" model="#{periodIndicatorController.surveillanceDataChangeModel(surveillanceData)}" style="height:900px" />  
 
@@ -36,8 +36,8 @@
 
                     <h:form>
 
-                        <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
-                            <p:dataTable value="#{indexController.surveillances}" var="surveillance">
+                        <p:panel class="panel" id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
+                            <p:dataTable paginator="true" rows="10" value="#{indexController.surveillances}" var="surveillance">
                                 <p:column headerText="Program">
                                     #{surveillance.program.name} 
                                 </p:column>
@@ -61,8 +61,8 @@
 
                     <h:form>
 
-                        <p:panel id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
-                            <p:dataTable value="#{memberAuditController.auditItems}" var="centralAuditItem">
+                        <p:panel class="panel" id="notificationOne" header="Open Reporting Periods - Surveillance Uploads" footer="Details" style="margin-bottom:20px">
+                            <p:dataTable paginator="true" rows="10" value="#{memberAuditController.auditItems}" var="centralAuditItem">
                                 <p:column headerText="Member">
                                     #{centralAuditItem.member} 
                                 </p:column>
