@@ -23,14 +23,14 @@
             <h3>Member State</h3>
             <p:accordionPanel>
                 <p:tab title="General Info">
-                    <h:panelGrid columns="2" cellpadding="10">  
+                    <h:panelGrid class="panel" columns="2" cellpadding="10">  
                         <h:graphicImage library="webjars/sadc/1.0.0/img" name="#{memberViewController.member.logo}" />
                         <h:outputText  value="#{memberViewController.member.name}" />
                     </h:panelGrid>
                 </p:tab>
                 <p:tab title="Security Settings">
-                    <h:panelGroup rendered="#{memberViewController.memberSecurity!=null}">
-                        <table>
+                    <p:panel class="panel" rendered="#{memberViewController.memberSecurity!=null}">
+                        <table >
                             <tr>
                                 <th align="left">Email Address</th>
                                 <td><h:outputText  value="#{memberViewController.memberSecurity.emailAddress}" /></td>
@@ -45,18 +45,16 @@
                                 <td><h:outputText value="#{memberViewController.memberSecurity.memberKey}" /></td>
                             </tr>
                         </table>
-                    </h:panelGroup>
-
-                    <h:panelGroup>
+                        <br/>
                         <h:form>
                             <h:link value="Add/Edit Member Security Details" outcome="memberSecurityEdit">
                                 <f:param name="memberUuid" value="#{memberViewController.member.uuid}" />
                             </h:link>
                         </h:form>
-                    </h:panelGroup>
+                    </p:panel>
                 </p:tab>
                 <p:tab title="Surveillance">
-                    <p:panel id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
+                    <p:panel class="panel" id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">
                         <p:dataTable value="#{memberViewController.auditItems}" var="centralAuditItem">
                             <p:column headerText="Program">
                                 #{centralAuditItem.program.name} 
@@ -77,11 +75,6 @@
                 </p:tab>
             </p:accordionPanel>
         </h:form>
-
-
-
-
-
     </ui:define>
 
 </ui:composition>

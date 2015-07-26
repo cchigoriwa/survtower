@@ -12,12 +12,12 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Member State Security">
+        <p:panel class="panel" header="Member State Security">
             <h:form prependId="false" >
                 <table>
                     <tr>
                         <th align="left">Email Address</th>
-                        <td><p:inputText id="email" value="#{memberSecurityEditController.memberSecurity.emailAddress}"
+                        <td><p:inputText class="inputtextpanel" id="email" value="#{memberSecurityEditController.memberSecurity.emailAddress}"
                                          required="true" label="email" size="30"
                                          requiredMessage="Please enter your email address."
                                          validatorMessage="Invalid email format">
@@ -28,14 +28,17 @@
                     </tr>
                     <tr>
                         <th align="left">Password</th>
-                        <td><p:inputText id="password" size="30" value="#{memberSecurityEditController.memberSecurity.password}" required="true" requiredMessage="Please enter password." /></td>
+                        <td><p:inputText class="inputtextpanel" id="password" size="30" value="#{memberSecurityEditController.memberSecurity.password}" required="true" requiredMessage="Please enter password." /></td>
                         <td><p:message for="password" /></td>
                     </tr>
                 </table>
+                <br/>
                 <p:commandButton value="Save" action="#{memberSecurityEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="memberUuid" value="#{memberSecurityEditController.memberSecurity.member.uuid}" />
                 </p:commandButton>
-                <p:commandButton value="Cancel" action="memberView?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
+                <p:commandButton value="Cancel" action="memberView?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel">
+                    <f:param name="memberUuid" value="#{memberSecurityEditController.memberSecurity.member.uuid}" />
+                </p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

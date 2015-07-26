@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Indicator Groups">
+        <p:panel class="panel" header="Indicator Groups">
             <p:dataTable paginator="true" rows="5" value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
 
                 <p:column headerText="Name">
@@ -29,16 +29,17 @@
 
                 <p:column>
                     <h:form>
-                        <p:button  value="Edit" outcome="indicatorGroupEdit">                        
+                        <p:button icon="ui-icon-pencil" value="Edit" outcome="indicatorGroupEdit">                        
                             <f:param name="uuid" value="#{indicatorGroup.uuid}" />
                         </p:button >
                     </h:form>
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New Indicator Group" action="#{indicatorGroupListController.createNewIndicatorGroup()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 

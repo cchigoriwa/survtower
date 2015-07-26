@@ -12,34 +12,33 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Member">
+        <p:panel class="panel" header="Member">
             <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name" value="#{memberEditController.member.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="name" value="#{memberEditController.member.name}" required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{memberEditController.member.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="description" value="#{memberEditController.member.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message for="description" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Code</th>
-                        <td><p:inputText id="code" value="#{memberEditController.member.code}" required="true" requiredMessage="Code is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="code" value="#{memberEditController.member.code}" required="true" requiredMessage="Code is required" /></td>
                         <td><p:message for="code" /></td>
                     </tr>
 
                     <tr>
                         <th align="left">Logo</th>
-                        <td><p:inputText value="#{memberEditController.member.logo}" /></td>
+                        <td><p:inputText id="logo" class="inputtextpanel" value="#{memberEditController.member.logo}" /></td>
                         <td><p:message for="logo" /></td>
                     </tr>
-
-
                 </table>
+                <br/>
                 <p:commandButton value="Save" action="#{memberEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{memberEditController.member.uuid}" />
                 </p:commandButton>

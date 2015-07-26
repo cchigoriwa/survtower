@@ -15,50 +15,50 @@
     <ui:define name="content">
         <h:form>     
 
-            <p:panel header="Settings">
-                <!--                <center>-->
-                <table>
-                    <tr>
-                        <td style="vertical-align: top; padding-left: 40px">
-                            <p:menu>
-                                <p:submenu label="Security">
-                                    <p:menuitem value="Member List" outcome="memberList" ajax="false" icon="ui-icon-disk" />
-                                </p:submenu>
-                            </p:menu>
-                        </td>
-                        <td style="vertical-align: top; padding-left: 50px">
-                            <p:menu>
-                                <p:submenu label="Reporting">
-                                    <p:menuitem value="Period" outcome="periodList" ajax="false" icon="ui-icon-disk" />
-                                </p:submenu>
-                            </p:menu>
+            <p:panel class="panel" header="Settings">
+                <center>
+                    <table width="800px">
+                        <tr>
+                            <td style="vertical-align: top; padding-left: 40px">
+                                <p:menu class="menu" >
+                                    <p:submenu label="Security">
+                                        <p:menuitem class="panel" value="Member List" outcome="memberList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>
+                                </p:menu>
+                            </td>
+                            <td style="vertical-align: top; padding-left: 50px">
+                                <p:menu class="menu" >
+                                    <p:submenu label="Reporting">
+                                        <p:menuitem class="panel" value="Period" outcome="periodList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>
+                                </p:menu>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: top; padding-left: 40px">
-                            <p:menu>
-                                <p:submenu label="Data Element and Indicators">
-                                    <p:menuitem value="Indicator Type" outcome="indicatorTypeList" ajax="false" icon="ui-icon-disk" />
-                                    <p:menuitem value="Data Elements" outcome="dataElementList" ajax="false" icon="ui-icon-disk" />
-                                    <p:menuitem value="Indicator" outcome="indicatorList" ajax="false" icon="ui-icon-disk" />
-                                </p:submenu>
-                            </p:menu>
-                        </td>
-                        <td style="vertical-align: top; padding-left: 50px">
-                            <p:menu>
-                                <p:submenu label="Program Details and Data Sources">
-                                    <p:menuitem value="Program" outcome="programList" ajax="false" icon="ui-icon-disk" />
-                                    <p:menuitem value="Indicator Group" outcome="indicatorGroupList" icon="ui-icon-disk" />
-                                    <p:menuitem value="Data Source Category" outcome="dataSourceCategoryList" ajax="false" icon="ui-icon-disk" />
-                                    <p:menuitem value="Data Source" outcome="dataSourceList" ajax="false" icon="ui-icon-disk" />
-                                    <p:menuitem value="Frequency" outcome="frequencyList" ajax="false" icon="ui-icon-disk" />
-                                </p:submenu>           
-                            </p:menu>
-                        </td>
-                    </tr>
-                </table>
-                <!--                </center>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; padding-left: 40px">
+                                <p:menu class="menu">
+                                    <p:submenu label="Data Element and Indicators">
+                                        <p:menuitem class="panel" value="Indicator Type" outcome="indicatorTypeList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem class="panel" value="Data Elements" outcome="dataElementList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem class="panel" value="Indicator" outcome="indicatorList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>
+                                </p:menu>
+                            </td>
+                            <td style="vertical-align: top; padding-left: 50px">
+                                <p:menu class="menu">
+                                    <p:submenu label="Program Details and Data Sources">
+                                        <p:menuitem class="panel" value="Program" outcome="programList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem class="panel" value="Indicator Group" outcome="indicatorGroupList" icon="ui-icon-disk" />
+                                        <p:menuitem class="panel" value="Data Source Category" outcome="dataSourceCategoryList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem class="panel" value="Data Source" outcome="dataSourceList" ajax="false" icon="ui-icon-disk" />
+                                        <p:menuitem class="panel" value="Frequency" outcome="frequencyList" ajax="false" icon="ui-icon-disk" />
+                                    </p:submenu>           
+                                </p:menu>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
             </p:panel>
         </h:form>
     </ui:define>

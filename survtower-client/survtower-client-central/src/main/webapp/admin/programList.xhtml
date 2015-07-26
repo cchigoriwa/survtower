@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel id="basic" header="Programs" footer="" style="margin-bottom:20px">
+        <p:panel class="panel" id="basic" header="Programs" footer="" style="margin-bottom:20px">
             <p:dataTable value="#{programListController.programs}" var="program">
 
                 <p:column headerText="Name">
@@ -34,6 +34,7 @@
             </p:dataTable>
             <p>
                 <p:button value="New Program" outcome="programEdit" icon="ui-icon-plus"></p:button>
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
             </p>
         </p:panel>
     </ui:define>

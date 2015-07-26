@@ -12,33 +12,33 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Indicator Type">
+        <p:panel class="panel" header="Indicator Type">
             <h:form prependId="false">
 
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name"   value="#{indicatorTypeEditController.indicatorType.name}"  required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText id="name" class="inputtextpanel" value="#{indicatorTypeEditController.indicatorType.name}"  required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{indicatorTypeEditController.indicatorType.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText id="description" class="inputtextpanel" value="#{indicatorTypeEditController.indicatorType.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message  for="description"   /></td>
                     </tr>
                     <tr>
                         <th align="left">Factor</th>
-                        <td><p:inputText id="factor" value="#{indicatorTypeEditController.indicatorType.factor}" /></td>
+                        <td><p:inputText class="inputtextpanel" id="factor" value="#{indicatorTypeEditController.indicatorType.factor}" /></td>
                         <td><p:message  for="factor"   /></td>
                     </tr>
                     <tr>
                         <th align="left">Decimal Places</th>
-                        <td><p:inputText id="decimalPlaces" value="#{indicatorTypeEditController.indicatorType.decimalPlaces}" /></td>
+                        <td><p:inputText class="inputtextpanel" id="decimalPlaces" value="#{indicatorTypeEditController.indicatorType.decimalPlaces}" /></td>
                         <td><p:message  for="decimalPlaces"   /></td>
                     </tr>
 
                 </table>
-                <hr/>
+                <br/>
                 <p:commandButton value="Save" action="#{indicatorTypeEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{indicatorTypeEditController.indicatorType.uuid}" />
                 </p:commandButton>

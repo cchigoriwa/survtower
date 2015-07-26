@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header=" Data Sources">
+        <p:panel class="panel" header=" Data Sources">
             <p:dataTable paginator="true" rows="5" value="#{dataSourceListController.dataSources}" var="dataSourceItem">
 
                 <p:column headerText="Name">
@@ -40,9 +40,10 @@
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New Data Source" action="#{dataSourceListController.createNewDataSource()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 

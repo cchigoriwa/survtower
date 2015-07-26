@@ -12,17 +12,17 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Period">
+        <p:panel class="panel" header="Period">
             <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name" value="#{periodEditController.period.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="name" value="#{periodEditController.period.name}" required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name"/></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{periodEditController.period.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="description" value="#{periodEditController.period.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message for="description"/></td>
                     </tr>
                     <tr>
@@ -46,16 +46,18 @@
                     </tr> 
                     <tr>
                         <th align="left">Select Programs</th>
-                        <p:selectManyCheckbox id="program" value="#{periodEditController.programs}" converter="#{programConverter}" required="true" requiredMessage="Program is required">
-                            <f:selectItems value="#{programListController.programs}"/>
-                        </p:selectManyCheckbox>
+                        <td><p:selectManyCheckbox id="program" value="#{periodEditController.programs}" converter="#{programConverter}" required="true" requiredMessage="Program is required">
+                                <f:selectItems value="#{programListController.programs}"/>
+                            </p:selectManyCheckbox>
+                        </td>
                         <td><p:message for="program" /></td>
                     </tr>
                     <tr>
                         <th align="left">Deleted</th>
-                        <td><h:selectBooleanCheckbox value="#{periodEditController.period.deleted}"/></td>
+                        <td><p:selectBooleanCheckbox value="#{periodEditController.period.deleted}"/></td>
                     </tr>  
                 </table>
+                <br/>
                 <p:commandButton value="Save" action="#{periodEditController.save()}" ajax="false">
                     <f:param name="uuid" value="#{periodEditController.period.uuid}" />
                 </p:commandButton>

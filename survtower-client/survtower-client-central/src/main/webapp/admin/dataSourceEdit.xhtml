@@ -12,17 +12,17 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Data Source">
+        <p:panel class="panel" header="Data Source">
             <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name" value="#{dataSourceEditController.dataSource.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="name" value="#{dataSourceEditController.dataSource.name}" required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{dataSourceEditController.dataSource.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="description" value="#{dataSourceEditController.dataSource.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message for="description" /></td>
                     </tr>
 
@@ -47,6 +47,7 @@
                     </tr>
 
                 </table>
+                <br/>
                 <p:commandButton value="Save" action="#{dataSourceEditController.save()}" ajax="false" icon="ui-icon-disk">
                     <f:param name="uuid" value="#{dataSourceEditController.dataSource.uuid}" />
                 </p:commandButton>

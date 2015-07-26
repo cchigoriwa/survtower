@@ -12,13 +12,9 @@
     </ui:define>
 
     <ui:define name="content">
-
-        <p:layout style="min-width:500px;min-height:500px;">
-
-
-            <p:layoutUnit position="center">
-
-                <p:panel header="Member States">
+        <p:layout>
+            <p:layoutUnit class="menu" position="center">
+                <p:panel class="panel" header="Member States">
                     <p:dataTable value="#{memberListController.members}" var="member">
 
                         <p:column headerText="Logo">
@@ -39,22 +35,18 @@
                         </p:column>
 
                     </p:dataTable>
-
+                    <br/>
                     <h:form>
-                        <h:link value="New Member" outcome="memberEdit" />
+                        <p:commandButton icon="ui-icon-plus" value="New Member" ajax="false" action="memberEdit?faces-redirect=true" immediate="true" ></p:commandButton>
+                        <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
                     </h:form>
                 </p:panel>
-
             </p:layoutUnit>
 
-
-            <p:layoutUnit position="east" size="400" minSize="400" maxSize="400">
+            <p:layoutUnit class="menu" position="east">
                 <h:graphicImage width="400" library="webjars/sadc/1.0.0/img"
-                            name="SADC_Member_States_lowres.jpg" />
+                                name="SADC_Member_States_lowres.jpg" />
             </p:layoutUnit>
-
         </p:layout>
-
     </ui:define>
-
 </ui:composition>

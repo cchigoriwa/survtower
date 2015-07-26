@@ -12,17 +12,17 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Indicator Group">
+        <p:panel class="panel" header="Indicator Group">
             <h:form prependId="false">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name" value="#{indicatorGroupEditController.indicatorGroup.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText id="name" class="inputtextpanel" value="#{indicatorGroupEditController.indicatorGroup.name}" required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{indicatorGroupEditController.indicatorGroup.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="description" value="#{indicatorGroupEditController.indicatorGroup.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message for="description" /></td>
                     </tr>
                     <tr>
@@ -35,6 +35,7 @@
                         <td><p:message for="program" /></td>
                     </tr>
                 </table>
+                <br/>
                 <p:commandButton value="Save" action="#{indicatorGroupEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{indicatorGroupEditController.indicatorGroup.uuid}" />
                 </p:commandButton>

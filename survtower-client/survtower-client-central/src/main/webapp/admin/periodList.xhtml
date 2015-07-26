@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Periods">
+        <p:panel class="panel" header="Periods">
             <p:dataTable paginator="true" rows="5" value="#{periodListController.periods}" var="period">
 
                 <p:column headerText="Name">
@@ -37,16 +37,17 @@
 
                 <p:column>
                     <h:form>
-                        <p:button value="Edit" outcome="periodEdit">                        
+                        <p:button value="Edit" outcome="periodEdit" icon="ui-icon-pencil">                        
                             <f:param name="uuid" value="#{period.uuid}" />
                         </p:button>
                     </h:form>
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New Period" action="#{periodListController.createNewPeriod()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 

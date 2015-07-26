@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Frequencies">
+        <p:panel class="panel" header="Frequencies">
             <p:dataTable paginator="true" rows="5" value="#{frequencyListController.frequencys}" var="frequency">
 
                 <p:column headerText="Name">
@@ -22,7 +22,7 @@
                 <p:column headerText="Description">
                     #{frequency.description}
                 </p:column>
-                
+
                 <p:column headerText="Factor">
                     #{frequency.factor}
                 </p:column>
@@ -36,9 +36,10 @@
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New Frequency" action="#{frequencyListController.createNewFrequency()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 

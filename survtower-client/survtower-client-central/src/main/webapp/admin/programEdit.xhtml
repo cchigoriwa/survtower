@@ -13,19 +13,20 @@
 
     <ui:define name="content">
         <h:form prependId="false">
-            <p:panel id="basic" header="Program" footer="" style="margin-bottom:20px">
+            <p:panel class="panel" id="basic" header="Program" footer="" style="margin-bottom:20px">
                 <table>
                     <tr>
                         <th align="left">Name</th>
-                        <td><p:inputText id="name" value="#{programEditController.program.name}" required="true" requiredMessage="Name is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="name" value="#{programEditController.program.name}" required="true" requiredMessage="Name is required" /></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Description</th>
-                        <td><p:inputText id="description" value="#{programEditController.program.description}" required="true" requiredMessage="Description is required" /></td>
+                        <td><p:inputText class="inputtextpanel" id="description" value="#{programEditController.program.description}" required="true" requiredMessage="Description is required" /></td>
                         <td><p:message for="description" /></td>
                     </tr>
                 </table>
+                <br/>
                 <p:commandButton value="Save" ajax="false" action="#{programEditController.save()}" icon="ui-icon-disk">
                     <f:param name="uuid" value="#{programEditController.program.uuid}" />
                 </p:commandButton>

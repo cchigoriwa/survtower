@@ -16,3 +16,12 @@ and open the template in the editor.
 .inputtextpanel{
     width:  400px;
 }
+
+.menu{
+    border-color: goldenrod;
+    background-color: #D1B218;
+}
+
+.submenu{
+    background-color: #D1B218;
+}

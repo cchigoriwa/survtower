@@ -12,7 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:panel header="Indicators">
+        <p:panel class="panel" header="Indicators">
             <p:dataTable paginator="true" rows="5" value="#{indicatorListController.indicators}" var="indicator">
 
                 <p:column headerText="Name">
@@ -37,16 +37,17 @@
 
                 <p:column>
                     <h:form>
-                        <p:button  value="Edit" outcome="indicatorEdit">                        
+                        <p:button icon="ui-icon-pencil" value="Edit" outcome="indicatorEdit">                        
                             <f:param name="uuid" value="#{indicator.uuid}" />
                         </p:button>
                     </h:form>
                 </p:column>
 
             </p:dataTable>
-            <hr/>
+            <br/>
             <p:commandButton icon="ui-icon-plus" value="New Indicator" action="#{indicatorListController.createNewIndicator()}" >
             </p:commandButton>
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
         </p:panel>
     </ui:define>
 
