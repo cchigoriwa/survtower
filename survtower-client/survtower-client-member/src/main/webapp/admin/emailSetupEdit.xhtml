@@ -9,78 +9,83 @@
     template="../WEB-INF/template/DefaultTemplate.xhtml">
 
     <ui:define name="title">
-        Member Security Keys and Central Server URL
+        Email Set up
     </ui:define>
 
     <ui:define name="content">
         <p:panel header="Email Set up">
-            <h:form>
-                <div>
-                    <h:messages />
-                </div>
+            <h:form prependId="false">
+
                 <table>
                     <tr>
                         <th align="left">Host</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.host}" required="true" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="host" value="#{emailSetupController.emailSetup.host}" required="true" requiredMessage="Host is required" /></td>
+                        <td><p:message for="host" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Port</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.port}" required="true" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="port" value="#{emailSetupController.emailSetup.port}" required="true" requiredMessage="Port is required" /></td>
+                        <td><p:message for="port" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Username</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.username}" required="true" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="username" value="#{emailSetupController.emailSetup.username}" required="true" requiredMessage="Username is required" /></td>
+                        <td><p:message for="username" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Password</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.password}" required="true" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="password" value="#{emailSetupController.emailSetup.password}" required="true" requiredMessage="Password is required" /></td>
+                        <td><p:message for="password" /></td>
                     </tr>
-                    
-                     <tr>
+
+                    <tr>
                         <th align="left">Mail SMTP Auth</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.mailSmtpAuth}" required="true" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="mailSmtpAuth" value="#{emailSetupController.emailSetup.mailSmtpAuth}" required="true" requiredMessage="Mail SMTP Auth is required" /></td>
+                        <td><p:message for="mailSmtpAuth" /></td>
                     </tr>
-                    
-                     <tr>
+
+                    <tr>
                         <th align="left">Mail SMTP Start TLS Enable</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.mailSmtpStartTlsEnable}" required="true" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="mailSmtpStarTlsEnable"  value="#{emailSetupController.emailSetup.mailSmtpStartTlsEnable}" required="true" requiredMessage="Mail SMTP Start TLS Enable is required" /></td>
+                        <td><p:message for="mailSmtpStarTlsEnable" /></td>
                     </tr>
-                    
+
                 </table>
-                
+
                 <hr />
-                
+
                 <table>
-                    
+
                     <tr>
                         <th align="left">Mail SMTP User</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.mailSmtpUser}" required="false" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="mailSmtpUser" value="#{emailSetupController.emailSetup.mailSmtpUser}" required="false" /></td>
+                        <td><p:message for="mailSmtpUser" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Mail SMTP From</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.mailSmtpFrom}" required="false" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="mailSmtpFrom" value="#{emailSetupController.emailSetup.mailSmtpFrom}" required="false" /></td>
+                        <td><p:message for="mailSmtpFrom" /></td>
                     </tr>
-                    
+
                     <tr>
                         <th align="left">Mail SMTP Local Host</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.mailSmtpLocalHost}" required="false" size="40" /></td>
+                        <td><p:inputText class="inputtextpanel" id="mailSmtpLocalHost" value="#{emailSetupController.emailSetup.mailSmtpLocalHost}" required="false"/></td>
+                        <td><p:message for="mailSmtpLocalHost" /></td>
                     </tr>
-                    
-                   
-                    
+
                     <tr>
                         <th align="left">Mail SMTP Host</th>
-                        <td><h:inputText value="#{emailSetupController.emailSetup.mailSmtpHost}" required="false" size="40" /></td>
+                        <td><h:inputText class="inputtextpanel" id="mailSmtpHost" value="#{emailSetupController.emailSetup.mailSmtpHost}" required="false" /></td>
+                        <td><p:message for="mailSmtpHost" /></td>
                     </tr>
-                    
-                   
-                    
                 </table>
-                <h:commandButton value="Save" action="#{emailSetupController.save()}" />
+                <br/>
+                <p:commandButton value="Save" action="#{emailSetupController.save()}" ajax="false" icon="ui-icon-disk" />
+                <p:commandButton value="Cancel" action="/dash_board?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

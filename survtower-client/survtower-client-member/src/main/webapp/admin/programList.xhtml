@@ -14,13 +14,10 @@
 
     <ui:define name="content">
         <p:panel header="Program List">
-            <h:form>
-                <h:commandButton value="Pull Programs" action="#{integratorController.pullPrograms()}" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{programListController.programs}" var="program">
 
-               <p:column headerText="Name">
+                <p:column headerText="Name">
                     #{program.name}
                 </p:column>
 
@@ -29,6 +26,11 @@
                 </p:column>
 
             </p:dataTable>
+            <br/>
+            <h:form>
+                <p:commandButton icon="ui-icon-plus" value="Pull Programs" action="#{integratorController.pullPrograms()}" />
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+            </h:form>
         </p:panel>
     </ui:define>
 

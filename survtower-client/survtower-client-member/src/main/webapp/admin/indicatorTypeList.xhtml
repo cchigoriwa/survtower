@@ -14,10 +14,7 @@
 
     <ui:define name="content">
         <p:panel header="Indicator Types">
-            <h:form>
-                <h:commandButton value="Pull Indicator Type" action="#{integratorController.pullIndicatorTypes()}" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{indicatorTypeListController.indicatorTypes}" var="indicatorType">
 
                 <p:column headerText="Name">
@@ -29,6 +26,11 @@
                 </p:column>
 
             </p:dataTable>
+            <br/>
+            <h:form>
+                <p:commandButton icon="ui-icon-plus" value="Pull Indicator Type" action="#{integratorController.pullIndicatorTypes()}" />
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+            </h:form>
         </p:panel>
 
     </ui:define>

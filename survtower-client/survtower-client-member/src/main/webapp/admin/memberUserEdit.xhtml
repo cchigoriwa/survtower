@@ -19,14 +19,14 @@
                     <tr>
                         <th align="left">User Name</th>
                         <td><p:inputText id="name" value="#{memberUserEditController.memberUser.username}"
-                                         required="true" label="email" size="60"
+                                         required="true" label="email" class="inputtextpanel"
                                          requiredMessage="Enter Username."/></td>
                         <td><p:message for="name" /></td>
                     </tr>
                     <tr>
                         <th align="left">Email</th>
                         <td><h:inputText id="email" value="#{memberUserEditController.memberUser.email}"
-                                         required="true" label="email" size="60"
+                                         required="true" label="email" class="inputtextpanel"
                                          requiredMessage="Please enter your email address."
                                          validatorMessage="Invalid email format">
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -74,6 +74,7 @@
                         </td>
                     </tr>
                 </table>
+                <br/>
                 <p:commandButton value="Save" action="#{memberUserEditController.save()}" icon="ui-icon-disk" ajax="false">
                     <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
                 </p:commandButton>

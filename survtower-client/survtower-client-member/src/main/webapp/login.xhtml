@@ -8,44 +8,55 @@
     <f:view transient="true">
         <h:head>        
             <title>SADC Surveillance</title>
+            <style>
+                body {
+                    padding-right: 50px;
+                    padding-left: 50px;
+                    padding-top: 0.5em;
+                }
+            </style>
             <h:outputStylesheet name="login.css"/>
+            <h:outputStylesheet name="member.css"/>
         </h:head>
         <body>
 
-            <div id="header">
-                <div class="wrapper">
+            <div style="background-color: #223051" id="header">
+                <div style="color: yellow" class="wrapper">
                     <h1>SADC Surveillance Portal</h1>
                 </div>
             </div>
 
             <div id="container">
+                <br/>
                 <h:graphicImage library="webjars/sadc/1.0.0/img" name="logo.png" style="text-align: center; margin-right: 50px;"/>
                 <div id="content">             
-                    <div class="wrapper">
-                        <h:form id="loginForm" prependId="false">
-                            <table class="login" style="margin-left: auto; margin-right: auto;">
-                                <tbody>
-                                    <tr>
-                                        <td><p class="mtop0 mbottom025"><strong><label for="email">Username</label></strong></p>
-                                            <h:inputText id="j_username" required="true" tabindex="1" class="inputtext"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><p class="mtop05 mbottom025"><strong><label for="password">Password</label></strong></p>
-                                            <h:inputSecret id="j_password" required="true" tabindex="2" class="inputtext"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-top: 10px;">
-                                            <h:panelGrid columns="3">
-                                                <p:commandButton type="submit" id="login" action="#{loginController.doLogin()}" value="Login" ajax="false"/>
-                                                <h:graphicImage width="60" height="30" library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" style="padding-top: 10px; text-align: right;" />
-                                                <h:link value="Forgot Password" outcome="forgotPassword"> </h:link>
-                                            </h:panelGrid>
-                                        </td>                                     
-                                    </tr>
-                                </tbody>
-                            </table>   
-                        </h:form>          
+                    <div align="center">
+                        <p:panel style="width: 400px;">
+                            <h:form id="loginForm"  prependId="false">
+                                <table class="login" style="margin-left: auto; margin-right: auto;">
+                                    <tbody>
+                                        <tr>
+                                            <td><p class="mtop0 mbottom025"><strong><label for="email">Username</label></strong></p>
+                                                <h:inputText id="j_username" required="true" tabindex="1" class="inputtext"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><p class="mtop05 mbottom025"><strong><label for="password">Password</label></strong></p>
+                                                <h:inputSecret id="j_password" required="true" tabindex="2" class="inputtext"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-top: 10px;">
+                                                <h:panelGrid columns="3">
+                                                    <p:commandButton type="submit" id="login" action="#{loginController.doLogin()}" value="Login" ajax="false"/>
+                                                    <h:graphicImage width="60" height="30" library="webjars/sadc/1.0.0/img" name="#{generalController.member.logo}" style="padding-top: 10px; text-align: right;" />
+                                                    <h:link value="Forgot Password" outcome="forgotPassword"> </h:link>
+                                                </h:panelGrid>
+                                            </td>                                     
+                                        </tr>
+                                    </tbody>
+                                </table>   
+                            </h:form> 
+                        </p:panel>
                     </div> <!-- wrapper -->
                 </div> <!-- content -->
             </div> <!-- container -->

@@ -12,6 +12,7 @@
     </ui:define>
 
     <ui:define name="content">
+        <br/>
         <p:panel header="Region List">
 
             <p:dataTable paginator="true" rows="10" value="#{regionListController.regions}" var="region">
@@ -32,9 +33,10 @@
                     </h:form>
                 </p:column>
             </p:dataTable>
-            <hr/>
+            <br/>
             <h:form>
-                <h:link value="Add New Region" outcome="regionEdit" />
+                <p:commandButton icon="ui-icon-plus" value="Add New Region" action="regionEdit?faces-redirect=true" />
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
             </h:form>
         </p:panel>
 

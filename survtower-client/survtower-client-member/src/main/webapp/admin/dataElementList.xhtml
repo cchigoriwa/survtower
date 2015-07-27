@@ -13,11 +13,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <br/>
         <p:panel header=" Data Elements">
-            <h:form>
-                <h:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{dataElementListController.dataElements}" var="dataElement">
 
                 <p:column headerText="Name">
@@ -27,12 +25,17 @@
                 <p:column headerText="Description">
                     #{dataElement.description}
                 </p:column>
-                
+
                 <p:column headerText="Data Source">
                     #{dataElement.dataSource}
                 </p:column>
 
             </p:dataTable>
+            <br/>
+            <h:form>
+                <p:commandButton value="Pull Data Elements" action="#{integratorController.pullDataElements()}" icon="ui-icon-plus" />
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+            </h:form>
         </p:panel>
     </ui:define>
 

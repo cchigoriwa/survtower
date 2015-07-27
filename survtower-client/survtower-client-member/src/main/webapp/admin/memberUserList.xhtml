@@ -12,11 +12,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <br/>
         <p:panel header="Member Users">
-            <h:form>
-                <h:link value="New Member User" outcome="memberUserEdit" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{memberUserListController.memberUsers}" var="memberUser">
 
                 <p:column headerText="Name">
@@ -33,13 +31,18 @@
 
                 <p:column>
                     <h:form>
-                        <h:link value="Edit" outcome="memberUserEdit">                        
+                        <p:button value="Edit" outcome="memberUserEdit" icon="ui-icon-pencil">                        
                             <f:param name="uuid" value="#{memberUser.uuid}" />
-                        </h:link>
+                        </p:button>
                     </h:form>
                 </p:column>
 
             </p:dataTable>
+            <br/>
+            <h:form>
+                <p:commandButton icon="ui-icon-plus" value="New Member User" action="memberUserEdit?faces-redirect=true" immediate="true"/>
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+            </h:form>
 
         </p:panel>
     </ui:define>

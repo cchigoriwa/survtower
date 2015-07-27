@@ -13,11 +13,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <br/>
         <p:panel header="Frequency List">
-            <h:form>
-                <h:commandButton value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{frequencyListController.frequencys}" var="frequency">
 
                 <p:column headerText="Name">
@@ -27,12 +25,17 @@
                 <p:column headerText="Description">
                     #{frequency.description}
                 </p:column>
-                
+
                 <p:column headerText="Factor">
                     #{frequency.factor}
                 </p:column>
 
             </p:dataTable>
+            <br/>
+            <h:form>
+                <p:commandButton icon="ui-icon-plus" value="Pull Frequencies" action="#{integratorController.pullFrequencys()}" />
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+            </h:form>
         </p:panel>
     </ui:define>
 

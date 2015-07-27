@@ -13,11 +13,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <br/>
         <p:panel header="Data Source Categories">
-            <h:form>
-                <h:commandButton value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{dataSourceCategoryListController.dataSourceCategorys}" var="dataSourceCategory">
 
                 <p:column headerText="Name">
@@ -30,6 +28,11 @@
 
             </p:dataTable>
         </p:panel>
+        <br/>
+        <h:form>
+            <p:commandButton value="Pull Data Source Categories" action="#{integratorController.pullDataSourceCategorys()}" icon="ui-icon-plus" />
+            <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+        </h:form>
     </ui:define>
 
 </ui:composition>

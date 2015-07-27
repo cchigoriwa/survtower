@@ -13,11 +13,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <br/>
         <p:panel header="Indicator Groups">
-            <h:form>
-                <h:commandButton value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}" />
-            </h:form>
-            <hr/>
+
             <p:dataTable paginator="true" rows="10" value="#{indicatorGroupListController.indicatorGroups}" var="indicatorGroup">
 
                 <p:column headerText="Name">
@@ -33,6 +31,11 @@
                 </p:column>
 
             </p:dataTable>
+            <br/>
+            <h:form>
+                <p:commandButton icon="ui-icon-plus" value="Pull Indicator Group" action="#{integratorController.pullIndicatorGroups()}" />
+                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+            </h:form>
         </p:panel>
     </ui:define>
 

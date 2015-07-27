@@ -8,12 +8,6 @@ and open the template in the editor.
     Author     : hitrac
 */
 
-.body {
-    padding-right: 50px;
-    padding-left: 50px;
-    padding-top: 0.5em;
-}
-
 .panel{
     border-color: goldenrod;
     background-color: #FFEE7E;

@@ -13,7 +13,7 @@
 
     <ui:define name="content">
         <p:panel class="panel" header="Central Users">
-            <p:dataTable paginator="true" rows="5" value="#{centralUserListController.centralUsers}" var="centralUser">
+            <p:dataTable paginator="true" rows="10" value="#{centralUserListController.centralUsers}" var="centralUser">
 
                 <p:column headerText="Name">
                     #{centralUser.username}
