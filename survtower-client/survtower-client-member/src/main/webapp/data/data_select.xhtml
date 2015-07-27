@@ -15,31 +15,47 @@
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Data Validation and Approval Selection">
-            <h:form>                
-                <p>Member State: <b>#{generalController.member.name}</b></p>
-                <p>Select Program and Period to report</p>
-                <h:panelGrid columns="2"> 
-
-                    <h:outputText value="Select Period"/>
-                    <h:selectOneMenu value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
-                                     converter="#{periodConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{dataSelectController.activePeriods}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value="Select Program:"/>
-                    <h:selectOneMenu value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
-                                     converter="#{programConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{loggedOnProgramListController.programs}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value=""/>
-                    <h:panelGrid columns="2">                    
-
-                        <p:commandButton value="Data Validation and Approval" action="#{dataSelectController.dataValidationSelection()}" ajax="false"/>                        
-
-                    </h:panelGrid>
+            <h:form>   
+                <table cellspacing="10">
+                    <tr>
+                        <td>
+                            <p>Member State: <b>#{generalController.member.name}</b></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Select Program and Period to report</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Period"/>
+                        </td>
+                        <td>
+                            <h:selectOneMenu value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
+                                             converter="#{periodConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{dataSelectController.activePeriods}"/>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Program:"/>
+                        </td>
+                        <td>
+                            <h:selectOneMenu value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
+                                             converter="#{programConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{loggedOnProgramListController.programs}"/>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <h:panelGrid columns="2">   
+                    <p:commandButton value="Data Validation and Approval" action="#{dataSelectController.dataValidationSelection()}" ajax="false"/>                        
                 </h:panelGrid>
-
             </h:form>
         </p:panel>
     </ui:define>

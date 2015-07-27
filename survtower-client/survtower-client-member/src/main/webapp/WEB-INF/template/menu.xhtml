@@ -34,7 +34,7 @@
 
             <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-circle-zoomin" rendered="#{checkLoggedOn.loggedOn}"/>
 
-            <p:menuitem value="login" action="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Login" action="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
 
             <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
 
