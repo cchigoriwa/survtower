@@ -15,38 +15,61 @@
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Region Data Entry Selection">
-            <h:form>
-                <p>Select Program,Period and Region to report</p>
-                <p>Member State: <b>#{generalController.member.name}</b></p>
-                <h:panelGrid columns="2"> 
-
-                    <h:outputText value="Select Period"/>
-                    <h:selectOneMenu value="#{regionDataSelectController.period}" required="true" requiredMessage="Period field is required."
-                                     converter="#{periodConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{regionDataSelectController.activePeriods}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value="Select Program:"/>
-                    <h:selectOneMenu value="#{regionDataSelectController.program}" required="true" requiredMessage="Program field is required." 
-                                     converter="#{programConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{loggedOnProgramListController.programs}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value="Select Region:"/>
-                    <h:selectOneMenu value="#{regionDataSelectController.region}" required="true" requiredMessage="Region field is required." 
-                                     converter="#{regionConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{loggedOnRegionListController.regions}"/>
-                    </h:selectOneMenu>
-                    <h:outputText value=""/>
-                    <h:panelGrid columns="2">                   
-
-                        <p:commandButton value="Data Entry" action="#{regionDataSelectController.dataEntrySelection()}" ajax="false"/>                        
-                        <p:commandButton value="Cancel" action="/dash_board?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
-
-                    </h:panelGrid>
-                </h:panelGrid>
-
+            <h:form prependId="false">
+                <table cellspacing="10">                  
+                    <tr>
+                        <td>
+                            <p>Select Program,Period and Region to report</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Member State: <b>#{generalController.member.name}</b></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Period"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="period" value="#{regionDataSelectController.period}" required="true" requiredMessage="Period field is required."
+                                             converter="#{periodConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{regionDataSelectController.activePeriods}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td><p:message for="period" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Program:"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="program" value="#{regionDataSelectController.program}" required="true" requiredMessage="Program field is required." 
+                                             converter="#{programConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{loggedOnProgramListController.programs}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td><p:message for="program" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Region:"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="region" value="#{regionDataSelectController.region}" required="true" requiredMessage="Region field is required." 
+                                             converter="#{regionConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{loggedOnRegionListController.regions}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td><p:message for="region" /></td>
+                    </tr>
+                </table>
+                <br/>
+                <p:commandButton icon="ui-icon-pencil" value="Data Entry" action="#{regionDataSelectController.dataEntrySelection()}" ajax="false"/>                        
+                <p:commandButton value="Cancel" action="/dash_board?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

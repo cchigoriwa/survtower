@@ -55,7 +55,7 @@
 
                 <br/>
 
-                <p:commandButton onclick="return confirm('Are sure?');" value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.surveillanceAudit.submissionDone}"/>
+                <p:commandButton icon="ui-icon-disk" onclick="return confirm('Are sure?');" value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.surveillanceAudit.submissionDone}"/>
 
                 <p:panel header="Surveillance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
                     <span>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></span> <br />

@@ -15,7 +15,7 @@
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Data Validation and Approval Selection">
-            <h:form>   
+            <h:form prependId="false">   
                 <table cellspacing="10">
                     <tr>
                         <td>
@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <p>Select Program and Period to report</p>
+                            <p>Select Program and Period to report on</p>
                         </td>
                     </tr>
                     <tr>
@@ -32,30 +32,30 @@
                             <h:outputText value="Select Period"/>
                         </td>
                         <td>
-                            <h:selectOneMenu value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
+                            <p:selectOneMenu id="period" value="#{dataSelectController.period}" required="true" requiredMessage="Period field is required."
                                              converter="#{periodConverter}">
                                 <f:selectItem itemLabel="--Select One--"/>
                                 <f:selectItems value="#{dataSelectController.activePeriods}"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                         </td>
+                        <td><p:message for="period" /></td>
                     </tr>
                     <tr>
                         <td>
                             <h:outputText value="Select Program:"/>
                         </td>
                         <td>
-                            <h:selectOneMenu value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
+                            <p:selectOneMenu id="program" value="#{dataSelectController.program}" required="true" requiredMessage="Program field is required." 
                                              converter="#{programConverter}">
                                 <f:selectItem itemLabel="--Select One--"/>
                                 <f:selectItems value="#{loggedOnProgramListController.programs}"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                         </td>
+                        <td><p:message for="program" /></td>
                     </tr>
                 </table>
-                <br/>
-                <h:panelGrid columns="2">   
-                    <p:commandButton  value="Data Validation and Approval" action="#{dataSelectController.dataValidationSelection()}" ajax="false"/>                        
-                </h:panelGrid>
+                <br/>  
+                <p:commandButton icon="ui-icon-script" value="Data Validation and Approval" action="#{dataSelectController.dataValidationSelection()}" ajax="false"/>                        
             </h:form>
         </p:panel>
     </ui:define>
