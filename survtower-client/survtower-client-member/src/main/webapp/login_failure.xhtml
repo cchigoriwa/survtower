@@ -8,29 +8,39 @@
     <f:view transient="true">
         <h:head>        
             <title>SADC Surveillance</title>
+            <style>
+                body {
+                    padding-right: 50px;
+                    padding-left: 50px;
+                    padding-top: 0.5em;
+                }
+            </style>
             <h:outputStylesheet name="login.css"/>
+            <h:outputStylesheet name="member.css"/>
         </h:head>
         <body>
 
-            <div id="header">
-                <div class="wrapper">
-                    <h1>SADC Surveillance Portal</h1>
+            <div style="background-color: #2E3D61" id="header">
+                <div style="color: yellow" class="wrapper">
+                    <h1>SADC Surveillance Member Portal</h1>
                 </div>
             </div>
             <div style="float: center">
+                <br/>
                 <h:graphicImage library="webjars/sadc/1.0.0/img" name="logo.png" style="text-align: center;"/>
             </div>
             <div align="center" id="container">
 
                 <div id="content">             
                     <div>
-                        <h:form id="loginForm" prependId="false">
-                            <h:outputText value="Username or Password Not Correct" style="color: red;" title="Error"/> 
-                            <br/>
-                            <br/>
-                            <h:commandLink value="Back" action="#{loginController.back()}"> 
-
-                            </h:commandLink>
+                        <h:form prependId="false">
+                            <p:panel>
+                                <h:outputText value="Username or Password Not Correct" style="color: red; font-size: 16px" title="Error"/> 
+                                <br/>
+                                <br/>
+                                <p:commandButton value="Back To Log in" icon="ui-icon-back" action="#{loginController.back()}"> 
+                                </p:commandButton>
+                            </p:panel>
                         </h:form>          
                     </div> <!-- wrapper -->
                 </div> <!-- content -->
@@ -39,9 +49,9 @@
             <div id="footer">
                 <div class="wrapper">
                     <p>
-                        <a href="www.hitrac.co.zw"><span>CEPHI</span></a> <span class="bar">|</span>
-                        <a href="www.hitrac.co.zw"><span>HITRAC</span></a> <span class="bar">|</span>
-                        <a href="SADC"><span>SADC</span></a> <span class="bar">|</span>                      
+                        <a href="#"><span>CEPHI</span></a> <span class="bar">|</span>
+                        <a href="#"><span>HITRAC</span></a> <span class="bar">|</span>
+                        <a href="#"><span>SADC</span></a> <span class="bar">|</span>                      
                     </p>
                     <p id="copyright">
                         Copyright © 2014 <a href="#">SADC</a>. All rights reserved.

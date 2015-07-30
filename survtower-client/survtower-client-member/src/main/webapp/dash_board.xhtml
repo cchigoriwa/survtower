@@ -93,10 +93,10 @@
                                 </p:column>
 
                                 <p:column> 
-                                    <h:link value="View" outcome="region_data_validation">                        
+                                    <p:commandButton icon="ui-icon-document" value="View" action="region_data_validation?faces-redirect=true" ajax="false" >                        
                                         <f:param name="surveillanceId" value="#{regionAuditListController.surveillanceId(regionSurveillanceAudit.program, regionSurveillanceAudit.period)}" />
                                         <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
-                                    </h:link>
+                                    </p:commandButton>
                                 </p:column> 
 
                             </p:dataTable>
