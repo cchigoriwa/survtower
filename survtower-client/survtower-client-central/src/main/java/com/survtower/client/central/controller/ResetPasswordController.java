@@ -23,8 +23,8 @@ public class ResetPasswordController {
     @ManagedProperty(value = "#{centralUserService}")
     private CentralUserService centralUserService;
 
-    @ManagedProperty(value = "#{resetPasswordRequestService}")
-    private ResetCentralUserPasswordRequestService resetPasswordRequestService;
+    @ManagedProperty(value = "#{resetCentralUserPasswordRequestService}")
+    private ResetCentralUserPasswordRequestService resetCentralUserPasswordRequestService;
 
     @ManagedProperty(value = "#{passwordEncoder}")
     private PasswordEncoder passwordEncoder;
@@ -53,12 +53,12 @@ public class ResetPasswordController {
         this.confirmPassword = confirmPassword;
     }
 
-    public ResetCentralUserPasswordRequestService getResetPasswordRequestService() {
-        return resetPasswordRequestService;
+    public ResetCentralUserPasswordRequestService getResetCentralUserPasswordRequestService() {
+        return resetCentralUserPasswordRequestService;
     }
 
-    public void setResetPasswordRequestService(ResetCentralUserPasswordRequestService resetPasswordRequestService) {
-        this.resetPasswordRequestService = resetPasswordRequestService;
+    public void setResetCentralUserPasswordRequestService(ResetCentralUserPasswordRequestService resetCentralUserPasswordRequestService) {
+        this.resetCentralUserPasswordRequestService = resetCentralUserPasswordRequestService;
     }
 
     public ResetCentralUserPasswordRequest getResetPasswordRequest() {
@@ -117,10 +117,9 @@ public class ResetPasswordController {
         this.tok = tok;
     }
 
-
     @PostConstruct
     public void postConstruct() {
-        resetPasswordRequest = resetPasswordRequestService.findByFirstTag(reset);
+        resetPasswordRequest = resetCentralUserPasswordRequestService.findByFirstTag(reset);
         centralUser = resetPasswordRequest.getCentralUser();
         centralUser.setPassword("");
         confirmPassword = "";
