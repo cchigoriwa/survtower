@@ -16,29 +16,29 @@
         <br/>
         <p:panel header="Data Sources">
 
-            <p:dataTable paginator="true" rows="10" value="#{dataSourceListController.dataSources}" var="dataSource">
+            <p:dataTable paginator="true" rows="10" value="#{dataSourceListController.dataSources}" var="dataSourceItem">
 
                 <p:column headerText="Name">
-                    #{dataSource.name}
+                    #{dataSourceItem.name}
                 </p:column>
 
                 <p:column headerText="Description">
-                    #{dataSource.description}
+                    #{dataSourceItem.description}
                 </p:column>
 
                 <p:column headerText="Data Source Category">
-                    #{dataSource.dataSourceCategory}
+                    #{dataSourceItem.dataSourceCategory}
                 </p:column>
 
                 <p:column headerText="Frequency">
-                    #{dataSource.frequency}
+                    #{dataSourceItem.frequency}
                 </p:column>
 
             </p:dataTable>
             <br/>
             <h:form>
                 <p:commandButton icon="ui-icon-plus" value="Pull Data Sources" action="#{integratorController.pullDataSources()}" />
-                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+                <p:commandButton icon="ui-icon-arrow-1-w" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
             </h:form>
         </p:panel>
 

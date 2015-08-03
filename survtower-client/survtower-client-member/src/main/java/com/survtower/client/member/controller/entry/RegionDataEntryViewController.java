@@ -263,6 +263,10 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
 
     }
 
+    public String backToEdit() {
+        return "region_data_entry_edit?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
+    }
+
     public MemberUser getCurrentUser() {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext externalContext = fc.getExternalContext();

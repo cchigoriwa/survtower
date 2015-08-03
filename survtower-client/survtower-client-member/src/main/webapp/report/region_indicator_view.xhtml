@@ -15,35 +15,55 @@
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Region Indicator View">
-            <h:form>
-                <h:panelGrid columns="2"> 
-
-                    <h:outputText value="Select Region"/>
-                    <h:selectOneMenu value="#{regionIndicatorViewController.region}" required="true" requiredMessage="Select Region." converter="#{regionConverter}">
-                        <f:selectItem itemLabel="--Select One--"/>
-                        <f:selectItems value="#{regionListController.regions}"/>
-                    </h:selectOneMenu>
-
-                    <h:outputText value="Select Periods"/>
-                    <h:selectManyCheckbox layout="pageDirection" value="#{regionIndicatorViewController.periods}" converter="#{periodConverter}" required="true" requiredMessage="Period field is required.">
-                        <f:selectItems value="#{periodListController.periods}"/>
-                    </h:selectManyCheckbox>
-
-                    <h:outputText value="Indicator:"/>
-                    <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{regionIndicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}" 
-                                    var="indicator" itemLabel="#{indicator.name}" converter="#{indicatorConverter}" itemValue="#{indicator}"
-                                    maxlength="3"/>     
-                    <h:outputText value=""/>
-                    <h:panelGrid columns="2">                    
-
-                        <p:commandButton value="Process" action="#{regionIndicatorViewController.loadMuptiplePeriodIndicator()}" ajax="false" rendered="#{regionIndicatorViewController.indicator==null}"/>                        
-                        <p:commandButton value="Reset" action="#{regionIndicatorViewController.reset()}" ajax="false" rendered="#{regionIndicatorViewController.indicator!=null}" immediate="true"/>                        
-
-                    </h:panelGrid>
-                </h:panelGrid>
-
+            <h:form prependId="false">
+                <table cellspacing="10">
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Region"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="region" value="#{regionIndicatorViewController.region}" required="true" requiredMessage="Select Region." converter="#{regionConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{loggedOnRegionListController.regions}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td>
+                            <p:message for="region" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Periods"/>
+                        </td>
+                        <td>
+                            <p:selectManyCheckbox id="period" layout="grid" columns="2" value="#{regionIndicatorViewController.periods}" converter="#{periodConverter}" required="true" requiredMessage="Period field is required.">
+                                <f:selectItems value="#{periodListController.periods}"/>
+                            </p:selectManyCheckbox>
+                        </td>
+                        <td>
+                            <p:message for="period" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Indicator:"/>
+                        </td>
+                        <td>
+                            <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{regionIndicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}" 
+                                            var="indicator" itemLabel="#{indicator.name}" converter="#{indicatorConverter}" itemValue="#{indicator}"
+                                            maxlength="3" required="true"/> 
+                        </td>
+                        <td>
+                            <p:message for="indicator" />
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <p:commandButton icon="ui-icon-circle-arrow-n" value="Process" action="#{regionIndicatorViewController.loadMuptiplePeriodIndicator()}" ajax="false" rendered="#{regionIndicatorViewController.indicator==null}"/>                        
+                <p:commandButton icon="ui-icon-refresh" value="Reset" action="#{regionIndicatorViewController.reset()}" ajax="false" rendered="#{regionIndicatorViewController.indicator!=null}" immediate="true"/>                        
             </h:form>
         </p:panel>
+        <br/>
         <p:panel header="#{regionIndicatorViewController.indicator.name} Summary" rendered="#{regionIndicatorViewController.indicator!=null}">
 
             <p:dataTable value="#{regionIndicatorViewController.surveillanceDataList}" var="regionSurveillanceData">  
@@ -73,12 +93,11 @@
                 </p:column>  
 
             </p:dataTable>
-
-
+            <br/>
             <p:chart type="bar" model="#{regionIndicatorViewController.barChartModel}" style="height:300px" />  
-
+            <br/>
             <p:chart type="line" model="#{regionIndicatorViewController.lineChartModel}" style="height:300px" />  
-
+            <br/>
             <p:chart type="bar" model="#{regionIndicatorViewController.horizontalBarChartModel}" style="height:300px" />  
 
         </p:panel>

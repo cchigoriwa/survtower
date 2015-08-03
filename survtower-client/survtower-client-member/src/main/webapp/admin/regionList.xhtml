@@ -14,7 +14,6 @@
     <ui:define name="content">
         <br/>
         <p:panel header="Region List">
-
             <p:dataTable paginator="true" rows="10" value="#{regionListController.regions}" var="region">
 
                 <p:column headerText="Name">
@@ -27,16 +26,16 @@
 
                 <p:column>
                     <h:form>
-                        <h:link value="Edit" outcome="regionEdit">                        
+                        <p:commandButton value="Edit" action="regionEdit?faces-redirect=true" icon="ui-icon-pencil">
                             <f:param name="uuid" value="#{region.uuid}" />
-                        </h:link>
+                        </p:commandButton >
                     </h:form>
                 </p:column>
             </p:dataTable>
             <br/>
             <h:form>
                 <p:commandButton icon="ui-icon-plus" value="Add New Region" action="regionEdit?faces-redirect=true" />
-                <p:commandButton icon="ui-icon-back" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+                <p:commandButton icon="ui-icon-arrow-1-w" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
             </h:form>
         </p:panel>
 

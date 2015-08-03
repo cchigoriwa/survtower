@@ -16,59 +16,72 @@
         <br/>
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Indicator View">
-            <h:form>
-                <h:panelGrid columns="2"> 
+            <h:form prependId="false">
 
-                    <h:outputText value="Select Periods"/>
-                    <h:selectManyCheckbox layout="pageDirection" value="#{indicatorViewController.periods}" converter="#{periodConverter}" required="true" requiredMessage="Period field is required.">
-                        <f:selectItems value="#{periodListController.periods}"/>
-                    </h:selectManyCheckbox>
+                <table cellspacing="10">
+                    <tr>
+                        <td>
+                            <h:outputText value="Select Periods"/>
+                        </td>
+                        <td>
+                            <p:selectManyCheckbox id="period" layout="grid" columns="2" value="#{indicatorViewController.periods}" converter="#{periodConverter}" required="true" requiredMessage="Period field is required.">
+                                <f:selectItems value="#{periodListController.periods}"/>
+                            </p:selectManyCheckbox>
+                        </td>
+                        <td><p:message for="period" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Indicator:"/>
+                        </td>
+                        <td>
+                            <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{indicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}" 
+                                            var="indicator" itemLabel="#{indicator.name}" converter="#{indicatorConverter}" itemValue="#{indicator}"
+                                            maxlength="3" required="true" requiredMessage="Indicator name is required"/>  
+                        </td>
+                        <td><p:message for="indicator" /></td>
+                    </tr>
+                </table>
+                <br/>
+                <p:commandButton icon="ui-icon-circle-arrow-n" value="Process" action="#{indicatorViewController.loadMultiplePeriodIndicator()}" ajax="false" rendered="#{indicatorViewController.indicator==null}"/>                        
+                <p:commandButton icon="ui-icon-refresh" value="Reset" action="#{indicatorViewController.reset()}" ajax="false" rendered="#{indicatorViewController.indicator!=null}" immediate="true"/>                        
 
-                    <h:outputText value="Indicator:"/>
-                    <p:autoComplete widgetVar="indicator" id="indicator" size="50" value="#{indicatorViewController.indicator}" completeMethod="#{autoCompleteController.dataIndicatorAutoComplete}" 
-                                    var="indicator" itemLabel="#{indicator.name}" converter="#{indicatorConverter}" itemValue="#{indicator}"
-                                    maxlength="3"/>     
-                    <h:outputText value=""/>
-                    <h:panelGrid columns="2">                    
 
-                        <p:commandButton value="Process" action="#{indicatorViewController.loadMuptiplePeriodIndicator()}" ajax="false" rendered="#{indicatorViewController.indicator==null}"/>                        
-                        <p:commandButton value="Reset" action="#{indicatorViewController.reset()}" ajax="false" rendered="#{indicatorViewController.indicator!=null}" immediate="true"/>                        
 
-                    </h:panelGrid>
-                </h:panelGrid>
 
             </h:form>
         </p:panel>
+        <br/>
         <p:panel header="#{indicatorViewController.indicator.name} Summary" rendered="#{indicatorViewController.indicator!=null}">
 
-            <p:dataTable value="#{indicatorViewController.surveillanceDataList}" var="item">  
+            <p:dataTable value="#{indicatorViewController.surveillanceDataList}" var="surveillanceData">  
 
                 <p:column headerText="Numerator">  
-                    <h:outputText value="#{item.numeratorValue}" title="#{item.indicator.numerator.name}" /> 
+                    <h:outputText value="#{surveillanceData.numeratorValue}" title="#{surveillanceData.indicator.numeratorDataElement.name}" /> 
                 </p:column>  
 
                 <p:column headerText="Denominator">  
-                    <h:outputText value="#{item.denominatorValue}" title="#{item.indicator.denominator.name}" /> 
+                    <h:outputText value="#{surveillanceData.denominatorValue}" title="#{surveillanceData.indicator.denominatorDataElement.name}" /> 
                 </p:column>  
 
                 <p:column headerText="Indicator Value">  
-                    <h:outputText value="#{item.calculatedValue}" rendered="#{item.valid}"/> 
-                    <h:outputText value="#{item.calculatedValue}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
-                    <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{item.valid}"/> 
-                    <h:outputText value="#{item.indicator.indicatorType.name}" rendered="#{!item.valid}" style="color: red;" title="Error"/> 
+                    <h:outputText value="#{surveillanceData.calculatedValue}" rendered="#{surveillanceData.valid}"/> 
+                    <h:outputText value="#{surveillanceData.calculatedValue}" rendered="#{!surveillanceData.valid}" style="color: red;" title="Error"/> 
+                    <h:outputText value="#{surveillanceData.indicator.indicatorType.name}" rendered="#{surveillanceData.valid}"/> 
+                    <h:outputText value="#{surveillanceData.indicator.indicatorType.name}" rendered="#{!surveillanceData.valid}" style="color: red;" title="Error"/> 
                 </p:column>  
 
                 <p:column headerText="Valid">  
-                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{item.valid}"/> 
-                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!item.valid}"/> 
+                    <h:outputText value="" styleClass="ui-icon ui-icon-check" rendered="#{surveillanceData.valid}"/> 
+                    <h:outputText value="" styleClass="ui-icon ui-icon-close" rendered="#{!surveillanceData.valid}"/> 
                 </p:column>  
 
             </p:dataTable>
-
+            <br/>
             <p:chart type="bar" model="#{indicatorViewController.barChartModel}" style="height:300px" />  
-
+            <br/>
             <p:chart type="line" model="#{indicatorViewController.lineChartModel}" style="height:300px" />  
-
+            <br/>
             <p:chart type="bar" model="#{indicatorViewController.horizontalBarChartModel}" style="height:300px" />  
 
         </p:panel>

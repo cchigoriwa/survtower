@@ -167,8 +167,8 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
     }
 
     public void saveInitalDataValues() {
-        for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
-            regionSurveillanceDataService.save(data);
+        for (RegionSurveillanceData regionSurveillanceData : getRegionSurveillanceDataList()) {
+            regionSurveillanceDataService.save(regionSurveillanceData);
         }
         if (getSurveillanceAudit().getId() == null) {
             getSurveillanceAudit().setPeriod(period);

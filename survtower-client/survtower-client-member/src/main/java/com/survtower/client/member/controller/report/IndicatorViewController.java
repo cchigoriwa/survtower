@@ -130,9 +130,12 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
         this.surveillanceDataList = surveillanceDataList;
     }
 
-    public String loadMuptiplePeriodIndicator() {
+    public String loadMultiplePeriodIndicator() {
+
         getSurveillanceDataList().clear();
+
         createMuptiplePeriodIndicatorChart();
+
         if (lineChartModel.getSeries().isEmpty()) {
             inforMessages("No data has been loaded for the selected criteria.");
             return null;
@@ -141,11 +144,11 @@ public class IndicatorViewController extends MessageInfor implements Serializabl
 
         }
     }
-  
+
     public String reset() {
         return "indicator_view?faces-redirect=true";
     }
-    
+
     public BarChartModel createModel(BarChartModel model) {
 
         model.setTitle(indicator.getName());

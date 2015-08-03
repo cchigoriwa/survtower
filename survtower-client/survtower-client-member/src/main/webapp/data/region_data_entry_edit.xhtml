@@ -39,27 +39,28 @@
                     <p:commandButton value="Download Entry Form" action="#{regionDataEntryEditController.downloadSurviellanceForm()}" ajax="false" rendered="#{regionDataEntryEditController.surveillanceAudit.approved}"/>
                 </p:panel>
                 <br/>
-                <p:dataTable value="#{regionDataEntryEditController.regionSurveillanceDataList}" var="regionSurveillanceData" rendered="#{!regionDataEntryController.submitted}" id="region_data_table">  
+                <p:panel>
+                    <p:dataTable value="#{regionDataEntryEditController.regionSurveillanceDataList}" var="regionSurveillanceData" rendered="#{!regionDataEntryController.submitted}" id="region_data_table">  
 
-                    <p:column headerText="Indicator Name">  
-                        <h:outputText value="#{regionSurveillanceData.surveillanceData.indicator}" />
-                    </p:column>  
+                        <p:column headerText="Indicator Name">  
+                            <h:outputText value="#{regionSurveillanceData.surveillanceData.indicator}" />
+                        </p:column>  
 
-                    <p:column headerText="Numerator">  
-                        <h:inputText readonly="#{regionDataEntryEditController.surveillanceAudit.approved}" value="#{regionSurveillanceData.numeratorValue}" title="#{regionSurveillanceData.surveillanceData.indicator.numeratorDataElement.name}" />
-                    </p:column>  
+                        <p:column headerText="Numerator">  
+                            <h:inputText readonly="#{regionDataEntryEditController.surveillanceAudit.approved}" value="#{regionSurveillanceData.numeratorValue}" title="#{regionSurveillanceData.surveillanceData.indicator.numeratorDataElement.name}" />
+                        </p:column>  
 
-                    <p:column headerText="Denominator">  
-                        <h:inputText readonly="#{regionDataEntryEditController.surveillanceAudit.approved}" value="#{regionSurveillanceData.denominatorValue}" title="#{regionSurveillanceData.surveillanceData.indicator.denominatorDataElement.name}"/>
-                    </p:column>  
+                        <p:column headerText="Denominator">  
+                            <h:inputText readonly="#{regionDataEntryEditController.surveillanceAudit.approved}" value="#{regionSurveillanceData.denominatorValue}" title="#{regionSurveillanceData.surveillanceData.indicator.denominatorDataElement.name}"/>
+                        </p:column>  
 
-                </p:dataTable>
-
+                    </p:dataTable>
+                </p:panel>
                 <br/>
 
-                <p:commandButton value="Save" action="#{regionDataEntryEditController.submitSurveillanceForm()}" ajax="false" rendered="#{!regionDataEntryEditController.surveillanceAudit.approved}"/>
-                <p:commandButton value="Download Entry Form" action="#{regionDataEntryEditController.downloadSurviellanceForm()}" ajax="false" rendered="#{!regionDataEntryEditController.surveillanceAudit.approved}"/>
-                <p:commandButton value="Back" action="region_data_select?faces-redirect=true" ajax="false"/>
+                <p:commandButton icon="ui-icon-disk" value="Save" action="#{regionDataEntryEditController.submitSurveillanceForm()}" ajax="false" rendered="#{!regionDataEntryEditController.surveillanceAudit.approved}"/>
+                <p:commandButton icon="ui-icon-arrowthickstop-1-s" value="Download Entry Form" action="#{regionDataEntryEditController.downloadSurviellanceForm()}" ajax="false" rendered="#{!regionDataEntryEditController.surveillanceAudit.approved}"/>
+                <p:commandButton icon="ui-icon-arrow-1-w" value="Back"  action="region_data_select?faces-redirect=true" ajax="false"/>
             </h:form>
         </p:panel>
     </ui:define>
