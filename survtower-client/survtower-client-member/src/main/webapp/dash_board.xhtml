@@ -56,12 +56,7 @@
                                     <h:outputText value="#{regionSurveillanceAudit.period.dueDateStatus}" rendered="#{!regionSurveillanceAudit.period.dueDatePassed}" /> 
                                 </p:column>
                                 <p:column> 
-                                    <p:commandButton ajax="false" value="Approve" icon="ui-icon-check" action="region_data_validation" rendered="#{request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">                        
-                                        <f:param name="periodId" value="#{regionSurveillanceAudit.period.uuid}" />
-                                        <f:param name="programId" value="#{regionSurveillanceAudit.program.uuid}" />
-                                        <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
-                                    </p:commandButton>
-                                    <p:commandButton ajax="false" value="View" icon="ui-icon-folder-open" action="region_data_entry_view" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')}">                        
+                                    <p:commandButton ajax="false" value="View" icon="ui-icon-folder-open" action="region_data_entry_view" >                        
                                         <f:param name="periodId" value="#{regionSurveillanceAudit.period.uuid}" />
                                         <f:param name="programId" value="#{regionSurveillanceAudit.program.uuid}" />
                                         <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
@@ -99,8 +94,9 @@
                                 </p:column>
 
                                 <p:column> 
-                                    <p:commandButton icon="ui-icon-document" value="View" action="region_data_validation?faces-redirect=true" ajax="false" >                        
-                                        <f:param name="surveillanceId" value="#{regionAuditListController.surveillanceId(regionSurveillanceAudit.program, regionSurveillanceAudit.period)}" />
+                                    <p:commandButton icon="ui-icon-folder-open" value="View" action="region_data_entry_view" ajax="false" >                        
+                                        <f:param name="periodId" value="#{regionSurveillanceAudit.period.uuid}" />
+                                        <f:param name="programId" value="#{regionSurveillanceAudit.program.uuid}" />
                                         <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
                                     </p:commandButton>
                                 </p:column> 

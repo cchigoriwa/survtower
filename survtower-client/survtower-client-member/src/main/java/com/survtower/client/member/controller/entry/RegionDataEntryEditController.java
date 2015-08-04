@@ -58,6 +58,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
     private Program program;
     private Region region;
     private Surveillance surveillance;
+    private RegionSurveillanceData regionSurveillanceData;
     private RegionSurveillanceAudit regionSurveillanceAudit;
 
     @ManagedProperty(value = "#{regionService}")
@@ -169,6 +170,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
     public void saveInitalDataValues() {
         for (RegionSurveillanceData regionSurveillanceData : getRegionSurveillanceDataList()) {
             regionSurveillanceDataService.save(regionSurveillanceData);
+
         }
         if (getSurveillanceAudit().getId() == null) {
             getSurveillanceAudit().setPeriod(period);
@@ -182,7 +184,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
 
     public String submitSurveillanceForm() {
         saveInitalDataValues();
-        submitted = Boolean.TRUE;
+//        submitted = Boolean.TRUE;
         return "region_data_entry_view?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
     }
 
@@ -233,7 +235,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
         if (regionSurveillanceAudit == null) {
             regionSurveillanceAudit = new RegionSurveillanceAudit();
             for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
-                RegionSurveillanceData regionSurveillanceData;
+
                 regionSurveillanceData = regionSurveillanceDataService.find(surveillanceData, region);
                 if (regionSurveillanceData == null) {
                     regionSurveillanceData = new RegionSurveillanceData();

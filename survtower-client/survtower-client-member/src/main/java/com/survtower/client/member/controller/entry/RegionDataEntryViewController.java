@@ -46,6 +46,7 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
     private Program program;
     private Region region;
     private Surveillance surveillance;
+    private RegionSurveillanceData regionSurveillanceData;
     private RegionSurveillanceAudit regionSurveillanceAudit;
 
     @ManagedProperty(value = "#{regionService}")
@@ -156,6 +157,22 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
         this.surveillance = surveillance;
     }
 
+    public RegionSurveillanceData getRegionSurveillanceData() {
+        return regionSurveillanceData;
+    }
+
+    public void setRegionSurveillanceData(RegionSurveillanceData regionSurveillanceData) {
+        this.regionSurveillanceData = regionSurveillanceData;
+    }
+
+    public RegionSurveillanceAudit getRegionSurveillanceAudit() {
+        return regionSurveillanceAudit;
+    }
+
+    public void setRegionSurveillanceAudit(RegionSurveillanceAudit regionSurveillanceAudit) {
+        this.regionSurveillanceAudit = regionSurveillanceAudit;
+    }
+
     public String saveSurveillanceForm() {
         if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
@@ -165,7 +182,6 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
             for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
                 if (!data.getValid()) {
                     errorMessages("Data Incomplete");
-                    submitted = Boolean.FALSE;
                     return null;
                 }
             }
@@ -175,7 +191,6 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
                 return null;
             }
 
-            submitted = Boolean.TRUE;
             for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
                 if (data.getValid()) {
                     regionSurveillanceDataService.save(data);
