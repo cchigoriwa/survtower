@@ -17,7 +17,6 @@
         </navigation-case>  
         
         <navigation-case>
-           
             <from-outcome>dash_board</from-outcome>
             <to-view-id>/dash_board.xhtml</to-view-id>
         </navigation-case> 
@@ -97,13 +96,8 @@
         </navigation-case>
         
         <navigation-case>
-            <from-outcome>region_data_entry_edit</from-outcome>
+            <from-outcome>region_data_entry_view</from-outcome>
             <to-view-id>/data/region_data_entry_view.xhtml</to-view-id>
-        </navigation-case>
-        
-        <navigation-case>
-            <from-outcome>dash_board</from-outcome>
-            <to-view-id>/dash_board.xhtml</to-view-id>
         </navigation-case>
         
         <navigation-case>

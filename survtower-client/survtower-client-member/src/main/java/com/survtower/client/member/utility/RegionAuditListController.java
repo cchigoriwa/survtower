@@ -4,7 +4,6 @@ import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
 import com.survtower.business.common.service.MemberService;
-import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.Region;
 import com.survtower.business.member.domain.RegionSurveillanceAudit;
@@ -38,7 +37,7 @@ public class RegionAuditListController implements Serializable {
 
     @ManagedProperty(value = "#{memberService}")
     private MemberService memberService;
-    
+
     @ManagedProperty(value = "#{memberUserUtility}")
     private MemberUserUtility memberUserUtility;
 
@@ -102,16 +101,14 @@ public class RegionAuditListController implements Serializable {
         this.waitingApprovalAudits = waitingApprovalAudits;
     }
 
-    public String surveillanceId(Program program, Period p) {
-        Surveillance surveillance = surveillanceService.get(program, p, memberService.getCurrentMember());
+    public String surveillanceId(Program program, Period period) {
+        Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + surveillance.getId());
         return surveillance == null ? null : surveillance.getUuid();
     }
-
 
     public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
         this.memberUserUtility = memberUserUtility;
     }
-    
-    
 
 }

@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -31,15 +30,15 @@ public class RegionSurveillanceData extends BaseEntity {
 
     @ManyToOne
     @XmlTransient
-    @JoinColumn(name="surveillance_data_id")
+    @JoinColumn(name = "surveillance_data_id")
     private SurveillanceData surveillanceData;
-    @Column(name="denominator_value")
+    @Column(name = "denominator_value")
     private Double denominatorValue = 0.0;
-    @Column(name="numerator_value")
+    @Column(name = "numerator_value")
     private Double numeratorValue = 0.0;
-    @Column(name="manual_value")
+    @Column(name = "manual_value")
     private Double manualValue;
-    @Column(name="manual")
+    @Column(name = "manual")
     private Boolean manual = Boolean.FALSE;
 
     public SurveillanceData getSurveillanceData() {

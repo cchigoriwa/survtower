@@ -21,7 +21,7 @@
 
                 <p:tab title="Region">
 
-                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
+                    <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('xx') || request.isUserInRole('xx')}">
 
                         <p:dataGrid var="regionSurveillanceData" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
                                     rows="1" paginator="true" id="list">
@@ -33,7 +33,7 @@
                     </p:panel>
                 </p:tab>
 
-                <p:tab title="Awaiting Approval" rendered="#{request.isUserInRole('Health Information Officer') || request.isUserInRole('Country Disease Manager')}">
+                <p:tab title="Awaiting Approval" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
                     <h:form>
 
                         <p:panel id="notificationOne" header="Uploads Awaiting Approval" style="margin-bottom:20px">
@@ -56,10 +56,16 @@
                                     <h:outputText value="#{regionSurveillanceAudit.period.dueDateStatus}" rendered="#{!regionSurveillanceAudit.period.dueDatePassed}" /> 
                                 </p:column>
                                 <p:column> 
-                                    <h:link value="Approve" outcome="region_data_validation">                        
-                                        <f:param name="surveillanceId" value="#{regionAuditListController.surveillanceId(region.program, region.period)}" />
+                                    <p:commandButton ajax="false" value="Approve" icon="ui-icon-check" action="region_data_validation" rendered="#{request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">                        
+                                        <f:param name="periodId" value="#{regionSurveillanceAudit.period.uuid}" />
+                                        <f:param name="programId" value="#{regionSurveillanceAudit.program.uuid}" />
                                         <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
-                                    </h:link>
+                                    </p:commandButton>
+                                    <p:commandButton ajax="false" value="View" icon="ui-icon-folder-open" action="region_data_entry_view" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')}">                        
+                                        <f:param name="periodId" value="#{regionSurveillanceAudit.period.uuid}" />
+                                        <f:param name="programId" value="#{regionSurveillanceAudit.program.uuid}" />
+                                        <f:param name="regionId" value="#{regionSurveillanceAudit.region.uuid}" />
+                                    </p:commandButton >
                                 </p:column> 
 
                             </p:dataTable>

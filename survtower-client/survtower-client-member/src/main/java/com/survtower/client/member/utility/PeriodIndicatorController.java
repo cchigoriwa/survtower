@@ -39,7 +39,7 @@ public class PeriodIndicatorController implements Serializable {
 
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
     private RegionSurveillanceDataService surveillanceDataService;
-    
+
     @ManagedProperty(value = "#{memberUserUtility}")
     private MemberUserUtility memberUserUtility;
 
@@ -57,6 +57,14 @@ public class PeriodIndicatorController implements Serializable {
 
     public void setSurveillanceDataList(List<RegionSurveillanceData> surveillanceDataList) {
         this.surveillanceDataList = surveillanceDataList;
+    }
+
+    public MemberUserUtility getMemberUserUtility() {
+        return memberUserUtility;
+    }
+
+    public void setMemberUserUtility(MemberUserUtility memberUserUtility) {
+        this.memberUserUtility = memberUserUtility;
     }
 
     @PostConstruct

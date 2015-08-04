@@ -1,6 +1,11 @@
 package com.survtower.client.member.controller.entry;
 
+import com.survtower.business.common.domain.Period;
+import com.survtower.business.common.domain.Program;
 import com.survtower.business.common.domain.Surveillance;
+import com.survtower.business.common.service.MemberService;
+import com.survtower.business.common.service.PeriodService;
+import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
 import com.survtower.business.member.domain.Region;
@@ -37,6 +42,10 @@ public class RegionDataValidationController extends MessageInfor implements Seri
     private Boolean submitted = Boolean.FALSE;
     private Surveillance surveillance;
     private Region region;
+    private Program program;
+    private Period period;
+    private String programId;
+    private String periodId;
 
     @ManagedProperty(value = "#{regionService}")
     private RegionService regionService;
@@ -52,6 +61,15 @@ public class RegionDataValidationController extends MessageInfor implements Seri
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
+
+    @ManagedProperty(value = "#{programService}")
+    private ProgramService programService;
+
+    @ManagedProperty(value = "#{periodService}")
+    private PeriodService periodService;
+
+    @ManagedProperty(value = "#{memberService}")
+    private MemberService memberService;
 
     public void setMemberUserService(MemberUserService memberUserService) {
         this.memberUserService = memberUserService;
@@ -113,6 +131,62 @@ public class RegionDataValidationController extends MessageInfor implements Seri
         this.regionSurveillanceDataService = regionSurveillanceDataService;
     }
 
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public String getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(String programId) {
+        this.programId = programId;
+    }
+
+    public String getPeriodId() {
+        return periodId;
+    }
+
+    public void setPeriodId(String periodId) {
+        this.periodId = periodId;
+    }
+
+    public ProgramService getProgramService() {
+        return programService;
+    }
+
+    public void setProgramService(ProgramService programService) {
+        this.programService = programService;
+    }
+
+    public PeriodService getPeriodService() {
+        return periodService;
+    }
+
+    public void setPeriodService(PeriodService periodService) {
+        this.periodService = periodService;
+    }
+
+    public MemberService getMemberService() {
+        return memberService;
+    }
+
+    public void setMemberService(MemberService memberService) {
+        this.memberService = memberService;
+    }
+
     public Region getRegion() {
         return region;
     }
@@ -157,7 +231,17 @@ public class RegionDataValidationController extends MessageInfor implements Seri
     public void loadData() {
         //get surveillance parameter form External Context
         String surveillanceId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("surveillanceId");
-        surveillance = surveillanceService.findByUuid(surveillanceId);
+
+        if (surveillanceId == null) {
+            programId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("programId");
+            periodId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("periodId");
+            program = programService.findByUuid(programId);
+            period = periodService.findByUuid(periodId);
+            surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
+        } else {
+
+            surveillance = surveillanceService.findByUuid(surveillanceId);
+        }
         //get regional parameter form External Context
         String regionId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("regionId");
         getRegionSurveillanceDataList().clear();

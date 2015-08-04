@@ -175,6 +175,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
             getSurveillanceAudit().setProgram(program);
             getSurveillanceAudit().setRegion(region);
             getSurveillanceAudit().setUploadedBy(getCurrentUser());
+            getSurveillanceAudit().setUploadedOn(new Date());
             regionSurveillanceAuditService.save(regionSurveillanceAudit);
         }
     }

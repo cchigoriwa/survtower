@@ -18,7 +18,6 @@ import com.survtower.business.member.service.RegionSurveillanceAuditService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.client.member.utility.MessageInfor;
 import static com.survtower.client.member.utility.MessageInfor.errorMessages;
-import static com.survtower.client.member.utility.MessageInfor.inforMessages;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -166,7 +165,7 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
             for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
                 if (!data.getValid()) {
                     errorMessages("Data Incomplete");
-                    submitted = Boolean.TRUE;
+                    submitted = Boolean.FALSE;
                     return null;
                 }
             }
@@ -185,12 +184,11 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
                 }
             }
 
-            getSurveillanceAudit().setUploadedBy(getCurrentUser());
-            getSurveillanceAudit().setUploadedOn(new Date());
+//            getSurveillanceAudit().setUploadedBy(getCurrentUser());
+//            getSurveillanceAudit().setUploadedOn(new Date());
             getSurveillanceAudit().setApprovedBy(getCurrentUser());
             getSurveillanceAudit().setApprovedOn(new Date());
             regionSurveillanceAuditService.save(regionSurveillanceAudit);
-
             inforMessages("Surveillance Data Saved Successfully");
         } catch (Exception ex) {
             ex.printStackTrace();

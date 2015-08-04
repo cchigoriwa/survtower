@@ -15,30 +15,36 @@
     <ui:define name="content">
         <p:growl showDetail="true" showSummary="true" id="messages" />
         <p:panel header="Pivot Table Generation">
-            <h:form>
+            <h:form prependId="false">
                 <table cellspacing="10" cellpadding="10">
                     <tr>
-                        <td valign="top">
+                        <td>
                             <h:outputText value="Select Periods"/>
-                            <br/>
-                            <h:selectManyCheckbox layout="pageDirection" value="#{pivotTableController.periods}" converter="#{periodConverter}">
+                        </td>
+                        <td>
+                            <p:selectManyCheckbox id="period" layout="grid" columns="2" value="#{pivotTableController.periods}" converter="#{periodConverter}">
                                 <f:selectItems value="#{periodListController.periods}"/>
-                            </h:selectManyCheckbox>
+                            </p:selectManyCheckbox>
                         </td>
-                        <td valign="top">
-                            <h:outputText value="Select Program:"/>
-                            <br/>
-                            <h:selectOneMenu value="#{pivotTableController.program}" required="true" requiredMessage="Select Program." converter="#{programConverter}">
-                                <f:selectItem itemLabel="--Select One--"/>
-                                <f:selectItems value="#{programListController.programs}"/>
-                            </h:selectOneMenu>
-                        </td>
+                        <td><p:message for="period" /></td>
                     </tr>
                     <tr>
-                        <td><p:commandButton value="Generate Pivot Data" action="#{pivotTableController.createPivotTableIndicatorChart()}" ajax="false" rendered="#{pivotTableController.program==null}"/></td>
-                        <td><p:commandButton value="Download Pivot Table" action="#{pivotTableController.exportToExcel()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
-                        <td><p:commandButton value="Create Adhoc Report" action="#{pivotTableController.createAdoc()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
-                        <td><p:commandButton value="Reset" action="#{pivotTableController.reset()}" ajax="false" rendered="#{pivotTableController.program!=null}"/></td>
+                        <td>
+                            <h:outputText value="Select Program:"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="program" value="#{pivotTableController.program}" required="true" requiredMessage="Select Program." converter="#{programConverter}">
+                                <f:selectItem itemLabel="--Select One--"/>
+                                <f:selectItems value="#{programListController.programs}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td><p:message for="program" /></td>
+                    </tr>
+                    <tr>
+                        <td><p:commandButton icon="ui-icon-document" value="Generate Pivot Data" action="#{pivotTableController.createPivotTableIndicatorChart()}" ajax="false" rendered="#{pivotTableController.program==null}"/></td>
+                        <td><p:commandButton icon="ui-icon-arrowthickstop-1-s" value="Download Pivot Table" action="#{pivotTableController.exportToExcel()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
+                        <td><p:commandButton icon="ui-icon-document" value="Create Adhoc Report" action="#{pivotTableController.createAdoc()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
+                        <td><p:commandButton icon="ui-icon-refresh" value="Reset" action="#{pivotTableController.reset()}" ajax="false" rendered="#{pivotTableController.program!=null}"/></td>
                     </tr>
                 </table>
             </h:form>
