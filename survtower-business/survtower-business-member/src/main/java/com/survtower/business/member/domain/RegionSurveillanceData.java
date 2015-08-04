@@ -40,8 +40,6 @@ public class RegionSurveillanceData extends BaseEntity {
     private Double manualValue;
     @Column(name = "manual")
     private Boolean manual = Boolean.FALSE;
-    @Column(name = "saved")
-    private Boolean saved = Boolean.FALSE;
 
     public SurveillanceData getSurveillanceData() {
         return surveillanceData;
@@ -89,14 +87,6 @@ public class RegionSurveillanceData extends BaseEntity {
 
     public void setRegion(Region region) {
         this.region = region;
-    }
-
-    public Boolean getSaved() {
-        return saved;
-    }
-
-    public void setSaved(Boolean saved) {
-        this.saved = saved;
     }
 
     public Double getCalculatedValue() {
