@@ -170,12 +170,10 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
                 }
             }
 
-            //if (!getCurrentUser().getRoles().contains(MemberUser.getAppUserRoles().get(2).getDescription())) {
             if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
                 errorMessages("Data Upload Has Already been Approved,Changes Permitted");
                 return null;
             }
-            //}
 
             submitted = Boolean.TRUE;
             for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
@@ -184,8 +182,6 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
                 }
             }
 
-//            getSurveillanceAudit().setUploadedBy(getCurrentUser());
-//            getSurveillanceAudit().setUploadedOn(new Date());
             getSurveillanceAudit().setApprovedBy(getCurrentUser());
             getSurveillanceAudit().setApprovedOn(new Date());
             regionSurveillanceAuditService.save(regionSurveillanceAudit);

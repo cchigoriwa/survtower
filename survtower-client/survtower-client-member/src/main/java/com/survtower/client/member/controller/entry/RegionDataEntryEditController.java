@@ -106,14 +106,6 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
         this.regionSurveillanceAudit = surveillanceAudit;
     }
 
-    public Boolean getSubmitted() {
-        return submitted;
-    }
-
-    public void setSubmitted(Boolean submitted) {
-        this.submitted = submitted;
-    }
-
     public Region getRegion() {
         return region;
     }
@@ -164,6 +156,14 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
 
     public void setRegionSurveillanceAuditService(RegionSurveillanceAuditService regionSurveillanceAuditService) {
         this.regionSurveillanceAuditService = regionSurveillanceAuditService;
+    }
+
+    public Boolean getSubmitted() {
+        return submitted;
+    }
+
+    public void setSubmitted(Boolean submitted) {
+        this.submitted = submitted;
     }
 
     public void saveInitalDataValues() {
