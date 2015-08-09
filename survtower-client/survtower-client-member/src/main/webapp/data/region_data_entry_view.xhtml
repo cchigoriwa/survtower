@@ -58,8 +58,8 @@
                 <br/>
 
                 <p:commandButton value="Edit" action="#{regionDataEntryViewController.backToEdit()}" ajax="false" rendered="#{!regionDataEntryViewController.surveillanceAudit.approved and regionDataEntryViewController.surveillanceAudit.uploaded and request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')}"/>
-                <p:commandButton value="Download Entry Form" action="#{regionDataEntryController.downloadSurviellanceForm()}" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')}" ajax="false" />
-                <p:commandButton onclick="return confirm('Are sure?');" value="Approve" action="#{regionDataEntryViewController.saveSurveillanceForm()}" ajax="false" rendered="#{regionDataEntryViewController.surveillanceAudit.submitted and !regionDataEntryViewController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
+                <p:commandButton value="Download Entry Form" action="#{regionDataEntryViewController.downloadSurviellanceForm(regionDataEntryViewController.region,regionDataEntryViewController.period)}" ajax="false" />
+                <p:commandButton onclick="return confirm('Are sure?');" value="Approve" action="#{regionDataEntryViewController.approveSurveillanceForm()}" ajax="false" rendered="#{regionDataEntryViewController.surveillanceAudit.submitted and !regionDataEntryViewController.surveillanceAudit.approved and request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}"/>
 
                 <br/>
                 <br/>

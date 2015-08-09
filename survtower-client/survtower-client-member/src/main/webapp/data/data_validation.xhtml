@@ -17,6 +17,11 @@
         <p:panel header="Data Validation and Approval">
 
             <h:form>
+
+                <p:panel header="Surveillance Data Status" rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
+                    <span><b>Surveillance Data have been uploaded, approved and Submitted to the Secretariat</b> </span> <br />
+                </p:panel>
+                <br/>
                 <p:panel header="Aggregated Member State Surveillance Metadata">
                     <span>Program - <b>#{dataValidationController.surveillance.program.name}</b> </span> <br />
                     <span>Period - <b>#{dataValidationController.surveillance.period.name}</b></span> <br />
@@ -53,9 +58,12 @@
 
                 </p:dataTable>
 
-                <br/>
+                <br />
 
                 <p:commandButton icon="ui-icon-disk" onclick="return confirm('Are sure?');" value="Final Submit" action="#{dataValidationController.finalSaveSurviellanceForm()}" ajax="false" rendered="#{!dataValidationController.surveillanceAudit.submissionDone}"/>
+                <p:commandButton icon="ui-icon-arrow-1-w" value="Back"  action="data_select?faces-redirect=true" ajax="false"/>
+
+                <br />
 
                 <p:panel header="Surveillance Summary " rendered="#{dataValidationController.surveillanceAudit.submissionDone}">
                     <span>Data Approved By - <b><h:outputText value="#{dataValidationController.surveillanceAudit.approvedBy}"/> </b></span> <br />

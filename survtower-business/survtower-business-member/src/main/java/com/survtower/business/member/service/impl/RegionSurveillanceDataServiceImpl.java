@@ -1,5 +1,6 @@
 package com.survtower.business.member.service.impl;
 
+import com.survtower.business.common.RegionSurveillanceDataNotValidException;
 import com.survtower.business.common.domain.Indicator;
 import com.survtower.business.common.domain.Period;
 import com.survtower.business.common.domain.Program;
@@ -28,9 +29,15 @@ public class RegionSurveillanceDataServiceImpl implements RegionSurveillanceData
 
     @Transactional
     @Override
-    public RegionSurveillanceData save(RegionSurveillanceData region) {
-        region.setUpdateDate(new Date());
-        return regionSurveillanceDataDao.save(region);
+    public RegionSurveillanceData save(RegionSurveillanceData regionSurveillanceData) {
+
+        if (regionSurveillanceData.getValid()) {
+            regionSurveillanceData.setUpdateDate(new Date());
+            return regionSurveillanceDataDao.save(regionSurveillanceData);
+        } else {
+            throw new RegionSurveillanceDataNotValidException();
+        }
+
     }
 
     @Override
@@ -59,9 +66,10 @@ public class RegionSurveillanceDataServiceImpl implements RegionSurveillanceData
     }
 
     @Override
-    public List<RegionSurveillanceData> findAll(Period period, Program program, Region region){
+    public List<RegionSurveillanceData> findAll(Period period, Program program, Region region) {
         return regionSurveillanceDataDao.findAll(period, program, region);
     }
+
     @Override
     public RegionSurveillanceData find(SurveillanceData surveillanceData, Region region) {
         return regionSurveillanceDataDao.find(surveillanceData, region);

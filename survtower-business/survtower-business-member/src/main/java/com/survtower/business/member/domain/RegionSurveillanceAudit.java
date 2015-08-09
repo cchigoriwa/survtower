@@ -102,7 +102,7 @@ public class RegionSurveillanceAudit extends BaseEntity {
     }
 
     public Boolean getApproved() {//approval of data upload.
-        return approvedBy != null;
+        return approvedBy != null && approvedOn != null;
     }
 
     public Boolean getSubmissionDone() {//final submission of data

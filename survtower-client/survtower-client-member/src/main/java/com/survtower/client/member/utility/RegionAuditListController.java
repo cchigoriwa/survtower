@@ -41,6 +41,8 @@ public class RegionAuditListController implements Serializable {
     @ManagedProperty(value = "#{memberUserUtility}")
     private MemberUserUtility memberUserUtility;
 
+    private RegionSurveillanceAudit regionSurveillanceAudit;
+
     private List<RegionSurveillanceAudit> audits;
     private List<RegionSurveillanceAudit> waitingApprovalAudits;
 
@@ -66,6 +68,14 @@ public class RegionAuditListController implements Serializable {
 
     public void setAudits(List<RegionSurveillanceAudit> audits) {
         this.audits = audits;
+    }
+
+    public RegionSurveillanceAudit getRegionSurveillanceAudit() {
+        return regionSurveillanceAudit;
+    }
+
+    public void setRegionSurveillanceAudit(RegionSurveillanceAudit regionSurveillanceAudit) {
+        this.regionSurveillanceAudit = regionSurveillanceAudit;
     }
 
     @PostConstruct
@@ -103,8 +113,11 @@ public class RegionAuditListController implements Serializable {
 
     public String surveillanceId(Program program, Period period) {
         Surveillance surveillance = surveillanceService.get(program, period, memberService.getCurrentMember());
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + surveillance.getId());
         return surveillance == null ? null : surveillance.getUuid();
+    }
+
+    public String viewData() {
+        return "region_data_entry_view";
     }
 
     public void setMemberUserUtility(MemberUserUtility memberUserUtility) {

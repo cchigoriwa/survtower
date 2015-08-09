@@ -9,8 +9,11 @@ import com.survtower.business.common.service.PeriodService;
 import com.survtower.business.common.service.ProgramService;
 import com.survtower.business.common.service.SurveillanceService;
 import com.survtower.business.member.domain.MemberUser;
+import com.survtower.business.member.domain.Region;
+import com.survtower.business.member.domain.RegionSurveillanceAudit;
 import com.survtower.business.member.domain.SurveillanceAudit;
 import com.survtower.business.member.service.MemberUserService;
+import com.survtower.business.member.service.RegionSurveillanceAuditService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.business.member.service.SurveillanceAuditService;
 import com.survtower.client.member.utility.MessageInfor;
@@ -63,6 +66,9 @@ public class DataValidationController extends MessageInfor implements Serializab
 
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
     private RegionSurveillanceDataService regionSurveillanceDataService;
+
+    @ManagedProperty(value = "#{regionSurveillanceAuditService}")
+    private RegionSurveillanceAuditService regionSurveillanceAuditService;
 
     public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
         this.regionSurveillanceDataService = regionSurveillanceDataService;
@@ -120,6 +126,14 @@ public class DataValidationController extends MessageInfor implements Serializab
         this.surveillanceAuditService = surveillanceAuditService;
     }
 
+    public RegionSurveillanceAuditService getRegionSurveillanceAuditService() {
+        return regionSurveillanceAuditService;
+    }
+
+    public void setRegionSurveillanceAuditService(RegionSurveillanceAuditService regionSurveillanceAuditService) {
+        this.regionSurveillanceAuditService = regionSurveillanceAuditService;
+    }
+
     public ProgramService getProgramService() {
         return programService;
     }
@@ -160,26 +174,6 @@ public class DataValidationController extends MessageInfor implements Serializab
         this.period = period;
     }
 
-    public String submitSurviellanceForm() {
-        if (!getSurveillanceAudit().getSubmissionDone()) {
-            if (getSurveillanceAudit().getId() == null) {
-                getSurveillanceAudit().setPeriod(getSurveillance().getPeriod());
-                getSurveillanceAudit().setProgram(getSurveillance().getProgram());
-                getSurveillanceAudit().setUploadedBy(getCurrentUser());
-                getSurveillanceAudit().setUploadedOn(new Date());
-            } else {
-                getSurveillanceAudit().setUploadedOn(new Date());
-            }
-            if (getSurveillanceAudit().getUploadedBy() == null) {
-                errorMessages("Audit Trail - Not Working");
-                return null;
-            }
-            surveillanceAuditService.save(surveillanceAudit);
-        }
-
-        return null;
-    }
-
     public String finalSaveSurviellanceForm() {
 
         if (surveillanceAudit == null) {
@@ -190,6 +184,29 @@ public class DataValidationController extends MessageInfor implements Serializab
         if (getCurrentUser() == null) {
             errorMessages("User needs to login to continue");
             return null;
+        }
+
+        for (SurveillanceData surveillanceData : surveillance.getSurveillanceDataSet()) {
+            if (!surveillanceData.getValid()) {
+                errorMessages("Surveillance data is not valid, please verify the figures entered");
+                return null;
+            }
+        }
+
+        MemberUser memberUser = getCurrentUser();
+        List<Region> regions = memberUser.getRegions();
+        for (Region region : regions) {
+            RegionSurveillanceAudit regionSurveillanceAudit = regionSurveillanceAuditService.findByProgramAndPeriodAndRegion(surveillance.getProgram(), surveillance.getPeriod(), region);
+            if (regionSurveillanceAudit == null) {
+                errorMessages("Surveillance Audit Error - Data Entry for some regions not Done");
+                return null;
+            }
+
+            if (!regionSurveillanceAudit.getApproved()) {
+                errorMessages("Surveillance data for some regions not approved, please approve these first");
+                return null;
+            }
+
         }
 
         try {

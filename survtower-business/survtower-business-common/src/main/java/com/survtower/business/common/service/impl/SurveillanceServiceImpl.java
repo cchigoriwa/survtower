@@ -93,6 +93,5 @@ public class SurveillanceServiceImpl implements SurveillanceService {
     public List<Surveillance> findByMember(Member member) {
         return surveillanceDao.findByMember(member);
     }
-    
-    
+
 }

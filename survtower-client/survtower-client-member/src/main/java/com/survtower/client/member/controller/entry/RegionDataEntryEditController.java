@@ -167,10 +167,9 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
         this.submitted = submitted;
     }
 
-    public void saveInitalDataValues() {
+    public String saveInitalDataValues() {
         for (RegionSurveillanceData regionSurveillanceData : getRegionSurveillanceDataList()) {
             regionSurveillanceDataService.save(regionSurveillanceData);
-
         }
         if (getSurveillanceAudit().getId() == null) {
             getSurveillanceAudit().setPeriod(period);
@@ -180,11 +179,30 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
             getSurveillanceAudit().setUploadedOn(new Date());
             regionSurveillanceAuditService.save(regionSurveillanceAudit);
         }
+        inforMessages("Surveillance Data Saved Successfully");
+        return null;
     }
 
-    public String submitSurveillanceForm() {
+    public String saveSurveillanceForm() {
+        if (getCurrentUser() == null) {
+            errorMessages("User needs to login to continue");
+            return null;
+        }
+
+        for (RegionSurveillanceData data : getRegionSurveillanceDataList()) {
+            if (!data.getValid()) {
+                errorMessages("Regional data is not valid, please verify the figures entered");
+                return null;
+            }
+        }
+
+        if (getSurveillanceAudit().getSubmissionDone()) {//Check for Final Submission
+            errorMessages("Data Upload Has Already been Approved,Changes Permitted");
+            return null;
+        }
+
         saveInitalDataValues();
-//        submitted = Boolean.TRUE;
+
         return "region_data_entry_view?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
     }
 
@@ -268,8 +286,6 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
     }
 
     public String downloadSurviellanceForm() {
-
-        saveInitalDataValues();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
