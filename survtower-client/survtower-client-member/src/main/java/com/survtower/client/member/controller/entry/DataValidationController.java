@@ -252,6 +252,7 @@ public class DataValidationController extends MessageInfor implements Serializab
         surveillanceAudit = surveillanceAuditService.get(surveillance.getProgram(), surveillance.getPeriod());
 
         for (SurveillanceData surveillanceData : surveillance.getSurveillanceDataSet()) {
+
             surveillanceData.setNumeratorValue(regionSurveillanceDataService.getNumeratorCalculatedValue(surveillanceData));
             surveillanceData.setDenominatorValue(regionSurveillanceDataService.getDenominatedCalculatedValue(surveillanceData));
         }
