@@ -11,13 +11,21 @@ import com.survtower.business.member.domain.RegionSurveillanceData;
 import com.survtower.business.member.service.MemberUserService;
 import com.survtower.business.member.service.RegionSurveillanceDataService;
 import com.survtower.client.member.bean.MemberUserUtility;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
@@ -31,14 +39,15 @@ import org.primefaces.model.chart.ChartSeries;
 @RequestScoped
 public class PeriodIndicatorController implements Serializable {
 
-    private List<RegionSurveillanceData> surveillanceDataList;
-    private List<ProgramRegion> programRegions;
+    private Set<RegionSurveillanceData> regionSurveillanceDataList;
+
+    private Set<ProgramRegion> programRegions;
 
     @ManagedProperty(value = "#{memberUserService}")
     private MemberUserService memberUserService;
 
     @ManagedProperty(value = "#{regionSurveillanceDataService}")
-    private RegionSurveillanceDataService surveillanceDataService;
+    private RegionSurveillanceDataService regionSurveillanceDataService;
 
     @ManagedProperty(value = "#{memberUserUtility}")
     private MemberUserUtility memberUserUtility;
@@ -48,15 +57,23 @@ public class PeriodIndicatorController implements Serializable {
     }
 
     public void setSurveillanceDataService(RegionSurveillanceDataService surveillanceDataService) {
-        this.surveillanceDataService = surveillanceDataService;
+        this.regionSurveillanceDataService = surveillanceDataService;
     }
 
-    public List<RegionSurveillanceData> getSurveillanceDataList() {
-        return surveillanceDataList;
+    public Set<RegionSurveillanceData> getRegionSurveillanceDataList() {
+        return regionSurveillanceDataList;
     }
 
-    public void setSurveillanceDataList(List<RegionSurveillanceData> surveillanceDataList) {
-        this.surveillanceDataList = surveillanceDataList;
+    public void setRegionSurveillanceDataList(Set<RegionSurveillanceData> regionSurveillanceDataList) {
+        this.regionSurveillanceDataList = regionSurveillanceDataList;
+    }
+
+    public RegionSurveillanceDataService getRegionSurveillanceDataService() {
+        return regionSurveillanceDataService;
+    }
+
+    public void setRegionSurveillanceDataService(RegionSurveillanceDataService regionSurveillanceDataService) {
+        this.regionSurveillanceDataService = regionSurveillanceDataService;
     }
 
     public MemberUserUtility getMemberUserUtility() {
@@ -70,8 +87,8 @@ public class PeriodIndicatorController implements Serializable {
     @PostConstruct
     public void init() {
 
-        surveillanceDataList = new ArrayList<>();
-        programRegions = new ArrayList<>();
+        regionSurveillanceDataList = new HashSet<>();
+        programRegions = new HashSet<>();
         for (Program program : memberUserUtility.getCurrentUser().getPrograms()) {
             for (Region region : memberUserUtility.getCurrentUser().getRegions()) {
                 programRegions.add(new ProgramRegion(region, program));
@@ -79,7 +96,26 @@ public class PeriodIndicatorController implements Serializable {
         }
 
         for (ProgramRegion pr : programRegions) {
-            surveillanceDataList.addAll(surveillanceDataService.findAll(pr.getProgram(), pr.getRegion()));
+            regionSurveillanceDataList.addAll(regionSurveillanceDataService.findAll(pr.getProgram(), pr.getRegion()));
+        }
+    }
+
+    public void testJfreChartComparisonBar(List<RegionSurveillanceData> regionSurveillanceDataList) {
+
+// Create a simple Bar chart
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        for (RegionSurveillanceData regionSurveillanceData : regionSurveillanceDataList) {
+            dataset.setValue(regionSurveillanceData.getCalculatedValue(), "Indicator Value", regionSurveillanceData.getRegion().getName());
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart("Comparison between Salesman",
+                "Salesman", "Profit", dataset, PlotOrientation.VERTICAL,
+                false, true, false);
+        try {
+            ChartUtilities.saveChartAsJPEG(new File("/home/hitrac/chart.jpg"), chart, 500, 300);
+        } catch (IOException e) {
+            System.err.println("Problem occurred creating chart.");
         }
 
     }
@@ -90,15 +126,18 @@ public class PeriodIndicatorController implements Serializable {
         ChartSeries numerator = new ChartSeries();
         ChartSeries denominator = new ChartSeries();
 
-        numerator.setLabel(regionSurveillanceData.getSurveillanceData().getIndicator().getName());
+        numerator.setLabel(regionSurveillanceData.getSurveillanceData().getIndicator().getNumeratorDataElement().getName());
         denominator.setLabel(regionSurveillanceData.getSurveillanceData().getIndicator().getDenominatorDataElement().getName());
         numerator.set(regionSurveillanceData.getSurveillanceData().getSurveillance().getPeriod().getName(), regionSurveillanceData.getNumeratorValue());
         denominator.set(regionSurveillanceData.getSurveillanceData().getSurveillance().getPeriod().getName(), regionSurveillanceData.getDenominatorValue());
+
         model.addSeries(numerator);
         model.addSeries(denominator);
 
         model.setTitle(regionSurveillanceData.getSurveillanceData().getIndicator().getName());
+
         model.setLegendPosition("ne");
+        model.setLegendCols(5);
 
         Axis xAxis = model.getAxis(AxisType.X);
         xAxis.setLabel(regionSurveillanceData.getRegion().getName());

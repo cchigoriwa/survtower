@@ -23,13 +23,12 @@
 
                     <p:panel header="Indicator Reporting" style="margin-bottom:10px;" rendered="#{request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER') || request.isUserInRole('ROLE_COUNTRY_DISEASE_MANAGER')}">
 
-                        <p:dataGrid var="regionSurveillanceData" value="#{periodIndicatorController.surveillanceDataList}" columns="4" layout="grid"
-                                    rows="1" paginator="true" id="list">
+                        <p:dataList var="regionSurveillanceData" value="#{periodIndicatorController.regionSurveillanceDataList}"
+                                    rows="1" paginator="true" id="set">
 
-                            <p:chart type="bar" model="#{periodIndicatorController.regionSurveillanceDataChangeModel(regionSurveillanceData)}" style="height:900px" />  
+                            <p:chart type="bar"  model="#{periodIndicatorController.regionSurveillanceDataChangeModel(regionSurveillanceData)}" style="height:700px;width: 300px; padding-left: 150px" />  
 
-                        </p:dataGrid>
-
+                        </p:dataList>
                     </p:panel>
                 </p:tab>
 
