@@ -75,10 +75,10 @@
                     </tr>
                 </table>
                 <br/>
-                <p:commandButton value="Save" action="#{memberUserEditController.save()}" icon="ui-icon-disk" ajax="false">
+                <p:commandButton value="Save" action="#{memberUserEditController.save()}" icon="ui-icon-disk blue" ajax="false">
                     <f:param name="uuid" value="#{memberUserEditController.memberUser.uuid}" />
                 </p:commandButton>
-                <p:commandButton value="Cancel" action="memberUserList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
+                <p:commandButton value="Cancel" action="memberUserList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel red"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

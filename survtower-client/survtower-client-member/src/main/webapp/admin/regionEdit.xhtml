@@ -27,10 +27,10 @@
                     </tr>                    
                 </table>
                 <br/>
-                <p:commandButton value="Save" action="#{regionEditController.save()}" icon="ui-icon-disk" ajax="false">
+                <p:commandButton value="Save" action="#{regionEditController.save()}" icon="ui-icon-disk blue" ajax="false">
                     <f:param name="uuid" value="#{regionEditController.region.uuid}" />
                 </p:commandButton>
-                <p:commandButton value="Cancel" action="regionList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel"></p:commandButton>
+                <p:commandButton value="Cancel" action="regionList?faces-redirect=true" ajax="false" immediate="true" icon="ui-icon-cancel red"></p:commandButton>
             </h:form>
         </p:panel>
     </ui:define>

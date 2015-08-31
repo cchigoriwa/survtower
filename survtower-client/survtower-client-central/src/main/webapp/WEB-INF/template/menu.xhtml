@@ -8,29 +8,29 @@
 
     <h:form> 
         <p:menubar style="border-color: goldenrod">
-            <p:menuitem value="Dash Board" outcome="index" rendered="#{!checkLoggedOn.loggedOn}" icon="ui-icon-home" />
+            <p:menuitem value="Dash Board" outcome="index" rendered="#{!checkLoggedOn.loggedOn}" icon="ui-icon-home green" />
 
-            <p:menuitem value="Dash Board" outcome="dash_board" rendered="#{checkLoggedOn.loggedOn}" icon="ui-icon-home"  />
+            <p:menuitem value="Dash Board" outcome="dash_board" rendered="#{checkLoggedOn.loggedOn}" icon="ui-icon-home green"  />
 
-            <p:submenu label="Settings" icon="ui-icon-wrench"  rendered="#{checkLoggedOn.loggedOn}">
-                <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person" />
-                <p:menuitem value="Email Set up" icon="ui-icon-mail-closed"  outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
-                <p:menuitem value="Change Password" icon="ui-icon-pencil" outcome="changePassword" rendered="#{request.isUserInRole('ROLE_GLOBAL_ADMINISTRATOR') || request.isUserInRole('ROLE_SADC_DATA_MANAGER')}"/>
-                <p:menuitem value="Look up Data" outcome="admin_home" icon="ui-icon-bookmark" />
+            <p:submenu label="Settings" icon="ui-icon-wrench green"  rendered="#{checkLoggedOn.loggedOn}">
+                <p:menuitem value="Users" outcome="centralUserList" icon="ui-icon-person green" />
+                <p:menuitem value="Email Set up" icon="ui-icon-mail-closed green"  outcome="emailSetupEdit" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+                <p:menuitem value="Change Password" icon="ui-icon-pencil green" outcome="changePassword" rendered="#{request.isUserInRole('ROLE_GLOBAL_ADMINISTRATOR') || request.isUserInRole('ROLE_SADC_DATA_MANAGER')}"/>
+                <p:menuitem value="Look up Data" outcome="admin_home" icon="ui-icon-bookmark green" />
             </p:submenu>
 
-            <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-calendar" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Reporting Periods" outcome="periodList" icon="ui-icon-calendar green" rendered="#{checkLoggedOn.loggedOn}"/>
 
-            <p:submenu label="View Reporting" icon="ui-icon-document" rendered="#{checkLoggedOn.loggedOn}">
-                <p:menuitem value="Surveillance" icon="ui-icon-note" outcome="data_select"/>
-                <p:menuitem value="Period Indicator View" icon="ui-icon-calculator" outcome="indicator_view"/>
+            <p:submenu label="View Reporting" icon="ui-icon-document green" rendered="#{checkLoggedOn.loggedOn}">
+                <p:menuitem value="Surveillance" icon="ui-icon-note green" outcome="data_select"/>
+                <p:menuitem value="Period Indicator View" icon="ui-icon-calculator green" outcome="indicator_view"/>
             </p:submenu>
 
-            <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-circle-zoomin" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Pivot Tables" outcome="pivot" icon="ui-icon-circle-zoomin green" rendered="#{checkLoggedOn.loggedOn}"/>
 
-            <p:menuitem value="login" outcome="login" icon="ui-icon-extlink" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="login" outcome="login" icon="ui-icon-extlink green" ajax="false" rendered="#{!checkLoggedOn.loggedOn}"/>
 
-            <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
+            <p:menuitem value="Logout" action="#{loginController.logout()}" icon="ui-icon-extlink green" ajax="false" rendered="#{checkLoggedOn.loggedOn}"/>
 
         </p:menubar>
     </h:form>

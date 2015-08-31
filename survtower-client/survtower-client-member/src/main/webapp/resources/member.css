@@ -25,3 +25,11 @@ and open the template in the editor.
 .submenu{
     background-color: #D1B218;
 }
+
+.ui-icon.blue {
+    background-image: url(ui-icons_2004AB_256x240.png);
+}
+
+.ui-icon.red {
+    background-image: url(ui-icons_ff0000_256x240.png);
+}

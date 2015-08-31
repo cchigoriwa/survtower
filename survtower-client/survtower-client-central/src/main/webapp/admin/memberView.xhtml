@@ -46,12 +46,12 @@
                             </tr>
                         </table>
                         <br/>
-                        <h:form>
-                            <h:link value="Add/Edit Member Security Details" outcome="memberSecurityEdit">
-                                <f:param name="memberUuid" value="#{memberViewController.member.uuid}" />
-                            </h:link>
-                        </h:form>
                     </p:panel>
+                    <h:form>
+                        <h:link value="Add/Edit Member Security Details" outcome="memberSecurityEdit">
+                            <f:param name="memberUuid" value="#{memberViewController.member.uuid}" />
+                        </h:link>
+                    </h:form>
                 </p:tab>
                 <p:tab title="Surveillance">
                     <p:panel class="panel" id="notificationOne" header="Open Periods" footer="Details" style="margin-bottom:20px">

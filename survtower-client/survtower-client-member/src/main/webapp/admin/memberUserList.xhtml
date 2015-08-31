@@ -31,7 +31,7 @@
 
                 <p:column>
                     <h:form>
-                        <p:button value="Edit" outcome="memberUserEdit" icon="ui-icon-pencil">                        
+                        <p:button value="Edit" outcome="memberUserEdit" icon="ui-icon-pencil blue">                        
                             <f:param name="uuid" value="#{memberUser.uuid}" />
                         </p:button>
                     </h:form>
@@ -40,8 +40,8 @@
             </p:dataTable>
             <br/>
             <h:form>
-                <p:commandButton icon="ui-icon-plus" value="New Member User" action="memberUserEdit?faces-redirect=true" immediate="true"/>
-                <p:commandButton icon="ui-icon-arrow-1-w" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
+                <p:commandButton icon="ui-icon-plus blue" value="New Member User" action="memberUserEdit?faces-redirect=true" immediate="true"/>
+                <p:commandButton icon="ui-icon-arrow-1-w blue" value="Back To Settings" action="index?faces-redirect=true" immediate="true" ></p:commandButton>
             </h:form>
 
         </p:panel>

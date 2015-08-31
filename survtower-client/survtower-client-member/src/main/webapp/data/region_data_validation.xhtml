@@ -54,9 +54,9 @@
                 </p:dataTable>
 
                 <br/><br/>
-                <p:commandButton value="Approve" onclick="return confirm('Are sure?');" action="#{regionDataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
-                <p:commandButton value="Edit" action="#{regionDataValidationController.editSurveillanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved and request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')} "/>
-                <p:commandButton value="Final Submit" onclick="return confirm('Are sure?');" action="#{regionDataValidationController.finalSaveSurveillanceForm()}" ajax="false" rendered="#{regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
+                <p:commandButton icon="ui-icon-check blue" value="Approve" onclick="return confirm('Are sure?');" action="#{regionDataValidationController.submitSurviellanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
+                <p:commandButton icon="ui-icon-pencil blue" value="Edit" action="#{regionDataValidationController.editSurveillanceForm()}" ajax="false" rendered="#{!regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved and request.isUserInRole('ROLE_HEALTH_INFORMATION_OFFICER')} "/>
+                <p:commandButton icon="ui-icon-check blue" value="Final Submit" onclick="return confirm('Are sure?');" action="#{regionDataValidationController.finalSaveSurveillanceForm()}" ajax="false" rendered="#{regionDataValidationController.submitted and !regionDataValidationController.regionSurveillanceAudit.approved}"/>
 
                 <p:panel header="Region Surveillance Summary " rendered="#{regionDataValidationController.regionSurveillanceAudit.submissionDone}">
                     <span>Data Approved By - <b><h:outputText value="#{regionDataValidationController.regionSurveillanceAudit.approvedBy}"/> </b></span> <br />

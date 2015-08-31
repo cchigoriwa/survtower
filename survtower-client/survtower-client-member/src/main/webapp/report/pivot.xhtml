@@ -41,10 +41,10 @@
                         <td><p:message for="program" /></td>
                     </tr>
                     <tr>
-                        <td><p:commandButton icon="ui-icon-document" value="Generate Pivot Data" action="#{pivotTableController.createPivotTableIndicatorChart()}" ajax="false" rendered="#{pivotTableController.program==null}"/></td>
-                        <td><p:commandButton icon="ui-icon-arrowthickstop-1-s" value="Download Pivot Table" action="#{pivotTableController.exportToExcel()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
-                        <td><p:commandButton icon="ui-icon-document" value="Create Adhoc Report" action="#{pivotTableController.createAdoc()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
-                        <td><p:commandButton icon="ui-icon-refresh" value="Reset" action="#{pivotTableController.reset()}" ajax="false" rendered="#{pivotTableController.program!=null}"/></td>
+                        <td><p:commandButton icon="ui-icon-document blue" value="Generate Pivot Data" action="#{pivotTableController.createPivotTableIndicatorChart()}" ajax="false" rendered="#{pivotTableController.program==null}"/></td>
+                        <td><p:commandButton icon="ui-icon-arrowthickstop-1-s blue" value="Download Pivot Table" action="#{pivotTableController.exportToExcel()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
+                        <td><p:commandButton icon="ui-icon-document blue" value="Create Adhoc Report" action="#{pivotTableController.createAdoc()}" ajax="false" rendered="#{not empty pivotTableController.surveillanceDataList}"/></td>
+                        <td><p:commandButton icon="ui-icon-refresh blue" value="Reset" action="#{pivotTableController.reset()}" ajax="false" rendered="#{pivotTableController.program!=null}"/></td>
                     </tr>
                 </table>
             </h:form>
