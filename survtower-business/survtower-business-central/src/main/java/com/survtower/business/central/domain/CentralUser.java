@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @XmlRootElement
 @Table(name = "central_user")
 public class CentralUser extends BaseEntity {
-
+    
     @Column(name = "username")
     private String username;
     @Column(name = "password", updatable = false)
@@ -40,52 +40,52 @@ public class CentralUser extends BaseEntity {
         @JoinColumn(name = "central_user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_role_id")})
     private List<UserRole> userRoles;
-
+    
     public String getUsername() {
         return username;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     @Override
     public String toString() {
         return getUsername();
     }
-
+    
     public Boolean getDeactivated() {
         return deactivated;
     }
-
+    
     public void setDeactivated(Boolean deactivated) {
         this.deactivated = deactivated;
     }
-
+    
     public List<UserRole> getUserRoles() {
         return userRoles;
     }
-
+    
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
-
+    
     public UserDetails toUserDetails() {
         AppUserDetails userDetails = new AppUserDetails();
         userDetails.setUsername(this.username);
@@ -95,7 +95,8 @@ public class CentralUser extends BaseEntity {
         userDetails.setAccountNonLocked(!this.deactivated);
         userDetails.setCredentialsNonExpired(!this.deactivated);
         userDetails.setAccountNonExpired(!this.deactivated);
-
+        userDetails.setEmail(this.email);
+        
         List<GrantedAuthority> list = new ArrayList<>();
         for (UserRole role : userRoles) {
             list.add(new SimpleGrantedAuthority(role.getRole()));
@@ -103,9 +104,9 @@ public class CentralUser extends BaseEntity {
         userDetails.setAuthorities(list);
         return userDetails;
     }
-
+    
     public static final String ROLE_GLOBAL_ADMINISTRATOR = "ROLE_GLOBAL_ADMINISTRATOR";
-
+    
     public static final String ROLE_SADC_DATA_MANAGER = "ROLE_SADC_DATA_MANAGER";
-
+    
 }

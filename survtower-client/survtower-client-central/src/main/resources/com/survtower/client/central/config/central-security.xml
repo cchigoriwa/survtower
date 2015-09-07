@@ -24,7 +24,7 @@
     <authentication-manager >
         <authentication-provider user-service-ref="centralUserDetailService">
             <password-encoder ref="passwordEncoder">
-                <salt-source user-property="uuid" />
+                <salt-source user-property="email" />
             </password-encoder>            
         </authentication-provider>           
     </authentication-manager>

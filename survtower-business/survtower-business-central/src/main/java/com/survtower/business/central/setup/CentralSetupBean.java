@@ -34,7 +34,7 @@ public class CentralSetupBean implements InitializingBean {
             CentralUser centralUser = new CentralUser();
             centralUser.setUsername(username);
             centralUser.setDeactivated(Boolean.FALSE);
-            centralUser.setEmail("admin@sadcsadc.org");
+            centralUser.setEmail("admin@sadc.org");
             centralUser.setPassword("centraluser");
             centralUser.setUserRoles(new ArrayList<UserRole>());
             centralUser.getUserRoles().add(userRoleService.findByRole(CentralUser.ROLE_GLOBAL_ADMINISTRATOR));

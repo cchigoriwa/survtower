@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author Charles Chigoriwa
  */
-public class AppUserDetails implements UserDetails{
+public class AppUserDetails implements UserDetails {
 
     private String password;
     private Collection<GrantedAuthority> authorities;
@@ -17,7 +17,8 @@ public class AppUserDetails implements UserDetails{
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    
+    private String email;
+
     private String uuid;
 
     @Override
@@ -89,6 +90,14 @@ public class AppUserDetails implements UserDetails{
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
