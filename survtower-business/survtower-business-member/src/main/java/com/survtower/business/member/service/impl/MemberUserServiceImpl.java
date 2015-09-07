@@ -126,7 +126,7 @@ public class MemberUserServiceImpl implements MemberUserService {
                         new InternetAddress(memberUser.getEmail()));
                 mimeMessage.setFrom(new InternetAddress("xyz@xyz.co.zw"));
                 mimeMessage.setSubject("New Member State Account");
-                mimeMessage.setText(createTextMessage(memberUser.getEmail(), rawPassword));
+                mimeMessage.setText(createTextMessage(memberUser.getUsername(), rawPassword));
             }
         };
 

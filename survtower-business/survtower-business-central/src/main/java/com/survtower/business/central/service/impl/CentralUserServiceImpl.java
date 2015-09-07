@@ -124,7 +124,7 @@ public class CentralUserServiceImpl implements CentralUserService {
                         new InternetAddress(centralUser.getEmail()));
                 mimeMessage.setFrom(new InternetAddress("xyz@xyz.co.zw"));
                 mimeMessage.setSubject("New Central Account");
-                mimeMessage.setText(createTextMessage(centralUser.getEmail(), rawPassword));
+                mimeMessage.setText(createTextMessage(centralUser.getUsername(), rawPassword));
             }
         };
         try {
