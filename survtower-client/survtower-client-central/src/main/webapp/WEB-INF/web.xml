@@ -4,7 +4,7 @@
     
     <context-param>
         <param-name>spring.profiles.active</param-name>
-        <param-value>test</param-value>
+        <param-value>production</param-value>
         <!-- Available profiles:
         <param-value>development</param-value>
         <param-value>test</param-value>

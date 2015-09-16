@@ -91,7 +91,9 @@ public class CentralUserServiceImpl implements CentralUserService {
 
     @Override
     public int updatePassword(String password, String username) {
-        return centralUserDao.updatePassword(password, username);
+        CentralUser centralUser = findByUserName(username);
+        String encriptedPassword = passwordEncoder.encodePassword(password, centralUser.getEmail());
+        return centralUserDao.updatePassword(encriptedPassword, username);
     }
 
     @Override
@@ -110,7 +112,7 @@ public class CentralUserServiceImpl implements CentralUserService {
     @Transactional
     public void resetPassword(CentralUser centralUser) {
         String rawPassword = RandomStringUtils.randomAlphanumeric(10);
-        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, centralUser.getUuid());
+        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, centralUser.getEmail());
         centralUserDao.updatePassword(encriptedPassword, centralUser.getUsername());
         sendEmail(centralUser, rawPassword);
     }

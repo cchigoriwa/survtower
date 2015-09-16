@@ -23,7 +23,7 @@ public class MemberSecurity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "email_address")
+    @Column(name = "email_address", unique = true)
     private String emailAddress;
     @Column(name = "password")
     private String password;
@@ -89,6 +89,7 @@ public class MemberSecurity extends BaseEntity {
         AppUserDetails userDetails = new AppUserDetails();
         userDetails.setUsername(this.emailAddress);
         userDetails.setPassword(this.password);
+        userDetails.setEmail(this.emailAddress);
         userDetails.setUuid(this.uuid);
         userDetails.setEnabled(!this.deactivated);
         userDetails.setAccountNonLocked(!this.deactivated);

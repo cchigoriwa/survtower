@@ -65,6 +65,10 @@ public class MemberSecurityEditController {
         return "memberView?faces-redirect=true&amp;uuid=" + memberSecurity.getMember().getUuid();
     }
 
+    public String cancel() {
+        return "memberView?faces-redirect=true&amp;uuid=" + memberSecurity.getMember().getUuid();
+    }
+
     @PostConstruct
     public void postConstruct() {
         Member member = memberService.findByUuid(memberUuid);

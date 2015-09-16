@@ -93,7 +93,9 @@ public class MemberUserServiceImpl implements MemberUserService {
 
     @Override
     public int updatePassword(String password, String username) {
-        return memberUserDao.updatePassword(password, username);
+        MemberUser memberUser = findByUserName(username);
+        String encriptedPassword = passwordEncoder.encodePassword(password, memberUser.getEmail());
+        return memberUserDao.updatePassword(encriptedPassword, username);
     }
 
     @Override
@@ -104,7 +106,7 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Transactional
     public void resetPassword(MemberUser memberUser) {
         String rawPassword = RandomStringUtils.randomAlphanumeric(10);
-        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getUuid());
+        String encriptedPassword = passwordEncoder.encodePassword(rawPassword, memberUser.getEmail());
         memberUserDao.updatePassword(encriptedPassword, memberUser.getUsername());
         sendEmail(memberUser, rawPassword);
     }
