@@ -2,8 +2,10 @@ package com.survtower.client.central.controller;
 
 import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.central.service.MemberSecurityService;
+import com.survtower.business.common.EmailExistException;
 import com.survtower.business.common.domain.Member;
 import com.survtower.business.common.service.MemberService;
+import com.survtower.client.central.utility.MessageInfor;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -61,8 +63,13 @@ public class MemberSecurityEditController {
     }
 
     public String save() {
-        memberSecurityService.save(memberSecurity);
-        return "memberView?faces-redirect=true&amp;uuid=" + memberSecurity.getMember().getUuid();
+        try {
+            memberSecurityService.save(memberSecurity);
+            return "memberView?faces-redirect=true&amp;uuid=" + memberSecurity.getMember().getUuid();
+        } catch (EmailExistException ex) {
+            MessageInfor.errorMessages("Email Address is already registered with another Member State");
+        }
+        return null;
     }
 
     public String cancel() {

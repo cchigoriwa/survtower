@@ -26,11 +26,7 @@
                         </td>
                         <td><p:message for="email" /></td>
                     </tr>
-                    <tr>
-                        <th align="left">Password</th>
-                        <td><h:inputSecret class="inputtextpanel" id="password" size="30" value="#{memberSecurityEditController.memberSecurity.password}" required="true" requiredMessage="Please enter password." /></td>
-                        <td><p:message for="password" /></td>
-                    </tr>
+
                 </table>
                 <br/>
                 <p:commandButton value="Save" action="#{memberSecurityEditController.save()}" icon="ui-icon-disk" ajax="false">

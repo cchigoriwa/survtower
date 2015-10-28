@@ -25,9 +25,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -58,7 +60,6 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
     private Program program;
     private Region region;
     private Surveillance surveillance;
-    private RegionSurveillanceData regionSurveillanceData;
     private RegionSurveillanceAudit regionSurveillanceAudit;
 
     @ManagedProperty(value = "#{regionService}")
@@ -253,7 +254,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
         if (regionSurveillanceAudit == null) {
             regionSurveillanceAudit = new RegionSurveillanceAudit();
             for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
-
+                RegionSurveillanceData regionSurveillanceData;
                 regionSurveillanceData = regionSurveillanceDataService.find(surveillanceData, region);
                 if (regionSurveillanceData == null) {
                     regionSurveillanceData = new RegionSurveillanceData();
@@ -327,8 +328,8 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
 
         int rowIndex = 0;
         sheet.createRow(rowIndex);
-        sheet.getRow(rowIndex).setZeroHeight(true);
-        sheet.setColumnHidden(rowIndex, true);
+        sheet.getRow(rowIndex).setZeroHeight(false);
+        sheet.setColumnHidden(rowIndex, false);
         sheet.getRow(rowIndex).createCell(1).setCellValue(getRegion().getUuid());
         sheet.getRow(rowIndex).createCell(2).setCellValue(getProgram().getUuid());
         sheet.getRow(rowIndex).createCell(3).setCellValue(getPeriod().getUuid());
@@ -373,7 +374,7 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
 
         for (RegionSurveillanceData data : regionSurveillanceDataList) {
             sheet.createRow(rowIndex);
-            sheet.getRow(rowIndex).createCell(0).setCellValue(data.getUuid());
+            sheet.getRow(rowIndex).createCell(0).setCellValue(data.getUuid()); // ??? is there need to set this value
             sheet.getRow(rowIndex).createCell(1).setCellValue(data.getSurveillanceData().getIndicator().getName());
             font.setFontHeightInPoints((short) 12);
             sheet.getRow(rowIndex).getCell(1).setCellStyle(style);
@@ -462,18 +463,31 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
         int itemsSaved = 0;
         int lastrow = sheet.getLastRowNum() + 1;
         for (int rowIndex = 4; rowIndex < lastrow; rowIndex++) {
-            RegionSurveillanceData regionSurveillanceData = regionSurveillanceDataService.findByUuid(sheet.getRow(rowIndex).getCell(0).getStringCellValue());
-            if (regionSurveillanceData != null && regionSurveillanceData.getRegion().getId().equals(region.getId())) {
-                try {
-                    regionSurveillanceData.setNumeratorValue(sheet.getRow(rowIndex).getCell(2).getNumericCellValue());
-                    regionSurveillanceData.setDenominatorValue(sheet.getRow(rowIndex).getCell(3).getNumericCellValue());
-                    regionSurveillanceDataService.save(regionSurveillanceData);
-                    itemsSaved++;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
-                    errors++;
+            System.out.println(sheet.getRow(rowIndex).getCell(0).getStringCellValue());
+            RegionSurveillanceData regionSurveillanceData = regionSurveillanceDataService.findByUuid(sheet.getRow(rowIndex).getCell(0).getStringCellValue());//???
+
+            try {
+
+                for (SurveillanceData surveillanceData : getSurveillance().getSurveillanceDataSet()) {
+                    if (regionSurveillanceData == null) {
+                        regionSurveillanceData = new RegionSurveillanceData();
+                        regionSurveillanceData.setSurveillanceData(surveillanceData);
+                        regionSurveillanceData.setRegion(region);
+                        regionSurveillanceData.setNumeratorValue(sheet.getRow(rowIndex).getCell(2).getNumericCellValue());
+                        regionSurveillanceData.setDenominatorValue(sheet.getRow(rowIndex).getCell(3).getNumericCellValue());
+                        regionSurveillanceDataService.save(regionSurveillanceData);
+                        itemsSaved++;
+                    } else if (regionSurveillanceData.getRegion().getId().equals(region.getId())) {
+                        regionSurveillanceData.setNumeratorValue(sheet.getRow(rowIndex).getCell(2).getNumericCellValue());
+                        regionSurveillanceData.setDenominatorValue(sheet.getRow(rowIndex).getCell(3).getNumericCellValue());
+                        regionSurveillanceDataService.save(regionSurveillanceData);
+                        itemsSaved++;
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+                errors++;
             }
         }
 
@@ -481,8 +495,18 @@ public class RegionDataEntryEditController extends MessageInfor implements Seria
         regionSurveillanceDataList.clear();
         regionSurveillanceDataList.addAll(regionSurveillanceDataService.findAll(surveillance, region));
         //TODO :refresh page to show updated values
-        return "region_data_entry?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
+        refreshPage();
+        return "region_data_entry_edit?faces-redirect=true&programId=" + program.getUuid() + "&periodId=" + period.getUuid() + "&regionId=" + region.getUuid();
 
+    }
+
+    protected void refreshPage() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String refreshpage = fc.getViewRoot().getViewId();
+        ViewHandler ViewH = fc.getApplication().getViewHandler();
+        UIViewRoot UIV = ViewH.createView(fc, refreshpage);
+        UIV.setViewId(refreshpage);
+        fc.setViewRoot(UIV);
     }
 
 }

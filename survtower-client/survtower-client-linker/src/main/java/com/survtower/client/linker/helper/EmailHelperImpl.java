@@ -1,5 +1,6 @@
 package com.survtower.client.linker.helper;
 
+import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.central.domain.ResetCentralUserPasswordRequest;
 import com.survtower.business.central.domain.ResetMemberSecurityPasswordRequest;
 import com.survtower.business.central.service.EmailHelper;
@@ -36,5 +37,9 @@ public class EmailHelperImpl implements EmailHelper {
         sb.append("?tok=");
         sb.append(resetPasswordRequest.getSecondTag());
         return sb.toString();
+    }
+
+    public String createMemberSecurityTextMessage(MemberSecurity memberSecurity, String password) {
+        return null;
     }
 }

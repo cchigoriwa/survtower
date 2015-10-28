@@ -364,9 +364,8 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
         sheet.getRow(rowIndex).createCell(1).setCellValue("Indicator Name");
         sheet.getRow(rowIndex).createCell(2).setCellValue("Numerator Value");
         sheet.getRow(rowIndex).createCell(3).setCellValue("Denominator Value");
-        sheet.getRow(rowIndex).createCell(4).setCellValue("Indicator Value (%)");
         sheet.getRow(rowIndex).setHeight((short) 400);
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 4; i++) {
             sheet.getRow(rowIndex).getCell(i).setCellStyle(style);
         }
         rowIndex++;
@@ -388,11 +387,6 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
             } else {
                 sheet.getRow(rowIndex).createCell(3).setCellType(Cell.CELL_TYPE_NUMERIC);
             }
-            if (data.getCalculatedValue() != null) {
-                sheet.getRow(rowIndex).createCell(4).setCellValue(data.getCalculatedValue());
-            } else {
-                sheet.getRow(rowIndex).createCell(4).setCellType(Cell.CELL_TYPE_NUMERIC);
-            }
 
             sheet.getRow(rowIndex).setHeight((short) 400);
             rowIndex++;
@@ -401,7 +395,6 @@ public class RegionDataEntryViewController extends MessageInfor implements Seria
         sheet.autoSizeColumn(1);
         sheet.autoSizeColumn(2);
         sheet.autoSizeColumn(3);
-        sheet.autoSizeColumn(4);
 
         return workbook;
 

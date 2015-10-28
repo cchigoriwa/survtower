@@ -1,5 +1,6 @@
 package com.survtower.business.central.service;
 
+import com.survtower.business.central.domain.MemberSecurity;
 import com.survtower.business.central.domain.ResetCentralUserPasswordRequest;
 import com.survtower.business.central.domain.ResetMemberSecurityPasswordRequest;
 import java.io.Serializable;
@@ -15,5 +16,7 @@ public interface EmailHelper extends Serializable {
     public String createMemberSecurityTextMessage(ResetMemberSecurityPasswordRequest resetPasswordRequest);
 
     public String createCentralUserChangePasswordTextMessage(String username, String password);
+
+    public String createMemberSecurityTextMessage(MemberSecurity memberSecurity, String password);
 
 }
